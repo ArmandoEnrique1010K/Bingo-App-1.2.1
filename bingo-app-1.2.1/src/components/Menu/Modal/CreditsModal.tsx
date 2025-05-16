@@ -77,6 +77,16 @@ export default function CreditsModal() {
                   </li>
                   <li>
                     <a
+                      href="https://www.npmjs.com/package/zustand"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Zustand
+                    </a>{" "}
+                    (Manejo del estado global)
+                  </li>
+                  <li>
+                    <a
                       href="https://tonejs.github.io/"
                       target="_blank"
                       className="text-blue-500 hover:underline"
@@ -88,13 +98,167 @@ export default function CreditsModal() {
                 </ul>
 
                 <p>
-                  <span className="font-bold">Música:</span> "Tap Out"
-                  (Instrumental) - The Strokes (2013).
+                  <span className="font-bold">Sonidos:</span> Archivos de
+                  sonidos proporcionados por Pixabay
+                </p>
+                <ul className="list-disc list-inside pl-4">
+                  <li>
+                    <a
+                      href="https://pixabay.com/es/sound-effects/error-126627/"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Error - u_31vnwfmzt6
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://pixabay.com/es/sound-effects/correct-2-46134/"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Correct-2 - bwg2020 (Freesound)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://pixabay.com/sound-effects/BALLS_SOUND4-39967/"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      balls4 - amiga-mark (Freesound)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://pixabay.com/sound-effects/coin-upaif-14631/"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      coin-up.aif - mattwasser (Freesound)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://pixabay.com/sound-effects/light-switch-156813/"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Light Switch - SoundReality
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://pixabay.com/es/sound-effects/failed-295059/"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Failed - u_3bsnvt0dsu
+                    </a>
+                  </li>
+                </ul>
+
+                <p>
+                  <span className="font-bold">Música:</span> Versiones
+                  instrumentales proporcionadas por Youtube:
+                </p>
+                <ul className="list-disc list-inside pl-4">
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=ytNgTZ7mSVQ&ab_channel=anthony"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Tap Out - The Strokes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=SOz7lmnOWXc&ab_channel=ZoomKaraokeOfficial"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Someday - The Strokes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=EX1d8nXU23k&ab_channel=%EC%9C%A0%EB%AA%85%EC%9E%AC"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Slow Animals - The Strokes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=pZfnxNNLuqU&ab_channel=toolmcbag"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Machu Picchu - The Strokes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=98dfqaC4hfw&ab_channel=RadioZero"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Life is Simple in the Moonlight - The Strokes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=cbhM-uzvb7A&ab_channel=RogerDemonSmear"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Under Cover of Darkness - The Strokes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=u8w6htrt1IM&ab_channel=JustSingKaraoke"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Brooklyn Bridge to Chorus - The Strokes
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/watch?v=m5BEsI8KUzA&ab_channel=ObsKureKaraoke"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      You Only Live Once - The Strokes
+                    </a>
+                  </li>
+                </ul>
+
+                <p>
+                  <span className="font-bold">Loaders:</span> Loader de carga
+                  <a
+                    href="https://css-loaders.com/progress/"
+                    target="_blank"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {" "}
+                    Progress #4
+                  </a>{" "}
+                  proporcionado por{" "}
+                  <a
+                    href="https://css-loaders.com/"
+                    target="_blank"
+                    className="text-blue-500 hover:underline"
+                  >
+                    CSS loaders
+                  </a>
                 </p>
 
                 <p>
-                  <span className="font-bold">Favicon: </span>
-                  Icono de{" "}
+                  <span className="font-bold">Favicon:</span> Icono de{" "}
                   <a
                     href="https://icons8.com/icon/25336/bingo"
                     target="_blank"
@@ -159,3 +323,28 @@ export default function CreditsModal() {
 
 // LOADER DE CARGA
 // https://css-loaders.com/progress/
+
+// MUSICA
+// Someday - Strokes
+// https://www.youtube.com/watch?v=SOz7lmnOWXc&ab_channel=ZoomKaraokeOfficial
+
+// Slow animals - Strokes
+// https://www.youtube.com/watch?v=EX1d8nXU23k&ab_channel=%EC%9C%A0%EB%AA%85%EC%9E%AC
+
+// Tap out - Strokes
+// https://www.youtube.com/watch?v=ytNgTZ7mSVQ&ab_channel=anthony
+
+// Machu Picchu - Strokes
+// https://www.youtube.com/watch?v=pZfnxNNLuqU&ab_channel=toolmcbag
+
+// Life is simple in the moonlight - Strokes
+// https://www.youtube.com/watch?v=98dfqaC4hfw&ab_channel=RadioZero
+
+// Under cover of darkness - Strokes
+// https://www.youtube.com/watch?v=cbhM-uzvb7A&ab_channel=RogerDemonSmear
+
+// Brooklyn Bridge to Chrous - Strokes
+// https://www.youtube.com/watch?v=u8w6htrt1IM&ab_channel=JustSingKaraoke
+
+// You Only Live Once - Strokes
+// https://www.youtube.com/watch?v=m5BEsI8KUzA&ab_channel=ObsKureKaraoke

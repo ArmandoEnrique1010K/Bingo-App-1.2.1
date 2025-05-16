@@ -8,7 +8,7 @@
 // AMBER (patrones unicos)
 // RED (al menos 2 tableros)
 
-import { CHANGING, DREAMS, END, LIFE, MOONLIGHT, READY, STONE, TAP } from "../constants/audioSettings";
+import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW } from "../constants/audioSettings";
 import { Level } from "../types";
 
 export const levels: Level[] = [
@@ -36,7 +36,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'blue',
-    music: TAP
+    music: SLOW
   },
   {
     level: 2,
@@ -63,7 +63,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'blue',
-    music: MOONLIGHT
+    music: TAP
   },
   {
     level: 3,
@@ -93,7 +93,7 @@ export const levels: Level[] = [
       }
     ],
     color: 'blue',
-    music: TAP
+    music: SLOW
   },
   {
     level: 4,
@@ -123,7 +123,7 @@ export const levels: Level[] = [
       }
     ],
     color: 'blue',
-    music: STONE
+    music: MOONLIGHT
   },
   {
     level: 5,
@@ -147,7 +147,7 @@ export const levels: Level[] = [
       }
     ],
     color: 'blue',
-    music: MOONLIGHT
+    music: TAP
   },
   {
     level: 6,
@@ -197,7 +197,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'cyan',
-    music: DREAMS
+    music: LIVE
   },
   {
     level: 7,
@@ -219,7 +219,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'cyan',
-    music: STONE
+    music: MOONLIGHT
   },
   {
     level: 8,
@@ -247,7 +247,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'cyan',
-    music: TAP
+    music: SLOW
   },
   {
     level: 9,
@@ -283,7 +283,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'cyan',
-    music: MOONLIGHT
+    music: TAP
   },
   {
     level: 10,
@@ -314,7 +314,7 @@ export const levels: Level[] = [
       }
     ],
     color: 'cyan',
-    music: STONE
+    music: MOONLIGHT
   },
   {
     level: 11,
@@ -352,7 +352,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: LIFE
+    music: MOUNTAIN
   },
 
   {
@@ -382,7 +382,7 @@ export const levels: Level[] = [
       }
     ],
     color: 'emerald',
-    music: READY
+    music: DARKNESS
   },
   {
     level: 13,
@@ -411,7 +411,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: TAP
+    music: SLOW
   },
   {
     level: 14,
@@ -436,7 +436,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: DREAMS
+    music: LIVE
   },
   {
     level: 15,
@@ -475,7 +475,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: CHANGING
+    music: FRIENDS
   },
   {
     level: 16,
@@ -520,7 +520,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: MOONLIGHT
+    music: TAP
   },
 
   {
@@ -602,7 +602,7 @@ export const levels: Level[] = [
       }
     ],
     color: 'lime',
-    music: STONE
+    music: MOONLIGHT
   },
   {
     level: 18,
@@ -652,7 +652,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: LIFE
+    music: MOUNTAIN
   },
   {
     level: 19,
@@ -671,7 +671,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: DREAMS
+    music: LIVE
   },
   {
     level: 20,
@@ -709,7 +709,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: READY
+    music: DARKNESS
   },
   {
     level: 21,
@@ -742,7 +742,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: TAP
+    music: SLOW
   },
   {
     level: 22,
@@ -790,7 +790,7 @@ export const levels: Level[] = [
       }
     ],
     color: 'amber',
-    music: CHANGING
+    music: FRIENDS
   },
 
   {
@@ -812,7 +812,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: MOONLIGHT
+    music: TAP
   },
 
   {
@@ -836,7 +836,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: DREAMS
+    music: LIVE
   },
   {
     level: 25,
@@ -859,7 +859,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: END
+    music: SOMEDAY
   },
   {
     level: 26,
@@ -882,7 +882,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: CHANGING
+    music: FRIENDS
   },
   {
     level: 27,
@@ -912,7 +912,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: STONE
+    music: MOONLIGHT
   },
 
   {
@@ -970,7 +970,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: LIFE
+    music: MOUNTAIN
   },
   {
     level: 29,
@@ -1029,7 +1029,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: END
+    music: SOMEDAY
   },
   {
     level: 30,
@@ -1087,6 +1087,6 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: READY
+    music: DARKNESS
   },
 ]

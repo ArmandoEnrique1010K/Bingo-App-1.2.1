@@ -1,46 +1,43 @@
-export const CHANGING = {
-  name: 'changing',
-  volume: -19
-}
-
-export const DREAMS = {
-  name: 'dreams',
-  volume: -15.5
-}
-
-export const END = {
-  name: 'end',
-  volume: -16
-}
-
-export const LIFE = {
-  name: 'life',
-  volume: -13
-}
+// ARCHIVOS DE MUSICA
 
 export const MOONLIGHT = {
   name: 'moonlight',
-  volume: -16
-}
-
-export const READY = {
-  name: 'ready',
-  volume: -12
-}
-
-export const STONE = {
-  name: 'stone',
-  volume: -6
+  volume: -17
 }
 
 export const TAP = {
   name: 'tap',
-  volume: -16
+  volume: -17
 }
 
 export const SOMEDAY = {
   name: 'someday',
   volume: -16
+}
+
+export const DARKNESS = {
+  name: 'darkness',
+  volume: -16
+}
+
+export const FRIENDS = {
+  name: 'friends',
+  volume: -18
+}
+
+export const LIVE = {
+  name: 'live',
+  volume: -18
+}
+
+export const MOUNTAIN = {
+  name: 'mountain',
+  volume: -18
+}
+
+export const SLOW = {
+  name: 'slow',
+  volume: -14
 }
 
 // ARCHIVOS DE SONIDO
@@ -66,7 +63,7 @@ export const CLICK_SOUND = {
 
 export const VICTORY_SOUND = {
   name: 'victory',
-  volume: 5
+  volume: 4
 }
 
 export const DEFEAT_SOUND = {

@@ -1,12 +1,12 @@
 import * as Tone from "tone";
-import { DREAMS, MOONLIGHT, READY, SOMEDAY, STONE, TAP } from "../../constants/audioSettings";
+import { DARKNESS, FRIENDS, LIVE, MOONLIGHT, MOUNTAIN, SLOW, SOMEDAY, TAP } from "../../constants/audioSettings";
 
 export const preloadedMusicPlayers = new Map<string, Tone.Player>();
 
 export const preloadMusicFiles = async () => {
   try {
     const tracks = [
-      SOMEDAY, TAP, MOONLIGHT, STONE, DREAMS, READY
+      SOMEDAY, TAP, MOONLIGHT, DARKNESS, FRIENDS, LIVE, MOUNTAIN, SLOW
     ];
 
     for (const track of tracks) {

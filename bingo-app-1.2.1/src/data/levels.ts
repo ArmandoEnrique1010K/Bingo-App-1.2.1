@@ -1,12 +1,4 @@
 
-// TODO: INCLUIR ESTO EN LAS INSTRUCCIONES
-// Paleta de colores y su significado
-// BLUE (al menos 5 números)
-// CYAN (un tablero extra)
-// EMERALD (aumento de oponentes)
-// LIME (al menos 4 posibles patrones)
-// AMBER (patrones unicos)
-// RED (al menos 2 tableros)
 
 import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW } from "../constants/audioSettings";
 import { Level } from "../types";

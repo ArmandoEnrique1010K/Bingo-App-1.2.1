@@ -1,0 +1,13 @@
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import { levelSlice, LevelSliceType } from "./levelSlice";
+import { playerSlice, PlayerSliceType } from "./playerSlice";
+import { musicSlice, MusicSliceType } from "./musicSlice";
+import { gameSlice, GameSliceType } from "./gameSlice";
+
+export const useAppStore = create<LevelSliceType & PlayerSliceType & MusicSliceType & GameSliceType>()(devtools((...a) => ({
+  ...levelSlice(...a),
+  ...playerSlice(...a),
+  ...musicSlice(...a),
+  ...gameSlice(...a)
+})))

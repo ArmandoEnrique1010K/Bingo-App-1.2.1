@@ -50,6 +50,14 @@ export default function HelpModal() {
                     <span className="font-semibold">Créditos: </span>Consulta la
                     información sobre los creadores del juego.
                   </li>
+                  <li>
+                    <span className="font-semibold">Reinicio: </span>Reinicia la
+                    partida actual.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Abandonar partida: </span>
+                    Termina la partida y redirige al menú principal.
+                  </li>
                 </ul>
                 <h3 className="text-2xl pt-2 font-bold ">Cómo jugar</h3>
                 <ul className="list-decimal list-inside pl-5 space-y-2">
@@ -62,9 +70,16 @@ export default function HelpModal() {
                     Se generarán números al azar, y deberás buscarlos en tu
                     tablero para marcarlos.
                   </li>
+                  <p>
+                    <span className="font-semibold text-amber-500">
+                      Advertencia:{" "}
+                    </span>
+                    Los números generados ya no se volverán a generar en las
+                    siguientes rondas.
+                  </p>
                   <li>
                     <span className="font-semibold">
-                      Competencia con los bots :
+                      Competencia con los bots:
                     </span>
                     Los bots también marcarán números en sus tableros al mismo
                     tiempo.
@@ -88,11 +103,48 @@ export default function HelpModal() {
                   el patrón es correcto, ganas la partida. Si un bot completa el
                   patrón antes que tú, perderás y deberás intentarlo de nuevo.
                 </p>
+
+                <h3 className="text-2xl pt-2 font-bold">
+                  Dificultad por colores
+                </h3>
+                <p>
+                  Los niveles estan representados por colores: patrón antes que
+                </p>
+                <ul className="list-decimal list-inside pl-5 space-y-2">
+                  <li>
+                    <span className="font-semibold">Azul: </span>Marca al menos
+                    6 números para formar el patrón objetivo.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Cyan: </span>
+                    Algunos niveles tienen 2 tableros para el jugador.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Esmeralda: </span>
+                    Aumenta el número de bots en un nivel.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Lima: </span>
+                    Algunos niveles poseen 4 combinaciones del patron objetivo.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Amber: </span> Algunos
+                    niveles tienen un solo patrón objetivo.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Rojo: </span> Tu tienes 2
+                    tableros en cada nivel.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Marrón: </span> Los bots son
+                    más rapidos.
+                  </li>
+                </ul>
               </div>
               <div className="mt-10">
                 <Button
                   onClick={closeHelpModal}
-                  className="w-full py-2 px-4 cursor-pointer bg-gray-700 text-white rounded-lg text-lg hover:bg-gray-600 focus:outline-none "
+                  className="w-full py-2 px-4 font-semibold bg-gray-500 text-white rounded-lg text-lg  shadow-black shadow-md hover:bg-gray-900 cursor-pointer"
                 >
                   Cerrar
                 </Button>
@@ -106,5 +158,13 @@ export default function HelpModal() {
 }
 
 // TODO: MEJORAS
-// Advertir que los numeros generados, ya no se volveran a generar
 /* TIP: CAMBIO DE OPACIDAD EN TAILWIND CSS 4 https://tailwindcss.com/docs/background-color#changing-the-opacity */
+
+// TODO: INCLUIR ESTO EN LAS INSTRUCCIONES
+// Paleta de colores y su significado
+// BLUE (al menos 5 números)
+// CYAN (un tablero extra)
+// EMERALD (aumento de oponentes)
+// LIME (al menos 4 posibles patrones)
+// AMBER (patrones unicos)
+// RED (al menos 2 tableros)

@@ -11,7 +11,6 @@ export const VICTORY_MODAL: Modal = {
   }
 }
 
-// TODO: ¿PORQUE NO SE APLICA ESTO?
 export const FINAL_LEVEL_VICTORY_MODAL: Modal = {
   type: "victory",
   title: VICTORY_MODAL.title,

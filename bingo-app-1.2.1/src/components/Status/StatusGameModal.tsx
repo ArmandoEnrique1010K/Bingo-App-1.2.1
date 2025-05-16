@@ -27,6 +27,24 @@ export default function StatusGameModal() {
     closeStatusModal();
   }
 
+  const handleActionButtonLeft = () => {
+    if (modal.type === "victory" && levelData.level === FINAL_LEVEL) {
+      leaveGame();
+    } else if (modal.type === "victory" && levelData.level !== FINAL_LEVEL) {
+      nextLevel();
+    } else if (modal.type === "exit") {
+      leaveGame();
+    } else if (modal.type === "defeat") {
+      resetLevel();
+    } else if (modal.type === "reboot") {
+      resetLevel();
+    } else {
+      closeStatusModal();
+    }
+
+    // TODO: AQUI OCURRE UN ERROR INESPERADO, Start time must be strictly greater than previous start time
+    playSound(CLICK_SOUND);
+  };
   return (
     <>
       <Dialog
@@ -59,30 +77,7 @@ export default function StatusGameModal() {
               <div className="mt-10 flex flex-row gap-4">
                 {modal.textButton.left && (
                   <Button
-                    onClick={() => {
-                      if (
-                        modal.type === "victory" &&
-                        levelData.level === FINAL_LEVEL
-                      ) {
-                        leaveGame();
-                      } else if (
-                        modal.type === "victory" &&
-                        levelData.level !== FINAL_LEVEL
-                      ) {
-                        nextLevel();
-                      } else if (modal.type === "exit") {
-                        leaveGame();
-                      } else if (modal.type === "defeat") {
-                        resetLevel();
-                      } else if (modal.type === "reboot") {
-                        resetLevel();
-                      } else {
-                        closeStatusModal();
-                      }
-
-                      // TODO: AQUI OCURRE UN ERROR INESPERADO, Start time must be strictly greater than previous start time
-                      playSound(CLICK_SOUND);
-                    }}
+                    onClick={handleActionButtonLeft}
                     className={`w-full py-2 px-4 font-semibold bg-${levelData.color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900 cursor-pointer`}
                   >
                     {modal.textButton.left}

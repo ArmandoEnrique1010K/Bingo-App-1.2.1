@@ -2,13 +2,13 @@
 export const LOADING_TIME = 1500;
 
 // Numero de numeros objetivos por turno por defecto
-export const DEFAULT_TARGETS = 75
+export const DEFAULT_TARGETS = 20
 
 // Tiempo de demora para generar numeros objetivos
 export const TARGET_GENERATION_DELAY = 1000;
 
 // Turnos maximos por nivel
-export const MAX_TURNS = 20;
+export const MAX_TURNS = 2;
 
 // Nivel final (DEBE SER EL ULTIMO NIVEL)
 export const FINAL_LEVEL = 30;
@@ -22,3 +22,5 @@ export const CHANGE_PATTERN_DELAY = 5000
 // Numero máximo de potenciadores
 // export const MAX_POWERUPS = 3;
 // https://github.com/tailwindlabs/tailwindcss/discussions/13881
+
+export const APP_VERSION = "1.2.1"

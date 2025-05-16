@@ -30,15 +30,18 @@ export default function LevelView() {
 
   // TODO: ¿PORQUE LANZA EL MISMO EFECTO 2 VECES?
   useEffect(() => {
-    stopMusic();
-    if (isPlayingMusic) {
-      startMusic(levelData.music);
-    } else {
+    // TIP: NO OLVIDAR LOS VALORES TRUTHY AND FALSY
+    if (levelData.level !== 0) {
       stopMusic();
-    }
+      if (isPlayingMusic) {
+        startMusic(levelData.music);
+      } else {
+        stopMusic();
+      }
 
-    resetLevel();
-    console.log("HA CAMBIADO DE NIVEL");
+      resetLevel();
+      console.log("HA CAMBIADO DE NIVEL");
+    }
   }, [levelData]);
 
   return (

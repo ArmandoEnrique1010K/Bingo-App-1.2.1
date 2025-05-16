@@ -238,6 +238,18 @@ export default function CreditsModal() {
                 </ul>
 
                 <p>
+                  <span className="font-bold">Emojis:</span> Proporcionados por
+                  <a
+                    href="https://emojipedia.org/"
+                    target="_blank"
+                    className="text-blue-500 hover:underline"
+                  >
+                    {" "}
+                    Emojipedia
+                  </a>
+                  .
+                </p>
+                <p>
                   <span className="font-bold">Loaders:</span> Loader de carga
                   <a
                     href="https://css-loaders.com/progress/"
@@ -255,6 +267,7 @@ export default function CreditsModal() {
                   >
                     CSS loaders
                   </a>
+                  .
                 </p>
 
                 <p>
@@ -289,7 +302,7 @@ export default function CreditsModal() {
               <div className="mt-10">
                 <Button
                   onClick={closeCreditsModal}
-                  className="w-full py-2 px-4 cursor-pointer bg-gray-700 text-white rounded-lg text-lg hover:bg-gray-600 focus:outline-none "
+                  className="w-full py-2 px-4 font-semibold bg-gray-500 text-white rounded-lg text-lg  shadow-black shadow-md hover:bg-gray-900 cursor-pointer"
                 >
                   Cerrar
                 </Button>
@@ -301,50 +314,3 @@ export default function CreditsModal() {
     </>
   );
 }
-
-// TODO: AGREGAR LOS CREDITOS
-
-// ICONOS DE HEROICONS
-// https://www.npmjs.com/package/@heroicons/react
-
-// HEADLESS UI
-// https://headlessui.com/react/dialog
-
-// EMOJIPEDIA
-// https://emojipedia.org/
-
-// ARCHIVOS DE SONIDO
-// https://pixabay.com/es/sound-effects/error-126627/
-// https://pixabay.com/es/sound-effects/correct-2-46134/
-// https://pixabay.com/sound-effects/BALLS_SOUND4-39967/
-// https://pixabay.com/sound-effects/coin-upaif-14631/
-// https://pixabay.com/sound-effects/light-switch-156813/
-// https://pixabay.com/es/sound-effects/failed-295059/
-
-// LOADER DE CARGA
-// https://css-loaders.com/progress/
-
-// MUSICA
-// Someday - Strokes
-// https://www.youtube.com/watch?v=SOz7lmnOWXc&ab_channel=ZoomKaraokeOfficial
-
-// Slow animals - Strokes
-// https://www.youtube.com/watch?v=EX1d8nXU23k&ab_channel=%EC%9C%A0%EB%AA%85%EC%9E%AC
-
-// Tap out - Strokes
-// https://www.youtube.com/watch?v=ytNgTZ7mSVQ&ab_channel=anthony
-
-// Machu Picchu - Strokes
-// https://www.youtube.com/watch?v=pZfnxNNLuqU&ab_channel=toolmcbag
-
-// Life is simple in the moonlight - Strokes
-// https://www.youtube.com/watch?v=98dfqaC4hfw&ab_channel=RadioZero
-
-// Under cover of darkness - Strokes
-// https://www.youtube.com/watch?v=cbhM-uzvb7A&ab_channel=RogerDemonSmear
-
-// Brooklyn Bridge to Chrous - Strokes
-// https://www.youtube.com/watch?v=u8w6htrt1IM&ab_channel=JustSingKaraoke
-
-// You Only Live Once - Strokes
-// https://www.youtube.com/watch?v=m5BEsI8KUzA&ab_channel=ObsKureKaraoke

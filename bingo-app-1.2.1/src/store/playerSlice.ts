@@ -65,7 +65,9 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
         set({
           currentTargets: [],
           winner: 'player',
-          modal: VICTORY_MODAL,
+          // TODO: ARREGLAR ESTO, DEBERIA EVALUAR SI EL JUGADOR HA GANADO
+          // modal: VICTORY_MODAL,
+          modal: get().levelData.level !== FINAL_LEVEL ? VICTORY_MODAL : FINAL_LEVEL_VICTORY_MODAL,
           viewStatusModal: true,
         })
 

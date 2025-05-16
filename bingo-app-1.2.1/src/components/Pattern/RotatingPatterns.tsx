@@ -12,20 +12,18 @@ export default function RotatingPatterns() {
   const currentPatternPositions = patterns[currentPatternIndex] || [];
 
   useEffect(() => {
+    setCurrentPatternIndex(0); // Reinicia el índice cuando patterns cambia
+
     if (patterns.length > 1) {
       const interval = setInterval(() => {
-        // TODO: ESTO DEBERIA EMPEZAR POR EL PATRON CON EL INDICE 0
-        setCurrentPatternIndex(0);
         setCurrentPatternIndex(
           (prevIndex) => (prevIndex + 1) % patterns.length
         );
       }, CHANGE_PATTERN_DELAY);
 
       return () => clearInterval(interval);
-    } else {
-      setCurrentPatternIndex(0);
     }
-  }, [patterns.length]);
+  }, [patterns]);
 
   return (
     <div className="flex flex-row justify-center text-center">

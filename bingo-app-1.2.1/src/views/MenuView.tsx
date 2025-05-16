@@ -3,6 +3,7 @@ import { useAppStore } from "../store/useAppStore";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
 import { CLICK_SOUND } from "../constants/audioSettings";
+import { APP_VERSION } from "../constants/defaultConfigs";
 
 export default function MenuView() {
   const unlockedLevels = useAppStore((state) => state.unlockedLevels);
@@ -32,7 +33,7 @@ export default function MenuView() {
   return (
     <div className="min-h-full max-h-full flex flex-col items-center bg-gray-800 text-white">
       <h1 className="text-4xl font-bold text-center my-8">
-        BingoApp <span className="text-xl">v1.2</span>
+        BingoApp <span className="text-xl">v{APP_VERSION}</span>
       </h1>
       {startScreenLoading === true ? (
         <Loader />

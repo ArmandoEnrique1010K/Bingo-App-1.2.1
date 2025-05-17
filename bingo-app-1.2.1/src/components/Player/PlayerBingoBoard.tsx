@@ -7,10 +7,6 @@ export default function PlayerBingoBoard() {
   const playerBoards = useAppStore((state) => state.playerBoards);
   const currentBoard = useAppStore((state) => state.currentBoard);
 
-  // if (playerBoards.length === 0) {
-  //   console.log("NO HAY TABLEROS");
-  // }
-
   return (
     <div className="flex flex-col gap-4 sm:mx-0 mx-auto">
       <div className="flex flex-col sm:flex-row  mx-auto border-4 border-gray-700 rounded-xl">
@@ -25,11 +21,14 @@ export default function PlayerBingoBoard() {
                   <PlayerBingoColumn
                     key={i}
                     numberBoard={
-                      playerBoards.find((b) => b.id === index + 1)?.board || []
+                      playerBoards
+                        .find((b) => b.id === index + 1)
+                        ?.board.filter(
+                          (p) =>
+                            p.position >= i * 5 + 1 && p.position <= (i + 1) * 5
+                        ) || []
                     }
                     boardId={index + 1}
-                    min={i * 5 + 1}
-                    max={(i + 1) * 5}
                   />
                 ))}
               </div>

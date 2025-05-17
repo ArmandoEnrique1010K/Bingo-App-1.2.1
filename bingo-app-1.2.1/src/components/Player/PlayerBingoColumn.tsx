@@ -2,14 +2,14 @@ import PlayerBingoCell from "./PlayerBingoCell";
 
 type PlayerColumnProps = {
   numberBoard: { position: number; number: number }[];
-  min: number;
-  max: number;
+  // min: number;
+  // max: number;
   boardId: number;
 };
 
 export default function PlayerBingoColumn({
-  max,
-  min,
+  // max,
+  // min,
   boardId,
   numberBoard,
 }: PlayerColumnProps) {
@@ -17,7 +17,7 @@ export default function PlayerBingoColumn({
     <>
       <div className="flex flex-col gap-2">
         {numberBoard
-          .filter((n) => n.position >= min && n.position <= max)
+          // .filter((n) => n.position >= min && n.position <= max)
           .map((n) => (
             <PlayerBingoCell
               key={n.position}

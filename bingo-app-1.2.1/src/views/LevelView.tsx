@@ -17,14 +17,14 @@ export default function LevelView() {
   const resetLevel = useAppStore((state) => state.resetLevel);
   const currentRound = useAppStore((state) => state.currentRound);
 
-  const getLevelNumberFromUrl = useAppStore(
-    (state) => state.getLevelNumberFromUrl
-  );
+  // const getLevelNumberFromUrl = useAppStore(
+  //   (state) => state.getLevelNumberFromUrl
+  // );
 
   const location = useLocation();
 
   useEffect(() => {
-    getLevelNumberFromUrl(location.pathname);
+    // getLevelNumberFromUrl(location.pathname);
     changeStatusModal(START_LEVEL_MODAL);
   }, [location.pathname]);
 
@@ -32,17 +32,18 @@ export default function LevelView() {
   // TODO: ¿PORQUE LANZA EL MISMO EFECTO 2 VECES?
   useEffect(() => {
     // TIP: NO OLVIDAR LOS VALORES TRUTHY AND FALSY
-    if (levelData.level !== 0) {
-      stopMusic();
-      if (isPlayingMusic) {
-        startMusic(levelData.music);
-      } else {
-        stopMusic();
-      }
+    // getLevelNumberFromUrl(location.pathname);
+    // changeStatusModal(START_LEVEL_MODAL);
+    resetLevel();
 
-      resetLevel();
-      console.log("HA CAMBIADO DE NIVEL");
+    stopMusic();
+    if (isPlayingMusic) {
+      startMusic(levelData.music);
+    } else {
+      stopMusic();
     }
+
+    console.log("HA CAMBIADO DE NIVEL");
   }, [levelData]);
 
   return (

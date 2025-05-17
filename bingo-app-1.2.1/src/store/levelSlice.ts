@@ -98,9 +98,5 @@ export const levelSlice: StateCreator<LevelSliceType & MusicSliceType, [], [], L
   getColorLevel: (level) => {
     return levels.find(l => l.level === level)?.color || 'blue'
   },
-  // nextLevel: () => {
-  //   unlockLevel(levelData.level + 1);
-  //   navigate(`/level_${levelData.level + 1}`);
-  // }
 
 });

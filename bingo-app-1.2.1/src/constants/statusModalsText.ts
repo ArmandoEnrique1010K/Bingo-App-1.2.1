@@ -34,7 +34,7 @@ export const DEFEAT_MODAL: Modal = {
 export const NO_MORE_ROUNDS_MODAL: Modal = {
   type: "defeat",
   title: "No hay más intentos🎲",
-  message: "Usted ha sobrepasado el limite de turnos. ¿Deseas volver a intentar este nivel",
+  message: "Usted ha sobrepasado el limite de turnos. ¿Deseas volver a intentar este nivel?",
   textButton: DEFEAT_MODAL.textButton
 }
 

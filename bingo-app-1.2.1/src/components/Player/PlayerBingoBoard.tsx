@@ -7,6 +7,10 @@ export default function PlayerBingoBoard() {
   const playerBoards = useAppStore((state) => state.playerBoards);
   const currentBoard = useAppStore((state) => state.currentBoard);
 
+  // if (playerBoards.length === 0) {
+  //   console.log("NO HAY TABLEROS");
+  // }
+
   return (
     <div className="flex flex-col gap-4 sm:mx-0 mx-auto">
       <div className="flex flex-col sm:flex-row  mx-auto border-4 border-gray-700 rounded-xl">

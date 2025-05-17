@@ -9,6 +9,7 @@ import { MusicSliceType } from "./musicSlice";
 import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
 import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND } from "../constants/audioSettings";
+import { BotSliceType } from "./botSlice";
 
 export type GameSliceType = {
   currentTargets: number[],
@@ -43,7 +44,7 @@ export type GameSliceType = {
 
 
 
-export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSliceType & MusicSliceType, [], [], GameSliceType> = (set, get) => ({
+export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSliceType & MusicSliceType & BotSliceType, [], [], GameSliceType> = (set, get) => ({
   currentTargets: [],
   excludedTargets: [],
   currentRound: 0,
@@ -107,7 +108,12 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
     // get().playSound(CLICK_SOUND)
 
     const levelData = get().levelData; // Obtén el nivel actual
-    const playerBoards = Array.from({ length: levelData.boards }).map((_, index) => ({
+    const createPlayerBoards = Array.from({ length: levelData.boards }).map((_, index) => ({
+      id: index + 1,
+      board: generateBoard(), // Genera un tablero para cada jugador
+    }));
+
+    const createBotBoards = Array.from({ length: levelData.bots.length }).map((_, index) => ({
       id: index + 1,
       board: generateBoard(), // Genera un tablero para cada jugador
     }));
@@ -125,16 +131,23 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
     ))
 
     set({
-      playerBoards: playerBoards,
+      playerBoards: createPlayerBoards,
+
+      botBoards: createBotBoards, // TODO: INTENTAR ESTO
+
       currentTargets: [],
       currentRound: 0,
       winner: 'none',
       excludedTargets: [],
       selectedNumbersAndPositions: initialSelectedNumbersAndPositions,
-      currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
       // MODAL
+
       viewStatusModal: true,
       modal: START_LEVEL_MODAL
+    })
+
+    set({
+      currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
     })
   },
   closeStatusModal: () => {

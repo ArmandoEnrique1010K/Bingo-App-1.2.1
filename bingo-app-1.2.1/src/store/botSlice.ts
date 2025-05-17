@@ -6,7 +6,7 @@ import { Boards, SelectedNumbersAndPositions } from "../types";
 import { CORRECT_SOUND } from "../constants/audioSettings";
 
 export type BotSliceType = {
-  botBoards: Boards,
+  botBoards: Boards[],
   botSelectedNumbersAndPositions: SelectedNumbersAndPositions,
   timeoutsIds: number[],
   findedCells: SelectedNumbersAndPositions, // TODO: CREAR UN NUEVO TYPE
@@ -46,6 +46,10 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
   },
 
   // EL BOT DEBE SER CAPAZ DE IDENTIFICAR EL NUMERO OBJETIVO EN SU TABLERO
+
+  // SI EL NUMERO YA FUE MARCADO, NO LO DEBE MARCAR OTRA VEZ
+
+
   markCellBot: (idBoard: number, number: number, position: number) => {
     if (get().currentTargets.includes(number) &&
       !get().botSelectedNumbersAndPositions.some(

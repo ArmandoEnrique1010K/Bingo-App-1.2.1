@@ -7,6 +7,7 @@ import MarkedPositionsBoard from "../components/Pattern/ObjectivePattern";
 import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { MAX_TURNS } from "../constants/defaultConfigs";
+import BotOpponent from "../components/Bots/BotOpponent";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
@@ -78,28 +79,27 @@ export default function LevelView() {
 
         {/* Contenedor dinámico para mostrar los tableros de los bots */}
 
-        {/* <div
+        <div
           className={`grid gap-3 mb-4 mt-2 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mx-auto container ${
-            viewPlayerBoard === false ? "grid" : "hidden"
+            true // viewPlayerBoard === false ? "grid" : "hidden"
           } sm:grid`}
         >
           {
             // Grupo de los bots
-            bots.map((bot, index) => (
-              <BotView
+            levelData.bots.map((bot, index) => (
+              <BotOpponent
                 key={bot.name}
                 // levelData={dataLevel.level}
-                currentTargets={currentTargets}
-                interval={bot.interval}
+                // interval={bot.interval}
                 name={bot.name}
-                patterns={winnerPatters}
+                // patterns={winnerPatters}
                 boards={bot.boards}
                 // Obtiene los tableros del siguiente bot en la lista, o 0 si no hay más
-                nextBoards={bot.boards ? dataLevel!.bots[index + 1]?.boards : 0}
+                nextBoards={bot.boards ? levelData!.bots[index + 1]?.boards : 0}
               />
             ))
           }
-        </div> */}
+        </div>
       </div>
 
       {/* Botón en la esquina inferior derecha de la pantalla, visible solo en pantallas pequeñas */}

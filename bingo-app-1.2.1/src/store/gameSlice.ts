@@ -113,10 +113,19 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       board: generateBoard(), // Genera un tablero para cada jugador
     }));
 
-    const createBotBoards = Array.from({ length: levelData.bots.length }).map((_, index) => ({
-      id: index + 1,
-      board: generateBoard(), // Genera un tablero para cada jugador
-    }));
+    // const createBotBoards = Array.from({ length: levelData.bots.length }).map((_, index) => ({
+    //   id: index + 1,
+    //   board: generateBoard(), // Genera un tablero para cada jugador
+    // }));
+
+    const createBotBoards = levelData.bots.map((bot, botIndex) =>
+      Array.from({ length: bot.boards }).map((_, boardIndex) => ({
+        id: (10 * (botIndex + 1)) + (boardIndex + 1), // Identificador único combinando el id del bot y del tablero
+        board: generateBoard(), // Genera un tablero para cada instancia
+      }))
+    );
+
+    // console.log(createBotBoards)
 
     const initialSelectedNumbersAndPositions = Array.from({ length: levelData.boards }).map((_, index) => (
       {

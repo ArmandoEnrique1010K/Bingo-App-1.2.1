@@ -9,6 +9,20 @@ export type Board = {
   }[]
 }
 
+export type BotBoard = {
+  id: string,
+  board: {
+    position: number,
+    number: number
+  }[]
+}
+
+// export type BotBoards = BotBoard[]
+export type BotBoards = {
+  name: string; // Nombre del bot
+  boards: BotBoard[]; // Lista de tableros del bot
+}[];
+
 export type Boards = Board[]
 
 export type SelectedNumbersAndPositions = {

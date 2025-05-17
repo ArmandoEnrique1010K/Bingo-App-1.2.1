@@ -2,11 +2,11 @@ import { StateCreator } from "zustand";
 import { LevelSliceType } from "./levelSlice";
 import { MusicSliceType } from "./musicSlice";
 import { GameSliceType } from "./gameSlice";
-import { Boards, SelectedNumbersAndPositions } from "../types";
+import { BotBoards, SelectedNumbersAndPositions } from "../types";
 import { CORRECT_SOUND } from "../constants/audioSettings";
 
 export type BotSliceType = {
-  botBoards: Boards[],
+  botBoards: BotBoards,
   botSelectedNumbersAndPositions: SelectedNumbersAndPositions,
   timeoutsIds: number[],
   findedCells: SelectedNumbersAndPositions, // TODO: CREAR UN NUEVO TYPE

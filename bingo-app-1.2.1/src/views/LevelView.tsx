@@ -96,6 +96,7 @@ export default function LevelView() {
                 boards={bot.boards}
                 // Obtiene los tableros del siguiente bot en la lista, o 0 si no hay más
                 nextBoards={bot.boards ? levelData!.bots[index + 1]?.boards : 0}
+                botIndex={index}
               />
             ))
           }

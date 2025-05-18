@@ -151,6 +151,18 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       }
     ))
 
+
+    // [
+    //   {
+    //     id: "0",
+    //     board: [{
+    //       position: 13,
+    //       number: 0
+    //     }]
+    //   }
+    // ]
+
+
     set({
       playerBoards: createPlayerBoards,
 
@@ -170,6 +182,25 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
     set({
       currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
     })
+
+
+    const botInitialSelectedNumbersAndPositions = get().botBoards.map(bot => ({
+      id: bot.name,
+      board: [
+        {
+          position: 13,
+          number: 0
+        }
+      ],
+    }))
+
+    console.log(get().botBoards)
+    console.log(initialSelectedNumbersAndPositions)
+
+    set({
+      botSelectedNumbersAndPositions: botInitialSelectedNumbersAndPositions,
+    })
+
   },
   closeStatusModal: () => {
     get().playSound(CLICK_SOUND)

@@ -29,8 +29,6 @@ export default function LevelView() {
     changeStatusModal(START_LEVEL_MODAL);
   }, [location.pathname]);
 
-  // TODO: EXISTE OTRO PROBLEMA, AL HACER CLIC EN UN NIVEL, LO CARGA, PERO EL NIVEL ES 0
-  // TODO: ¿PORQUE LANZA EL MISMO EFECTO 2 VECES?
   useEffect(() => {
     // TIP: NO OLVIDAR LOS VALORES TRUTHY AND FALSY
     // getLevelNumberFromUrl(location.pathname);
@@ -90,7 +88,7 @@ export default function LevelView() {
               <BotOpponent
                 key={bot.name}
                 // levelData={dataLevel.level}
-                // interval={bot.interval}
+                interval={bot.interval}
                 name={bot.name}
                 // patterns={winnerPatters}
                 boards={bot.boards}

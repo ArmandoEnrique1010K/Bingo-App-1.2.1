@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import BotBingoBoard from "./BotBingoBoard";
+import { dynamicInterval } from "../../utils/dynamicInterval";
 
 type BotOpponentProps = {
   // interval: number;
@@ -7,6 +9,7 @@ type BotOpponentProps = {
   boards: number;
   nextBoards: number;
   botIndex: number;
+  interval: number;
 };
 export default function BotOpponent({
   // interval,
@@ -14,8 +17,80 @@ export default function BotOpponent({
   boards,
   nextBoards,
   botIndex,
+  interval,
 }: BotOpponentProps) {
   const botBoards = useAppStore((state) => state.botBoards);
+  const currentTargets = useAppStore((state) => state.currentTargets);
+  const findedCells = useAppStore((state) => state.findedCells);
+  const updateFindedCells = useAppStore((state) => state.updateFindedCells);
+  const resetFindedCells = useAppStore((state) => state.resetFindedCells);
+  const winner = useAppStore((state) => state.winner);
+  const markCellBot = useAppStore((state) => state.markCellBot);
+
+  // LOGICA PARA MANEJAR LOS BOTS
+  useEffect(() => {
+    if (currentTargets.length > 0) {
+      // TIP: USO DE FLATMAP
+      // const data = [1, 2, 3];
+      // const result = data.flatMap((x) => [x, x * 2]);
+      // console.log(result); // [1, 2, 2, 4, 3, 6]
+
+      const results = botBoards.flatMap((bot, indexBot) =>
+        bot.boards.map((board, indexBoard) => ({
+          id: `Bot-${indexBot}-${indexBoard}`,
+          targets: board.board.filter((cell) =>
+            currentTargets.includes(cell.number)
+          ),
+        }))
+      );
+
+      updateFindedCells(results);
+    } else {
+      resetFindedCells();
+    }
+  }, [currentTargets]);
+
+  const [timeoutIds, setTimeoutIds] = useState<number[]>([]);
+
+  // DEBE MARCAR LOS NUMEROS LUEGO DE UN CIERTO TIEMPO
+  useEffect(() => {
+    if (!botBoards.length || !currentTargets.length || winner === "bot") return;
+
+    timeoutIds.forEach((id) => clearTimeout(id));
+    setTimeoutIds([]);
+
+    let currentDelay = 0;
+    const newTimeoutIds: number[] = [];
+
+    // Copia de `result` para evitar modificar el estado directamente
+    const dynamicResult = [...findedCells];
+
+    // Mezcla el orden de tableros y objetivos para mayor aleatoriedad
+    dynamicResult.sort(() => Math.random() - 0.5);
+
+    dynamicResult.forEach((res) => {
+      res.targets.sort(() => Math.random() - 0.5);
+
+      res.targets.forEach((t) => {
+        // Calcula un intervalo aleatorio
+        const randomInterval = dynamicInterval() * interval;
+        currentDelay = currentDelay + randomInterval;
+
+        // Marca el número en el tablero luego del tiempo establecido en el intervalo
+        const timeoutId = setTimeout(() => {
+          markCellBot(res.id, t.number, t.position);
+        }, currentDelay);
+
+        newTimeoutIds.push(timeoutId);
+      });
+    });
+    setTimeoutIds(newTimeoutIds);
+
+    // Limpieza de temporizadores al desmontar el componente
+    return () => {
+      newTimeoutIds.forEach((id) => clearTimeout(id));
+    };
+  }, [findedCells]);
 
   return (
     <div

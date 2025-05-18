@@ -33,6 +33,23 @@ export type SelectedNumbersAndPositions = {
   }[]
 }[]
 
+export type BotSelectedNumbersAndPositions = {
+  id: string,
+  board: {
+    position: number,
+    number: number
+  }[]
+}[]
+
+export type FindedCells = {
+  id: string,
+  targets: {
+    position: number,
+    number: number
+  }[]
+}[]
+
+
 export type BoardNumbers = {
   row: number,
   values: number[]
@@ -77,3 +94,9 @@ export type Modal = {
   }
 
 }
+
+
+export type TargetResult = {
+  idBoard: number;
+  targets: { number: number; position: number }[];
+};

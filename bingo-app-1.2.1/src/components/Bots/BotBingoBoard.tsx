@@ -3,7 +3,7 @@ import BotBingoColumn from "./BotBingoColumn";
 
 type BotBingoBoardProps = {
   board: BoardPositions;
-  idBoard: number;
+  idBoard: string;
   // interval: number;
 };
 

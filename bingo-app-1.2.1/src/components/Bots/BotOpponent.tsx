@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import BotBingoBoard from "./BotBingoBoard";
 import { dynamicInterval } from "../../utils/dynamicInterval";
+import { CORRECT_SOUND } from "../../constants/audioSettings";
 
 type BotOpponentProps = {
   // interval: number;
@@ -26,6 +27,8 @@ export default function BotOpponent({
   const resetFindedCells = useAppStore((state) => state.resetFindedCells);
   const winner = useAppStore((state) => state.winner);
   const markCellBot = useAppStore((state) => state.markCellBot);
+  const playSound = useAppStore((state) => state.playSound);
+  const updateBotSelection = useAppStore((state) => state.updateBotSelection);
 
   // LOGICA PARA MANEJAR LOS BOTS
   useEffect(() => {
@@ -63,10 +66,8 @@ export default function BotOpponent({
     const newTimeoutIds: number[] = [];
 
     // Copia de `result` para evitar modificar el estado directamente
-    const dynamicResult = [...findedCells];
-
     // Mezcla el orden de tableros y objetivos para mayor aleatoriedad
-    dynamicResult.sort(() => Math.random() - 0.5);
+    const dynamicResult = [...findedCells].sort(() => Math.random() - 0.5);
 
     dynamicResult.forEach((res) => {
       res.targets.sort(() => Math.random() - 0.5);
@@ -78,7 +79,10 @@ export default function BotOpponent({
 
         // Marca el número en el tablero luego del tiempo establecido en el intervalo
         const timeoutId = setTimeout(() => {
-          markCellBot(res.id, t.number, t.position);
+          // markCellBot(res.id, t.number, t.position);
+          playSound(CORRECT_SOUND);
+
+          updateBotSelection(res.id, t.number, t.position);
         }, currentDelay);
 
         newTimeoutIds.push(timeoutId);
@@ -89,6 +93,7 @@ export default function BotOpponent({
     // Limpieza de temporizadores al desmontar el componente
     return () => {
       newTimeoutIds.forEach((id) => clearTimeout(id));
+      setTimeoutIds([]);
     };
   }, [findedCells]);
 
@@ -116,12 +121,12 @@ export default function BotOpponent({
 
             board={
               botBoards
-                .find((bot) => bot.name === name) // Encuentra el bot correspondiente
+                ?.find((bot) => bot.name === name) // Encuentra el bot correspondiente
                 ?.boards.find(
                   (boardObj) => boardObj.id === `Bot-${botIndex}-${boardIndex}`
                 )?.board || []
             }
-            idBoard={boardIndex + 1}
+            idBoard={`Bot-${botIndex}-${boardIndex}`}
             // interval={interval}
 
             //  `Bot-${botIndex}-${boardIndex}`

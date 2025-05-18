@@ -2,7 +2,7 @@ import { BoardPositions } from "../../types";
 import BotBingoCell from "./BotBingoCell";
 
 type BotBingoColumnProps = {
-  idBoard: number;
+  idBoard: string;
   board: BoardPositions;
   min: number;
   max: number;

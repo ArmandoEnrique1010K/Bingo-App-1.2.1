@@ -24,8 +24,13 @@ export const levels: Level[] = [
       {
         name: "S-Bot",
         interval: 2100,
-        boards: 1
+        boards: 2
       },
+      {
+        name: "S-Bot-2",
+        interval: 2100,
+        boards: 1
+      }
     ],
     color: 'blue',
     music: SLOW

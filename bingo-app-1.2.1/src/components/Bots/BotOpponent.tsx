@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import BotBingoBoard from "./BotBingoBoard";
 import { dynamicInterval } from "../../utils/dynamicInterval";
@@ -55,6 +55,17 @@ export default function BotOpponent({
 
   const [timeoutIds, setTimeoutIds] = useState<number[]>([]);
 
+  // EL USO DEL CALLBACK
+  const handleBotSelection = useCallback(
+    (id: string, number: number, position: number) => {
+      setTimeout(() => {
+        updateBotSelection(id, number, position);
+        // playSound(CORRECT_SOUND);
+      }, 500); // Configura un tiempo mínimo de espera para asegurar ejecución correcta
+    },
+    [updateBotSelection]
+  );
+
   // DEBE MARCAR LOS NUMEROS LUEGO DE UN CIERTO TIEMPO
   useEffect(() => {
     if (!botBoards.length || !currentTargets.length || winner === "bot") return;
@@ -80,9 +91,11 @@ export default function BotOpponent({
         // Marca el número en el tablero luego del tiempo establecido en el intervalo
         const timeoutId = setTimeout(() => {
           // markCellBot(res.id, t.number, t.position);
-          playSound(CORRECT_SOUND);
+          // playSound(CORRECT_SOUND);
 
-          updateBotSelection(res.id, t.number, t.position);
+          // // TODO: PARECE QUE NO APLICA EL TIMEOUT PORQUE LLAMA A LA FUNCIÓN
+          // updateBotSelection(res.id, t.number, t.position);
+          handleBotSelection(res.id, t.number, t.position);
         }, currentDelay);
 
         newTimeoutIds.push(timeoutId);

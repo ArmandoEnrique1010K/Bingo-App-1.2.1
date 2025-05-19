@@ -70,3 +70,8 @@ export const DEFEAT_SOUND = {
   name: 'defeat',
   volume: -8
 }
+
+export const CORRECT_BOT_SOUND = {
+  name: "correct_bot",
+  volume: 1,
+}

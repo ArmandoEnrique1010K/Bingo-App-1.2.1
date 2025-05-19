@@ -1,11 +1,11 @@
 import * as Tone from "tone";
-import { BALLS_SOUND, CLICK_SOUND, CORRECT_SOUND, WRONG_SOUND, VICTORY_SOUND, DEFEAT_SOUND } from "../../constants/audioSettings";
+import { BALLS_SOUND, CLICK_SOUND, CORRECT_SOUND, WRONG_SOUND, VICTORY_SOUND, DEFEAT_SOUND, CORRECT_BOT_SOUND } from "../../constants/audioSettings";
 
 export const preloadedSoundPlayers = new Map<string, Tone.Player>();
 
 export const preloadSoundFiles = async () => {
   try {
-    const sounds = [WRONG_SOUND, CORRECT_SOUND, BALLS_SOUND, CLICK_SOUND, VICTORY_SOUND, DEFEAT_SOUND]
+    const sounds = [WRONG_SOUND, CORRECT_SOUND, BALLS_SOUND, CLICK_SOUND, VICTORY_SOUND, DEFEAT_SOUND, CORRECT_BOT_SOUND]
 
     for (const sound of sounds) {
       const player = new Tone.Player(

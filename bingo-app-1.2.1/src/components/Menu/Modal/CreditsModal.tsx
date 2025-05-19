@@ -156,6 +156,15 @@ export default function CreditsModal() {
                       Failed - u_3bsnvt0dsu
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="https://pixabay.com/es/sound-effects/retro-coin-4-236671/"
+                      target="_blank"
+                      className="text-blue-500 hover:underline"
+                    >
+                      Retro coin 4 - Driken5482
+                    </a>
+                  </li>
                 </ul>
 
                 <p>

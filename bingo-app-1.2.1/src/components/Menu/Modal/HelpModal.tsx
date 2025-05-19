@@ -157,14 +157,4 @@ export default function HelpModal() {
   );
 }
 
-// TODO: MEJORAS
 /* TIP: CAMBIO DE OPACIDAD EN TAILWIND CSS 4 https://tailwindcss.com/docs/background-color#changing-the-opacity */
-
-// TODO: INCLUIR ESTO EN LAS INSTRUCCIONES
-// Paleta de colores y su significado
-// BLUE (al menos 5 números)
-// CYAN (un tablero extra)
-// EMERALD (aumento de oponentes)
-// LIME (al menos 4 posibles patrones)
-// AMBER (patrones unicos)
-// RED (al menos 2 tableros)

@@ -2,15 +2,16 @@ import { StateCreator } from "zustand";
 import { LevelSliceType } from "./levelSlice";
 import { MusicSliceType } from "./musicSlice";
 import { GameSliceType } from "./gameSlice";
-import { BotBoards, BotSelectedNumbersAndPositions, FindedCells } from "../types";
+import { BotBoards, } from "../types";
 
 export type BotSliceType = {
   botBoards: BotBoards,
-  botSelectedNumbersAndPositions: BotSelectedNumbersAndPositions,
+  botSelectedNumbersAndPositions: BotBoards,
   timeoutsIds: number[],
-  findedCells: FindedCells, // TODO: CREAR UN NUEVO TYPE
-  checkSelectedNumberBot: (id: string, position: number) => boolean,
-  markCellBot: (id: string, number: number, position: number) => boolean
+  findedCells: BotBoards, // TODO: CREAR UN NUEVO TYPE
+  updateTimeoutsIds: (timeoutsIds: number[]) => void,
+  checkSelectedNumberBot: (name: string, position: number) => boolean,
+  markCellBot: (name: string, number: number, position: number) => boolean
   checkWinnerPatternBot: () => boolean,
   // Tableros generados
   // Registro de posiciones y numeros marcadaos
@@ -18,9 +19,9 @@ export type BotSliceType = {
   // Marcar un numero del tablero del bot
   // Verificar si el bot ha ganado (demora de 5000 milisegundos)
 
-  updateFindedCells: (newResult: FindedCells) => void
+  updateFindedCells: (newResult: BotBoards) => void
   resetFindedCells: () => void
-  updateBotSelection: (id: string, number: number, position: number) => void
+  updateBotSelection: (name: string, number: number, position: number) => void
 };
 
 export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
@@ -28,10 +29,17 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
   botSelectedNumbersAndPositions: [],
   timeoutsIds: [],
   findedCells: [],
+  updateTimeoutsIds: (timeoutsIds) => {
+    set({
+      timeoutsIds: [...timeoutsIds]
+    })
+  },
+
+
   checkSelectedNumberBot: (id: string, position: number) => {
 
     const isSelected = get().botSelectedNumbersAndPositions.some(
-      (b) => b.id === id && b.board.some((e) => e.position === position)
+      (b) => b.name === id && b.boards.map(board => board.board.some((e) => e.position === position))
     );
 
     if (isSelected) {
@@ -41,30 +49,40 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     }
 
     return isSelected;
-
   },
 
   // EL BOT DEBE SER CAPAZ DE IDENTIFICAR EL NUMERO OBJETIVO EN SU TABLERO
   // SI EL NUMERO YA FUE MARCADO, NO LO DEBE MARCAR OTRA VEZ
-  markCellBot: (id: string, number: number, position: number) => {
+  markCellBot: (name: string, number: number, position: number) => {
 
     if (get().currentTargets.includes(number)) {
 
       const updatedBots = get().botSelectedNumbersAndPositions.map(b => {
-        if (b.id === id) {
+        if (b.name === name) {
           // Verifica si la posición ya está registrada
-          const exists = b.board.some(cell => cell.position === position);
+          const exists = b.boards.map(board => board.board.some(cell => cell.position === position));
 
           return exists ? b : {
             ...b,
-            board: [...b.board, { position, number }],
+            board: [...b.boards, { position, number }],
           };
         }
         return b;
       });
 
+      // Obtener el nombre del bot
+      // const bot = get().botBoards.find(bot => bot.name === name);
+      // const botName = bot?.name ?? 'Desconocido';
 
-      console.log(`El bot ${id} ha encontrado el número ${number} en la posición ${position}`);
+      // QUISIERA OBTENER EL NOMBRE DEL BOT
+      // Buscar el tablero donde se encontró el número
+      const bot = get().botBoards.find(bot => bot.name === name);
+      const boardWithNumber = bot?.boards.find(board =>
+        board.board.some(cell => cell.position === position && cell.number === number)
+      );
+      const boardId = boardWithNumber?.id ?? 'Desconocido';
+
+      console.log(`En el bot ${name}, en el tablero ${boardId} ha encontrado el número ${number} en la posición ${position}`);
 
       // TODO: DEBERIA MANTENER LOS NUMEROS SELECCIONADOS
       set({ botSelectedNumbersAndPositions: updatedBots });
@@ -73,11 +91,12 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     return false
   },
 
+
   checkWinnerPatternBot: () => {
     return true
   },
 
-  updateFindedCells: (newResult: FindedCells) => {
+  updateFindedCells: (newResult: BotBoards) => {
     set({ findedCells: newResult })
   },
 
@@ -85,15 +104,15 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     set({ findedCells: [] })
   },
 
-  updateBotSelection: (id, number, position) => {
+  updateBotSelection: (name, number, position) => {
     set((state) => ({
       botSelectedNumbersAndPositions: state.botSelectedNumbersAndPositions.map((bot) =>
-        bot.id === id
+        bot.name === name
           ? {
             ...bot,
-            board: bot.board.some((cell) => cell.position === position)
-              ? bot.board // No lo agregues si ya existe
-              : [...bot.board, { position, number }],
+            board: bot.boards.map(board => board.board.some((cell) => cell.position === position))
+              ? bot.boards // No lo agregues si ya existe
+              : [...bot.boards, { position, number }],
           }
           : bot
       ),

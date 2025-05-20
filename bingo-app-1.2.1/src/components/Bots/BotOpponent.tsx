@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import BotBingoBoard from "./BotBingoBoard";
 import { dynamicInterval } from "../../utils/dynamicInterval";
-import { CORRECT_SOUND } from "../../constants/audioSettings";
 
 type BotOpponentProps = {
   // interval: number;
@@ -27,88 +26,114 @@ export default function BotOpponent({
   const resetFindedCells = useAppStore((state) => state.resetFindedCells);
   const winner = useAppStore((state) => state.winner);
   const markCellBot = useAppStore((state) => state.markCellBot);
-  const playSound = useAppStore((state) => state.playSound);
-  const updateBotSelection = useAppStore((state) => state.updateBotSelection);
+  // const playSound = useAppStore((state) => state.playSound);
+  // const updateBotSelection = useAppStore((state) => state.updateBotSelection);
+  const timeoutsIds = useAppStore((state) => state.timeoutsIds);
+  const updateTimeoutsIds = useAppStore((state) => state.updateTimeoutsIds);
 
-  // LOGICA PARA MANEJAR LOS BOTS
   useEffect(() => {
-    if (currentTargets.length > 0) {
-      // TIP: USO DE FLATMAP
-      // const data = [1, 2, 3];
-      // const result = data.flatMap((x) => [x, x * 2]);
-      // console.log(result); // [1, 2, 2, 4, 3, 6]
-
-      const results = botBoards.flatMap((bot, indexBot) =>
-        bot.boards.map((board, indexBoard) => ({
-          id: `Bot-${indexBot}-${indexBoard}`,
-          targets: board.board.filter((cell) =>
-            currentTargets.includes(cell.number)
-          ),
-        }))
-      );
-
-      updateFindedCells(results);
-    } else {
-      resetFindedCells();
-    }
+    findedCells.forEach((res) => {
+      // res.boards.forEach((board) => markCellBot(name));
+      console.log(res);
+    });
   }, [currentTargets]);
 
-  const [timeoutIds, setTimeoutIds] = useState<number[]>([]);
+  // // LOGICA PARA MANEJAR LOS BOTS
+  // useEffect(() => {
+  //   if (currentTargets.length > 0) {
+  //     // TIP: USO DE FLATMAP
+  //     // const data = [1, 2, 3];
+  //     // const result = data.flatMap((x) => [x, x * 2]);
+  //     // console.log(result); // [1, 2, 2, 4, 3, 6]
+
+  //     const results = botBoards.map((bot, indexBot) =>
+  //       bot.boards.map((board, indexBoard) => (
+  //         {
+  //           ...board,
+
+  //         }
+  //       //   {
+  //       //   name: `Bot-${indexBot}-${indexBoard}`,
+  //       //   boards: board.board.filter((cell) =>
+  //       //     currentTargets.includes(cell.number)
+  //       //   ),
+  //       // }
+  //     ))
+  //     );
+
+  //     // flatMap((bot, indexBot) =>
+  //     //   bot.boards.map((board, indexBoard) => ({
+  //     //     id: `Bot-${indexBot}-${indexBoard}`,
+  //     //     targets: board.board.filter((cell) =>
+  //     //       currentTargets.includes(cell.number)
+  //     //     ),
+  //     //   }))
+  //     // );
+
+  //     updateFindedCells(results);
+  //   } else {
+  //     resetFindedCells();
+  //   }
+  // }, [currentTargets]);
+
+  // const [timeoutIds, setTimeoutIds] = useState<number[]>([]);
 
   // EL USO DEL CALLBACK
-  const handleBotSelection = useCallback(
-    (id: string, number: number, position: number) => {
-      setTimeout(() => {
-        updateBotSelection(id, number, position);
-        // playSound(CORRECT_SOUND);
-      }, 500); // Configura un tiempo mínimo de espera para asegurar ejecución correcta
-    },
-    [updateBotSelection]
-  );
+  // const handleBotSelection = useCallback(
+  //   (id: string, number: number, position: number) => {
+  //     setTimeout(() => {
+  //       updateBotSelection(id, number, position);
+  //       // playSound(CORRECT_SOUND);
+  //     }, 500); // Configura un tiempo mínimo de espera para asegurar ejecución correcta
+  //   },
+  //   [updateBotSelection]
+  // );
 
   // DEBE MARCAR LOS NUMEROS LUEGO DE UN CIERTO TIEMPO
-  useEffect(() => {
-    if (!botBoards.length || !currentTargets.length || winner === "bot") return;
+  // useEffect(() => {
+  //   if (!botBoards.length || !currentTargets.length || winner === "bot") return;
 
-    timeoutIds.forEach((id) => clearTimeout(id));
-    setTimeoutIds([]);
+  //   timeoutsIds.forEach((id) => clearTimeout(id));
+  //   updateTimeoutsIds([]);
 
-    let currentDelay = 0;
-    const newTimeoutIds: number[] = [];
+  //   let currentDelay = 0;
+  //   const newTimeoutIds: number[] = [];
 
-    // Copia de `result` para evitar modificar el estado directamente
-    // Mezcla el orden de tableros y objetivos para mayor aleatoriedad
-    const dynamicResult = [...findedCells].sort(() => Math.random() - 0.5);
+  //   // Copia de `result` para evitar modificar el estado directamente
+  //   // Mezcla el orden de tableros y objetivos para mayor aleatoriedad
+  //   const dynamicResult = [...findedCells].sort(() => Math.random() - 0.5);
 
-    dynamicResult.forEach((res) => {
-      res.targets.sort(() => Math.random() - 0.5);
+  //   dynamicResult.forEach((res) => {
+  //     res.targets.sort(() => Math.random() - 0.5);
 
-      res.targets.forEach((t) => {
-        // Calcula un intervalo aleatorio
-        const randomInterval = dynamicInterval() * interval;
-        currentDelay = currentDelay + randomInterval;
+  //     res.targets.forEach((t) => {
+  //       // Calcula un intervalo aleatorio
+  //       const randomInterval = dynamicInterval() * interval;
+  //       currentDelay = currentDelay + randomInterval;
 
-        // Marca el número en el tablero luego del tiempo establecido en el intervalo
-        const timeoutId = setTimeout(() => {
-          // markCellBot(res.id, t.number, t.position);
-          // playSound(CORRECT_SOUND);
+  //       // Marca el número en el tablero luego del tiempo establecido en el intervalo
+  //       const timeoutId = setTimeout(() => {
+  //         // markCellBot(res.id, t.number, t.position);
+  //         // playSound(CORRECT_SOUND);
+  //         console.log(
+  //           `En el tablero ${res.id} ha encontrado el número ${t.number} en la posición ${t.position}`
+  //         );
+  //         // // TODO: PARECE QUE NO APLICA EL TIMEOUT PORQUE LLAMA A LA FUNCIÓN
+  //         // updateBotSelection(res.id, t.number, t.position);
+  //         // handleBotSelection(res.id, t.number, t.position);
+  //       }, currentDelay);
 
-          // // TODO: PARECE QUE NO APLICA EL TIMEOUT PORQUE LLAMA A LA FUNCIÓN
-          // updateBotSelection(res.id, t.number, t.position);
-          handleBotSelection(res.id, t.number, t.position);
-        }, currentDelay);
+  //       newTimeoutIds.push(timeoutId);
+  //     });
+  //   });
+  //   updateTimeoutsIds(newTimeoutIds);
 
-        newTimeoutIds.push(timeoutId);
-      });
-    });
-    setTimeoutIds(newTimeoutIds);
-
-    // Limpieza de temporizadores al desmontar el componente
-    return () => {
-      newTimeoutIds.forEach((id) => clearTimeout(id));
-      setTimeoutIds([]);
-    };
-  }, [findedCells]);
+  //   // Limpieza de temporizadores al desmontar el componente
+  //   return () => {
+  //     newTimeoutIds.forEach((id) => clearTimeout(id));
+  //     updateTimeoutsIds([]);
+  //   };
+  // }, [findedCells]);
 
   return (
     <div

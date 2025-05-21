@@ -17,6 +17,8 @@ export default function LevelView() {
   const changeStatusModal = useAppStore((state) => state.changeStatusModal);
   const resetLevel = useAppStore((state) => state.resetLevel);
   const currentRound = useAppStore((state) => state.currentRound);
+  const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
+  const currentTargets = useAppStore((state) => state.currentTargets);
 
   // const getLevelNumberFromUrl = useAppStore(
   //   (state) => state.getLevelNumberFromUrl
@@ -44,6 +46,19 @@ export default function LevelView() {
 
     console.log("HA CAMBIADO DE NIVEL");
   }, [levelData]);
+
+  useEffect(() => {
+    // if (currentTargets.length !== 0) {
+    //   findNumbersOnBoards(currentTargets);
+    // }
+    console.log("Encontrando los numeros objetivos: " + currentTargets);
+    findNumbersOnBoards(currentTargets);
+
+    // findedCells.forEach((res) => {
+    //   // res.boards.forEach((board) => markCellBot(name));
+    //   console.log(res);
+    // });
+  }, [currentTargets]);
 
   return (
     <>

@@ -32,12 +32,12 @@ export default function BotOpponent({
   const updateTimeoutsIds = useAppStore((state) => state.updateTimeoutsIds);
 
   useEffect(() => {
-    findedCells.forEach((res) => {
-      // res.boards.forEach((board) => markCellBot(name));
-      console.log(res);
-    });
+    if (currentTargets.length !== 0) {
+      setTimeout(() => {
+        markCellBot(name, interval);
+      }, 1000);
+    }
   }, [currentTargets]);
-
   // // LOGICA PARA MANEJAR LOS BOTS
   // useEffect(() => {
   //   if (currentTargets.length > 0) {

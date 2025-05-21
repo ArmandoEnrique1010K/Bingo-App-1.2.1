@@ -11,7 +11,7 @@ export type BotSliceType = {
   findedCells: BotBoards, // TODO: CREAR UN NUEVO TYPE
   updateTimeoutsIds: (timeoutsIds: number[]) => void,
   checkSelectedNumberBot: (name: string, position: number) => boolean,
-  markCellBot: (name: string, number: number, position: number) => boolean
+  markCellBot: (name: string, interval: number) => void
   checkWinnerPatternBot: () => boolean,
   // Tableros generados
   // Registro de posiciones y numeros marcadaos
@@ -22,6 +22,7 @@ export type BotSliceType = {
   updateFindedCells: (newResult: BotBoards) => void
   resetFindedCells: () => void
   updateBotSelection: (name: string, number: number, position: number) => void
+  findNumbersOnBoards: (numbers: number[]) => void
 };
 
 export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
@@ -53,43 +54,78 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
 
   // EL BOT DEBE SER CAPAZ DE IDENTIFICAR EL NUMERO OBJETIVO EN SU TABLERO
   // SI EL NUMERO YA FUE MARCADO, NO LO DEBE MARCAR OTRA VEZ
-  markCellBot: (name: string, number: number, position: number) => {
 
-    if (get().currentTargets.includes(number)) {
+  // TODO: ESTA ACCIÓN DEBE ENCARGARSE DE MARCAR LOS NUMEROS EN LOS TABLEROS DEL BOT, DEBE EVALUAR CADA BOT, TAMBIEN DEBE TOMAR EL INTERVALO DE TIEMPO DE DEMORA O DE REACCIÓN
+  // markCellBot: (name: string, number: number, position: number) => {
 
-      const updatedBots = get().botSelectedNumbersAndPositions.map(b => {
-        if (b.name === name) {
-          // Verifica si la posición ya está registrada
-          const exists = b.boards.map(board => board.board.some(cell => cell.position === position));
+  //   if (get().currentTargets.includes(number)) {
 
-          return exists ? b : {
-            ...b,
-            board: [...b.boards, { position, number }],
-          };
-        }
-        return b;
+  //     const updatedBots = get().botSelectedNumbersAndPositions.map(b => {
+  //       if (b.name === name) {
+  //         // Verifica si la posición ya está registrada
+  //         const exists = b.boards.map(board => board.board.some(cell => cell.position === position));
+
+  //         return exists ? b : {
+  //           ...b,
+  //           board: [...b.boards, { position, number }],
+  //         };
+  //       }
+  //       return b;
+  //     });
+
+  //     // Obtener el nombre del bot
+  //     // const bot = get().botBoards.find(bot => bot.name === name);
+  //     // const botName = bot?.name ?? 'Desconocido';
+
+  //     // QUISIERA OBTENER EL NOMBRE DEL BOT
+  //     // Buscar el tablero donde se encontró el número
+  //     const bot = get().botBoards.find(bot => bot.name === name);
+  //     const boardWithNumber = bot?.boards.find(board =>
+  //       board.board.some(cell => cell.position === position && cell.number === number)
+  //     );
+  //     const boardId = boardWithNumber?.id ?? 'Desconocido';
+
+  //     console.log(`En el bot ${name}, en el tablero ${boardId} ha encontrado el número ${number} en la posición ${position}`);
+
+  //     // TODO: DEBERIA MANTENER LOS NUMEROS SELECCIONADOS
+  //     set({ botSelectedNumbersAndPositions: updatedBots });
+  //     return true
+  //   }
+  //   return false
+  // },
+
+  markCellBot: (name: string, interval: number) => {
+    // OBTENER LAS CÉLULAS ENCONTRADAS PARA EL BOT ESPECÍFICO
+    const botFinded = get().findedCells.find(bot => bot.name === name);
+    console.log(botFinded?.name)
+    if (!botFinded) return;
+
+    // Iterar sobre cada tablero y cada celda encontrada
+    botFinded.boards.forEach(board => {
+      board.board.forEach((cell, idx) => {
+
+        // Usar setTimeout para simular el intervalo de reacción
+
+        const timeoutId = setTimeout(() => {
+          // Actualizar la selección del bot
+          console.log(`El bot ${botFinded.name} ha encontrado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${interval * (idx + 1)} milisegundos`)
+          get().updateBotSelection(name, cell.number, cell.position);
+        }, interval * (idx + 1)); // Multiplicar por idx para escalonar los intervalos
+
+        // Guardar el id del timeout para posible limpieza
+        set(state => ({
+          timeoutsIds: [...state.timeoutsIds, timeoutId]
+        }));
       });
-
-      // Obtener el nombre del bot
-      // const bot = get().botBoards.find(bot => bot.name === name);
-      // const botName = bot?.name ?? 'Desconocido';
-
-      // QUISIERA OBTENER EL NOMBRE DEL BOT
-      // Buscar el tablero donde se encontró el número
-      const bot = get().botBoards.find(bot => bot.name === name);
-      const boardWithNumber = bot?.boards.find(board =>
-        board.board.some(cell => cell.position === position && cell.number === number)
-      );
-      const boardId = boardWithNumber?.id ?? 'Desconocido';
-
-      console.log(`En el bot ${name}, en el tablero ${boardId} ha encontrado el número ${number} en la posición ${position}`);
-
-      // TODO: DEBERIA MANTENER LOS NUMEROS SELECCIONADOS
-      set({ botSelectedNumbersAndPositions: updatedBots });
-      return true
-    }
-    return false
+    });
   },
+
+  // DEBE ACTUALIZAR LAS POSICIONES Y NUMEROS SELECCIONADOS DEL BOT, LUEGO DE UN CIERTO INTERVALO
+
+
+
+
+
 
 
   checkWinnerPatternBot: () => {
@@ -110,13 +146,51 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
         bot.name === name
           ? {
             ...bot,
-            board: bot.boards.map(board => board.board.some((cell) => cell.position === position))
-              ? bot.boards // No lo agregues si ya existe
-              : [...bot.boards, { position, number }],
+            boards: bot.boards.map(board => ({
+              ...board,
+              board: board.board.some(cell => cell.position === position)
+                ? board.board // No lo agregues si ya existe
+                : [...board.board, { position, number }],
+            })),
           }
           : bot
       ),
     }));
+
+    console.log()
   },
 
+  // TODO: ESTA FUNCIÓN DEBE ENCONTRAR LOS NUMEROS OBJETIVOS EN LOS TABLEROS DE LOS BOTS
+  findNumbersOnBoards: (numbers: number[]) => {
+
+    set(state => ({
+      findedCells: state.botBoards.map(bot => ({
+        name: bot.name,
+        boards: bot.boards.map(board => ({
+          ...board,
+          board: board.board.filter(cell => numbers.includes(cell.number))
+        }))
+      }))
+    }))
+
+
+    // console.log(numbers);
+    // get().botBoards.map(b => b)
+
+
+
+    // set((state) => ({
+    //   botSelectedNumbersAndPositions: state.botSelectedNumbersAndPositions.map((bot) =>
+    //     bot.name === name
+    //       ? {
+    //         ...bot,
+    //         board: bot.boards.map(board => board.board.some((cell) => cell.position === position))
+    //           ? bot.boards // No lo agregues si ya existe
+    //           : [...bot.boards, { position, number }],
+    //       }
+    //       : bot
+    //   ),
+    // }));
+
+  }
 })

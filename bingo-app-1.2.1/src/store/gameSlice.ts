@@ -187,17 +187,37 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
     // Marcar las posiciones iniciales de los tableros del bot
     // Inicializa `botSelectedNumbersAndPositions` si está vacío
 
-    const botInitialSelectedNumbersAndPositions = get().botBoards.map((bot, index) => (
-      // console.log(bot.boards[index].id || "0"),
-      {
-        id: bot.boards[index]?.id || "", // TODO: SOLUCIONAR ESTO
+    // TYPES RELACIONADOS A LOS BOTS
+    // export type BotBoard = {
+    //   id: string,
+    //   board: {
+    //     position: number,
+    //     number: number
+    //   }[]
+    // }
+
+    // export type BotBoards = {
+    //   name: string; // Nombre del bot
+    //   boards: BotBoard[]; // Lista de tableros del bot
+    // }[];
+
+
+    // Construye botInitialSelectedNumbersAndPositions según el tipo BotBoards
+    // BotBoards = { name: string; boards: BotBoard[]; }[]
+    // BotBoard = { id: string, board: { position: number, number: number }[] }
+
+    const botInitialSelectedNumbersAndPositions = get().botBoards.map((bot) => ({
+      name: bot.name,
+      boards: bot.boards.map((board) => ({
+        id: board.id,
         board: [
           {
             position: 13,
             number: 0
           }
-        ],
-      }));
+        ]
+      }))
+    }));
     // console.log(get().botBoards)
     // console.log(botInitialSelectedNumbersAndPositions)
 

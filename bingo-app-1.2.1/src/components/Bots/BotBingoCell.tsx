@@ -26,7 +26,8 @@ export default function BotBingoCell({ idBoard, value }: BotBingoCellProps) {
     <div>
       <div
         className={`text-xs sm:text-sm sm:size-6 size-4 text-center sm:border-2 border-0 border-gray-600 text-white bg-${
-          markCellBot(idBoard, number, position) ? color : "gray"
+          // markCellBot(idBoard, number, position) ? color :
+          "gray"
         }-500`}
       >
         {/* TODO: El bot no muestra los numeros de su tablero */}

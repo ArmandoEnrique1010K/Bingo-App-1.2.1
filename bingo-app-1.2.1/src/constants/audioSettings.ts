@@ -73,5 +73,5 @@ export const DEFEAT_SOUND = {
 
 export const CORRECT_BOT_SOUND = {
   name: "correct_bot",
-  volume: 1,
+  volume: -8,
 }

@@ -3,6 +3,7 @@ import { LevelSliceType } from "./levelSlice";
 import { MusicSliceType } from "./musicSlice";
 import { GameSliceType } from "./gameSlice";
 import { BotBoards, } from "../types";
+import { CORRECT_BOT_SOUND } from "../constants/audioSettings";
 
 export type BotSliceType = {
   botBoards: BotBoards,
@@ -21,7 +22,7 @@ export type BotSliceType = {
 
   updateFindedCells: (newResult: BotBoards) => void
   resetFindedCells: () => void
-  updateBotSelection: (name: string, number: number, position: number) => void
+  updateBotSelection: (name: string, id: string, number: number, position: number) => void
   findNumbersOnBoards: (numbers: number[]) => void
 };
 
@@ -109,7 +110,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
         const timeoutId = setTimeout(() => {
           // Actualizar la selección del bot
           console.log(`El bot ${botFinded.name} ha encontrado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${interval * (idx + 1)} milisegundos`)
-          get().updateBotSelection(name, cell.number, cell.position);
+          get().updateBotSelection(name, board.id, cell.number, cell.position);
+          get().playSound(CORRECT_BOT_SOUND)
         }, interval * (idx + 1)); // Multiplicar por idx para escalonar los intervalos
 
         // Guardar el id del timeout para posible limpieza
@@ -140,27 +142,29 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     set({ findedCells: [] })
   },
 
-  updateBotSelection: (name, number, position) => {
+  updateBotSelection: (name, id, number, position) => {
     set((state) => ({
       botSelectedNumbersAndPositions: state.botSelectedNumbersAndPositions.map((bot) =>
         bot.name === name
           ? {
             ...bot,
-            boards: bot.boards.map(board => ({
-              ...board,
-              board: board.board.some(cell => cell.position === position)
-                ? board.board // No lo agregues si ya existe
-                : [...board.board, { position, number }],
-            })),
+            boards: bot.boards.map(board =>
+              board.id === id
+                ? {
+                  ...board,
+                  board: board.board.some(cell => cell.position === position)
+                    ? board.board // No lo agregues si ya existe
+                    : [...board.board, { position, number }],
+                }
+                : board
+            ),
           }
           : bot
       ),
     }));
-
-    console.log()
   },
 
-  // TODO: ESTA FUNCIÓN DEBE ENCONTRAR LOS NUMEROS OBJETIVOS EN LOS TABLEROS DE LOS BOTS
+
   findNumbersOnBoards: (numbers: number[]) => {
 
     set(state => ({

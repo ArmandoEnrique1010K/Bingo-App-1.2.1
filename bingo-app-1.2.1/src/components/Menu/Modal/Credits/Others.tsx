@@ -2,6 +2,18 @@ export default function Others() {
   return (
     <>
       <p>
+        <span className="font-bold">Editor de audio:</span> Herramienta
+        <a
+          href="https://www.nch.com.au/wavepad/es/index.html?srsltid=AfmBOopjHpy8e0e-jdtWAmEsza8IIkHpqXJ2wB9mP8T5jLBjrZHf1FNw"
+          target="_blank"
+          className="text-blue-500 hover:underline"
+        >
+          {" "}
+          WavePad
+        </a>
+        .
+      </p>
+      <p>
         <span className="font-bold">Emojis:</span> Proporcionados por
         <a
           href="https://emojipedia.org/"

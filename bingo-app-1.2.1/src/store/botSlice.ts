@@ -4,6 +4,7 @@ import { MusicSliceType } from "./musicSlice";
 import { GameSliceType } from "./gameSlice";
 import { BotBoards, } from "../types";
 import { CORRECT_BOT_SOUND } from "../constants/audioSettings";
+import { dynamicInterval } from "../utils/dynamicInterval";
 
 export type BotSliceType = {
   botBoards: BotBoards,
@@ -20,7 +21,7 @@ export type BotSliceType = {
   // Marcar un numero del tablero del bot
   // Verificar si el bot ha ganado (demora de 5000 milisegundos)
 
-  updateFindedCells: (newResult: BotBoards) => void
+  // updateFindedCells: (newResult: BotBoards) => void
   resetFindedCells: () => void
   updateBotSelection: (name: string, id: string, number: number, position: number) => void
   findNumbersOnBoards: (numbers: number[]) => void
@@ -37,7 +38,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     })
   },
 
-
+  // EL BOT DEBE SER CAPAZ DE IDENTIFICAR EL NUMERO OBJETIVO EN SU TABLERO
+  // SI EL NUMERO YA FUE MARCADO, NO LO DEBE MARCAR OTRA VEZ
   checkSelectedNumberBot: (id: string, position: number) => {
 
     const isSelected = get().botSelectedNumbersAndPositions.some(
@@ -53,48 +55,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     return isSelected;
   },
 
-  // EL BOT DEBE SER CAPAZ DE IDENTIFICAR EL NUMERO OBJETIVO EN SU TABLERO
-  // SI EL NUMERO YA FUE MARCADO, NO LO DEBE MARCAR OTRA VEZ
 
   // TODO: ESTA ACCIÓN DEBE ENCARGARSE DE MARCAR LOS NUMEROS EN LOS TABLEROS DEL BOT, DEBE EVALUAR CADA BOT, TAMBIEN DEBE TOMAR EL INTERVALO DE TIEMPO DE DEMORA O DE REACCIÓN
-  // markCellBot: (name: string, number: number, position: number) => {
-
-  //   if (get().currentTargets.includes(number)) {
-
-  //     const updatedBots = get().botSelectedNumbersAndPositions.map(b => {
-  //       if (b.name === name) {
-  //         // Verifica si la posición ya está registrada
-  //         const exists = b.boards.map(board => board.board.some(cell => cell.position === position));
-
-  //         return exists ? b : {
-  //           ...b,
-  //           board: [...b.boards, { position, number }],
-  //         };
-  //       }
-  //       return b;
-  //     });
-
-  //     // Obtener el nombre del bot
-  //     // const bot = get().botBoards.find(bot => bot.name === name);
-  //     // const botName = bot?.name ?? 'Desconocido';
-
-  //     // QUISIERA OBTENER EL NOMBRE DEL BOT
-  //     // Buscar el tablero donde se encontró el número
-  //     const bot = get().botBoards.find(bot => bot.name === name);
-  //     const boardWithNumber = bot?.boards.find(board =>
-  //       board.board.some(cell => cell.position === position && cell.number === number)
-  //     );
-  //     const boardId = boardWithNumber?.id ?? 'Desconocido';
-
-  //     console.log(`En el bot ${name}, en el tablero ${boardId} ha encontrado el número ${number} en la posición ${position}`);
-
-  //     // TODO: DEBERIA MANTENER LOS NUMEROS SELECCIONADOS
-  //     set({ botSelectedNumbersAndPositions: updatedBots });
-  //     return true
-  //   }
-  //   return false
-  // },
-
   markCellBot: (name: string, interval: number) => {
     // OBTENER LAS CÉLULAS ENCONTRADAS PARA EL BOT ESPECÍFICO
     const botFinded = get().findedCells.find(bot => bot.name === name);
@@ -112,7 +74,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
           console.log(`El bot ${botFinded.name} ha encontrado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${interval * (idx + 1)} milisegundos`)
           get().updateBotSelection(name, board.id, cell.number, cell.position);
           get().playSound(CORRECT_BOT_SOUND)
-        }, interval * (idx + 1)); // Multiplicar por idx para escalonar los intervalos
+        }, interval * dynamicInterval() * (idx + 1)); // Multiplicar por idx para escalonar los intervalos
 
         // Guardar el id del timeout para posible limpieza
         set(state => ({
@@ -123,20 +85,13 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
   },
 
   // DEBE ACTUALIZAR LAS POSICIONES Y NUMEROS SELECCIONADOS DEL BOT, LUEGO DE UN CIERTO INTERVALO
-
-
-
-
-
-
-
   checkWinnerPatternBot: () => {
     return true
   },
 
-  updateFindedCells: (newResult: BotBoards) => {
-    set({ findedCells: newResult })
-  },
+  // updateFindedCells: (newResult: BotBoards) => {
+  //   set({ findedCells: newResult })
+  // },
 
   resetFindedCells: () => {
     set({ findedCells: [] })

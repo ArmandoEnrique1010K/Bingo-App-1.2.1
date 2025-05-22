@@ -7,11 +7,7 @@ type BotBingoCellProps = {
 
 export default function BotBingoCell({ idBoard, value }: BotBingoCellProps) {
   const { position, number } = value;
-
-  // const [cellColor, setcellColor] = useState("gray");
-
   const levelData = useAppStore((state) => state.levelData);
-  // const markCellBot = useAppStore((state) => state.markCellBot);
   const botSelectedNumbersAndPositions = useAppStore(
     (state) => state.botSelectedNumbersAndPositions
   );
@@ -25,12 +21,6 @@ export default function BotBingoCell({ idBoard, value }: BotBingoCellProps) {
         board.board.some((cell) => cell.position === position)
     )
   );
-  // const handleClick = () => {
-  //   markCell(boardId, number, position);
-  //   if (checkSelectedNumber(boardId, position)) {
-  //     setcellColor(color);
-  //   }
-  // };
 
   return (
     <div>
@@ -39,7 +29,7 @@ export default function BotBingoCell({ idBoard, value }: BotBingoCellProps) {
           isMarked ? color : "gray"
         }-500`}
       >
-        {/* TODO: El bot no muestra los numeros de su tablero */}
+        {/* El bot no muestra los numeros de su tablero */}
         {position === 13 ? "F" : isMarked ? number : ""}
       </div>
     </div>

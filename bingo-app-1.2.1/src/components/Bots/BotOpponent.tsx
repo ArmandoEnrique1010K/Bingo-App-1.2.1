@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import BotBingoBoard from "./BotBingoBoard";
-import { dynamicInterval } from "../../utils/dynamicInterval";
 
 type BotOpponentProps = {
   // interval: number;
@@ -21,15 +20,7 @@ export default function BotOpponent({
 }: BotOpponentProps) {
   const botBoards = useAppStore((state) => state.botBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
-  const findedCells = useAppStore((state) => state.findedCells);
-  const updateFindedCells = useAppStore((state) => state.updateFindedCells);
-  const resetFindedCells = useAppStore((state) => state.resetFindedCells);
-  const winner = useAppStore((state) => state.winner);
   const markCellBot = useAppStore((state) => state.markCellBot);
-  // const playSound = useAppStore((state) => state.playSound);
-  // const updateBotSelection = useAppStore((state) => state.updateBotSelection);
-  const timeoutsIds = useAppStore((state) => state.timeoutsIds);
-  const updateTimeoutsIds = useAppStore((state) => state.updateTimeoutsIds);
 
   useEffect(() => {
     if (currentTargets.length !== 0) {
@@ -38,102 +29,6 @@ export default function BotOpponent({
       }, 1000);
     }
   }, [currentTargets]);
-  // // LOGICA PARA MANEJAR LOS BOTS
-  // useEffect(() => {
-  //   if (currentTargets.length > 0) {
-  //     // TIP: USO DE FLATMAP
-  //     // const data = [1, 2, 3];
-  //     // const result = data.flatMap((x) => [x, x * 2]);
-  //     // console.log(result); // [1, 2, 2, 4, 3, 6]
-
-  //     const results = botBoards.map((bot, indexBot) =>
-  //       bot.boards.map((board, indexBoard) => (
-  //         {
-  //           ...board,
-
-  //         }
-  //       //   {
-  //       //   name: `Bot-${indexBot}-${indexBoard}`,
-  //       //   boards: board.board.filter((cell) =>
-  //       //     currentTargets.includes(cell.number)
-  //       //   ),
-  //       // }
-  //     ))
-  //     );
-
-  //     // flatMap((bot, indexBot) =>
-  //     //   bot.boards.map((board, indexBoard) => ({
-  //     //     id: `Bot-${indexBot}-${indexBoard}`,
-  //     //     targets: board.board.filter((cell) =>
-  //     //       currentTargets.includes(cell.number)
-  //     //     ),
-  //     //   }))
-  //     // );
-
-  //     updateFindedCells(results);
-  //   } else {
-  //     resetFindedCells();
-  //   }
-  // }, [currentTargets]);
-
-  // const [timeoutIds, setTimeoutIds] = useState<number[]>([]);
-
-  // EL USO DEL CALLBACK
-  // const handleBotSelection = useCallback(
-  //   (id: string, number: number, position: number) => {
-  //     setTimeout(() => {
-  //       updateBotSelection(id, number, position);
-  //       // playSound(CORRECT_SOUND);
-  //     }, 500); // Configura un tiempo mínimo de espera para asegurar ejecución correcta
-  //   },
-  //   [updateBotSelection]
-  // );
-
-  // DEBE MARCAR LOS NUMEROS LUEGO DE UN CIERTO TIEMPO
-  // useEffect(() => {
-  //   if (!botBoards.length || !currentTargets.length || winner === "bot") return;
-
-  //   timeoutsIds.forEach((id) => clearTimeout(id));
-  //   updateTimeoutsIds([]);
-
-  //   let currentDelay = 0;
-  //   const newTimeoutIds: number[] = [];
-
-  //   // Copia de `result` para evitar modificar el estado directamente
-  //   // Mezcla el orden de tableros y objetivos para mayor aleatoriedad
-  //   const dynamicResult = [...findedCells].sort(() => Math.random() - 0.5);
-
-  //   dynamicResult.forEach((res) => {
-  //     res.targets.sort(() => Math.random() - 0.5);
-
-  //     res.targets.forEach((t) => {
-  //       // Calcula un intervalo aleatorio
-  //       const randomInterval = dynamicInterval() * interval;
-  //       currentDelay = currentDelay + randomInterval;
-
-  //       // Marca el número en el tablero luego del tiempo establecido en el intervalo
-  //       const timeoutId = setTimeout(() => {
-  //         // markCellBot(res.id, t.number, t.position);
-  //         // playSound(CORRECT_SOUND);
-  //         console.log(
-  //           `En el tablero ${res.id} ha encontrado el número ${t.number} en la posición ${t.position}`
-  //         );
-  //         // // TODO: PARECE QUE NO APLICA EL TIMEOUT PORQUE LLAMA A LA FUNCIÓN
-  //         // updateBotSelection(res.id, t.number, t.position);
-  //         // handleBotSelection(res.id, t.number, t.position);
-  //       }, currentDelay);
-
-  //       newTimeoutIds.push(timeoutId);
-  //     });
-  //   });
-  //   updateTimeoutsIds(newTimeoutIds);
-
-  //   // Limpieza de temporizadores al desmontar el componente
-  //   return () => {
-  //     newTimeoutIds.forEach((id) => clearTimeout(id));
-  //     updateTimeoutsIds([]);
-  //   };
-  // }, [findedCells]);
 
   return (
     <div
@@ -148,15 +43,6 @@ export default function BotOpponent({
         {Array.from({ length: boards }).map((_, boardIndex) => (
           <BotBingoBoard
             key={boardIndex + 1}
-            // board={botBoards.find((b) => b.)?.board || []}
-            // board={botBoards.
-
-            //   find((b) =>
-            //   b.map((m) => m.id === `Bot-${botIndex}-${boardIndex}`)
-
-            //   // ¿PORQUE NO PUEDO RETORNAR m.board
-            // )}
-
             board={
               botBoards
                 ?.find((bot) => bot.name === name) // Encuentra el bot correspondiente
@@ -170,28 +56,6 @@ export default function BotOpponent({
             //  `Bot-${botIndex}-${boardIndex}`
           />
         ))}
-
-        {/* {Array.from({ length: boards }).map((board, boardIndex) => (
-          <BotBingoBoard
-            key={boardIndex + 1}
-            board={botBoards.find(b => b.id)?.board || []}
-            idBoard={index + 1}
-            // interval={interval}
-
-            //  `Bot-${botIndex}-${boardIndex}`
-          />
-        ))} */}
-
-        {/* {botBoards
-          .find((bot) => bot.map(b => b.id === `Bot-${a}-${}`)) // Encuentra el bot correcto
-          ?.boards.map((boardObj, boardIndex) => (
-            <BotBingoBoard
-              key={boardObj.id}
-              board={boardObj.board || []} // Pasa el tablero correcto
-              idBoard={boardObj.id}
-              // interval={interval}
-            />
-          ))} */}
       </div>
     </div>
   );

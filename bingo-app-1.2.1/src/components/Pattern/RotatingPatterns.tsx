@@ -37,9 +37,7 @@ export default function RotatingPatterns() {
                   ? `bg-${color}-500`
                   : "bg-gray-600"
               }`}
-            >
-              ·
-            </div>
+            ></div>
           ))}
         </div>
       ))}

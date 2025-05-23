@@ -57,6 +57,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
 
 
   // TODO: ESTA ACCIÓN DEBE ENCARGARSE DE MARCAR LOS NUMEROS EN LOS TABLEROS DEL BOT, DEBE EVALUAR CADA BOT, TAMBIEN DEBE TOMAR EL INTERVALO DE TIEMPO DE DEMORA O DE REACCIÓN
+
+  // TODO: PERO SI LOS NUMEROS OBJETIVOS ESTA VACIO, DEBE PARAR DE EJECUTAR LA FUNCIÓN MARKCELLBOT Y DETENER LOS TEMPORIZADORES
   markCellBot: (name: string, interval: number) => {
     // OBTENER LAS CÉLULAS ENCONTRADAS PARA EL BOT ESPECÍFICO
     const botFinded = get().findedCells.find(bot => bot.name === name);
@@ -68,13 +70,16 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
       board.board.forEach((cell, idx) => {
 
         // Usar setTimeout para simular el intervalo de reacción
+        const dynamicTime = dynamicInterval()
+        // Multiplicar por idx para escalonar los intervalos
+        const time = interval * dynamicTime * (idx + 1)
 
         const timeoutId = setTimeout(() => {
           // Actualizar la selección del bot
-          console.log(`El bot ${botFinded.name} ha encontrado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${interval * (idx + 1)} milisegundos`)
+          console.log(`El bot ${botFinded.name} ha encontrado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${time} milisegundos`)
           get().updateBotSelection(name, board.id, cell.number, cell.position);
           get().playSound(CORRECT_BOT_SOUND)
-        }, interval * dynamicInterval() * (idx + 1)); // Multiplicar por idx para escalonar los intervalos
+        }, time);
 
         // Guardar el id del timeout para posible limpieza
         set(state => ({

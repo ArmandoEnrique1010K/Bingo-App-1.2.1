@@ -1,5 +1,5 @@
 import { useAppStore } from "../store/useAppStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import StatusGameModal from "../components/Status/StatusGameModal";
 import TargetNumbers from "../components/Targets/TargetNumbers";
@@ -8,6 +8,7 @@ import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
+import { dynamicInterval } from "../utils/dynamicInterval";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
@@ -19,6 +20,9 @@ export default function LevelView() {
   const currentRound = useAppStore((state) => state.currentRound);
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
+  const botBoards = useAppStore((state) => state.botBoards);
+  const winner = useAppStore((state) => state.winner);
+  const findedCells = useAppStore((state) => state.findedCells);
 
   // const getLevelNumberFromUrl = useAppStore(
   //   (state) => state.getLevelNumberFromUrl
@@ -47,17 +51,53 @@ export default function LevelView() {
     console.log("HA CAMBIADO DE NIVEL");
   }, [levelData]);
 
+  // Identificadores de los temporizadores activos
+  // const [timeoutIds, setTimeoutIds] = useState<number[]>([]);
+
+  // useEffect(() => {
+  //   // Si no hay tableros, objetivos o el juego terminó, detiene la ejecución
+  //   if (!botBoards.length || !currentTargets.length || winner === "bot") return;
+
+  //   // Limpia temporizadores previos antes de ejecutar nuevos
+  //   timeoutIds.forEach((id) => clearTimeout(id));
+  //   setTimeoutIds([]);
+
+  //   let currentDelay = 0;
+  //   const newTimeoutIds: number[] = [];
+
+  //   // Copia de `result` para evitar modificar el estado directamente
+  //   const dynamicResult = [...findedCells];
+
+  //   // Mezcla el orden de tableros y objetivos para mayor aleatoriedad
+  //   dynamicResult.sort(() => Math.random() - 0.5);
+
+  //   dynamicResult.forEach((res) => {
+  //     res.boards.sort(() => Math.random() - 0.5);
+
+  //     res.boards.forEach((t) => {
+  //       // Calcula un intervalo aleatorio
+  //       const randomInterval = dynamicInterval() * interval;
+  //       currentDelay = currentDelay + randomInterval;
+
+  //       // Marca el número en el tablero luego del tiempo establecido en el intervalo
+  //       const timeoutId = setTimeout(() => {
+  //         markNumberOnBoard(res.idBoard, t.number, t.position);
+  //       }, currentDelay);
+
+  //       newTimeoutIds.push(timeoutId);
+  //     });
+  //   });
+  //   setTimeoutIds(newTimeoutIds);
+
+  //   // Limpieza de temporizadores al desmontar el componente
+  //   return () => {
+  //     newTimeoutIds.forEach((id) => clearTimeout(id));
+  //   };
+  // }, [findedCells]);
+
   useEffect(() => {
-    // if (currentTargets.length !== 0) {
-    //   findNumbersOnBoards(currentTargets);
-    // }
     console.log("Encontrando los numeros objetivos: " + currentTargets);
     findNumbersOnBoards(currentTargets);
-
-    // findedCells.forEach((res) => {
-    //   // res.boards.forEach((board) => markCellBot(name));
-    //   console.log(res);
-    // });
   }, [currentTargets]);
 
   return (

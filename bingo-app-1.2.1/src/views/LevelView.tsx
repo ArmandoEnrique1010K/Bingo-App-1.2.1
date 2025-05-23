@@ -1,5 +1,5 @@
 import { useAppStore } from "../store/useAppStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router";
 import StatusGameModal from "../components/Status/StatusGameModal";
 import TargetNumbers from "../components/Targets/TargetNumbers";
@@ -8,7 +8,6 @@ import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
-import { dynamicInterval } from "../utils/dynamicInterval";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
@@ -20,15 +19,37 @@ export default function LevelView() {
   const currentRound = useAppStore((state) => state.currentRound);
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
-  const botBoards = useAppStore((state) => state.botBoards);
-  const winner = useAppStore((state) => state.winner);
-  const findedCells = useAppStore((state) => state.findedCells);
-
-  // const getLevelNumberFromUrl = useAppStore(
-  //   (state) => state.getLevelNumberFromUrl
-  // );
+  // const botBoards = useAppStore((state) => state.botBoards);
+  // const winner = useAppStore((state) => state.winner);
+  // const findedCells = useAppStore((state) => state.findedCells);
 
   const location = useLocation();
+  const checkWinnerPatternBot = useAppStore(
+    (state) => state.checkWinnerPatternBot
+  );
+  const botWinner = useAppStore((state) => state.botWinner);
+  const winner = useAppStore((state) => state.winner);
+
+  const botSelectedNumbersAndPositions = useAppStore(
+    (state) => state.botSelectedNumbersAndPositions
+  );
+  const timeoutsIds = useAppStore((state) => state.timeoutsIds);
+  const updateTimeoutsIds = useAppStore((state) => state.updateTimeoutsIds);
+
+  useEffect(() => {
+    const winnerInfo = checkWinnerPatternBot();
+    if (winnerInfo && winner !== "bot") {
+      timeoutsIds.forEach((id) => clearTimeout(id));
+      updateTimeoutsIds([]);
+
+      setTimeout(() => {
+        console.log("¡El bot ha ganado!");
+        botWinner(winnerInfo.botName);
+
+        // TODO: EL TIEMPO DE REACCIÓN DEL BOT DEBERIA SER DINAMICO
+      }, 2000);
+    }
+  }, [botSelectedNumbersAndPositions]);
 
   useEffect(() => {
     // getLevelNumberFromUrl(location.pathname);
@@ -144,6 +165,7 @@ export default function LevelView() {
                 key={bot.name}
                 // levelData={dataLevel.level}
                 interval={bot.interval}
+                reaction={bot.reactionTime}
                 name={bot.name}
                 // patterns={winnerPatters}
                 boards={bot.boards}

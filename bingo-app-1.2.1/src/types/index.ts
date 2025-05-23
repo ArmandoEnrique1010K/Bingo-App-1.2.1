@@ -48,6 +48,7 @@ export type Bot = {
   name: string
   interval: number
   boards: number
+  reactionTime: number,
 }
 
 export type Music = {

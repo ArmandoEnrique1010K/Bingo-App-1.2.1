@@ -154,7 +154,6 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
     } else {
       console.log('Ese no es el numero que coincide con uno de los objetivos')
       get().playSound(WRONG_SOUND)
-      // console.log("REPRODUCIENDO SONIDO DE ERROR")
     }
   },
 

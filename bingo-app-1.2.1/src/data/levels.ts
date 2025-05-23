@@ -24,12 +24,14 @@ export const levels: Level[] = [
       {
         name: "S-Bot",
         interval: 400,
-        boards: 2
+        boards: 2,
+        reactionTime: 5000
       },
       {
         name: "S-Bot-2",
         interval: 400,
-        boards: 1
+        boards: 1,
+        reactionTime: 5000
       }
     ],
     color: 'blue',
@@ -56,7 +58,8 @@ export const levels: Level[] = [
       {
         name: "S-Bot",
         interval: 1900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'blue',
@@ -86,7 +89,8 @@ export const levels: Level[] = [
       {
         name: "M-Bot",
         interval: 1400,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       }
     ],
     color: 'blue',
@@ -111,12 +115,14 @@ export const levels: Level[] = [
       {
         name: "S-Bot 1",
         interval: 2100,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 2",
         interval: 1700,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       }
     ],
     color: 'blue',
@@ -135,12 +141,14 @@ export const levels: Level[] = [
       {
         name: "S-Bot 1",
         interval: 2100,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 2",
         interval: 1700,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       }
     ],
     color: 'blue',
@@ -185,12 +193,14 @@ export const levels: Level[] = [
       {
         name: "F-Bot",
         interval: 800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot",
         interval: 1500,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'cyan',
@@ -212,7 +222,8 @@ export const levels: Level[] = [
       {
         name: "M-Bot",
         interval: 1500,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
     ],
     color: 'cyan',
@@ -235,12 +246,14 @@ export const levels: Level[] = [
       {
         name: "M-Bot",
         interval: 1400,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot",
         interval: 1700,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'cyan',
@@ -261,22 +274,26 @@ export const levels: Level[] = [
       {
         name: "S-Bot 1",
         interval: 1800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 2",
         interval: 2000,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 3",
         interval: 2200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 4",
         interval: 1800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'cyan',
@@ -302,12 +319,14 @@ export const levels: Level[] = [
       {
         name: "S-Bot 1",
         interval: 2100,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 2",
         interval: 1700,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       }
     ],
     color: 'cyan',
@@ -330,22 +349,26 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1500,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot",
         interval: 1800,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1300,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot",
         interval: 900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'emerald',
@@ -370,12 +393,14 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1500,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1400,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       }
     ],
     color: 'emerald',
@@ -394,17 +419,20 @@ export const levels: Level[] = [
       {
         name: "S-Bot",
         interval: 1900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot",
         interval: 1400,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot",
         interval: 900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'emerald',
@@ -429,7 +457,8 @@ export const levels: Level[] = [
       {
         name: "S-Bot",
         interval: 1900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'emerald',
@@ -453,22 +482,26 @@ export const levels: Level[] = [
       {
         name: "S-Bot 1",
         interval: 1900,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 1",
         interval: 1400,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 2",
         interval: 1700,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
     ],
     color: 'emerald',
@@ -513,7 +546,8 @@ export const levels: Level[] = [
       {
         name: "S-Bot 1",
         interval: 1900,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
     ],
     color: 'lime',
@@ -575,27 +609,32 @@ export const levels: Level[] = [
       {
         name: "F-Bot 1",
         interval: 800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1400,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot",
         interval: 2000,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "M-Bot 1",
         interval: 1500,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot 2",
         interval: 900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       }
     ],
     color: 'lime',
@@ -635,17 +674,20 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "F-Bot",
         interval: 800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1500,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
     ],
     color: 'lime',
@@ -664,7 +706,8 @@ export const levels: Level[] = [
       {
         name: "F-Bot 1",
         interval: 800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'lime',
@@ -687,22 +730,26 @@ export const levels: Level[] = [
       {
         name: "S-Bot",
         interval: 2000,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 1",
         interval: 1500,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1300,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "F-Bot",
         interval: 800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'lime',
@@ -730,12 +777,14 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1500,
-        boards: 3
+        boards: 3,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1300,
-        boards: 3
+        boards: 3,
+        reactionTime: 0
       },
     ],
     color: 'amber',
@@ -758,32 +807,38 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot",
         interval: 1800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1500,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 3",
         interval: 1300,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot 1",
         interval: 700,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot 2",
         interval: 600,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       }
     ],
     color: 'amber',
@@ -805,7 +860,8 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'amber',
@@ -829,7 +885,8 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'amber',
@@ -852,7 +909,8 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'amber',
@@ -875,7 +933,8 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'red',
@@ -905,7 +964,8 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'red',
@@ -948,22 +1008,26 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1500,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 3",
         interval: 1500,
-        boards: 3
+        boards: 3,
+        reactionTime: 0
       },
       {
         name: "F-Bot",
         interval: 900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1300,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'red',
@@ -1007,22 +1071,26 @@ export const levels: Level[] = [
       {
         name: "F-Bot 1",
         interval: 900,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot 2",
         interval: 800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 1",
         interval: 1400,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1300,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'red',
@@ -1045,42 +1113,50 @@ export const levels: Level[] = [
       {
         name: "M-Bot 1",
         interval: 1200,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "S-Bot 1",
         interval: 1800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot 1",
         interval: 700,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "M-Bot 2",
         interval: 1500,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "M-Bot 3",
         interval: 1300,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot 2",
         interval: 600,
-        boards: 2
+        boards: 2,
+        reactionTime: 0
       },
       {
         name: "S-Bot 2",
         interval: 2000,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
       {
         name: "F-Bot 3",
         interval: 800,
-        boards: 1
+        boards: 1,
+        reactionTime: 0
       },
     ],
     color: 'red',

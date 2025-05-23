@@ -3,20 +3,20 @@ import { useAppStore } from "../../store/useAppStore";
 import BotBingoBoard from "./BotBingoBoard";
 
 type BotOpponentProps = {
-  // interval: number;
   name: string;
   boards: number;
   nextBoards: number;
   botIndex: number;
   interval: number;
+  reaction: number;
 };
 export default function BotOpponent({
-  // interval,
   name,
   boards,
   nextBoards,
   botIndex,
   interval,
+  reaction,
 }: BotOpponentProps) {
   const botBoards = useAppStore((state) => state.botBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
@@ -51,9 +51,6 @@ export default function BotOpponent({
                 )?.board || []
             }
             idBoard={`Bot-${botIndex}-${boardIndex}`}
-            // interval={interval}
-
-            //  `Bot-${botIndex}-${boardIndex}`
           />
         ))}
       </div>

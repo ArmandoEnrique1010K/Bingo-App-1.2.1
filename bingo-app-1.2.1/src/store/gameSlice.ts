@@ -76,7 +76,15 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
         });
       }, TARGET_GENERATION_DELAY);
     }
+
+    console.log('CAMBIANDO OBJETIVOS')
+    get().timeoutsIds.forEach(timeoutId => clearTimeout(timeoutId));
+    set({ timeoutsIds: [] });
+
+
   },
+
+
   winner: "",
   changeWinner: (value) => {
     set({ winner: value });

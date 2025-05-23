@@ -23,12 +23,12 @@ export const levels: Level[] = [
     bots: [
       {
         name: "S-Bot",
-        interval: 2100,
+        interval: 400,
         boards: 2
       },
       {
         name: "S-Bot-2",
-        interval: 2100,
+        interval: 400,
         boards: 1
       }
     ],

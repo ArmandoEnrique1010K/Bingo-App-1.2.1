@@ -26,7 +26,7 @@ export default function BotOpponent({
     if (currentTargets.length !== 0) {
       setTimeout(() => {
         markCellBot(name, interval);
-      }, 1000);
+      }, 0);
     }
   }, [currentTargets]);
 

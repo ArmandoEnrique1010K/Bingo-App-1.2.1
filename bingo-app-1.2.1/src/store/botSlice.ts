@@ -60,14 +60,31 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
 
   // TODO: PERO SI LOS NUMEROS OBJETIVOS ESTA VACIO, DEBE PARAR DE EJECUTAR LA FUNCIÓN MARKCELLBOT Y DETENER LOS TEMPORIZADORES
   markCellBot: (name: string, interval: number) => {
+
+    // Limpiar timeouts anteriores
+    // get().timeoutsIds.forEach(timeoutId => clearTimeout(timeoutId));
+    // set({ timeoutsIds: [] });
+
+    // if (get().currentTargets.length > 0) {
+    //   get().timeoutsIds.forEach(timeoutId => clearTimeout(timeoutId));
+    //   set({ timeoutsIds: [] });
+    // }
+
     // OBTENER LAS CÉLULAS ENCONTRADAS PARA EL BOT ESPECÍFICO
     const botFinded = get().findedCells.find(bot => bot.name === name);
-    console.log(botFinded?.name)
-    if (!botFinded) return;
+    // console.log(botFinded?.name)
+    if (!botFinded
+      // || botFinded.boards.every(board => board.board.length === 0)
+    ) return;
+
+    const newTimeouts: number[] = [];
 
     // Iterar sobre cada tablero y cada celda encontrada
     botFinded.boards.forEach(board => {
       board.board.forEach((cell, idx) => {
+
+        // Si los objetivos han cambiado, no crear más timeouts
+        // if (!get().findedCells.find(bot => bot.name === name)) return;
 
         // Usar setTimeout para simular el intervalo de reacción
         const dynamicTime = dynamicInterval()
@@ -75,6 +92,14 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
         const time = interval * dynamicTime * (idx + 1)
 
         const timeoutId = setTimeout(() => {
+
+          // Verificar si los objetivos siguen existiendo antes de marcar
+          // const stillExists = get().findedCells.find(bot =>
+          //   bot.name === name &&
+          //   bot.boards.some(b => b.id === board.id && b.board.some(c => c.position === cell.position))
+          // );
+          // if (!stillExists) return;
+
           // Actualizar la selección del bot
           console.log(`El bot ${botFinded.name} ha encontrado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${time} milisegundos`)
           get().updateBotSelection(name, board.id, cell.number, cell.position);
@@ -82,11 +107,18 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
         }, time);
 
         // Guardar el id del timeout para posible limpieza
-        set(state => ({
-          timeoutsIds: [...state.timeoutsIds, timeoutId]
-        }));
+        // set(state => ({
+        //   timeoutsIds: [...state.timeoutsIds, timeoutId]
+        // }));
+        newTimeouts.push(timeoutId);
+
       });
     });
+
+    set(state => ({
+      timeoutsIds: [...state.timeoutsIds, ...newTimeouts]
+    }));
+
   },
 
   // DEBE ACTUALIZAR LAS POSICIONES Y NUMEROS SELECCIONADOS DEL BOT, LUEGO DE UN CIERTO INTERVALO

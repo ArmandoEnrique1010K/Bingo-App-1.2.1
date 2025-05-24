@@ -1,5 +1,5 @@
 import { useAppStore } from "../store/useAppStore";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import StatusGameModal from "../components/Status/StatusGameModal";
 import TargetNumbers from "../components/Targets/TargetNumbers";
@@ -35,7 +35,7 @@ export default function LevelView() {
 
   // const dataBotWinner = useAppStore((state) => state.dataBotWinner);
   // // ...otros hooks...
-  // const timeoutRef = useRef<number | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     // Obtiene los datos del ganador
@@ -46,34 +46,30 @@ export default function LevelView() {
     // TODO: CREO QUE AQUI ESTA EL PROBLEMA
 
     // Si ya hay un timeout pendiente, límpialo
-    // if (timeoutRef.current) {
-    //   clearTimeout(timeoutRef.current);
-    //   timeoutRef.current = null;
-    // }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
 
     if (winnerInfo && winner !== "bot") {
       // timeoutsIds.forEach((id) => clearTimeout(id));
       // updateTimeoutsIds([]);
 
       // timeoutRef.current =
-      setTimeout(() => {
-        if (
-          winner === "player" ||
-          winner === "end"
-          //  || winner === "bot"
-        )
-          return;
+      console.log("HAY UN GANADOR, SE ACABARA EL JUEGO EN...");
+      timeoutRef.current = setTimeout(() => {
+        if (winner === "player" || winner === "end" || winner === "bot") return;
         console.log("¡El bot ha ganado!");
         botWinner(winnerInfo.botName);
       }, BOT_WINNER_DELAY);
     }
 
-    // return () => {
-    //   if (timeoutRef.current) {
-    //     clearTimeout(timeoutRef.current);
-    //     timeoutRef.current = null;
-    //   }
-    // };
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
   }, [botSelectedNumbersAndPositions, winner]);
 
   useEffect(() => {

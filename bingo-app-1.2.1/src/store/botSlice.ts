@@ -24,7 +24,7 @@ export type BotSliceType = {
       number: number
     }[],
     winningPattern: Pattern,
-  } | null,
+  }[],
   // Tableros generados
   // Registro de posiciones y numeros marcadaos
   // Verificar si el numero ya fue marcado
@@ -160,6 +160,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     const levelData = get().levelData;
     const patterns = levelData.patterns; // Array de arrays de posiciones ganadoras
     const botSelected = get().botSelectedNumbersAndPositions;
+    const winners = [];
 
 
     // Recorre cada bot
@@ -170,24 +171,34 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
 
         // Verifica cada patrón
         for (const pattern of patterns) {
-          const hasPattern = pattern.every(pos => markedPositions.includes(pos));
-          if (hasPattern) {
-            // return true; // ¡Este tablero tiene un patrón ganador!
+          // const hasPattern = pattern.every(pos => markedPositions.includes(pos));
+          // if (hasPattern) {
+          //   // return true; // ¡Este tablero tiene un patrón ganador!
 
-            // COMO PODRIA RETORNAR EL PATRON GANADOR EN LUGAR DE UN TRUE
-            return {
+          //   // COMO PODRIA RETORNAR EL PATRON GANADOR EN LUGAR DE UN TRUE
+          //   return {
+          //     botName: bot.name,
+          //     boardId: board.id,
+          //     markedCells: board.board, // [{position, number}, ...]
+          //     winningPattern: pattern,
+          //   };
+          // }
+
+          if (pattern.every(pos => markedPositions.includes(pos))) {
+            winners.push({
               botName: bot.name,
               boardId: board.id,
-              markedCells: board.board, // [{position, number}, ...]
-              winningPattern: pattern,
-            };
+              markedCells: board.board,
+              winningPattern: pattern
+            });
           }
+
         }
       }
     }
 
     // return false; // Ningún tablero del bot tiene patrón ganador
-    return null; // Ningún tablero del bot tiene patrón ganador
+    return winners; // Ningún tablero del bot tiene patrón ganador
   },
 
   // updateFindedCells: (newResult: BotBoards) => {

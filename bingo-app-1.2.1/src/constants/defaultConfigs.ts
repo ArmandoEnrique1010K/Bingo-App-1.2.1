@@ -14,7 +14,7 @@ export const MAX_TURNS = 20; // 20
 export const FINAL_LEVEL = 30;
 
 // Tiempo de respuesta de reacción del bot si ha ganado (milisegundos) (/1000)
-export const BOT_REACTION_DELAY = 5000
+export const BOT_REACTION_DELAY = 3000
 
 // Tiempo de demora de cambio de patrones del nivel
 export const CHANGE_PATTERN_DELAY = 3000
@@ -24,6 +24,6 @@ export const CHANGE_PATTERN_DELAY = 3000
 // https://github.com/tailwindlabs/tailwindcss/discussions/13881
 
 // Tiempo de demora para que el bot se declare ganador
-export const BOT_WINNER_DELAY = 10000
+// export const BOT_WINNER_DELAY = 10000
 
 export const APP_VERSION = "1.2.1"

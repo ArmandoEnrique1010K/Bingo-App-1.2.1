@@ -12,7 +12,7 @@ export type BotSliceType = {
   botBoards: BotBoards,
   botSelectedNumbersAndPositions: BotBoards,
   timeoutsIds: number[],
-  findedCells: BotBoards, // TODO: CREAR UN NUEVO TYPE
+  findedCells: BotBoards,
   updateTimeoutsIds: (timeoutsIds: number[]) => void,
   checkSelectedNumberBot: (name: string, position: number) => boolean,
   markCellBot: (name: string, interval: number) => void
@@ -181,8 +181,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
               markedCells: board.board, // [{position, number}, ...]
               winningPattern: pattern,
             };
-
-
           }
         }
       }

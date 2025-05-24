@@ -19,9 +19,6 @@ export default function LevelView() {
   const currentRound = useAppStore((state) => state.currentRound);
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
-  // const botBoards = useAppStore((state) => state.botBoards);
-  // const winner = useAppStore((state) => state.winner);
-  // const findedCells = useAppStore((state) => state.findedCells);
 
   const location = useLocation();
   const checkWinnerPatternBot = useAppStore(
@@ -36,21 +33,48 @@ export default function LevelView() {
   const timeoutsIds = useAppStore((state) => state.timeoutsIds);
   const updateTimeoutsIds = useAppStore((state) => state.updateTimeoutsIds);
 
-  useEffect(() => {
-    const winnerInfo = checkWinnerPatternBot();
-    if (winnerInfo && winner !== "bot") {
-      timeoutsIds.forEach((id) => clearTimeout(id));
-      updateTimeoutsIds([]);
+  // const dataBotWinner = useAppStore((state) => state.dataBotWinner);
+  // // ...otros hooks...
+  // const timeoutRef = useRef<number | null>(null);
 
+  useEffect(() => {
+    // Obtiene los datos del ganador
+    const winnerInfo = checkWinnerPatternBot();
+
+    // TODO: TAMBIEN DEBERIA DETENER LA EJECUCIÓN SI dataBotWinner es otro BOT
+
+    // TODO: CREO QUE AQUI ESTA EL PROBLEMA
+
+    // Si ya hay un timeout pendiente, límpialo
+    // if (timeoutRef.current) {
+    //   clearTimeout(timeoutRef.current);
+    //   timeoutRef.current = null;
+    // }
+
+    if (winnerInfo && winner !== "bot") {
+      // timeoutsIds.forEach((id) => clearTimeout(id));
+      // updateTimeoutsIds([]);
+
+      // timeoutRef.current =
       setTimeout(() => {
-        if (winner === "player" || winner === "end") return;
+        if (
+          winner === "player" ||
+          winner === "end"
+          //  || winner === "bot"
+        )
+          return;
         console.log("¡El bot ha ganado!");
         botWinner(winnerInfo.botName);
-
-        // Tiempo de demora para que el bot se declare ganador
       }, BOT_WINNER_DELAY);
     }
-  }, [botSelectedNumbersAndPositions]);
+
+    // return () => {
+    //   if (timeoutRef.current) {
+    //     clearTimeout(timeoutRef.current);
+    //     timeoutRef.current = null;
+    //   }
+    // };
+  }, [botSelectedNumbersAndPositions, winner]);
 
   useEffect(() => {
     // getLevelNumberFromUrl(location.pathname);
@@ -59,8 +83,6 @@ export default function LevelView() {
 
   useEffect(() => {
     // TIP: NO OLVIDAR LOS VALORES TRUTHY AND FALSY
-    // getLevelNumberFromUrl(location.pathname);
-    // changeStatusModal(START_LEVEL_MODAL);
     resetLevel();
 
     stopMusic();
@@ -72,50 +94,6 @@ export default function LevelView() {
 
     console.log("HA CAMBIADO DE NIVEL");
   }, [levelData]);
-
-  // Identificadores de los temporizadores activos
-  // const [timeoutIds, setTimeoutIds] = useState<number[]>([]);
-
-  // useEffect(() => {
-  //   // Si no hay tableros, objetivos o el juego terminó, detiene la ejecución
-  //   if (!botBoards.length || !currentTargets.length || winner === "bot") return;
-
-  //   // Limpia temporizadores previos antes de ejecutar nuevos
-  //   timeoutIds.forEach((id) => clearTimeout(id));
-  //   setTimeoutIds([]);
-
-  //   let currentDelay = 0;
-  //   const newTimeoutIds: number[] = [];
-
-  //   // Copia de `result` para evitar modificar el estado directamente
-  //   const dynamicResult = [...findedCells];
-
-  //   // Mezcla el orden de tableros y objetivos para mayor aleatoriedad
-  //   dynamicResult.sort(() => Math.random() - 0.5);
-
-  //   dynamicResult.forEach((res) => {
-  //     res.boards.sort(() => Math.random() - 0.5);
-
-  //     res.boards.forEach((t) => {
-  //       // Calcula un intervalo aleatorio
-  //       const randomInterval = dynamicInterval() * interval;
-  //       currentDelay = currentDelay + randomInterval;
-
-  //       // Marca el número en el tablero luego del tiempo establecido en el intervalo
-  //       const timeoutId = setTimeout(() => {
-  //         markNumberOnBoard(res.idBoard, t.number, t.position);
-  //       }, currentDelay);
-
-  //       newTimeoutIds.push(timeoutId);
-  //     });
-  //   });
-  //   setTimeoutIds(newTimeoutIds);
-
-  //   // Limpieza de temporizadores al desmontar el componente
-  //   return () => {
-  //     newTimeoutIds.forEach((id) => clearTimeout(id));
-  //   };
-  // }, [findedCells]);
 
   useEffect(() => {
     console.log("Encontrando los numeros objetivos: " + currentTargets);

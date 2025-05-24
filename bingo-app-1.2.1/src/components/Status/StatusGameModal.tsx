@@ -3,6 +3,7 @@ import { useAppStore } from "../../store/useAppStore";
 import { Dialog, DialogPanel, DialogTitle, Button } from "@headlessui/react";
 import { FINAL_LEVEL } from "../../constants/defaultConfigs";
 import { CLICK_SOUND } from "../../constants/audioSettings";
+import BotBingoBoard from "../Bots/BotBingoBoard";
 
 export default function StatusGameModal() {
   const levelData = useAppStore((state) => state.levelData);
@@ -12,6 +13,10 @@ export default function StatusGameModal() {
   const openStatusModal = useAppStore((state) => state.openStatusModal);
   const resetLevel = useAppStore((state) => state.resetLevel);
   const playSound = useAppStore((state) => state.playSound);
+  const checkWinnerPatternBot = useAppStore(
+    (state) => state.checkWinnerPatternBot
+  );
+  const botBoards = useAppStore((state) => state.botBoards);
 
   const navigate = useNavigate();
 
@@ -72,6 +77,31 @@ export default function StatusGameModal() {
               </DialogTitle>
               <div className="space-y-3 text-lg text-gray-700">
                 <p className="text-center">{modal.message}</p>
+                {modal.type === "defeat" && checkWinnerPatternBot() ? (
+                  <>
+                    <p>El bot es {checkWinnerPatternBot()?.botName}</p>
+                    <p>
+                      El patrón es{" "}
+                      {JSON.stringify(checkWinnerPatternBot()?.markedCells)}
+                    </p>
+                    <BotBingoBoard
+                      board={
+                        botBoards
+                          ?.find(
+                            (bot) =>
+                              bot.name === checkWinnerPatternBot()?.botName
+                          ) // Encuentra el bot correspondiente
+                          ?.boards.find(
+                            (boardObj) =>
+                              boardObj.id === checkWinnerPatternBot()?.boardId
+                          )?.board || []
+                      }
+                      idBoard={checkWinnerPatternBot()?.boardId || ""}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="mt-10 flex flex-row gap-4">

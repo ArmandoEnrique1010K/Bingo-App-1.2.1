@@ -14,8 +14,8 @@ export default function BotBingoBoard({
 BotBingoBoardProps) {
   return (
     <>
-      <div>{idBoard}</div>
-      <div className="grid grid-cols-5">
+      {/* <div>{idBoard}</div> */}
+      <div className="flex flex-row justify-center text-center">
         {Array.from({ length: 5 }).map((_, index) => (
           <BotBingoColumn
             key={index}

@@ -8,7 +8,6 @@ type BotOpponentProps = {
   nextBoards: number;
   botIndex: number;
   interval: number;
-  reaction: number;
 };
 export default function BotOpponent({
   name,
@@ -16,7 +15,6 @@ export default function BotOpponent({
   nextBoards,
   botIndex,
   interval,
-  reaction,
 }: BotOpponentProps) {
   const botBoards = useAppStore((state) => state.botBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);

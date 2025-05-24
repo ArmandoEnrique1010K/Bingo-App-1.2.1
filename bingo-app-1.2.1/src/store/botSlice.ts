@@ -24,7 +24,6 @@ export type BotSliceType = {
       number: number
     }[],
     winningPattern: Pattern,
-    reaction: number
   } | null,
   // Tableros generados
   // Registro de posiciones y numeros marcadaos
@@ -161,7 +160,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     const levelData = get().levelData;
     const patterns = levelData.patterns; // Array de arrays de posiciones ganadoras
     const botSelected = get().botSelectedNumbersAndPositions;
-    const botTimeReaction = botSelected
+
 
     // Recorre cada bot
     for (const bot of botSelected) {
@@ -181,7 +180,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
               boardId: board.id,
               markedCells: board.board, // [{position, number}, ...]
               winningPattern: pattern,
-              reaction: bot.reaction
             };
 
 

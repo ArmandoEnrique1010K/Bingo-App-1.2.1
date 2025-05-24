@@ -6,7 +6,7 @@ import TargetNumbers from "../components/Targets/TargetNumbers";
 import MarkedPositionsBoard from "../components/Pattern/ObjectivePattern";
 import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
-import { MAX_TURNS } from "../constants/defaultConfigs";
+import { BOT_WINNER_DELAY, MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
 
 export default function LevelView() {
@@ -43,11 +43,12 @@ export default function LevelView() {
       updateTimeoutsIds([]);
 
       setTimeout(() => {
+        if (winner === "player" || winner === "end") return;
         console.log("¡El bot ha ganado!");
         botWinner(winnerInfo.botName);
 
-        // TODO: EL TIEMPO DE REACCIÓN DEL BOT DEBERIA SER DINAMICO
-      }, 2000);
+        // Tiempo de demora para que el bot se declare ganador
+      }, BOT_WINNER_DELAY);
     }
   }, [botSelectedNumbersAndPositions]);
 
@@ -165,7 +166,6 @@ export default function LevelView() {
                 key={bot.name}
                 // levelData={dataLevel.level}
                 interval={bot.interval}
-                reaction={bot.reactionTime}
                 name={bot.name}
                 // patterns={winnerPatters}
                 boards={bot.boards}

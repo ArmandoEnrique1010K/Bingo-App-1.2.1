@@ -37,7 +37,14 @@ export type BotSliceType = {
   findNumbersOnBoards: (numbers: number[]) => void
   dataBotWinner: {
     name: string
-  }
+  },
+
+  confirmedWinners: { [key: string]: boolean };
+  gameEnded: boolean;
+  setConfirmedWinner: (botId: string, boardId: string) => void;
+  declareBotWinner: (botId: string) => void;
+
+
 };
 
 export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
@@ -263,5 +270,26 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     //   ),
     // }));
 
-  }
+  },
+
+  confirmedWinners: {},
+  gameEnded: false,
+
+  setConfirmedWinner: (botId, boardId) => {
+    set((state) => {
+      const key = `${botId}-${boardId}`;
+      if (!state.confirmedWinners[key] && !state.gameEnded) { // ✅ Solo actualiza si el juego sigue activo
+        return { confirmedWinners: { ...state.confirmedWinners, [key]: true } };
+      }
+      return state;
+    });
+  },
+
+  declareBotWinner: (botId) => {
+    set(() => ({
+      gameEnded: true, // ✅ Termina el juego
+    }));
+    console.log(`🏆 ¡El bot ${botId} ha ganado! Fin del juego.`);
+  },
+
 })

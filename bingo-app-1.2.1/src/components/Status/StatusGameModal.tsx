@@ -79,24 +79,25 @@ export default function StatusGameModal() {
                 <p className="text-center">{modal.message}</p>
                 {modal.type === "defeat" && checkWinnerPatternBot() ? (
                   <>
-                    <p>El bot es {checkWinnerPatternBot()?.botName}</p>
-                    <p>
+                    <p>El bot es {checkWinnerPatternBot()[0]?.botName}</p>
+                    {/* <p>
                       El patrón es{" "}
-                      {JSON.stringify(checkWinnerPatternBot()?.markedCells)}
-                    </p>
+                      {JSON.stringify(checkWinnerPatternBot()[0]?.markedCells)}
+                    </p> */}
                     <BotBingoBoard
                       board={
                         botBoards
                           ?.find(
                             (bot) =>
-                              bot.name === checkWinnerPatternBot()?.botName
+                              bot.name === checkWinnerPatternBot()[0]?.botName
                           ) // Encuentra el bot correspondiente
                           ?.boards.find(
                             (boardObj) =>
-                              boardObj.id === checkWinnerPatternBot()?.boardId
+                              boardObj.id ===
+                              checkWinnerPatternBot()[0]?.boardId
                           )?.board || []
                       }
-                      idBoard={checkWinnerPatternBot()?.boardId || ""}
+                      idBoard={checkWinnerPatternBot()[0]?.boardId || ""}
                     />
                   </>
                 ) : (

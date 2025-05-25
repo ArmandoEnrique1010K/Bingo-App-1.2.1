@@ -1,5 +1,5 @@
 import { useAppStore } from "../store/useAppStore";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import StatusGameModal from "../components/Status/StatusGameModal";
 import TargetNumbers from "../components/Targets/TargetNumbers";
@@ -30,132 +30,53 @@ export default function LevelView() {
   const botSelectedNumbersAndPositions = useAppStore(
     (state) => state.botSelectedNumbersAndPositions
   );
-  // const timeoutsIds = useAppStore((state) => state.timeoutsIds);
-  // const updateTimeoutsIds = useAppStore((state) => state.updateTimeoutsIds);
 
-  // const dataBotWinner = useAppStore((state) => state.dataBotWinner);
-  // // ...otros hooks...
-  // const timeoutRef = useRef<number | null>(null);
+  const confirmedWinners = useAppStore((state) => state.confirmedWinners);
+  const gameEnded = useAppStore((state) => state.gameEnded);
+  const setConfirmedWinner = useAppStore((state) => state.setConfirmedWinner);
+  const declareBotWinner = useAppStore((state) => state.declareBotWinner);
 
-  const confirmedWinnersRef = useRef<{ [key: string]: boolean }>({});
-  const boardTimeoutsRef = useRef<{ [key: string]: number }>({});
+  // const winnerBotsRef = useRef<{ [key: string]: number }>({}); // Guarda los bots ganadores con su tiempo de reacción
+  // const gameEndedRef = useRef<boolean>(false); // Controla si el juego terminó
+  const boardTimeoutsRef = useRef<{ [key: string]: number }>({}); // ✅ Almacena los timeouts activos
 
   useEffect(() => {
+    if (gameEnded) return; // ✅ Si el juego ya terminó, no evaluar más
+
     const winnerInfos = checkWinnerPatternBot() || [];
-
     if (!winnerInfos.length) return;
-
-    const updatedWinners: { [key: string]: boolean } = {};
 
     winnerInfos.forEach((info) => {
       const key = `${info.botName}-${info.boardId}`;
+      const reactionTime = BOT_REACTION_DELAY; // getBotReactionTime(info.botName); // 🔥 Cada bot tiene un tiempo distinto
 
-      updatedWinners[key] = true;
-    });
-
-    // ✅ Compara nuevos ganadores con los anteriores
-    const newWinnersKeys = Object.keys(updatedWinners);
-    const prevWinnersKeys = Object.keys(confirmedWinnersRef.current);
-
-    const winnersChanged = !(
-      newWinnersKeys.length === prevWinnersKeys.length &&
-      newWinnersKeys.every((key) => prevWinnersKeys.includes(key))
-    );
-
-    if (winnersChanged) {
-      confirmedWinnersRef.current = updatedWinners; // ✅ Solo actualiza si realmente cambió
-    }
-  }, [botSelectedNumbersAndPositions]); // 🔥 Se actualiza cuando los números marcados por el bot cambian
-
-  // TODO: DEBE ALMACENAR LOS BOTS GANADORES
-  // SI NO HAY NINGUN CAMBIO EN currentWinners, debe mantenerse sin cambios, para que el efecto de abajo no se vuelva a reiniciar a 0 en el setTimeout
-  // const winnerBots = useMemo(() => currentWinners, [currentWinners]);
-
-  useEffect(() => {
-    const winnerKeys = Object.keys(confirmedWinnersRef.current);
-
-    winnerKeys.forEach((key) => {
-      if (!boardTimeoutsRef.current[key]) {
+      if (!confirmedWinners[key] && !gameEnded) {
+        // ✅ Solo inicia si el bot aún no fue declarado ganador
         console.log(
-          `🏆 ${key} ha ganado. Evaluando en ${BOT_REACTION_DELAY}ms...`
+          `🏆 ${info.botName} ha encontrado un patrón. Esperando ${reactionTime}ms...`
         );
 
-        boardTimeoutsRef.current[key] = setTimeout(() => {
-          const stillWinner = checkWinnerPatternBot()?.some(
-            (i) => `${i.botName}-${i.boardId}` === key
-          );
-          const globalWinner = useAppStore.getState().winner;
+        setConfirmedWinner(info.botName, info.boardId);
+        // confirmedWinners[key] = reactionTime;
 
-          if (stillWinner && globalWinner === "none") {
-            botWinner(key.split("-")[0]); // ✅ Extrae el nombre del bot
-          }
+        const timeoutId = setTimeout(() => {
+          if (gameEnded) return;
+          // if (winner === "bot") return;
+          botWinner(info.botName); // 🚀 Declara ganador
+          declareBotWinner(info.botName); // 🚫 Bloquea evaluaciones futuras
 
-          delete boardTimeoutsRef.current[key];
-        }, BOT_REACTION_DELAY);
+          // 🔥 Limpia todos los demás `setTimeout` para evitar múltiples llamadas a `botWinner`
+          Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
+            clearTimeout(boardTimeoutsRef.current[botKey]);
+            delete boardTimeoutsRef.current[botKey];
+          });
+        }, reactionTime);
+
+        // ✅ Guarda el timeout actual en `boardTimeoutsRef`
+        boardTimeoutsRef.current[key] = timeoutId;
       }
     });
-
-    return () => {
-      winnerKeys.forEach((key) => clearTimeout(boardTimeoutsRef.current[key]));
-    };
-  }, [confirmedWinnersRef.current]); // ✅ Se ejecuta solo si los ganadores confirmados cambian
-  //   const winnerInfos = checkWinnerPatternBot() || []; // <-- Debe retornar array de {botName, boardId, ...}
-
-  //   // Inicializa `boardTimeoutsRef.current` si no existe
-  //   if (!boardTimeoutsRef.current) {
-  //     boardTimeoutsRef.current = {};
-  //   }
-
-  //   // Después (con objeto)
-  //   const currentWinners: { [key: string]: boolean } = {};
-  //   winnerInfos?.forEach((info) => {
-  //     const key = `${info.botName}-${info.boardId}`;
-  //     currentWinners[key] = true;
-  //   });
-  //   // Lanza timeout para cada tablero ganador nuevo
-  //   winnerInfos?.forEach((info) => {
-  //     const key = `${info.botName}-${info.boardId}`;
-  //     if (!boardTimeoutsRef.current[key]) {
-  //       // TODO: SOLAMENTE DEBERIA EVALUAR UNA SOLA VEZ SI HAY UN TABLERO GANADOR
-  //       console.log("HAY UN GANADOR, SE ACABARA EL JUEGO EN...");
-
-  //       // TODO: PERO SI LUEGO ESE TABLERO GANADOR FUE EDITADO, ENTONCES DEBERIA VOLVER A HACER LA EVALUACIÓN
-  //       boardTimeoutsRef.current[key] = setTimeout(() => {
-  //         // Verifica que el tablero siga siendo ganador antes de declarar
-  //         const stillWinner = checkWinnerPatternBot()?.some(
-  //           (i) => i.botName === info.botName && i.boardId === info.boardId
-  //         );
-
-  //         // Consulta el estado global de winner para evitar condiciones de carrera
-  //         const globalWinner = useAppStore.getState().winner;
-
-  //         if (
-  //           stillWinner &&
-  //           globalWinner !== "player" &&
-  //           globalWinner !== "end" &&
-  //           globalWinner !== "bot"
-  //         ) {
-  //           botWinner(info.botName);
-  //         }
-  //         // Limpia el timeout de este tablero
-  //         delete boardTimeoutsRef.current[key];
-  //       }, BOT_REACTION_DELAY);
-  //     }
-  //   });
-
-  //   // Cancela timeouts de tableros que ya no son ganadores
-  //   Object.keys(boardTimeoutsRef.current).forEach((key) => {
-  //     if (!currentWinners[key]) {
-  //       clearTimeout(boardTimeoutsRef.current[key]);
-  //       delete boardTimeoutsRef.current[key];
-  //     }
-  //   });
-  //   // Limpieza global al desmontar
-  //   return () => {
-  //     Object.values(boardTimeoutsRef.current).forEach(clearTimeout);
-  //     boardTimeoutsRef.current = {};
-  //   };
-  // }, [botSelectedNumbersAndPositions, winner]);
+  }, [botSelectedNumbersAndPositions]); // ✅ Se ejecuta cuando los números marcados cambian
 
   useEffect(() => {
     // getLevelNumberFromUrl(location.pathname);

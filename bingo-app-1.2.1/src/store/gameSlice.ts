@@ -189,6 +189,8 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
     set({
       currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
+      confirmedWinners: {},
+      gameEnded: false
     })
 
 

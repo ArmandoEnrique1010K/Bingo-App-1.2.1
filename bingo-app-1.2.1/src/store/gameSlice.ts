@@ -193,6 +193,8 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       gameEnded: false
     })
 
+    get().stopMusic()
+    get().startMusic(levelData.music);
 
     // Marcar las posiciones iniciales de los tableros del bot
     // Inicializa `botSelectedNumbersAndPositions` si está vacío

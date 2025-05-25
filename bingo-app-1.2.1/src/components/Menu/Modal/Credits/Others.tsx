@@ -2,6 +2,19 @@ export default function Others() {
   return (
     <>
       <p>
+        <span className="font-bold">Convertidor de youtube:</span> Herramienta
+        <a
+          href="https://notube.si/es/youtube-app-156"
+          target="_blank"
+          className="text-blue-500 hover:underline"
+        >
+          {" "}
+          Notube
+        </a>
+        .
+      </p>
+
+      <p>
         <span className="font-bold">Editor de audio:</span> Herramienta
         <a
           href="https://www.nch.com.au/wavepad/es/index.html?srsltid=AfmBOopjHpy8e0e-jdtWAmEsza8IIkHpqXJ2wB9mP8T5jLBjrZHf1FNw"

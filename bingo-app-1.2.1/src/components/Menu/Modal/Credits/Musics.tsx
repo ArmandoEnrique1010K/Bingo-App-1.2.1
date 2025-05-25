@@ -78,6 +78,15 @@ export default function Musics() {
             You Only Live Once - The Strokes
           </a>
         </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=i6UTAi1xr5s&ab_channel=snakebyteinstrumentals"
+            target="_blank"
+            className="text-blue-500 hover:underline"
+          >
+            Not the Same Anymore - The Strokes
+          </a>
+        </li>
       </ul>
     </>
   );

@@ -40,6 +40,22 @@ export const SLOW = {
   volume: -14
 }
 
+export const ANYMORE = {
+  name: 'anymore',
+  volume: -10
+}
+
+export const KILL = {
+  name: 'kill',
+  volume: -16
+}
+
+export const WINNER = {
+  name: 'winner',
+  volume: -16
+}
+
+
 // ARCHIVOS DE SONIDO
 
 export const WRONG_SOUND = {

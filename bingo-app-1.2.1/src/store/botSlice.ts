@@ -3,7 +3,7 @@ import { LevelSliceType } from "./levelSlice";
 import { MusicSliceType } from "./musicSlice";
 import { GameSliceType } from "./gameSlice";
 import { BotBoards, Pattern, } from "../types";
-import { CORRECT_BOT_SOUND, DEFEAT_SOUND } from "../constants/audioSettings";
+import { CORRECT_BOT_SOUND, DEFEAT_SOUND, KILL, } from "../constants/audioSettings";
 import { dynamicInterval } from "../utils/dynamicInterval";
 import { DEFEAT_MODAL } from '../constants/statusModalsText';
 
@@ -24,6 +24,7 @@ export type BotSliceType = {
       number: number
     }[],
     winningPattern: Pattern,
+    reactionTime: number
   }[],
   // Tableros generados
   // Registro de posiciones y numeros marcadaos
@@ -63,6 +64,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     });
 
     get().playSound(DEFEAT_SOUND)
+    get().stopMusic()
+    get().startMusic(KILL)
   },
 
   botBoards: [],
@@ -196,7 +199,9 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
               botName: bot.name,
               boardId: board.id,
               markedCells: board.board,
-              winningPattern: pattern
+              winningPattern: pattern,
+              // DEBERIA DEVOLVER EL TIEMPO DE REACCION DEL BOT
+              reactionTime: levelData.bots.find(b => b.name === bot.name)?.reactionTime || 0
             });
           }
 

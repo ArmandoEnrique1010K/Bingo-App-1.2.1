@@ -5,7 +5,7 @@ import { Board, Boards, SelectedNumbersAndPositions } from "../types";
 import { MusicSliceType } from "./musicSlice";
 import { FINAL_LEVEL_VICTORY_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
 import { FINAL_LEVEL } from "../constants/defaultConfigs";
-import { CORRECT_SOUND, VICTORY_SOUND, WRONG_SOUND } from "../constants/audioSettings";
+import { CORRECT_SOUND, VICTORY_SOUND, WINNER, WRONG_SOUND } from "../constants/audioSettings";
 
 export type PlayerSliceType = {
   checkWinnerPattern: () => boolean,
@@ -78,6 +78,9 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
           console.log('USTED HA COMPLETADO EL ULTIMO NIVEL')
         }
         get().playSound(VICTORY_SOUND)
+        // DEBE REPRODUCIR LA CANCIÓN DE GANADOR
+        get().stopMusic()
+        get().startMusic(WINNER)
 
         return true
       } else {
@@ -95,6 +98,7 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
       modal: get().levelData.level !== FINAL_LEVEL ? VICTORY_MODAL : FINAL_LEVEL_VICTORY_MODAL,
       viewStatusModal: true
     });
+
   },
 
 

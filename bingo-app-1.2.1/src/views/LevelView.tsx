@@ -11,15 +11,15 @@ import BotOpponent from "../components/Bots/BotOpponent";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
-  const startMusic = useAppStore((state) => state.startMusic);
-  const stopMusic = useAppStore((state) => state.stopMusic);
-  const isPlayingMusic = useAppStore((state) => state.isPlayingMusic);
+  // const startMusic = useAppStore((state) => state.startMusic);
+  // const stopMusic = useAppStore((state) => state.stopMusic);
+  // const isPlayingMusic = useAppStore((state) => state.isPlayingMusic);
   const changeStatusModal = useAppStore((state) => state.changeStatusModal);
   const resetLevel = useAppStore((state) => state.resetLevel);
   const currentRound = useAppStore((state) => state.currentRound);
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
-  const changeMusic = useAppStore((state) => state.changeMusic);
+  // const changeMusic = useAppStore((state) => state.changeMusic);
 
   const location = useLocation();
   const checkWinnerPatternBot = useAppStore(

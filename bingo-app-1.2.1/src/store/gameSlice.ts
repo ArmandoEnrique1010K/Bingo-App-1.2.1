@@ -257,12 +257,18 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
     console.log("SE ACABARON LOS TURNOS")
     get().playSound(DEFEAT_SOUND)
+    set(() => ({
+      gameEnded: true, // ✅ Termina el juego
+    }));
+
     set({
       modal: NO_MORE_ROUNDS_MODAL,
       viewStatusModal: true
     })
-    get().stopMusic()
-    get().startMusic(KILL)
+
+    get().changeMusic(KILL)
+    // get().stopMusic()
+    // get().startMusic(KILL)
 
   },
 

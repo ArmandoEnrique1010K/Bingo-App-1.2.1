@@ -39,17 +39,17 @@ export const levels: Level[] = [
         name: "S-Bot-2",
         interval: 100,
         boards: 2,
-        reactionTime: 3000
+        reactionTime: 4000
       },
       {
         name: "S-Bot-3",
         interval: 100,
         boards: 2,
-        reactionTime: 3000
+        reactionTime: 2000
       },
     ],
     color: 'blue',
-    music: ANYMORE
+    music: SLOW
   },
   {
     level: 2,

@@ -6,11 +6,12 @@ import { AudioSliceType } from "./audioSlice";
 import { FINAL_LEVEL_VICTORY_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
 import { FINAL_LEVEL } from "../constants/defaultConfigs";
 import { CORRECT_SOUND, VICTORY_SOUND, WINNER, WRONG_SOUND } from "../constants/audioSettings";
+import { BotSliceType } from "./botSlice";
 
 export type PlayerSliceType = {
   checkWinnerPattern: () => boolean,
 
-  playerWinner: () => void
+  // playerWinner: () => void
 
   // Tableros del jugador
   // Numeros y posiciones seleccionadas del tablero
@@ -35,7 +36,7 @@ export type PlayerSliceType = {
 // }[]
 
 
-export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType, [], [], PlayerSliceType> = (set, get) => ({
+export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType & BotSliceType, [], [], PlayerSliceType> = (set, get) => ({
   playerBoards: [],
   selectedNumbersAndPositions: [],
 
@@ -79,8 +80,12 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
         }
         get().playSound(VICTORY_SOUND)
         // DEBE REPRODUCIR LA CANCIÓN DE GANADOR
-        get().stopMusic()
-        get().startMusic(WINNER)
+        get().changeMusic(WINNER)
+        // get().stopMusic()
+        // get().startMusic(WINNER)
+        set(() => ({
+          gameEnded: true, // ✅ Termina el juego
+        }));
 
         return true
       } else {
@@ -92,14 +97,13 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
     return false;
   },
 
-  playerWinner: () => {
-    set({
-      winner: get().checkWinnerPattern() === true ? 'player ' : '',
-      modal: get().levelData.level !== FINAL_LEVEL ? VICTORY_MODAL : FINAL_LEVEL_VICTORY_MODAL,
-      viewStatusModal: true
-    });
-
-  },
+  // playerWinner: () => {
+  //   set({
+  //     winner: get().checkWinnerPattern() === true ? 'player ' : '',
+  //     modal: get().levelData.level !== FINAL_LEVEL ? VICTORY_MODAL : FINAL_LEVEL_VICTORY_MODAL,
+  //     viewStatusModal: true
+  //   });
+  // },
 
 
 

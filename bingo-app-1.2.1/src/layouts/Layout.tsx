@@ -21,6 +21,7 @@ export default function Layout() {
   const getLevelNumberFromUrl = useAppStore(
     (state) => state.getLevelNumberFromUrl
   );
+  const startScreenButton = useAppStore((state) => state.startScreenButton);
 
   const location = useLocation();
 
@@ -43,12 +44,21 @@ export default function Layout() {
 
   return (
     <div className="flex flex-col min-w-full h-screen">
-      <div className="flex flex-row items-center justify-start sm:py-0 py-0 px-8 bg-gray-900 text-white shadow-lg">
-        <CreditsButton />
-        <MusicButton />
-        <HelpButton />
-        <ResetButton />
-        <ExitButton />
+      <div className="flex flex-row items-center justify-start sm:py-0 py-0 px-8  bg-gray-900 text-white shadow-lg">
+        {startScreenButton || (
+          <>
+            <CreditsButton />
+            <MusicButton />
+            <HelpButton />
+          </>
+        )}
+
+        {location.pathname === "/" || (
+          <>
+            <ResetButton />
+            <ExitButton />
+          </>
+        )}
       </div>
 
       <main className="bg-gray-800 flex-grow">

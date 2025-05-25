@@ -42,12 +42,12 @@ export const SLOW = {
 
 export const ANYMORE = {
   name: 'anymore',
-  volume: -10
+  volume: -18
 }
 
 export const KILL = {
   name: 'kill',
-  volume: -16
+  volume: -18
 }
 
 export const WINNER = {

@@ -1,6 +1,6 @@
 
 
-import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW } from "../constants/audioSettings";
+import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE } from "../constants/audioSettings";
 import { Level } from "../types";
 
 // TODO: SOUNDTRACKS
@@ -49,7 +49,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'blue',
-    music: FRIENDS
+    music: ANYMORE
   },
   {
     level: 2,
@@ -1174,6 +1174,6 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: DARKNESS
+    music: ANYMORE
   },
 ]

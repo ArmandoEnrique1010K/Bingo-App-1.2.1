@@ -8,7 +8,7 @@ import { generateBoard } from "../utils/Board/generateBoard";
 import { MusicSliceType } from "./musicSlice";
 import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
-import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND } from "../constants/audioSettings";
+import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, KILL } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
 
 export type GameSliceType = {
@@ -260,6 +260,9 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       modal: NO_MORE_ROUNDS_MODAL,
       viewStatusModal: true
     })
+    get().stopMusic()
+    get().startMusic(KILL)
+
   },
 
   resetLevelModal: () => {

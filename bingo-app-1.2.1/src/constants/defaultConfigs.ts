@@ -8,7 +8,7 @@ export const DEFAULT_TARGETS = 10 // 3
 export const TARGET_GENERATION_DELAY = 1000;
 
 // Turnos maximos por nivel
-export const MAX_TURNS = 20; // 20
+export const MAX_TURNS = 2; // 20
 
 // Nivel final (DEBE SER EL ULTIMO NIVEL)
 export const FINAL_LEVEL = 30;

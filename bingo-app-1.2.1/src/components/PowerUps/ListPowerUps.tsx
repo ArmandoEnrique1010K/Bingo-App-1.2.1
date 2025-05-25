@@ -30,7 +30,9 @@ export default function ListPowerUps() {
       <div>
         <button
           onClick={() => {
-            toggleMarkNeighborgNumbers();
+            if (!powerups.markNeighborgNumbers.hasActivated) {
+              toggleMarkNeighborgNumbers();
+            }
           }}
         >
           {powerups.markNeighborgNumbers.active

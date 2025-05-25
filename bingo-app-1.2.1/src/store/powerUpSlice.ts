@@ -132,21 +132,35 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     const matched = boardObj.board.filter(cell => neighbors.includes(cell.number));
     if (matched.length === 0) return;
 
+    const existingBoard = selectedNumbersAndPositions.find(sel => sel.id === boardId)?.board ?? [];
+    // Verificar si alguno de los vecinos ya ha sido marcado
+    // const hasAlreadyMarked = matched.some(matchedCell =>
+    //   existingBoard.some(existing => existing.position === matchedCell.position)
+    // );
+    // if (hasAlreadyMarked) return;
+
 
     // Reemplazar si ya existía el boardId en selectedNumbersAndPositions
-    const updatedSelected = [...selectedNumbersAndPositions.filter(sel => sel.id !== boardId), {
-      id: boardId,
-      board: [
-        ...(selectedNumbersAndPositions.find(sel => sel.id === boardId)?.board ?? []),
-        ...matched.filter(
-          (newItem) =>
-            !selectedNumbersAndPositions
-              .find(sel => sel.id === boardId)?.board
-              ?.some(existing => existing.position === newItem.position)
-        )
-      ]
-    }];
+    // const updatedSelected = [...selectedNumbersAndPositions.filter(sel => sel.id !== boardId), {
+    //   id: boardId,
+    //   board: [
+    //     ...(selectedNumbersAndPositions.find(sel => sel.id === boardId)?.board ?? []),
+    //     ...matched.filter(
+    //       (newItem) =>
+    //         !selectedNumbersAndPositions
+    //           .find(sel => sel.id === boardId)?.board
+    //           ?.some(existing => existing.position === newItem.position)
+    //     )
+    //   ]
+    // }];
 
+    const updatedSelected = [
+      ...selectedNumbersAndPositions.filter(sel => sel.id !== boardId),
+      {
+        id: boardId,
+        board: [...existingBoard, ...matched]
+      }
+    ];
 
 
     // Agregar al estado de seleccionados

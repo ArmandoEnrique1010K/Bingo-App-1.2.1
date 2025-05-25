@@ -85,23 +85,28 @@ export default function LevelView() {
     });
   }, [botSelectedNumbersAndPositions, winner]); // ✅ Se ejecuta cuando los números marcados cambian
 
+  // ✅ Cancela todos los `setTimeout` si el jugador gana
+  useEffect(() => {
+    if (winner === "player" || winner === "end" || winner === "bot") {
+      console.log(
+        "🏆 ¡El jugador ha ganado! Cancelando todos los tiempos de espera..."
+      );
+      Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
+        clearTimeout(boardTimeoutsRef.current[botKey]);
+        delete boardTimeoutsRef.current[botKey];
+      });
+
+      useAppStore.setState({ gameEnded: true }); // 🚫 Bloquea futuras evaluaciones
+    }
+  }, [winner]);
+
   useEffect(() => {
     // getLevelNumberFromUrl(location.pathname);
     changeStatusModal(START_LEVEL_MODAL);
   }, [location.pathname]);
 
   useEffect(() => {
-    // TIP: NO OLVIDAR LOS VALORES TRUTHY AND FALSY
     resetLevel();
-    // changeMusic(levelData.music);
-
-    // stopMusic();
-    // if (isPlayingMusic) {
-    //   startMusic(levelData.music);
-    // } else {
-    //   stopMusic();
-    // }
-
     console.log("HA CAMBIADO DE NIVEL");
   }, [levelData]);
 

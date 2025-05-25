@@ -23,7 +23,7 @@ export const CHANGE_PATTERN_DELAY = 3000
 // export const MAX_POWERUPS = 3;
 // https://github.com/tailwindlabs/tailwindcss/discussions/13881
 
-// Tiempo de demora para que el bot se declare ganador
+// Tiempo de demora para que el bot se declare ganador (No sive, ahora es dinamico por cada uno de los bots en un nivel)
 // export const BOT_WINNER_DELAY = 10000
 
 export const APP_VERSION = "1.2.1"

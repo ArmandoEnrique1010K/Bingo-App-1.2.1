@@ -9,8 +9,6 @@ export type Board = {
   }[]
 }
 
-
-
 export type Boards = Board[]
 
 export type SelectedNumbersAndPositions = {
@@ -64,9 +62,7 @@ export type Modal = {
     left: string
     right: string
   }
-
 }
-
 
 export type TargetResult = {
   idBoard: number;
@@ -89,6 +85,15 @@ export type BotBoards = {
   name: string; // Nombre del bot
   boards: BotBoard[]; // Lista de tableros del bot
 }[];
+
+// DATOS DEL BOT GANADOR
+export type BotsWinners = {
+  botName: string,
+  boardId: string,
+  markedCells: BotBoard['board']
+  // winningPattern: Pattern,
+  // reactionTime: number
+}[]
 
 
 // DEBE SER EL TYPE BOTBOARDS

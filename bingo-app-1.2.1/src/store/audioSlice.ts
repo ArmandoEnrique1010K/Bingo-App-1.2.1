@@ -14,6 +14,8 @@ export type AudioSliceType = {
   changeMusic: (music: Music) => void;
   upgradeIsPlayingMusic: (value: boolean) => void;
   // updatePlayer: (data: Tone.Player) => void,
+
+  // TODO: CREAR UN BOTON PARA SILENCIAR SONIDOS
 }
 
 export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], AudioSliceType> = (set, get) => ({
@@ -45,7 +47,6 @@ export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], A
     // set({ isPlayingMusic: false });
   },
 
-  // TODO: INTENTAR AÑADIR UN ESTADO BOOLEANO SIMILAR A MUSIC
   playSound: (sound: Music) => {
     const player = preloadedSoundPlayers.get(sound.name);
 

@@ -2,7 +2,7 @@ import { StateCreator } from "zustand";
 import { LevelSliceType } from "./levelSlice";
 import { AudioSliceType } from "./audioSlice";
 import { GameSliceType } from "./gameSlice";
-import { BotBoards, Pattern, } from "../types";
+import { BotBoards, BotsWinners, } from "../types";
 import { CORRECT_BOT_SOUND, DEFEAT_SOUND, KILL, } from "../constants/audioSettings";
 import { dynamicInterval } from "../utils/dynamicInterval";
 import { DEFEAT_MODAL } from '../constants/statusModalsText';
@@ -16,16 +16,17 @@ export type BotSliceType = {
   updateTimeoutsIds: (timeoutsIds: number[]) => void,
   checkSelectedNumberBot: (name: string, position: number) => boolean,
   markCellBot: (name: string, interval: number) => void
-  checkWinnerPatternBot: () => {
-    botName: string,
-    boardId: string,
-    markedCells: {
-      position: number,
-      number: number
-    }[],
-    winningPattern: Pattern,
-    reactionTime: number
-  }[],
+  checkWinnerPatternBot: () => BotsWinners
+  //   {
+  //   botName: string,
+  //   boardId: string,
+  //   markedCells: {
+  //     position: number,
+  //     number: number
+  //   }[],
+  //   winningPattern: Pattern,
+  //   reactionTime: number
+  // }[],
   // Tableros generados
   // Registro de posiciones y numeros marcadaos
   // Verificar si el numero ya fue marcado
@@ -101,15 +102,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
   // TODO: PERO SI LOS NUMEROS OBJETIVOS ESTA VACIO, DEBE PARAR DE EJECUTAR LA FUNCIÓN MARKCELLBOT Y DETENER LOS TEMPORIZADORES
   markCellBot: (name: string, interval: number) => {
-
-    // Limpiar timeouts anteriores
-    // get().timeoutsIds.forEach(timeoutId => clearTimeout(timeoutId));
-    // set({ timeoutsIds: [] });
-
-    // if (get().currentTargets.length > 0) {
-    //   get().timeoutsIds.forEach(timeoutId => clearTimeout(timeoutId));
-    //   set({ timeoutsIds: [] });
-    // }
 
     // OBTENER LAS CÉLULAS ENCONTRADAS PARA EL BOT ESPECÍFICO
     const botFinded = get().findedCells.find(bot => bot.name === name);

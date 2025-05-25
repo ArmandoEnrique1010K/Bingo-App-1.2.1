@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../../store/useAppStore";
 import { Dialog, DialogPanel, DialogTitle, Button } from "@headlessui/react";
 import { FINAL_LEVEL } from "../../constants/defaultConfigs";
-import { CLICK_SOUND } from "../../constants/audioSettings";
-import BotBingoBoard from "../Bots/BotBingoBoard";
+import DefeatMessage from "./DefeatMessage";
 
 export default function StatusGameModal() {
   const levelData = useAppStore((state) => state.levelData);
@@ -12,11 +11,9 @@ export default function StatusGameModal() {
   const closeStatusModal = useAppStore((state) => state.closeStatusModal);
   const openStatusModal = useAppStore((state) => state.openStatusModal);
   const resetLevel = useAppStore((state) => state.resetLevel);
-  const playSound = useAppStore((state) => state.playSound);
   const checkWinnerPatternBot = useAppStore(
     (state) => state.checkWinnerPatternBot
   );
-  const botBoards = useAppStore((state) => state.botBoards);
 
   const navigate = useNavigate();
 
@@ -46,10 +43,8 @@ export default function StatusGameModal() {
     } else {
       closeStatusModal();
     }
-
-    // TODO: AQUI OCURRE UN ERROR INESPERADO, Start time must be strictly greater than previous start time
-    playSound(CLICK_SOUND);
   };
+
   return (
     <>
       <Dialog
@@ -76,32 +71,12 @@ export default function StatusGameModal() {
                 {modal.type === "start" && levelData.level}
               </DialogTitle>
               <div className="space-y-3 text-lg text-gray-700">
-                <p className="text-center">{modal.message}</p>
-                {modal.type === "defeat" && checkWinnerPatternBot() ? (
-                  <>
-                    <p>El bot es {checkWinnerPatternBot()[0]?.botName}</p>
-                    {/* <p>
-                      El patrón es{" "}
-                      {JSON.stringify(checkWinnerPatternBot()[0]?.markedCells)}
-                    </p> */}
-                    <BotBingoBoard
-                      board={
-                        botBoards
-                          ?.find(
-                            (bot) =>
-                              bot.name === checkWinnerPatternBot()[0]?.botName
-                          ) // Encuentra el bot correspondiente
-                          ?.boards.find(
-                            (boardObj) =>
-                              boardObj.id ===
-                              checkWinnerPatternBot()[0]?.boardId
-                          )?.board || []
-                      }
-                      idBoard={checkWinnerPatternBot()[0]?.boardId || ""}
-                    />
-                  </>
-                ) : (
-                  ""
+                {modal.type !== "defeat" && (
+                  <p className="text-center">{modal.message}</p>
+                )}
+
+                {modal.type === "defeat" && checkWinnerPatternBot() && (
+                  <DefeatMessage message={modal.message} />
                 )}
               </div>
 
@@ -118,7 +93,6 @@ export default function StatusGameModal() {
                 {modal.textButton.right && (
                   <Button
                     onClick={
-                      // TODO: AÑADIR LA FUNCIÓN PLAYSOUND
                       modal.type === "exit" || modal.type === "reboot"
                         ? closeStatusModal
                         : leaveGame

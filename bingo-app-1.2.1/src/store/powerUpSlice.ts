@@ -19,6 +19,7 @@ export type PowerUpSliceType = {
       turnsRemaining: number
     }
 
+    // TODO: CREAR LO SIGUIENTE
     // Ralentizar bots
 
     // Desmarcar un numero de un bot
@@ -30,6 +31,8 @@ export type PowerUpSliceType = {
     // Automarcar un tablero por 5 turnos
 
     // Numero aleatorio objetivo
+
+
   },
 
   activateExtraTargets: () => void,
@@ -104,7 +107,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
         markNeighborgNumbers: {
           ...state.powerups.markNeighborgNumbers,
           // Esta propiedad indica que el powerup ya ha sido activado, por lo que ya no se podra volver a activar
-          hasActivated: true, // TODO: YA NO SE PODRA CANCELAR EL POWERUP  UNA VEZ PULSADO EL BOTÓN
+          hasActivated: true,
           active: !state.powerups.markNeighborgNumbers.active,
           turnsRemaining: !state.powerups.markNeighborgNumbers.active ? 1 : 0,
         },

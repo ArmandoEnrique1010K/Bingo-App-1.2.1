@@ -91,6 +91,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
       }));
     }
   },
+  // TODO: FALTA QUE SI EL JUGADOR VUELVE A HACER CLIC EN EL POWERUP, SE DESACTIVE
   toggleMarkNeighborgNumbers: () => {
     set((state) => ({
       powerups: {
@@ -105,6 +106,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     }));
   },
 
+  // TODO: SI EL JUGADOR HA MARCADO UN NUMERO QUE NO ES UN NUMERO OBJETIVO O SI EL NUMERO YA ESTA MARCADO, NO SE DEBERIA APLICAR EL POWERUP
   activateMarkNeighborgOnNumberClick: (boardId: number, numberClicked: number) => {
     const { playerBoards, currentTargets, selectedNumbersAndPositions, powerups } = get();
 

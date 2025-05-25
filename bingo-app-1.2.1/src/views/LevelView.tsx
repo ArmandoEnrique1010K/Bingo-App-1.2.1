@@ -36,99 +36,126 @@ export default function LevelView() {
   // const dataBotWinner = useAppStore((state) => state.dataBotWinner);
   // // ...otros hooks...
   // const timeoutRef = useRef<number | null>(null);
+
+  const confirmedWinnersRef = useRef<{ [key: string]: boolean }>({});
   const boardTimeoutsRef = useRef<{ [key: string]: number }>({});
 
-  const [hasWinnerBot, setHasWinnerBot] = useState<{ [key: string]: number }>(
-    {}
-  );
-
-  // TODO: CORREGIR ESA PARTE
   useEffect(() => {
-    const winnerInfos = checkWinnerPatternBot(); // <-- Debe retornar array de {botName, boardId, ...}
+    const winnerInfos = checkWinnerPatternBot() || [];
 
-    // Crea un set de claves de tableros ganadores actuales
-    // const currentWinners = new Set(
-    //   winnerInfos
-    //     ? winnerInfos.map((info) => `${info.botName}-${info.boardId}`)
-    //     : []
-    // );
+    if (!winnerInfos.length) return;
 
-    // Después (con objeto)
-    const currentWinners: { [key: string]: boolean } = {};
-    winnerInfos?.forEach((info) => {
+    const updatedWinners: { [key: string]: boolean } = {};
+
+    winnerInfos.forEach((info) => {
       const key = `${info.botName}-${info.boardId}`;
-      currentWinners[key] = true;
+
+      updatedWinners[key] = true;
     });
-    // Lanza timeout para cada tablero ganador nuevo
-    winnerInfos?.forEach((info) => {
-      const key = `${info.botName}-${info.boardId}`;
+
+    // ✅ Compara nuevos ganadores con los anteriores
+    const newWinnersKeys = Object.keys(updatedWinners);
+    const prevWinnersKeys = Object.keys(confirmedWinnersRef.current);
+
+    const winnersChanged = !(
+      newWinnersKeys.length === prevWinnersKeys.length &&
+      newWinnersKeys.every((key) => prevWinnersKeys.includes(key))
+    );
+
+    if (winnersChanged) {
+      confirmedWinnersRef.current = updatedWinners; // ✅ Solo actualiza si realmente cambió
+    }
+  }, [botSelectedNumbersAndPositions]); // 🔥 Se actualiza cuando los números marcados por el bot cambian
+
+  // TODO: DEBE ALMACENAR LOS BOTS GANADORES
+  // SI NO HAY NINGUN CAMBIO EN currentWinners, debe mantenerse sin cambios, para que el efecto de abajo no se vuelva a reiniciar a 0 en el setTimeout
+  // const winnerBots = useMemo(() => currentWinners, [currentWinners]);
+
+  useEffect(() => {
+    const winnerKeys = Object.keys(confirmedWinnersRef.current);
+
+    winnerKeys.forEach((key) => {
       if (!boardTimeoutsRef.current[key]) {
-        // TODO: SOLAMENTE DEBERIA EVALUAR UNA SOLA VEZ SI HAY UN TABLERO GANADOR
-        console.log("HAY UN GANADOR, SE ACABARA EL JUEGO EN...");
+        console.log(
+          `🏆 ${key} ha ganado. Evaluando en ${BOT_REACTION_DELAY}ms...`
+        );
 
-        // TODO: PERO SI LUEGO ESE TABLERO GANADOR FUE EDITADO, ENTONCES DEBERIA VOLVER A HACER LA EVALUACIÓN
         boardTimeoutsRef.current[key] = setTimeout(() => {
-          // Verifica que el tablero siga siendo ganador antes de declarar
           const stillWinner = checkWinnerPatternBot()?.some(
-            (i) => i.botName === info.botName && i.boardId === info.boardId
+            (i) => `${i.botName}-${i.boardId}` === key
           );
-
-          // Consulta el estado global de winner para evitar condiciones de carrera
           const globalWinner = useAppStore.getState().winner;
 
-          if (
-            stillWinner &&
-            globalWinner !== "player" &&
-            globalWinner !== "end" &&
-            globalWinner !== "bot"
-          ) {
-            botWinner(info.botName);
+          if (stillWinner && globalWinner === "none") {
+            botWinner(key.split("-")[0]); // ✅ Extrae el nombre del bot
           }
-          // Limpia el timeout de este tablero
+
           delete boardTimeoutsRef.current[key];
         }, BOT_REACTION_DELAY);
       }
     });
 
-    // Cancela timeouts de tableros que ya no son ganadores
-    Object.keys(boardTimeoutsRef.current).forEach((key) => {
-      if (!currentWinners[key]) {
-        clearTimeout(boardTimeoutsRef.current[key]);
-        delete boardTimeoutsRef.current[key];
-      }
-    });
-    // Limpieza global al desmontar
     return () => {
-      Object.values(boardTimeoutsRef.current).forEach(clearTimeout);
-      boardTimeoutsRef.current = {};
+      winnerKeys.forEach((key) => clearTimeout(boardTimeoutsRef.current[key]));
     };
+  }, [confirmedWinnersRef.current]); // ✅ Se ejecuta solo si los ganadores confirmados cambian
+  //   const winnerInfos = checkWinnerPatternBot() || []; // <-- Debe retornar array de {botName, boardId, ...}
 
-    // Si ya hay un timeout pendiente, límpialo
-    // if (timeoutRef.current) {
-    //   clearTimeout(timeoutRef.current);
-    //   timeoutRef.current = null;
-    // }
+  //   // Inicializa `boardTimeoutsRef.current` si no existe
+  //   if (!boardTimeoutsRef.current) {
+  //     boardTimeoutsRef.current = {};
+  //   }
 
-    // if (winnerInfo && winner !== "bot") {
-    //   // timeoutsIds.forEach((id) => clearTimeout(id));
-    //   // updateTimeoutsIds([]);
+  //   // Después (con objeto)
+  //   const currentWinners: { [key: string]: boolean } = {};
+  //   winnerInfos?.forEach((info) => {
+  //     const key = `${info.botName}-${info.boardId}`;
+  //     currentWinners[key] = true;
+  //   });
+  //   // Lanza timeout para cada tablero ganador nuevo
+  //   winnerInfos?.forEach((info) => {
+  //     const key = `${info.botName}-${info.boardId}`;
+  //     if (!boardTimeoutsRef.current[key]) {
+  //       // TODO: SOLAMENTE DEBERIA EVALUAR UNA SOLA VEZ SI HAY UN TABLERO GANADOR
+  //       console.log("HAY UN GANADOR, SE ACABARA EL JUEGO EN...");
 
-    //   // timeoutRef.current =
-    //   console.log("HAY UN GANADOR, SE ACABARA EL JUEGO EN...");
-    //   timeoutRef.current = setTimeout(() => {
-    //     if (winner === "player" || winner === "end" || winner === "bot") return;
-    //     console.log("¡El bot ha ganado!");
-    //     botWinner(winnerInfo.botName);
-    //   }, BOT_WINNER_DELAY);
-    // }
+  //       // TODO: PERO SI LUEGO ESE TABLERO GANADOR FUE EDITADO, ENTONCES DEBERIA VOLVER A HACER LA EVALUACIÓN
+  //       boardTimeoutsRef.current[key] = setTimeout(() => {
+  //         // Verifica que el tablero siga siendo ganador antes de declarar
+  //         const stillWinner = checkWinnerPatternBot()?.some(
+  //           (i) => i.botName === info.botName && i.boardId === info.boardId
+  //         );
 
-    // return () => {
-    //   if (timeoutRef.current) {
-    //     clearTimeout(timeoutRef.current);
-    //     timeoutRef.current = null;
-    //   }
-    // };
-  }, [botSelectedNumbersAndPositions, winner]);
+  //         // Consulta el estado global de winner para evitar condiciones de carrera
+  //         const globalWinner = useAppStore.getState().winner;
+
+  //         if (
+  //           stillWinner &&
+  //           globalWinner !== "player" &&
+  //           globalWinner !== "end" &&
+  //           globalWinner !== "bot"
+  //         ) {
+  //           botWinner(info.botName);
+  //         }
+  //         // Limpia el timeout de este tablero
+  //         delete boardTimeoutsRef.current[key];
+  //       }, BOT_REACTION_DELAY);
+  //     }
+  //   });
+
+  //   // Cancela timeouts de tableros que ya no son ganadores
+  //   Object.keys(boardTimeoutsRef.current).forEach((key) => {
+  //     if (!currentWinners[key]) {
+  //       clearTimeout(boardTimeoutsRef.current[key]);
+  //       delete boardTimeoutsRef.current[key];
+  //     }
+  //   });
+  //   // Limpieza global al desmontar
+  //   return () => {
+  //     Object.values(boardTimeoutsRef.current).forEach(clearTimeout);
+  //     boardTimeoutsRef.current = {};
+  //   };
+  // }, [botSelectedNumbersAndPositions, winner]);
 
   useEffect(() => {
     // getLevelNumberFromUrl(location.pathname);

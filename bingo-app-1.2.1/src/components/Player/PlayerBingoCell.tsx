@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppStore } from "../../store/useAppStore";
 
 type PlayerSquareProps = {
@@ -43,23 +43,34 @@ export default function PlayerBingoCell({
       activateMarkNeighborgOnNumberClick(boardId, number);
     }
   };
+  const isSelected = useMemo(() => {
+    return selectedNumbersAndPositions.some(
+      (b) => b.id === boardId && b.board.some((e) => e.position === position)
+    );
+  }, [selectedNumbersAndPositions, boardId, position]);
 
+  // TODO: SI PINTA LOS COLORES EN EL TABLERO, PERO TAMBIEN OCASIONA QUE SE EVALUE LA SIGUIENTE FUNCIÓN
+  useEffect(() => {
+    // const isSelected = checkSelectedNumber(boardId, position);
+    setcellColor(isSelected ? color : "gray");
+  }, [selectedNumbersAndPositions]);
+
+  // checkSelectedNumber: (idBoard: number, position: number) => {
+  //   const isSelected = get().selectedNumbersAndPositions.some(
+  //     (b) => b.id === idBoard && b.board.some((e) => e.position === position)
+  //   );
+  //   if (isSelected) {
+  //     console.log('ESE NUMERO YA FUE MARCADO');
+  //   } else {
+  //     console.log('ESE NUMERO NO HA SIDO MARCADO');
+  //   }
+  //   return isSelected;
+  // },
+
+  // // TODO: SE DEBERIA PINTAR DE COLOR AZUL TODAS LAS CELDAS QUE SON MARCADAS
   // useEffect(() => {
   //   setcellColor("gray");
-  // }, [selectedNumbersAndPositions]);
-
-  useEffect(() => {
-    // setcellColor("gray");
-    const isSelected = checkSelectedNumber(boardId, position);
-    setcellColor(isSelected ? color : "gray");
-
-    // COLOCAR selectedNumbersAndPositions EN EL ARREGLO DE DEPENDENCIAS SERIA UNA SOLUCIÓN TEMPORAL
-  }, [playerBoards, selectedNumbersAndPositions]);
-
-  // useEffect(() => {
-  //   const isSelected = checkSelectedNumber(boardId, position);
-  //   setcellColor(isSelected ? color : "gray");
-  // }, [selectedNumbersAndPositions]);
+  // }, [playerBoards]);
 
   return (
     <button

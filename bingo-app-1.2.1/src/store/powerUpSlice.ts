@@ -23,7 +23,13 @@ export type PowerUpSliceType = {
 
     // Desmarcar un numero de un bot
 
-    // SWAP NUMBER
+    // Intercambiar posiciones y numeros de una columna de numeros
+
+    // Forzar un numero objetivo de un patron de cruz
+
+    // Automarcar un tablero por 5 turnos
+
+    // Numero aleatorio objetivo
   },
 
   activateExtraTargets: () => void,
@@ -91,14 +97,14 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
       }));
     }
   },
-  // TODO: FALTA QUE SI EL JUGADOR VUELVE A HACER CLIC EN EL POWERUP, SE DESACTIVE
   toggleMarkNeighborgNumbers: () => {
     set((state) => ({
       powerups: {
         ...state.powerups,
         markNeighborgNumbers: {
           ...state.powerups.markNeighborgNumbers,
-          hasActivated: true,
+          // Esta propiedad indica que el powerup ya ha sido activado, por lo que ya no se podra volver a activar
+          hasActivated: true, // TODO: YA NO SE PODRA CANCELAR EL POWERUP  UNA VEZ PULSADO EL BOTÓN
           active: !state.powerups.markNeighborgNumbers.active,
           turnsRemaining: !state.powerups.markNeighborgNumbers.active ? 1 : 0,
         },
@@ -107,16 +113,12 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
   },
 
   // TODO: SI EL JUGADOR HA MARCADO UN NUMERO QUE NO ES UN NUMERO OBJETIVO O SI EL NUMERO YA ESTA MARCADO, NO SE DEBERIA APLICAR EL POWERUP
+  // TODO: TAMBIEN SI UN NUMERO VECINO YA ESTA MARCADO, TAMPOCO LO DEBERIA AGREGAR
   activateMarkNeighborgOnNumberClick: (boardId: number, numberClicked: number) => {
     const { playerBoards, currentTargets, selectedNumbersAndPositions, powerups } = get();
 
-    // Validación: solo activar si el power-up está activo y el número es objetivo
-    if (
-      !powerups.markNeighborgNumbers.active ||
-      !currentTargets.includes(numberClicked)
-    ) {
-      return;
-    }
+    // Verificación de power-up y objetivo
+    if (!powerups.markNeighborgNumbers.active || !currentTargets.includes(numberClicked)) return;
 
     // Encontrar el board correspondiente
     const boardObj = playerBoards.find((b) => b.id === boardId);
@@ -128,8 +130,8 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     // Buscar posiciones de estos números dentro del tablero del jugador
     // Buscar números vecinos
     const matched = boardObj.board.filter(cell => neighbors.includes(cell.number));
-
     if (matched.length === 0) return;
+
 
     // Reemplazar si ya existía el boardId en selectedNumbersAndPositions
     const updatedSelected = [...selectedNumbersAndPositions.filter(sel => sel.id !== boardId), {
@@ -144,6 +146,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
         )
       ]
     }];
+
 
 
     // Agregar al estado de seleccionados

@@ -30,12 +30,12 @@ export default function ListPowerUps() {
       <div>
         <button
           onClick={() => {
-            if (!powerups.markNeighborgNumbers.hasActivated) {
-              toggleMarkNeighborgNumbers();
-            }
+            toggleMarkNeighborgNumbers();
           }}
         >
-          Marcar numeros vecinos
+          {powerups.markNeighborgNumbers.active
+            ? "Cancelar Vecinos"
+            : "Activar Vecinos"}
         </button>
         Turnos: {powerups.markNeighborgNumbers.turnsRemaining} <br></br>
         Activo: {powerups.markNeighborgNumbers.active ? "SI" : "NO"}

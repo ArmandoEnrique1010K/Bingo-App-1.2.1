@@ -10,6 +10,7 @@ import { preloadMusicFiles } from "../utils/Audio/preloadMusicFiles";
 import CreditsButton from "../components/Menu/CreditsButton";
 import HelpButton from "../components/Menu/HelpButton";
 import { LOADING_TIME } from "../constants/defaultConfigs";
+import SoundButton from "../components/Menu/SoundButton";
 
 export default function Layout() {
   const getUnlockedLevelsFromStorage = useAppStore(
@@ -49,6 +50,7 @@ export default function Layout() {
           <>
             <CreditsButton />
             <MusicButton />
+            <SoundButton />
             <HelpButton />
           </>
         )}

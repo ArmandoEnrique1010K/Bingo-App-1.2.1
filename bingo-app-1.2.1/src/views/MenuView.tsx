@@ -18,15 +18,21 @@ export default function MenuView() {
   const stopMusic = useAppStore((state) => state.stopMusic);
   const isPlayingMusic = useAppStore((state) => state.isPlayingMusic);
   const playSound = useAppStore((state) => state.playSound);
+  const changeMusic = useAppStore((state) => state.changeMusic);
+  const upgradeIsPlayingMusic = useAppStore(
+    (state) => state.upgradeIsPlayingMusic
+  );
 
   useEffect(() => {
-    stopMusic();
+    // stopMusic();
 
-    if (isPlayingMusic) {
-      startMusic(levelData.music);
-    } else {
-      stopMusic();
-    }
+    // if (isPlayingMusic) {
+    //   startMusic(levelData.music);
+    // } else {
+    //   stopMusic();
+    // }
+
+    changeMusic(levelData.music);
     console.log(levelData);
   }, [levelData]);
 
@@ -43,7 +49,9 @@ export default function MenuView() {
           onClick={() => {
             changeStateScreenButton();
             playSound(CLICK_SOUND);
-            startMusic(levelData.music);
+            upgradeIsPlayingMusic(true);
+            changeMusic(levelData.music);
+            // startMusic(levelData.music);
           }}
         >
           Iniciar juego

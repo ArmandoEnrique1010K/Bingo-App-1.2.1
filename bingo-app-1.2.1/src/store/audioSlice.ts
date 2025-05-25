@@ -15,10 +15,6 @@ export type AudioSliceType = {
   changeMusic: (music: Music) => void;
   upgradeIsPlayingMusic: (value: boolean) => void;
   upgradeIsPlayingSound: (value: boolean) => void;
-
-  // updatePlayer: (data: Tone.Player) => void,
-
-  // TODO: CREAR UN BOTON PARA SILENCIAR SONIDOS
 }
 
 export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], AudioSliceType> = (set, get) => ({

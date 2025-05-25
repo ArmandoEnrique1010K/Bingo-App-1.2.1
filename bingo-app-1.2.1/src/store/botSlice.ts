@@ -3,7 +3,7 @@ import { LevelSliceType } from "./levelSlice";
 import { AudioSliceType } from "./audioSlice";
 import { GameSliceType } from "./gameSlice";
 import { BotBoards, BotsWinners, } from "../types";
-import { CORRECT_BOT_SOUND, DEFEAT_SOUND, KILL, } from "../constants/audioSettings";
+import { CORRECT_BOT_SOUND, DEFEAT_SOUND, ANYMORE_ENDING, } from "../constants/audioSettings";
 import { dynamicInterval } from "../utils/dynamicInterval";
 import { DEFEAT_MODAL } from '../constants/statusModalsText';
 
@@ -65,9 +65,9 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     });
 
     get().playSound(DEFEAT_SOUND)
-    get().changeMusic(KILL)
+    get().changeMusic(ANYMORE_ENDING)
     // get().stopMusic()
-    // get().startMusic(KILL)
+    // get().startMusic(ANYMORE_ENDING)
   },
 
   botBoards: [],

@@ -5,7 +5,7 @@ import { Board, Boards, SelectedNumbersAndPositions } from "../types";
 import { AudioSliceType } from "./audioSlice";
 import { FINAL_LEVEL_VICTORY_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
 import { FINAL_LEVEL } from "../constants/defaultConfigs";
-import { CORRECT_SOUND, VICTORY_SOUND, WINNER, WRONG_SOUND } from "../constants/audioSettings";
+import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
 
 export type PlayerSliceType = {
@@ -66,8 +66,6 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
         set({
           currentTargets: [],
           winner: 'player',
-          // TODO: ARREGLAR ESTO, DEBERIA EVALUAR SI EL JUGADOR HA GANADO
-          // modal: VICTORY_MODAL,
           modal: get().levelData.level !== FINAL_LEVEL ? VICTORY_MODAL : FINAL_LEVEL_VICTORY_MODAL,
           viewStatusModal: true,
         })
@@ -80,9 +78,9 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
         }
         get().playSound(VICTORY_SOUND)
         // DEBE REPRODUCIR LA CANCIÓN DE GANADOR
-        get().changeMusic(WINNER)
+        get().changeMusic(DARKNESS_SOLO)
         // get().stopMusic()
-        // get().startMusic(WINNER)
+        // get().startMusic(DARKNESS_SOLO)
         set(() => ({
           gameEnded: true, // ✅ Termina el juego
         }));

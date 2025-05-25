@@ -8,9 +8,9 @@ import { generateBoard } from "../utils/Board/generateBoard";
 import { AudioSliceType } from "./audioSlice";
 import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
-import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, KILL } from "../constants/audioSettings";
+import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, ANYMORE_ENDING } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
-import { PowerUpSliceType } from "./powerUpSlice";
+import { initialPowerups, PowerUpSliceType } from "./powerUpSlice";
 
 export type GameSliceType = {
   currentTargets: number[],
@@ -198,7 +198,8 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
     set({
       currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
       confirmedWinners: {},
-      gameEnded: false
+      gameEnded: false,
+      powerups: initialPowerups,
     })
 
     get().changeMusic(levelData.music)
@@ -274,9 +275,9 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       viewStatusModal: true
     })
 
-    get().changeMusic(KILL)
+    get().changeMusic(ANYMORE_ENDING)
     // get().stopMusic()
-    // get().startMusic(KILL)
+    // get().startMusic(ANYMORE_ENDING)
 
   },
 

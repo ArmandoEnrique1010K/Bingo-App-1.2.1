@@ -47,19 +47,21 @@ export type PowerUpSliceType = {
 
 }
 
-export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & PlayerSliceType & GameSliceType, [], [], PowerUpSliceType> = (set, get) => ({
-  powerups: {
-    extraTargets: {
-      hasActivated: false,
-      active: false,
-      turnsRemaining: 0,
-    },
-    markNeighborgNumbers: {
-      hasActivated: false,
-      active: false,
-      turnsRemaining: 0,
-    },
+export const initialPowerups = {
+  extraTargets: {
+    hasActivated: false,
+    active: false,
+    turnsRemaining: 0,
   },
+  markNeighborgNumbers: {
+    hasActivated: false,
+    active: false,
+    turnsRemaining: 0,
+  },
+}
+
+export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & PlayerSliceType & GameSliceType, [], [], PowerUpSliceType> = (set, get) => ({
+  powerups: initialPowerups,
 
   activateExtraTargets: () => {
     set((state) => ({

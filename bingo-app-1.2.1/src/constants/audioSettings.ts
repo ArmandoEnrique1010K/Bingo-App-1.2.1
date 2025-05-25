@@ -45,13 +45,13 @@ export const ANYMORE = {
   volume: -20
 }
 
-export const KILL = {
-  name: 'kill',
+export const ANYMORE_ENDING = {
+  name: 'anymore_ending',
   volume: -20
 }
 
-export const WINNER = {
-  name: 'winner',
+export const DARKNESS_SOLO = {
+  name: 'darkness_solo',
   volume: -16
 }
 

@@ -8,8 +8,17 @@ export default function ListPowerUps() {
 
   return (
     <div>
-      <button onClick={activateExtraTargets}>Agregar 2 objetivos extra</button>
-      Turnos: {powerups.extraTargets.turnsRemaining}
+      <button
+        onClick={() => {
+          if (!powerups.extraTargets.hasActivated) {
+            activateExtraTargets();
+          }
+        }}
+      >
+        Agregar 2 objetivos extra
+      </button>
+      Turnos: {powerups.extraTargets.turnsRemaining} <br></br>
+      Activo: {powerups.extraTargets.active ? "SI" : "NO"}
     </div>
   );
 }

@@ -5,6 +5,7 @@ export type PowerUpSliceType = {
   powerups: {
     // Incrementar 2 números objetivos extra
     extraTargets: {
+      hasActivated: boolean,
       active: boolean,
       turnsRemaining: number
     }
@@ -17,6 +18,7 @@ export type PowerUpSliceType = {
 export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType, [], [], PowerUpSliceType> = (set, get) => ({
   powerups: {
     extraTargets: {
+      hasActivated: false,
       active: false,
       turnsRemaining: 0,
     },
@@ -27,6 +29,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType, [], [
       powerups: {
         ...state.powerups,
         extraTargets: {
+          hasActivated: true,
           active: true,
           turnsRemaining: 3,
         },
@@ -51,6 +54,8 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType, [], [
         powerups: {
           ...state.powerups,
           extraTargets: {
+            // hasActivated: true,
+            ...state.powerups.extraTargets,
             active: false,
             turnsRemaining: 0,
           },

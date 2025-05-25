@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
 import { LevelSliceType } from "./levelSlice";
-import { MusicSliceType } from "./musicSlice";
+import { AudioSliceType } from "./audioSlice";
 import { GameSliceType } from "./gameSlice";
 import { BotBoards, Pattern, } from "../types";
 import { CORRECT_BOT_SOUND, DEFEAT_SOUND, KILL, } from "../constants/audioSettings";
@@ -48,7 +48,7 @@ export type BotSliceType = {
 
 };
 
-export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
+export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
   dataBotWinner: {
     name: ""
   },
@@ -64,8 +64,9 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & MusicSliceTy
     });
 
     get().playSound(DEFEAT_SOUND)
-    get().stopMusic()
-    get().startMusic(KILL)
+    get().changeMusic(KILL)
+    // get().stopMusic()
+    // get().startMusic(KILL)
   },
 
   botBoards: [],

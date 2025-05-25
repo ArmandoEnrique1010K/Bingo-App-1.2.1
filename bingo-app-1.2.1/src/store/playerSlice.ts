@@ -2,7 +2,7 @@ import { StateCreator } from "zustand";
 import { GameSliceType, } from './gameSlice';
 import { LevelSliceType } from "./levelSlice";
 import { Board, Boards, SelectedNumbersAndPositions } from "../types";
-import { MusicSliceType } from "./musicSlice";
+import { AudioSliceType } from "./audioSlice";
 import { FINAL_LEVEL_VICTORY_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
 import { FINAL_LEVEL } from "../constants/defaultConfigs";
 import { CORRECT_SOUND, VICTORY_SOUND, WINNER, WRONG_SOUND } from "../constants/audioSettings";
@@ -35,7 +35,7 @@ export type PlayerSliceType = {
 // }[]
 
 
-export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & MusicSliceType, [], [], PlayerSliceType> = (set, get) => ({
+export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType, [], [], PlayerSliceType> = (set, get) => ({
   playerBoards: [],
   selectedNumbersAndPositions: [],
 

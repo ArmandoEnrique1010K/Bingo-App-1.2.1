@@ -5,7 +5,7 @@ import { Modal } from "../types";
 import { generateTargets } from "../utils/generateTargets";
 import { LevelSliceType } from "./levelSlice";
 import { generateBoard } from "../utils/Board/generateBoard";
-import { MusicSliceType } from "./musicSlice";
+import { AudioSliceType } from "./audioSlice";
 import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
 import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, KILL } from "../constants/audioSettings";
@@ -44,7 +44,7 @@ export type GameSliceType = {
 
 
 
-export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSliceType & MusicSliceType & BotSliceType, [], [], GameSliceType> = (set, get) => ({
+export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSliceType & AudioSliceType & BotSliceType, [], [], GameSliceType> = (set, get) => ({
   currentTargets: [],
   excludedTargets: [],
   currentRound: 0,
@@ -193,8 +193,9 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       gameEnded: false
     })
 
-    get().stopMusic()
-    get().startMusic(levelData.music);
+    get().changeMusic(levelData.music)
+    // get().stopMusic()
+    // get().startMusic(levelData.music);
 
     // Marcar las posiciones iniciales de los tableros del bot
     // Inicializa `botSelectedNumbersAndPositions` si está vacío

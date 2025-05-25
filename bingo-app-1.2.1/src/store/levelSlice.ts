@@ -1,7 +1,7 @@
 import { StateCreator } from "zustand";
 import { levels } from "../data/levels";
 import { Level } from "../types";
-import { MusicSliceType } from "./musicSlice";
+import { AudioSliceType } from "./audioSlice";
 import { SOMEDAY, TAP } from "../constants/audioSettings";
 
 export type LevelSliceType = {
@@ -20,7 +20,7 @@ export type LevelSliceType = {
 
 
 
-export const levelSlice: StateCreator<LevelSliceType & MusicSliceType, [], [], LevelSliceType> = (set, get) => ({
+export const levelSlice: StateCreator<LevelSliceType & AudioSliceType, [], [], LevelSliceType> = (set, get) => ({
   startScreenLoading: true,
   changeStateStartScreenLoading: () => {
     set({ startScreenLoading: false })

@@ -5,18 +5,18 @@ import { Music } from "../types";
 import { preloadedSoundPlayers } from "../utils/Audio/preloadSoundFiles";
 import { preloadedMusicPlayers } from "../utils/Audio/preloadMusicFiles";
 
-export type MusicSliceType = {
+export type AudioSliceType = {
   isPlayingMusic: boolean,
   player: Tone.Player,
   startMusic: (music: Music) => void;
   stopMusic: () => void,
   playSound: (sound: Music) => void;
-
-
+  changeMusic: (music: Music) => void;
+  upgradeIsPlayingMusic: (value: boolean) => void;
   // updatePlayer: (data: Tone.Player) => void,
 }
 
-export const musicSlice: StateCreator<MusicSliceType & LevelSliceType, [], [], MusicSliceType> = (set, get) => ({
+export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], AudioSliceType> = (set, get) => ({
   isPlayingMusic: false,
   player: new Tone.Player(),
 
@@ -25,10 +25,13 @@ export const musicSlice: StateCreator<MusicSliceType & LevelSliceType, [], [], M
 
     if (player) {
       player.autostart = false
-      player.loop = true
-      player.volume.value = music.volume;
+      player.loop = true // Bucle infinito de reproducción
+      player.volume.value = music.volume; // Ajuste de volumen
       player.start();
-      set({ player, isPlayingMusic: true });
+      set({
+        player: player,
+        //  isPlayingMusic: 
+      });
       console.log(`Reproduciendo: ${music.name}`);
     } else {
       console.log(`Error: Pista "${music.name}" no encontrada. ¿Fue precargada?`);
@@ -39,7 +42,7 @@ export const musicSlice: StateCreator<MusicSliceType & LevelSliceType, [], [], M
 
   stopMusic: () => {
     get().player.stop();
-    set({ isPlayingMusic: false });
+    // set({ isPlayingMusic: false });
   },
 
   // TODO: INTENTAR AÑADIR UN ESTADO BOOLEANO SIMILAR A MUSIC
@@ -55,9 +58,23 @@ export const musicSlice: StateCreator<MusicSliceType & LevelSliceType, [], [], M
     } else {
       console.log(`Error: Sonido "${sound.name}" no encontrado. ¿Fue precargado?`);
     }
-  }
+  },
   // updatePlayer: (data) => {
   //   set({ player: data })
   // }
+
+  // Acción para cambiar de canción
+  changeMusic: (music: Music) => {
+    if (get().isPlayingMusic) {
+      get().stopMusic()
+      get().startMusic(music)
+    }
+  },
+
+  upgradeIsPlayingMusic: (value: boolean) => {
+    set({ isPlayingMusic: value });
+  }
+
+
 
 });

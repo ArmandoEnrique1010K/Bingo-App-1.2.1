@@ -6,7 +6,7 @@ import TargetNumbers from "../components/Targets/TargetNumbers";
 import MarkedPositionsBoard from "../components/Pattern/ObjectivePattern";
 import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
-import { BOT_REACTION_DELAY, MAX_TURNS } from "../constants/defaultConfigs";
+import { MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
 
 export default function LevelView() {
@@ -19,6 +19,7 @@ export default function LevelView() {
   const currentRound = useAppStore((state) => state.currentRound);
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
+  const changeMusic = useAppStore((state) => state.changeMusic);
 
   const location = useLocation();
   const checkWinnerPatternBot = useAppStore(
@@ -41,7 +42,10 @@ export default function LevelView() {
   // TODO: FALTA EVITAR QUE LA FUNCIÓN QUE DETERMINA AL BOT COMO GANADOR SE DETENGA SI EL JUGADOR HA GANADO, TAMBIEN SI NO HAY TURNOS DISPONIBLES
   // TODO: TAMBIEN SI EL JUGADOR HA GANADO, EL BOT DEBERIA DEJAR DE SEGUIR MARCANDO TABLEROS Y LOS NUMEROS OBJETIVOS DEBEN ESTAR EN BLANCO
   // TODO: TAMBIEN DEBE DEJAR DE SEGUIR EJECUTANDO SI EL JUGADOR HA SALIDO DEL NIVEL
+  // TODO: SI EL BOT HA GANADO, DEBE DEJAR DE MARCAR LOS NUMEROS
   useEffect(() => {
+    if (winner === "bot" || winner === "end" || winner === "player") return;
+
     if (gameEnded) return; // ✅ Si el juego ya terminó, no evaluar más
 
     const winnerInfos = checkWinnerPatternBot() || [];
@@ -61,6 +65,8 @@ export default function LevelView() {
         // confirmedWinners[key] = reactionTime;
 
         const timeoutId = setTimeout(() => {
+          if (winner === "bot" || winner === "end" || winner === "player")
+            return;
           if (gameEnded) return;
 
           botWinner(info.botName); // 🚀 Declara ganador
@@ -77,7 +83,7 @@ export default function LevelView() {
         boardTimeoutsRef.current[key] = timeoutId;
       }
     });
-  }, [botSelectedNumbersAndPositions]); // ✅ Se ejecuta cuando los números marcados cambian
+  }, [botSelectedNumbersAndPositions, winner]); // ✅ Se ejecuta cuando los números marcados cambian
 
   useEffect(() => {
     // getLevelNumberFromUrl(location.pathname);
@@ -87,13 +93,14 @@ export default function LevelView() {
   useEffect(() => {
     // TIP: NO OLVIDAR LOS VALORES TRUTHY AND FALSY
     resetLevel();
+    // changeMusic(levelData.music);
 
-    stopMusic();
-    if (isPlayingMusic) {
-      startMusic(levelData.music);
-    } else {
-      stopMusic();
-    }
+    // stopMusic();
+    // if (isPlayingMusic) {
+    //   startMusic(levelData.music);
+    // } else {
+    //   stopMusic();
+    // }
 
     console.log("HA CAMBIADO DE NIVEL");
   }, [levelData]);

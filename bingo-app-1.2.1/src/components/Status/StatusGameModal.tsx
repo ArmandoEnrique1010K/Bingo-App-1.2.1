@@ -3,6 +3,7 @@ import { useAppStore } from "../../store/useAppStore";
 import { Dialog, DialogPanel, DialogTitle, Button } from "@headlessui/react";
 import { FINAL_LEVEL } from "../../constants/defaultConfigs";
 import DefeatMessage from "./DefeatMessage";
+import { CLICK_SOUND } from "../../constants/audioSettings";
 
 export default function StatusGameModal() {
   const levelData = useAppStore((state) => state.levelData);
@@ -14,6 +15,7 @@ export default function StatusGameModal() {
   const checkWinnerPatternBot = useAppStore(
     (state) => state.checkWinnerPatternBot
   );
+  const playSound = useAppStore((state) => state.playSound);
 
   const navigate = useNavigate();
 
@@ -32,14 +34,19 @@ export default function StatusGameModal() {
   const handleActionButtonLeft = () => {
     if (modal.type === "victory" && levelData.level === FINAL_LEVEL) {
       leaveGame();
+      playSound(CLICK_SOUND);
     } else if (modal.type === "victory" && levelData.level !== FINAL_LEVEL) {
       nextLevel();
+      playSound(CLICK_SOUND);
     } else if (modal.type === "exit") {
       leaveGame();
+      playSound(CLICK_SOUND);
     } else if (modal.type === "defeat") {
       resetLevel();
+      playSound(CLICK_SOUND);
     } else if (modal.type === "reboot") {
       resetLevel();
+      playSound(CLICK_SOUND);
     } else {
       closeStatusModal();
     }

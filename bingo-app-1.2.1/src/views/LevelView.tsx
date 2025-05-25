@@ -99,7 +99,7 @@ export default function LevelView() {
 
       useAppStore.setState({ gameEnded: true }); // 🚫 Bloquea futuras evaluaciones
     }
-  }, [winner]);
+  }, [winner, location.pathname]);
 
   useEffect(() => {
     // getLevelNumberFromUrl(location.pathname);

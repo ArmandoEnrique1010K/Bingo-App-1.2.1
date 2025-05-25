@@ -192,7 +192,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
               botName: bot.name,
               boardId: board.id,
               markedCells: board.board,
-              winningPattern: pattern,
+              // winningPattern: pattern,
               // DEBERIA DEVOLVER EL TIEMPO DE REACCION DEL BOT
               reactionTime: levelData.bots.find(b => b.name === bot.name)?.reactionTime || 0
             });
@@ -290,4 +290,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     console.log(`🏆 ¡El bot ${botId} ha ganado! Fin del juego.`);
   },
 
+
+  // TODO: AL REINICIAR UN NIVEL, EL BOT DEBE DEJAR DE SEGUIR MARCANDO
 })

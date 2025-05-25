@@ -122,7 +122,6 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
   resetLevel: () => {
 
-    // get().playSound(CLICK_SOUND)
 
     const levelData = get().levelData; // Obtén el nivel actual
     const createPlayerBoards = Array.from({ length: levelData.boards }).map((_, index) => ({

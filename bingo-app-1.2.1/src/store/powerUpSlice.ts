@@ -115,8 +115,6 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     }));
   },
 
-  // TODO: SI EL JUGADOR HA MARCADO UN NUMERO QUE NO ES UN NUMERO OBJETIVO O SI EL NUMERO YA ESTA MARCADO, NO SE DEBERIA APLICAR EL POWERUP
-  // TODO: TAMBIEN SI UN NUMERO VECINO YA ESTA MARCADO, TAMPOCO LO DEBERIA AGREGAR
   activateMarkNeighborgOnNumberClick: (boardId: number, numberClicked: number) => {
     const { playerBoards, currentTargets, selectedNumbersAndPositions, powerups } = get();
 
@@ -180,5 +178,6 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     }));
   },
 
+  // TODO: SE DEBE REINICIAR A LOS VALORES INICIALES DEL POWERUP CADA VEZ QUE CAMBIA DE NIVEL
 
 })

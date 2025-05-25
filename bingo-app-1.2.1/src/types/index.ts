@@ -92,7 +92,7 @@ export type BotsWinners = {
   boardId: string,
   markedCells: BotBoard['board']
   // winningPattern: Pattern,
-  // reactionTime: number
+  reactionTime: number
 }[]
 
 

@@ -22,6 +22,13 @@ export default function PlayerBingoCell({
 
   const markCell = useAppStore((state) => state.markCell);
   const playerBoards = useAppStore((state) => state.playerBoards);
+  const powerups = useAppStore((state) => state.powerups);
+  const activateMarkNeighborgOnNumberClick = useAppStore(
+    (state) => state.activateMarkNeighborgOnNumberClick
+  );
+  const selectedNumbersAndPositions = useAppStore(
+    (state) => state.selectedNumbersAndPositions
+  );
 
   const [cellColor, setcellColor] = useState("gray");
 
@@ -30,11 +37,29 @@ export default function PlayerBingoCell({
     if (checkSelectedNumber(boardId, position)) {
       setcellColor(color);
     }
+
+    if (powerups.markNeighborgNumbers.active) {
+      // AGREGA LOS NUMEROS VECINOS AL STATE
+      activateMarkNeighborgOnNumberClick(boardId, number);
+    }
   };
 
+  // useEffect(() => {
+  //   setcellColor("gray");
+  // }, [selectedNumbersAndPositions]);
+
   useEffect(() => {
-    setcellColor("gray");
-  }, [playerBoards]);
+    // setcellColor("gray");
+    const isSelected = checkSelectedNumber(boardId, position);
+    setcellColor(isSelected ? color : "gray");
+
+    // COLOCAR selectedNumbersAndPositions EN EL ARREGLO DE DEPENDENCIAS SERIA UNA SOLUCIÓN TEMPORAL
+  }, [playerBoards, selectedNumbersAndPositions]);
+
+  // useEffect(() => {
+  //   const isSelected = checkSelectedNumber(boardId, position);
+  //   setcellColor(isSelected ? color : "gray");
+  // }, [selectedNumbersAndPositions]);
 
   return (
     <button

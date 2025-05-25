@@ -5,11 +5,13 @@ import { playerSlice, PlayerSliceType } from "./playerSlice";
 import { audioSlice, AudioSliceType } from "./audioSlice";
 import { gameSlice, GameSliceType } from "./gameSlice";
 import { botSlice, BotSliceType } from "./botSlice";
+import { powerUpSlice, PowerUpSliceType } from "./powerUpSlice";
 
-export const useAppStore = create<LevelSliceType & PlayerSliceType & AudioSliceType & GameSliceType & BotSliceType>()(devtools((...a) => ({
+export const useAppStore = create<LevelSliceType & PlayerSliceType & AudioSliceType & GameSliceType & BotSliceType & PowerUpSliceType>()(devtools((...a) => ({
   ...levelSlice(...a),
   ...playerSlice(...a),
   ...audioSlice(...a),
   ...gameSlice(...a),
   ...botSlice(...a),
+  ...powerUpSlice(...a)
 })))

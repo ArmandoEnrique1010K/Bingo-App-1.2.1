@@ -10,6 +10,7 @@ import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_
 import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
 import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, KILL } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
+import { PowerUpSliceType } from "./powerUpSlice";
 
 export type GameSliceType = {
   currentTargets: number[],
@@ -44,7 +45,7 @@ export type GameSliceType = {
 
 
 
-export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSliceType & AudioSliceType & BotSliceType, [], [], GameSliceType> = (set, get) => ({
+export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSliceType & AudioSliceType & BotSliceType & PowerUpSliceType, [], [], GameSliceType> = (set, get) => ({
   currentTargets: [],
   excludedTargets: [],
   currentRound: 0,
@@ -69,7 +70,11 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
       get().playSound(BALLS_SOUND)
       setTimeout(() => {
-        const newTargets = generateTargets(DEFAULT_TARGETS, get().excludedTargets);
+        const newTargets = generateTargets(
+
+          // NO OLVIDAR ACTIVAR EL POWERUP DE AÑADIR 2 OBJETIVOS EXTRA
+          get().powerups.extraTargets.active ? DEFAULT_TARGETS + 2 :
+            DEFAULT_TARGETS, get().excludedTargets);
         set({
           currentTargets: newTargets,
           excludedTargets: [...get().excludedTargets, ...newTargets]
@@ -81,6 +86,10 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
     get().timeoutsIds.forEach(timeoutId => clearTimeout(timeoutId));
     set({ timeoutsIds: [] });
 
+    // TODO: ZONA DE POWERUPS
+    if (get().powerups.extraTargets.active) {
+      get().decrementExtraTargetsTurn();
+    }
 
   },
 

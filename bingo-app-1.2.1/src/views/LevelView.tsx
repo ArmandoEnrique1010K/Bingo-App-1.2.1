@@ -8,6 +8,7 @@ import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
+import ListPowerUps from "../components/PowerUps/ListPowerUps";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
@@ -143,6 +144,7 @@ export default function LevelView() {
           </div>
 
           <PlayerBoard />
+          <ListPowerUps />
         </div>
 
         {/* Contenedor dinámico para mostrar los tableros de los bots */}

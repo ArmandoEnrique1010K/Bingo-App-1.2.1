@@ -19,14 +19,17 @@ export default function BotOpponent({
   const botBoards = useAppStore((state) => state.botBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
   const markCellBot = useAppStore((state) => state.markCellBot);
+  const winner = useAppStore((state) => state.winner);
 
   useEffect(() => {
     if (currentTargets.length !== 0) {
-      setTimeout(() => {
-        markCellBot(name, interval);
-      }, 0);
+      if (winner !== "bot" && winner !== "player") {
+        setTimeout(() => {
+          markCellBot(name, interval);
+        }, 0);
+      }
     }
-  }, [currentTargets]);
+  }, [currentTargets, winner, markCellBot, name, interval]);
 
   return (
     <div

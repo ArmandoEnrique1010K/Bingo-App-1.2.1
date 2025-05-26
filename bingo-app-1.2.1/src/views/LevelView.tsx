@@ -88,9 +88,21 @@ export default function LevelView() {
 
   // ✅ Cancela todos los `setTimeout` si el jugador gana
   useEffect(() => {
-    if (winner === "player" || winner === "end" || winner === "bot") {
+    if (winner === "player") {
       console.log(
         "🏆 ¡El jugador ha ganado! Cancelando todos los tiempos de espera..."
+      );
+      Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
+        clearTimeout(boardTimeoutsRef.current[botKey]);
+        delete boardTimeoutsRef.current[botKey];
+      });
+
+      useAppStore.setState({ gameEnded: true }); // 🚫 Bloquea futuras evaluaciones
+    }
+
+    if (winner === "bot" || winner === "end") {
+      console.log(
+        "🏆 ¡El bot ha ganado! Cancelando todos los tiempos de espera..."
       );
       Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
         clearTimeout(boardTimeoutsRef.current[botKey]);

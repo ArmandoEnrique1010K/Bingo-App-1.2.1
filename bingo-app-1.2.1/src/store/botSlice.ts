@@ -61,7 +61,9 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
       viewStatusModal: true,
       dataBotWinner: {
         name: name
-      }
+      },
+      timeoutsIds: [],
+      findedCells: [],
     });
 
     get().playSound(DEFEAT_SOUND)
@@ -98,7 +100,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
   },
 
 
-  // TODO: ESTA ACCIÓN DEBE ENCARGARSE DE MARCAR LOS NUMEROS EN LOS TABLEROS DEL BOT, DEBE EVALUAR CADA BOT, TAMBIEN DEBE TOMAR EL INTERVALO DE TIEMPO DE DEMORA O DE REACCIÓN
+  // ESTA ACCIÓN DEBE ENCARGARSE DE MARCAR LOS NUMEROS EN LOS TABLEROS DEL BOT, DEBE EVALUAR CADA BOT, TAMBIEN DEBE TOMAR EL INTERVALO DE TIEMPO DE DEMORA O DE REACCIÓN
 
   // TODO: PERO SI LOS NUMEROS OBJETIVOS ESTA VACIO, DEBE PARAR DE EJECUTAR LA FUNCIÓN MARKCELLBOT Y DETENER LOS TEMPORIZADORES
   markCellBot: (name: string, interval: number) => {
@@ -118,6 +120,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     botFinded.boards.forEach(board => {
       board.board.forEach((cell, idx) => {
 
+        if (get().winner === "bot") return
         // Si los objetivos han cambiado, no crear más timeouts
         // if (!get().findedCells.find(bot => bot.name === name)) return;
 
@@ -141,14 +144,11 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
           get().playSound(CORRECT_BOT_SOUND)
         }, time);
 
-        // Guardar el id del timeout para posible limpieza
-        // set(state => ({
-        //   timeoutsIds: [...state.timeoutsIds, timeoutId]
-        // }));
         newTimeouts.push(timeoutId);
 
       });
     });
+    // Guardar el id del timeout para posible limpieza
 
     set(state => ({
       timeoutsIds: [...state.timeoutsIds, ...newTimeouts]

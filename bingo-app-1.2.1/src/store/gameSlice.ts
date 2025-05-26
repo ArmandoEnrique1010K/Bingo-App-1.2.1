@@ -26,7 +26,7 @@ export type GameSliceType = {
 
   updateTargets: () => void,
   winner: string
-  changeWinner: (value: string) => void;
+  // changeWinner: (value: string) => void;
 
   exitLevelModal: () => void;
   resetLevel: () => void;
@@ -61,6 +61,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
 
   updateTargets: () => {
+
     if (get().currentRound === MAX_TURNS) {
       set({ currentTargets: [], winner: "end" });
       get().noMoreRoundModal()
@@ -95,9 +96,9 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
 
   winner: "",
-  changeWinner: (value) => {
-    set({ winner: value });
-  },
+  // changeWinner: (value) => {
+  //   set({ winner: value });
+  // },
 
   exitLevelModal: () => {
     get().playSound(CLICK_SOUND)
@@ -122,6 +123,9 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
   resetLevel: () => {
 
+    // set({
+    //   gameEnded: true,
+    // })
 
     const levelData = get().levelData; // Obtén el nivel actual
     const createPlayerBoards = Array.from({ length: levelData.boards }).map((_, index) => ({
@@ -182,7 +186,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
     set({
       playerBoards: createPlayerBoards,
 
-      botBoards: createBotBoards, // TODO: INTENTAR ESTO
+      botBoards: createBotBoards,
 
       currentTargets: [],
       currentRound: 0,
@@ -200,6 +204,8 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       confirmedWinners: {},
       gameEnded: false,
       powerups: initialPowerups,
+      timeoutsIds: [],
+      findedCells: [],
     })
 
     get().changeMusic(levelData.music)

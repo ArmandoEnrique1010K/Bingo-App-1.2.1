@@ -139,9 +139,17 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
           // if (!stillExists) return;
 
           // Actualizar la selección del bot
-          console.log(`El bot ${botFinded.name} ha encontrado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${time} milisegundos`)
-          get().updateBotSelection(name, board.id, cell.number, cell.position);
-          get().playSound(CORRECT_BOT_SOUND)
+
+          // TODO: AQUI ESTABA EL PROBLEMA, LO ARREGLE, PERO SI gameEnded es true imprime el mensaje "No se van a seguir evaluando"
+          if (get().gameEnded === false) {
+            console.log(`El bot ${botFinded.name} ha marcado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${time} milisegundos`)
+            get().updateBotSelection(name, board.id, cell.number, cell.position);
+            get().playSound(CORRECT_BOT_SOUND)
+          } else {
+            // TODO: PERO SI gameEnded es false (AL MOMENTO DE REINICIAR EL NIVEL) VOLVERA A SEGUIR MARCANDO LOS NUMEROS
+            console.log("No se van a seguir evaluando")
+            return
+          }
         }, time);
 
         newTimeouts.push(timeoutId);

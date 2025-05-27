@@ -45,9 +45,16 @@ export default function LevelView() {
   // TODO: TAMBIEN DEBE DEJAR DE SEGUIR EJECUTANDO SI EL JUGADOR HA SALIDO DEL NIVEL
   // TODO: SI EL BOT HA GANADO, DEBE DEJAR DE MARCAR LOS NUMEROS
   useEffect(() => {
-    if (winner === "bot" || winner === "end" || winner === "player") return;
-
-    if (gameEnded) return; // ✅ Si el juego ya terminó, no evaluar más
+    if (
+      gameEnded
+      // ||
+      // winner === "bot" ||
+      // winner === "player" ||
+      // winner === "end"
+    ) {
+      console.log("⚠️ El juego ya terminó, bloqueando evaluaciones...");
+      return;
+    }
 
     const winnerInfos = checkWinnerPatternBot() || [];
     if (!winnerInfos.length) return;
@@ -56,7 +63,9 @@ export default function LevelView() {
       const key = `${info.botName}-${info.boardId}`;
       const reactionTime = info.reactionTime; // 🔥 Cada bot tiene un tiempo distinto
 
-      if (!confirmedWinners[key] && !gameEnded) {
+      if (
+        !confirmedWinners[key] // && !gameEnded
+      ) {
         // ✅ Solo inicia si el bot aún no fue declarado ganador
         console.log(
           `🏆 ${info.botName} ha encontrado un patrón. Esperando ${reactionTime}ms...`
@@ -66,12 +75,17 @@ export default function LevelView() {
         // confirmedWinners[key] = reactionTime;
 
         const timeoutId = setTimeout(() => {
-          if (winner === "bot" || winner === "end" || winner === "player")
-            return;
+          // if (winner === "bot" || winner === "end" || winner === "player")
+          //   return;
           if (gameEnded) return;
 
           botWinner(info.botName); // 🚀 Declara ganador
           declareBotWinner(info.botName); // 🚫 Bloquea evaluaciones futuras
+
+          useAppStore.setState({
+            gameEnded: true,
+            // botSelectedNumbersAndPositions: [],
+          });
 
           // 🔥 Limpia todos los demás `setTimeout` para evitar múltiples llamadas a `botWinner`
           Object.keys(boardTimeoutsRef.current).forEach((botKey) => {

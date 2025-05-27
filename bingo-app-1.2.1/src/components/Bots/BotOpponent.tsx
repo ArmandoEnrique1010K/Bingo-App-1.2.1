@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import BotBingoBoard from "./BotBingoBoard";
+import { createIdBoard } from "../../utils/Bot/createIdBoard";
 
 type BotOpponentProps = {
   name: string;
@@ -48,10 +49,11 @@ export default function BotOpponent({
               botBoards
                 ?.find((bot) => bot.name === name) // Encuentra el bot correspondiente
                 ?.boards.find(
-                  (boardObj) => boardObj.id === `Bot-${botIndex}-${boardIndex}`
+                  (boardObj) =>
+                    boardObj.id === createIdBoard(botIndex, boardIndex)
                 )?.board || []
             }
-            idBoard={`Bot-${botIndex}-${boardIndex}`}
+            idBoard={createIdBoard(botIndex, boardIndex)}
           />
         ))}
       </div>

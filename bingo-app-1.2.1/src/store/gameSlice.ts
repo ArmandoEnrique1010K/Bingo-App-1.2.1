@@ -11,6 +11,7 @@ import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constant
 import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, ANYMORE_ENDING } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
 import { initialPowerups, PowerUpSliceType } from "./powerUpSlice";
+import { createIdBoard } from "../utils/Bot/createIdBoard";
 
 export type GameSliceType = {
   currentTargets: number[],
@@ -133,26 +134,12 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       board: generateBoard(), // Genera un tablero para cada jugador
     }));
 
-    // const createBotBoards = Array.from({ length: levelData.bots.length }).map((_, index) => ({
-    //   id: index + 1,
-    //   board: generateBoard(), // Genera un tablero para cada jugador
-    // }));
-
-
-    // const createBotBoards = levelData.bots.map((bot, botIndex) =>
-    //   Array.from({ length: bot.boards }).map((_, boardIndex) => ({
-    //     // id: `Bot-${botIndex}-${boardIndex}`,
-    //     name: `Bot-${botIndex}-${boardIndex}`,
-    //     // (10 * (botIndex + 1)) + (boardIndex + 1), // Identificador único combinando el id del bot y del tablero
-    //     board: generateBoard(), // Genera un tablero para cada instancia
-    //   }))
-    // );
 
 
     const createBotBoards = levelData.bots.map((bot, botIndex) => ({
       name: bot.name, // El nombre del bot
       boards: Array.from({ length: bot.boards }).map((_, boardIndex) => ({
-        id: `Bot-${botIndex}-${boardIndex}`, // ID único para cada tablero
+        id: createIdBoard(botIndex, boardIndex), // ID único para cada tablero
         board: generateBoard(), // Genera un tablero nuevo
       })),
     }));

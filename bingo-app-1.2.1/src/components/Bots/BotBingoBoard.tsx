@@ -15,18 +15,21 @@ BotBingoBoardProps) {
   return (
     <>
       {/* <div>{idBoard}</div> */}
-      <div className="flex flex-row justify-center text-center">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <BotBingoColumn
-            key={index}
-            idBoard={idBoard}
-            board={board}
-            // handleIsSelectedNumber={handleIsSelectedNumber}
-            min={index * 5 + 1}
-            max={(index + 1) * 5}
-            // color={color}
-          />
-        ))}
+      <div className="flex flex-col justify-center text-center">
+        <div className="flex flex-row justify-center text-center">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <BotBingoColumn
+              key={index}
+              idBoard={idBoard}
+              board={board}
+              // handleIsSelectedNumber={handleIsSelectedNumber}
+              min={index * 5 + 1}
+              max={(index + 1) * 5}
+              // color={color}
+            />
+          ))}
+        </div>
+        <div>{idBoard}</div>
       </div>
     </>
   );

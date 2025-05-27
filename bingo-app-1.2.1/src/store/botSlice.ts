@@ -146,8 +146,10 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
             get().updateBotSelection(name, board.id, cell.number, cell.position);
             get().playSound(CORRECT_BOT_SOUND)
           } else {
-            // TODO: PERO SI gameEnded es false (AL MOMENTO DE REINICIAR EL NIVEL) VOLVERA A SEGUIR MARCANDO LOS NUMEROS
+            // TODO: PERO SI gameEnded es false (AL MOMENTO DE REINICIAR EL NIVEL) VOLVERA A SEGUIR MARCANDO LOS NUMEROS, NO DEBERIA SEGUIR EVALUANDO
             console.log("No se van a seguir evaluando")
+
+            // TODO: PROBABLEMENTE LA SOLUCIÓN SEA colocar gameEnded en true al momento de cerrar de nivel
             return
           }
         }, time);

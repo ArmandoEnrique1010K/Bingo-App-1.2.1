@@ -2,6 +2,7 @@
 
 import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE } from "../constants/audioSettings";
 import { Level } from "../types";
+import { generateBotName } from "../utils/Bot/generateBotName";
 
 // TODO: SOUNDTRACKS
 // NIVEL +1 SLOW TAP MOONLIGHT
@@ -10,6 +11,8 @@ import { Level } from "../types";
 // NIVEL +16  DARKNESS
 // NIVEL +21  FRIENDS
 // NIVEL +26  ANYMORE
+
+
 
 export const levels: Level[] = [
   {
@@ -30,22 +33,10 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot",
-        interval: 1000,
-        boards: 2,
-        reactionTime: 5000
-      },
-      {
-        name: "S-Bot-2",
-        interval: 1000,
-        boards: 2,
-        reactionTime: 5000
-      },
-      {
-        name: "S-Bot-3",
-        interval: 1000,
-        boards: 2,
-        reactionTime: 5000
+        name: generateBotName(2200, 6000, 1),
+        interval: 2200,
+        boards: 1,
+        reactionTime: 6000
       },
     ],
     color: 'blue',
@@ -70,7 +61,7 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot",
+        name: generateBotName(1900, 6000, 1),
         interval: 1900,
         boards: 1,
         reactionTime: 6000
@@ -101,8 +92,8 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot",
-        interval: 1400,
+        name: generateBotName(1600, 6000, 1),
+        interval: 1600,
         boards: 1,
         reactionTime: 6000
       }
@@ -127,14 +118,14 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot 1",
-        interval: 2100,
+        name: generateBotName(2200, 6000, 1),
+        interval: 2200,
         boards: 1,
         reactionTime: 6000
       },
       {
-        name: "S-Bot 2",
-        interval: 1700,
+        name: generateBotName(1900, 6000, 2),
+        interval: 1900,
         boards: 1,
         reactionTime: 6000
       }
@@ -153,17 +144,17 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot 1",
-        interval: 2100,
+        name: generateBotName(1600, 6000, 1),
+        interval: 1600,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 6000
       },
       {
-        name: "S-Bot 2",
-        interval: 1700,
+        name: generateBotName(1900, 6000, 2),
+        interval: 1900,
         boards: 1,
-        reactionTime: 0
-      }
+        reactionTime: 6000
+      },
     ],
     color: 'blue',
     music: TAP
@@ -1175,5 +1166,44 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: ANYMORE
+  },
+  {
+    level: 31,
+    targetText: "Columna o una fila de 5 números",
+    boards: 1,
+    patterns: [
+      [1, 2, 3, 4, 5],
+      [6, 7, 8, 9, 10],
+      [11, 12, 13, 14, 15],
+      [16, 17, 18, 19, 20],
+      [21, 22, 23, 24, 25],
+      [1, 6, 11, 16, 21],
+      [2, 7, 12, 17, 22],
+      [3, 8, 13, 18, 23],
+      [4, 9, 14, 19, 24],
+      [5, 10, 15, 20, 25],
+    ],
+    bots: [
+      {
+        name: "S-Bot",
+        interval: 1000,
+        boards: 2,
+        reactionTime: 5000
+      },
+      {
+        name: "S-Bot-2",
+        interval: 1000,
+        boards: 2,
+        reactionTime: 5000
+      },
+      {
+        name: "S-Bot-3",
+        interval: 1000,
+        boards: 2,
+        reactionTime: 5000
+      },
+    ],
+    color: 'blue',
+    music: SLOW
   },
 ]

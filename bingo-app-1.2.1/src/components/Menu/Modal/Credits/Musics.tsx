@@ -87,6 +87,15 @@ export default function Musics() {
             Not the Same Anymore - The Strokes
           </a>
         </li>
+        <li>
+          <a
+            href="https://www.youtube.com/watch?v=U7TNi0UEvvI&ab_channel=BryanSanchez"
+            target="_blank"
+            className="text-blue-500 hover:underline"
+          >
+            Selfless - The Strokes
+          </a>
+        </li>
       </ul>
     </>
   );

@@ -5,19 +5,14 @@ import { useAppStore } from "../../store/useAppStore";
 export default function SoundButton() {
   const isPlayingSound = useAppStore((state) => state.isPlayingSound);
   const levelData = useAppStore((state) => state.levelData);
-  const upgradeIsPlayingSound = useAppStore(
-    (state) => state.upgradeIsPlayingSound
-  );
+  const setIsPlayingSound = useAppStore((state) => state.setIsPlayingSound);
 
   const { color } = levelData;
 
   const handlePlaySound = () => {
-    if (isPlayingSound) {
-      upgradeIsPlayingSound(false);
-    } else {
-      upgradeIsPlayingSound(true);
-    }
+    setIsPlayingSound(!isPlayingSound);
   };
+
   return (
     <>
       <button

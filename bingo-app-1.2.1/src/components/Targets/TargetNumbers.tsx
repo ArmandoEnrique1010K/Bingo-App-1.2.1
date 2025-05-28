@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppStore } from "../../store/useAppStore";
-import { MAX_TURNS } from "../../constants/defaultConfigs";
+import {
+  GENERATE_TARGETS_DELAY,
+  MAX_TURNS,
+} from "../../constants/defaultConfigs";
 
 export default function TargetNumbers() {
   const currentTargets = useAppStore((state) => state.currentTargets);
@@ -8,18 +11,43 @@ export default function TargetNumbers() {
   const levelData = useAppStore((state) => state.levelData);
   const updateTargets = useAppStore((state) => state.updateTargets);
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const timeoutRef = useRef<number>(1);
+
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
+    if (currentRound === 0) {
+      setButtonDisabled(false);
+      return;
+    }
+
     if (currentTargets.length === 0) {
       setButtonDisabled(true);
-      if (currentRound === 0) {
-        setButtonDisabled(false);
-      }
-    } else {
-      const timer = setTimeout(() => setButtonDisabled(false), 1500);
-      return () => clearTimeout(timer);
+      return;
     }
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(
+      () => setButtonDisabled(false),
+      GENERATE_TARGETS_DELAY
+    );
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+
+    // if (currentTargets.length === 0) {
+    //   setButtonDisabled(true);
+    //   if (currentRound === 0) {
+    //     setButtonDisabled(false);
+    //   }
+    // } else {
+    //   const timer = setTimeout(
+    //     () => setButtonDisabled(false),
+    //     GENERATE_TARGETS_DELAY
+    //   );
+    //   return () => clearTimeout(timer);
+    // }
   }, [currentTargets, currentRound]);
 
   const getActionText = () => {
@@ -29,6 +57,14 @@ export default function TargetNumbers() {
     if (currentRound === MAX_TURNS) return "Rendirse";
     return "Siguiente";
   };
+
+  const buttonClasses = `bg-${
+    levelData.color
+  }-500 text-white font-semibold sm:px-6 px-4 sm:py-3 py-2 text-sm sm:text-base cursor-pointer rounded-lg shadow-black shadow-md sm:mb-4 ${
+    buttonDisabled
+      ? "bg-gray-300 opacity-50 cursor-not-allowed"
+      : "hover:bg-gray-900"
+  }`;
 
   return (
     <div className="bg-gray-700 rounded-xl p-3 shadow-lg sm:min-h-52 min-h-44 sm:mb-4">
@@ -53,18 +89,7 @@ export default function TargetNumbers() {
 
       <div className="text-center mt-2">
         <button
-          className={`bg-${
-            levelData.color
-          }-500 text-white font-semibold sm:px-6 px-4 sm:py-3 py-2 text-sm sm:text-base cursor-pointer
-        rounded-lg shadow-black shadow-md sm:mb-4 
-        
-          
-
-        ${
-          buttonDisabled
-            ? "bg-gray-300 opacity-50 cursor-not-allowed"
-            : "hover:bg-gray-900"
-        }`}
+          className={buttonClasses}
           onClick={updateTargets}
           disabled={buttonDisabled}
         >

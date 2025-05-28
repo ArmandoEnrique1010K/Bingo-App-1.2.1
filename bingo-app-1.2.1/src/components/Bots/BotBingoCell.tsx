@@ -24,11 +24,10 @@ export default function BotBingoCell({ idBoard, value }: BotBingoCellProps) {
 
   return (
     <div
-      className={`text-xs sm:text-sm sm:size-6 size-4 text-center sm:border-2 border-0 border-gray-600 text-white bg-${
+      className={`text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${
         isMarked ? color : "gray"
       }-500`}
     >
-      {/* El bot no muestra los numeros de su tablero */}
       {position === 13 ? "F" : isMarked ? number : ""}
     </div>
   );

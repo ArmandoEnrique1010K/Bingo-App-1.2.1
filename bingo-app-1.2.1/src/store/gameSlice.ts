@@ -29,10 +29,10 @@ export type GameSliceType = {
   winner: string
   // changeWinner: (value: string) => void;
 
-  exitLevelModal: () => void;
+  openExitLevelModal: () => void;
   resetLevel: () => void;
   noMoreRoundModal: () => void;
-  resetLevelModal: () => void;
+  openResetLevelModal: () => void;
 
   showCreditsModal: boolean,
   openCreditsModal: () => void,
@@ -101,7 +101,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
   //   set({ winner: value });
   // },
 
-  exitLevelModal: () => {
+  openExitLevelModal: () => {
     get().playSound(CLICK_SOUND)
 
     set({
@@ -274,7 +274,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
   },
 
-  resetLevelModal: () => {
+  openResetLevelModal: () => {
 
     get().playSound(CLICK_SOUND)
 
@@ -311,5 +311,9 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       showHelpModal: false
     })
   },
+
+
+  // TODO: CREAR UNA NUEVA ACCIÓN PARA ACCEDER AL MENU
+
 
 });

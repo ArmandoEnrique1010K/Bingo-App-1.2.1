@@ -34,13 +34,13 @@ export default function StatusGameModal() {
   const handleActionButtonLeft = () => {
     if (modal.type === "victory" && levelData.level === FINAL_LEVEL) {
       leaveGame();
-      playSound(CLICK_SOUND);
+      // playSound(CLICK_SOUND);
     } else if (modal.type === "victory" && levelData.level !== FINAL_LEVEL) {
       nextLevel();
       playSound(CLICK_SOUND);
     } else if (modal.type === "exit") {
       leaveGame();
-      playSound(CLICK_SOUND);
+      // playSound(CLICK_SOUND);
     } else if (modal.type === "defeat") {
       resetLevel();
       playSound(CLICK_SOUND);
@@ -81,6 +81,8 @@ export default function StatusGameModal() {
                 {modal.type !== "defeat" && (
                   <p className="text-center">{modal.message}</p>
                 )}
+
+                <p className="text-center">{modal.message}</p>
 
                 {modal.type === "defeat" && checkWinnerPatternBot() && (
                   <DefeatMessage message={modal.message} />

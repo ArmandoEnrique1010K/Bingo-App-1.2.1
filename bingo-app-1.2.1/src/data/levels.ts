@@ -1187,7 +1187,7 @@ export const levels: Level[] = [
       {
         name: "S-Bot",
         interval: 1000,
-        boards: 2,
+        boards: 3,
         reactionTime: 5000
       },
       {
@@ -1203,7 +1203,7 @@ export const levels: Level[] = [
         reactionTime: 5000
       },
     ],
-    color: 'blue',
+    color: 'stone',
     music: SLOW
   },
 ]

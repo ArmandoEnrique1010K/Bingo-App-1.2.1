@@ -47,7 +47,7 @@ export default function BotOpponent({
             key={boardIndex + 1}
             board={
               botBoards
-                ?.find((bot) => bot.name === name) // Encuentra el bot correspondiente
+                ?.find((bot) => bot.name === name)
                 ?.boards.find(
                   (boardObj) =>
                     boardObj.id === createIdBoard(botIndex, boardIndex)

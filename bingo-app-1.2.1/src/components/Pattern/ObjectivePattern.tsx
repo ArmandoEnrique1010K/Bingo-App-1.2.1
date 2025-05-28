@@ -4,9 +4,9 @@ import RotatingPatterns from "./RotatingPatterns";
 
 export default function ObjectivePattern() {
   const levelData = useAppStore((state) => state.levelData);
-  const { color, targetText } = levelData;
-
   const checkWinnerPattern = useAppStore((state) => state.checkWinnerPattern);
+
+  const { color, targetText } = levelData;
 
   const [buttonText, setButtonText] = useState(targetText);
 

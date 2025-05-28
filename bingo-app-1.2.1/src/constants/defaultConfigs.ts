@@ -1,5 +1,5 @@
 // DEMORA DE CARGA AL ACCEDER AL JUEGO 
-export const LOADING_TIME = 1500;
+export const LOADING_TIME = 2000;
 
 // Numero de numeros objetivos por turno por defecto
 export const DEFAULT_TARGETS = 10 // 3
@@ -8,7 +8,7 @@ export const DEFAULT_TARGETS = 10 // 3
 export const TARGET_GENERATION_DELAY = 1000;
 
 // Turnos maximos por nivel
-export const MAX_TURNS = 20 // 20
+export const MAX_TURNS = 2 // 20
 
 // Nivel final (DEBE SER EL ULTIMO NIVEL)
 export const FINAL_LEVEL = 30;
@@ -25,5 +25,6 @@ export const CHANGE_PATTERN_DELAY = 3000
 
 // Tiempo de demora para que el bot se declare ganador (No sive, ahora es dinamico por cada uno de los bots en un nivel)
 // export const BOT_WINNER_DELAY = 10000
+export const GENERATE_TARGETS_DELAY = 1500
 
 export const APP_VERSION = "1.2.1"

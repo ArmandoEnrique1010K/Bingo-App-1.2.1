@@ -10,26 +10,32 @@ export default function PlayerBoardControls() {
 
   const playerBoards = useAppStore((state) => state.playerBoards);
   const playSound = useAppStore((state) => state.playSound);
-
   const changeCurrentBoard = useAppStore((state) => state.changeCurrentBoard);
 
+  const PREV_BOARD_ID = id - 1;
+  const NEXT_BOARD_ID = id + 1;
+
   const getButtonClasses = (isDisabled: boolean) =>
-    `px-4 sm:py-3 py-2 font-semibold rounded-lg shadow-md transition duration-300 w-full shadow-black ${
+    `px-4 sm:py-3 py-2 font-semibold rounded-lg shadow-md transition duration-300 w-full shadow-black text-white ${
       isDisabled
-        ? "bg-gray-500 text-white cursor-not-allowed"
-        : `bg-${color}-500 text-white cursor-pointer`
+        ? "bg-gray-500 cursor-not-allowed"
+        : `bg-${color}-500 cursor-pointer`
     }`;
+
+  const clickButton = (newId: number) => {
+    if (newId >= 1 && newId <= playerBoards.length) {
+      changeCurrentBoard(newId);
+      playSound(CLICK_SOUND);
+    }
+  };
 
   return (
     <div className="bg-gray-700 flex flex-col px-3 sm:mx-0 mx-3 gap-3 rounded-xl py-4">
       <div className="flex flex-row justify-between gap-4">
         <button
-          className={getButtonClasses(id === 1)}
-          onClick={() => {
-            changeCurrentBoard(id - 1);
-            playSound(CLICK_SOUND);
-          }}
-          disabled={id === 1}
+          className={getButtonClasses(PREV_BOARD_ID < 1)}
+          onClick={() => clickButton(PREV_BOARD_ID)}
+          disabled={PREV_BOARD_ID < 1}
         >
           Anterior
         </button>
@@ -37,15 +43,12 @@ export default function PlayerBoardControls() {
           {id}
         </div>
         <button
-          className={getButtonClasses(id === playerBoards.length)}
-          onClick={() => {
-            changeCurrentBoard(id + 1);
-            playSound(CLICK_SOUND);
-          }}
-          disabled={id === playerBoards.length}
+          className={getButtonClasses(NEXT_BOARD_ID > playerBoards.length)}
+          onClick={() => clickButton(NEXT_BOARD_ID)}
+          disabled={NEXT_BOARD_ID > playerBoards.length}
         >
           Siguiente
-        </button>
+        </button>{" "}
       </div>
     </div>
   );

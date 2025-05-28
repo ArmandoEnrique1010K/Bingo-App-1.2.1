@@ -23,9 +23,7 @@ export default function BotBingoColumn({
             <BotBingoCell
               key={n.position}
               idBoard={idBoard}
-              // handleIsSelectedNumber={handleIsSelectedNumber}
               value={{ number: n.number, position: n.position }}
-              // color={color}
             />
           ))}
       </div>

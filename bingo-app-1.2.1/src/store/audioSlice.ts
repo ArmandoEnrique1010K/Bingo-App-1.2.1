@@ -13,8 +13,8 @@ export type AudioSliceType = {
   stopMusic: () => void,
   playSound: (sound: Music) => void;
   changeMusic: (music: Music) => void;
-  upgradeIsPlayingMusic: (value: boolean) => void;
-  upgradeIsPlayingSound: (value: boolean) => void;
+  setIsPlayingMusic: (value: boolean) => void;
+  setIsPlayingSound: (value: boolean) => void;
 }
 
 export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], AudioSliceType> = (set, get) => ({
@@ -73,11 +73,11 @@ export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], A
     // }
   },
 
-  upgradeIsPlayingMusic: (value: boolean) => {
+  setIsPlayingMusic: (value: boolean) => {
     set({ isPlayingMusic: value });
   },
 
-  upgradeIsPlayingSound: (value: boolean) => {
+  setIsPlayingSound: (value: boolean) => {
     set({ isPlayingSound: value });
   }
 

@@ -13,8 +13,15 @@ export default function DefeatMessage({ message }: DefeatMessageProps) {
   );
   const botBoards = useAppStore((state) => state.botBoards);
 
-  const firstBotWinnerData = checkWinnerPatternBot()[0] || [];
+  const firstWinnerBotData = checkWinnerPatternBot()[0] || [];
   const currentRound = useAppStore((state) => state.currentRound);
+  const botName = firstWinnerBotData?.botName || "Desconocido";
+  const boardId = firstWinnerBotData?.boardId || "N/A";
+
+  const winningBoard =
+    botBoards
+      ?.find((bot) => bot.name === botName)
+      ?.boards.find((boardObj) => boardObj.id === boardId)?.board || [];
 
   return (
     <>
@@ -22,21 +29,13 @@ export default function DefeatMessage({ message }: DefeatMessageProps) {
 
       {currentRound !== MAX_TURNS && (
         <p>
-          El bot {firstBotWinnerData.botName} tiene en su tablero con el id{" "}
-          {firstBotWinnerData.boardId} el patrón ganador: "
-          <span className="font-bold">{levelData.targetText}</span>"
+          El bot "<span className="font-bold">{botName}</span>" tiene en su
+          tablero con el id "<span className="font-bold">{boardId}</span>" el
+          patrón ganador "
+          <span className="font-bold">{levelData.targetText}</span>".
         </p>
       )}
-      <BotBingoBoard
-        board={
-          botBoards
-            ?.find((bot) => bot.name === checkWinnerPatternBot()[0]?.botName) // Encuentra el bot correspondiente
-            ?.boards.find(
-              (boardObj) => boardObj.id === checkWinnerPatternBot()[0]?.boardId
-            )?.board || []
-        }
-        idBoard={checkWinnerPatternBot()[0]?.boardId || ""}
-      />
+      <BotBingoBoard board={winningBoard} idBoard={boardId} />
     </>
   );
 }

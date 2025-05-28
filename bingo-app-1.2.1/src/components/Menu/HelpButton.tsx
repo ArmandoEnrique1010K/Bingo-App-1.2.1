@@ -11,9 +11,7 @@ export default function HelpButton() {
   return (
     <>
       <button
-        onClick={() => {
-          openHelpModal();
-        }}
+        onClick={openHelpModal}
         className={`sm:py-4 py-2 px-3 text-${color}-500 cursor-pointer`}
       >
         <QuestionMarkCircleIcon className="sm:w-8 w-6" aria-hidden="true" />

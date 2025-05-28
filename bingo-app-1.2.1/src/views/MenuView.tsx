@@ -19,9 +19,7 @@ export default function MenuView() {
   const isPlayingMusic = useAppStore((state) => state.isPlayingMusic);
   const playSound = useAppStore((state) => state.playSound);
   const changeMusic = useAppStore((state) => state.changeMusic);
-  const upgradeIsPlayingMusic = useAppStore(
-    (state) => state.upgradeIsPlayingMusic
-  );
+  const setIsPlayingMusic = useAppStore((state) => state.setIsPlayingMusic);
 
   useEffect(() => {
     // stopMusic();
@@ -49,7 +47,7 @@ export default function MenuView() {
           onClick={() => {
             changeStateScreenButton();
             playSound(CLICK_SOUND);
-            upgradeIsPlayingMusic(true);
+            setIsPlayingMusic(true);
             changeMusic(levelData.music);
             // startMusic(levelData.music);
           }}

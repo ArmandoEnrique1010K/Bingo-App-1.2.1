@@ -7,21 +7,19 @@ export default function MusicButton() {
   const stopMusic = useAppStore((state) => state.stopMusic);
   const startMusic = useAppStore((state) => state.startMusic);
   const levelData = useAppStore((state) => state.levelData);
-  const upgradeIsPlayingMusic = useAppStore(
-    (state) => state.upgradeIsPlayingMusic
-  );
+  const setIsPlayingMusic = useAppStore((state) => state.setIsPlayingMusic);
 
   const { color, music } = levelData;
 
   const handlePlayMusic = () => {
+    setIsPlayingMusic(!isPlayingMusic);
     if (isPlayingMusic) {
-      upgradeIsPlayingMusic(false);
       stopMusic();
     } else {
-      upgradeIsPlayingMusic(true);
       startMusic(music);
     }
   };
+
   return (
     <>
       <button

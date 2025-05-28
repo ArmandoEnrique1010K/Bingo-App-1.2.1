@@ -5,6 +5,7 @@ export default function HelpModal() {
   const closeHelpModal = useAppStore((state) => state.closeHelpModal);
   const showHelpModal = useAppStore((state) => state.showHelpModal);
 
+  // TODO: DESCOMPONER EN SUBCOMPONENTES ESTE COMPONENTES
   return (
     <>
       <Dialog
@@ -157,4 +158,4 @@ export default function HelpModal() {
   );
 }
 
-/* TIP: CAMBIO DE OPACIDAD EN TAILWIND CSS 4 https://tailwindcss.com/docs/background-color#changing-the-opacity */
+/* TODO: CAMBIO DE OPACIDAD EN TAILWIND CSS 4 https://tailwindcss.com/docs/background-color#changing-the-opacity */

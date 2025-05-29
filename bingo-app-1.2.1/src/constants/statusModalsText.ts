@@ -1,6 +1,5 @@
 import { Modal } from "../types"
 
-// TIPOS DE VENTANA MODAL VENTANA MODAL
 export const VICTORY_MODAL: Modal = {
   type: "victory",
   subType: "level_completed",
@@ -18,7 +17,7 @@ export const FINAL_LEVEL_VICTORY_MODAL: Modal = {
   title: VICTORY_MODAL.title,
   message: "Usted a derrotado a todos los bots del juego.",
   textButton: {
-    left: "Salir al menú", // FALSY
+    left: "Salir al menú",
     right: "",
   }
 }

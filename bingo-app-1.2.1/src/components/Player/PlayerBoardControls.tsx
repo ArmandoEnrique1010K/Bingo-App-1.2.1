@@ -10,7 +10,7 @@ export default function PlayerBoardControls() {
 
   const playerBoards = useAppStore((state) => state.playerBoards);
   const playSound = useAppStore((state) => state.playSound);
-  const changeCurrentBoard = useAppStore((state) => state.changeCurrentBoard);
+  const setCurrentBoard = useAppStore((state) => state.setCurrentBoard);
 
   const PREV_BOARD_ID = id - 1;
   const NEXT_BOARD_ID = id + 1;
@@ -24,7 +24,7 @@ export default function PlayerBoardControls() {
 
   const clickButton = (newId: number) => {
     if (newId >= 1 && newId <= playerBoards.length) {
-      changeCurrentBoard(newId);
+      setCurrentBoard(newId);
       playSound(CLICK_SOUND);
     }
   };

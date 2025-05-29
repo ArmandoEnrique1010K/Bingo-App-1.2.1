@@ -13,34 +13,11 @@ export type BotSliceType = {
   botSelectedNumbersAndPositions: BotBoards,
   timeoutsIds: number[],
   findedCells: BotBoards,
-  updateTimeoutsIds: (timeoutsIds: number[]) => void,
   checkSelectedNumberBot: (name: string, position: number) => boolean,
   markCellBot: (name: string, interval: number) => void
   checkWinnerPatternBot: () => BotsWinners
-  //   {
-  //   botName: string,
-  //   boardId: string,
-  //   markedCells: {
-  //     position: number,
-  //     number: number
-  //   }[],
-  //   winningPattern: Pattern,
-  //   reactionTime: number
-  // }[],
-  // Tableros generados
-  // Registro de posiciones y numeros marcadaos
-  // Verificar si el numero ya fue marcado
-  // Marcar un numero del tablero del bot
-  // Verificar si el bot ha ganado (demora de 5000 milisegundos)
-
-  // updateFindedCells: (newResult: BotBoards) => void
-  resetFindedCells: () => void
   updateBotSelection: (name: string, id: string, number: number, position: number) => void
   findNumbersOnBoards: (numbers: number[]) => void
-  dataBotWinner: {
-    name: string
-  },
-
   confirmedWinners: { [key: string]: boolean };
   gameEnded: boolean;
   setConfirmedWinner: (botId: string, boardId: string) => void;
@@ -50,37 +27,23 @@ export type BotSliceType = {
 };
 
 export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
-  dataBotWinner: {
-    name: ""
-  },
   botWinner: (name) => {
     set({
-      // DEBE SER ESTRICTAMENTE DIFERENTE DE NULL Y NO IGUAL QUE TRUE
       winner: get().checkWinnerPatternBot() !== null ? 'bot' : '',
       modal: DEFEAT_MODAL,
-      viewStatusModal: true,
-      dataBotWinner: {
-        name: name
-      },
+      isStatusModalOpen: true,
       timeoutsIds: [],
       findedCells: [],
     });
 
     get().playSound(DEFEAT_SOUND)
     get().changeMusic(ANYMORE_ENDING)
-    // get().stopMusic()
-    // get().startMusic(ANYMORE_ENDING)
   },
 
   botBoards: [],
   botSelectedNumbersAndPositions: [],
   timeoutsIds: [],
   findedCells: [],
-  updateTimeoutsIds: (timeoutsIds) => {
-    set({
-      timeoutsIds: [...timeoutsIds]
-    })
-  },
 
   // EL BOT DEBE SER CAPAZ DE IDENTIFICAR EL NUMERO OBJETIVO EN SU TABLERO
   // SI EL NUMERO YA FUE MARCADO, NO LO DEBE MARCAR OTRA VEZ
@@ -184,18 +147,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
         // Verifica cada patrón
         for (const pattern of patterns) {
-          // const hasPattern = pattern.every(pos => markedPositions.includes(pos));
-          // if (hasPattern) {
-          //   // return true; // ¡Este tablero tiene un patrón ganador!
-
-          //   // COMO PODRIA RETORNAR EL PATRON GANADOR EN LUGAR DE UN TRUE
-          //   return {
-          //     botName: bot.name,
-          //     boardId: board.id,
-          //     markedCells: board.board, // [{position, number}, ...]
-          //     winningPattern: pattern,
-          //   };
-          // }
 
           if (pattern.every(pos => markedPositions.includes(pos))) {
             winners.push({
@@ -212,16 +163,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
       }
     }
 
-    // return false; // Ningún tablero del bot tiene patrón ganador
-    return winners; // Ningún tablero del bot tiene patrón ganador
-  },
-
-  // updateFindedCells: (newResult: BotBoards) => {
-  //   set({ findedCells: newResult })
-  // },
-
-  resetFindedCells: () => {
-    set({ findedCells: [] })
+    return winners;
   },
 
   updateBotSelection: (name, id, number, position) => {
@@ -258,26 +200,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
         }))
       }))
     }))
-
-
-    // console.log(numbers);
-    // get().botBoards.map(b => b)
-
-
-
-    // set((state) => ({
-    //   botSelectedNumbersAndPositions: state.botSelectedNumbersAndPositions.map((bot) =>
-    //     bot.name === name
-    //       ? {
-    //         ...bot,
-    //         board: bot.boards.map(board => board.board.some((cell) => cell.position === position))
-    //           ? bot.boards // No lo agregues si ya existe
-    //           : [...bot.boards, { position, number }],
-    //       }
-    //       : bot
-    //   ),
-    // }));
-
   },
 
   confirmedWinners: {},
@@ -299,7 +221,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     }));
     console.log(`🏆 ¡El bot ${botId} ha ganado! Fin del juego.`);
   },
-
 
   // TODO: AL REINICIAR UN NIVEL, EL BOT DEBE DEJAR DE SEGUIR MARCANDO
 })

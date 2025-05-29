@@ -18,22 +18,20 @@ export default function PlayerBingoCell({
   const levelData = useAppStore((state) => state.levelData);
   const { color } = levelData;
 
-  const checkSelectedNumber = useAppStore((state) => state.checkSelectedNumber);
+  const isCellMarked = useAppStore((state) => state.isCellMarked);
 
-  const markCell = useAppStore((state) => state.markCell);
+  const selectCell = useAppStore((state) => state.selectCell);
   const powerups = useAppStore((state) => state.powerups);
   const activateMarkNeighborgOnNumberClick = useAppStore(
     (state) => state.activateMarkNeighborgOnNumberClick
   );
-  const selectedNumbersAndPositions = useAppStore(
-    (state) => state.selectedNumbersAndPositions
-  );
+  const markedCells = useAppStore((state) => state.markedCells);
 
   const [cellColor, setcellColor] = useState("gray");
 
   const handleClick = () => {
-    markCell(boardId, number, position);
-    if (checkSelectedNumber(boardId, position)) {
+    selectCell(boardId, number, position);
+    if (isCellMarked(boardId, position)) {
       setcellColor(color);
     }
 
@@ -43,14 +41,14 @@ export default function PlayerBingoCell({
     }
   };
   const isSelected = useMemo(() => {
-    return selectedNumbersAndPositions.some(
+    return markedCells.some(
       (b) => b.id === boardId && b.board.some((e) => e.position === position)
     );
-  }, [selectedNumbersAndPositions, boardId, position]);
+  }, [markedCells, boardId, position]);
 
   useEffect(() => {
     setcellColor(isSelected ? color : "gray");
-  }, [selectedNumbersAndPositions]);
+  }, [markedCells]);
 
   return (
     <button

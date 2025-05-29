@@ -13,7 +13,7 @@ import ListPowerUps from "../components/PowerUps/ListPowerUps";
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
   const changeStatusModal = useAppStore((state) => state.changeStatusModal);
-  const clearLevelData = useAppStore((state) => state.clearLevelData);
+  const resetLevelState = useAppStore((state) => state.resetLevelState);
   const currentRound = useAppStore((state) => state.currentRound);
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
@@ -130,7 +130,7 @@ export default function LevelView() {
   }, [location.pathname]);
 
   useEffect(() => {
-    clearLevelData();
+    resetLevelState();
     console.log("HA CAMBIADO DE NIVEL");
   }, [levelData]);
 

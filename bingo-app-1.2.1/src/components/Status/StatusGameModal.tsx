@@ -7,10 +7,10 @@ import DefeatMessage from "./DefeatMessage";
 export default function StatusGameModal() {
   const levelData = useAppStore((state) => state.levelData);
   const modal = useAppStore((state) => state.modal);
-  const viewStatusModal = useAppStore((state) => state.viewStatusModal);
+  const isStatusModalOpen = useAppStore((state) => state.isStatusModalOpen);
   const closeStatusModal = useAppStore((state) => state.closeStatusModal);
   const openStatusModal = useAppStore((state) => state.openStatusModal);
-  const clearLevelData = useAppStore((state) => state.clearLevelData);
+  const resetLevelState = useAppStore((state) => state.resetLevelState);
 
   const { level, color } = levelData;
   const { type, title, message, textButton, subType } = modal;
@@ -29,10 +29,10 @@ export default function StatusGameModal() {
 
   const restartLevel = () => {
     closeStatusModal();
-    clearLevelData();
+    resetLevelState();
   };
 
-  const handleActionButtonLeft = () => {
+  const handlePrimaryAction = () => {
     switch (type) {
       case "victory":
         if (level !== FINAL_LEVEL) {
@@ -45,6 +45,8 @@ export default function StatusGameModal() {
         leaveGame();
         break;
       case "reboot":
+        restartLevel();
+        break;
       case "defeat":
         restartLevel();
         break;
@@ -54,7 +56,7 @@ export default function StatusGameModal() {
     }
   };
 
-  const handleActionButtonRight = () => {
+  const handleSecondaryAction = () => {
     if (type === "exit" || type === "reboot") {
       closeStatusModal();
     } else {
@@ -62,7 +64,7 @@ export default function StatusGameModal() {
     }
   };
 
-  const handlePreventCloseModal = () => {
+  const toogleModal = () => {
     if (type === "exit" || type === "reboot") {
       closeStatusModal();
     } else {
@@ -73,10 +75,10 @@ export default function StatusGameModal() {
   return (
     <>
       <Dialog
-        open={viewStatusModal}
+        open={isStatusModalOpen}
         as="div"
         className="relative z-10 focus:outline-none"
-        onClose={handlePreventCloseModal}
+        onClose={toogleModal}
       >
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto bg-gray-800/50">
           <div className="flex min-h-full items-center justify-center p-4">
@@ -102,7 +104,7 @@ export default function StatusGameModal() {
               <div className="mt-10 flex flex-row gap-4">
                 {textButton.left && (
                   <Button
-                    onClick={handleActionButtonLeft}
+                    onClick={handlePrimaryAction}
                     className={`w-full py-2 px-4 font-semibold bg-${color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900 cursor-pointer`}
                   >
                     {textButton.left}
@@ -111,7 +113,7 @@ export default function StatusGameModal() {
 
                 {textButton.right && (
                   <Button
-                    onClick={handleActionButtonRight}
+                    onClick={handleSecondaryAction}
                     className={`w-full py-2 px-4 font-semibold bg-gray-500 text-white rounded-lg text-lg  shadow-black shadow-md hover:bg-gray-900 cursor-pointer`}
                   >
                     {textButton.right}

@@ -14,9 +14,8 @@ export const preloadMusicFiles = async () => {
       ).toDestination();
       await player.load(`/audio/music/${track.name}.mp3`);
       preloadedMusicPlayers.set(track.name, player);
-      console.log(`Precargado: ${track.name}`);
     }
   } catch (error) {
-    console.error("Error al precargar música:", error);
+    console.error(`Error al precargar música: ${error}, intente pulsar el botón de activar/desactivar musica`);
   }
 };

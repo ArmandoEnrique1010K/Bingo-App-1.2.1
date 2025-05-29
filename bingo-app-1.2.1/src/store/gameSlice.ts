@@ -20,7 +20,7 @@ export type GameSliceType = {
 
   // Ventana modal
   modal: Modal,
-  viewStatusModal: boolean,
+  isStatusModalOpen: boolean,
   changeStatusModal: (modal: Modal) => void,
   closeStatusModal: () => void,
   openStatusModal: () => void,
@@ -30,7 +30,7 @@ export type GameSliceType = {
   // changeWinner: (value: string) => void;
 
   openExitLevelModal: () => void;
-  clearLevelData: () => void;
+  resetLevelState: () => void;
   noMoreRoundModal: () => void;
   openResetLevelModal: () => void;
 
@@ -52,11 +52,11 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
   currentRound: 0,
 
   modal: NONE_MODAL,
-  viewStatusModal: false,
+  isStatusModalOpen: false,
   changeStatusModal: (modal) => {
     set({
       modal: modal,
-      viewStatusModal: true
+      isStatusModalOpen: true
     });
   },
 
@@ -106,7 +106,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
     set({
       modal: EXIT_MODAL,
-      viewStatusModal: true,
+      isStatusModalOpen: true,
     })
   },
 
@@ -123,7 +123,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
 
   // TODO: ACCIÓN PARA REINICIAR UN NIVEL
-  clearLevelData: () => {
+  resetLevelState: () => {
 
     // set({
     //   gameEnded: true,
@@ -180,10 +180,10 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
       currentRound: 0,
       winner: 'none',
       excludedTargets: [],
-      selectedNumbersAndPositions: initialSelectedNumbersAndPositions,
+      markedCells: initialSelectedNumbersAndPositions,
       // MODAL
 
-      viewStatusModal: true,
+      isStatusModalOpen: true,
       modal: START_LEVEL_MODAL
     })
 
@@ -245,14 +245,14 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
   closeStatusModal: () => {
     get().playSound(CLICK_SOUND)
     set({
-      viewStatusModal: false,
+      isStatusModalOpen: false,
     })
   },
 
   openStatusModal: () => {
     get().playSound(CLICK_SOUND)
     set({
-      viewStatusModal: true
+      isStatusModalOpen: true
     })
   },
 
@@ -266,7 +266,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
     set({
       modal: NO_MORE_ROUNDS_MODAL,
-      viewStatusModal: true
+      isStatusModalOpen: true
     })
 
     get().changeMusic(ANYMORE_ENDING)
@@ -281,7 +281,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
     set({
       modal: RESET_LEVEL_MODAL,
-      viewStatusModal: true
+      isStatusModalOpen: true
     })
   },
 

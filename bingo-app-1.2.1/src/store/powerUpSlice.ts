@@ -41,7 +41,7 @@ export type PowerUpSliceType = {
   // Al hacer clic en el powerup markNeighborgNumbers, el jugador debe hacer clic en algun numero del tablero que coincida con un numero objetivo para activarlo
   // Si vuelve a hacer clic en el powerup se desactiva
 
-  // Al hacer clic en el numero, se debe buscar en el tablero del jugador (no en todos los tableros), los numeros que tengan la forma especificada y luego añadirlos en el state de selectedNumbersAndPositions
+  // Al hacer clic en el numero, se debe buscar en el tablero del jugador (no en todos los tableros), los numeros que tengan la forma especificada y luego añadirlos en el state de markedCells
   toggleMarkNeighborgNumbers: () => void
   activateMarkNeighborgOnNumberClick: (boardId: number, numberClicked: number) => void;
 
@@ -118,7 +118,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
   },
 
   activateMarkNeighborgOnNumberClick: (boardId: number, numberClicked: number) => {
-    const { playerBoards, currentTargets, selectedNumbersAndPositions, powerups } = get();
+    const { playerBoards, currentTargets, markedCells, powerups } = get();
 
     // Verificación de power-up y objetivo
     if (!powerups.markNeighborgNumbers.active || !currentTargets.includes(numberClicked)) return;
@@ -135,7 +135,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     const matched = boardObj.board.filter(cell => neighbors.includes(cell.number));
     if (matched.length === 0) return;
 
-    const existingBoard = selectedNumbersAndPositions.find(sel => sel.id === boardId)?.board ?? [];
+    const existingBoard = markedCells.find(sel => sel.id === boardId)?.board ?? [];
     // Verificar si alguno de los vecinos ya ha sido marcado
     // const hasAlreadyMarked = matched.some(matchedCell =>
     //   existingBoard.some(existing => existing.position === matchedCell.position)
@@ -143,14 +143,14 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     // if (hasAlreadyMarked) return;
 
 
-    // Reemplazar si ya existía el boardId en selectedNumbersAndPositions
-    // const updatedSelected = [...selectedNumbersAndPositions.filter(sel => sel.id !== boardId), {
+    // Reemplazar si ya existía el boardId en markedCells
+    // const updatedSelected = [...markedCells.filter(sel => sel.id !== boardId), {
     //   id: boardId,
     //   board: [
-    //     ...(selectedNumbersAndPositions.find(sel => sel.id === boardId)?.board ?? []),
+    //     ...(markedCells.find(sel => sel.id === boardId)?.board ?? []),
     //     ...matched.filter(
     //       (newItem) =>
-    //         !selectedNumbersAndPositions
+    //         !markedCells
     //           .find(sel => sel.id === boardId)?.board
     //           ?.some(existing => existing.position === newItem.position)
     //     )
@@ -158,7 +158,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     // }];
 
     const updatedSelected = [
-      ...selectedNumbersAndPositions.filter(sel => sel.id !== boardId),
+      ...markedCells.filter(sel => sel.id !== boardId),
       {
         id: boardId,
         board: [...existingBoard, ...matched]
@@ -168,7 +168,7 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
 
     // Agregar al estado de seleccionados
     set(() => ({
-      selectedNumbersAndPositions: updatedSelected,
+      markedCells: updatedSelected,
       powerups: {
         ...powerups,
         markNeighborgNumbers: {

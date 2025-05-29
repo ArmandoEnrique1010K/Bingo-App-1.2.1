@@ -26,18 +26,15 @@ export default function Layout() {
 
   const location = useLocation();
 
-  //
   useEffect(() => {
     getLevelNumberFromUrl(location.pathname);
   }, [location.pathname]);
 
-  // Carga inicial al iniciar la aplicación
   useEffect(() => {
     setTimeout(() => {
       changeStateStartScreenLoading();
     }, LOADING_TIME);
 
-    // Precarga de archivos de sonido y niveles desbloqueados
     preloadMusicFiles();
     preloadSoundFiles();
     getUnlockedLevelsFromStorage();

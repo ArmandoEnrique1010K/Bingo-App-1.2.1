@@ -11,7 +11,7 @@ export type Board = {
 
 export type Boards = Board[]
 
-export type SelectedNumbersAndPositions = {
+export type MarkedCells = {
   id: number,
   board: {
     position: number,

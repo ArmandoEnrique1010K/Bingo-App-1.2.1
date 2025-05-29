@@ -12,10 +12,8 @@ export const preloadSoundFiles = async () => {
       ).toDestination();
       await player.load(`/audio/sound/${sound.name}.mp3`);
       preloadedSoundPlayers.set(sound.name, player);
-      console.log(`Precargado: ${sound.name}`);
     }
-
   } catch (error) {
-    console.error("Error al precargar sonido: ", error);
+    console.error(`Error al precargar sonido: ${error}, intente pulsar el botón de activar/desactivar sonido`);
   }
 }

@@ -17,7 +17,7 @@ export const SOMEDAY = {
 
 export const DARKNESS = {
   name: 'darkness',
-  volume: -16
+  volume: -15
 }
 
 export const FRIENDS = {
@@ -32,12 +32,12 @@ export const LIVE = {
 
 export const MOUNTAIN = {
   name: 'mountain',
-  volume: -18
+  volume: -19
 }
 
 export const SLOW = {
   name: 'slow',
-  volume: -14
+  volume: -13
 }
 
 export const ANYMORE = {
@@ -47,14 +47,18 @@ export const ANYMORE = {
 
 export const ANYMORE_ENDING = {
   name: 'anymore_ending',
-  volume: -20
+  volume: -19
 }
 
 export const DARKNESS_SOLO = {
   name: 'darkness_solo',
-  volume: -16
+  volume: -15
 }
 
+export const SELFLESS = {
+  name: 'selfless',
+  volume: -16
+}
 
 // ARCHIVOS DE SONIDO
 
@@ -84,10 +88,10 @@ export const VICTORY_SOUND = {
 
 export const DEFEAT_SOUND = {
   name: 'defeat',
-  volume: -8
+  volume: -9
 }
 
 export const CORRECT_BOT_SOUND = {
   name: "correct_bot",
-  volume: -8,
+  volume: -9,
 }

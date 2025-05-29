@@ -12,9 +12,9 @@ export default function DefeatMessage({ message }: DefeatMessageProps) {
     (state) => state.checkWinnerPatternBot
   );
   const botBoards = useAppStore((state) => state.botBoards);
+  const currentRound = useAppStore((state) => state.currentRound);
 
   const firstWinnerBotData = checkWinnerPatternBot()[0] || [];
-  const currentRound = useAppStore((state) => state.currentRound);
   const botName = firstWinnerBotData?.botName || "Desconocido";
   const boardId = firstWinnerBotData?.boardId || "N/A";
 
@@ -25,8 +25,6 @@ export default function DefeatMessage({ message }: DefeatMessageProps) {
 
   return (
     <>
-      <p className="text-center">{message}</p>
-
       {currentRound !== MAX_TURNS && (
         <p>
           El bot "<span className="font-bold">{botName}</span>" tiene en su
@@ -36,6 +34,8 @@ export default function DefeatMessage({ message }: DefeatMessageProps) {
         </p>
       )}
       <BotBingoBoard board={winningBoard} idBoard={boardId} />
+
+      <p className="text-center">{message}</p>
     </>
   );
 }

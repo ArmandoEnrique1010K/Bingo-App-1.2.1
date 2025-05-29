@@ -3,7 +3,6 @@ import { useAppStore } from "../../store/useAppStore";
 import { Dialog, DialogPanel, DialogTitle, Button } from "@headlessui/react";
 import { FINAL_LEVEL } from "../../constants/defaultConfigs";
 import DefeatMessage from "./DefeatMessage";
-import { CLICK_SOUND } from "../../constants/audioSettings";
 
 export default function StatusGameModal() {
   const levelData = useAppStore((state) => state.levelData);
@@ -11,44 +10,63 @@ export default function StatusGameModal() {
   const viewStatusModal = useAppStore((state) => state.viewStatusModal);
   const closeStatusModal = useAppStore((state) => state.closeStatusModal);
   const openStatusModal = useAppStore((state) => state.openStatusModal);
-  const resetLevel = useAppStore((state) => state.resetLevel);
-  const checkWinnerPatternBot = useAppStore(
-    (state) => state.checkWinnerPatternBot
-  );
-  const playSound = useAppStore((state) => state.playSound);
+  const clearLevelData = useAppStore((state) => state.clearLevelData);
+
+  const { level, color } = levelData;
+  const { type, title, message, textButton, subType } = modal;
 
   const navigate = useNavigate();
 
-  function nextLevel() {
-    // playSound(CLICK_SOUND);
+  const nextLevel = () => {
+    closeStatusModal();
     navigate(`/level_${levelData.level + 1}`);
-    closeStatusModal();
-  }
+  };
 
-  function leaveGame() {
-    // playSound(CLICK_SOUND);
-    navigate(`/`);
+  const leaveGame = () => {
     closeStatusModal();
-  }
+    navigate(`/`);
+  };
+
+  const restartLevel = () => {
+    closeStatusModal();
+    clearLevelData();
+  };
 
   const handleActionButtonLeft = () => {
-    if (modal.type === "victory" && levelData.level === FINAL_LEVEL) {
-      leaveGame();
-      // playSound(CLICK_SOUND);
-    } else if (modal.type === "victory" && levelData.level !== FINAL_LEVEL) {
-      nextLevel();
-      playSound(CLICK_SOUND);
-    } else if (modal.type === "exit") {
-      leaveGame();
-      // playSound(CLICK_SOUND);
-    } else if (modal.type === "defeat") {
-      resetLevel();
-      playSound(CLICK_SOUND);
-    } else if (modal.type === "reboot") {
-      resetLevel();
-      playSound(CLICK_SOUND);
-    } else {
+    switch (type) {
+      case "victory":
+        if (level !== FINAL_LEVEL) {
+          nextLevel();
+        } else {
+          leaveGame();
+        }
+        break;
+      case "exit":
+        leaveGame();
+        break;
+      case "reboot":
+      case "defeat":
+        restartLevel();
+        break;
+      default:
+        closeStatusModal();
+        break;
+    }
+  };
+
+  const handleActionButtonRight = () => {
+    if (type === "exit" || type === "reboot") {
       closeStatusModal();
+    } else {
+      leaveGame();
+    }
+  };
+
+  const handlePreventCloseModal = () => {
+    if (type === "exit" || type === "reboot") {
+      closeStatusModal();
+    } else {
+      openStatusModal();
     }
   };
 
@@ -58,11 +76,7 @@ export default function StatusGameModal() {
         open={viewStatusModal}
         as="div"
         className="relative z-10 focus:outline-none"
-        onClose={
-          modal.type === "exit" || modal.type === "reboot"
-            ? closeStatusModal
-            : openStatusModal
-        }
+        onClose={handlePreventCloseModal}
       >
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto bg-gray-800/50">
           <div className="flex min-h-full items-center justify-center p-4">
@@ -74,41 +88,33 @@ export default function StatusGameModal() {
                 as="h2"
                 className="text-4xl font-semibold text-center text-gray-900 mb-10"
               >
-                {modal.title}
-                {modal.type === "start" && levelData.level}
+                {title}
+                {type === "start" && level}
               </DialogTitle>
               <div className="space-y-3 text-lg text-gray-700">
-                {modal.type !== "defeat" && (
-                  <p className="text-center">{modal.message}</p>
-                )}
-
-                <p className="text-center">{modal.message}</p>
-
-                {modal.type === "defeat" && checkWinnerPatternBot() && (
-                  <DefeatMessage message={modal.message} />
+                {type === "defeat" && subType === "game_over" ? (
+                  <DefeatMessage message={message} />
+                ) : (
+                  <p className="text-center">{message}</p>
                 )}
               </div>
 
               <div className="mt-10 flex flex-row gap-4">
-                {modal.textButton.left && (
+                {textButton.left && (
                   <Button
                     onClick={handleActionButtonLeft}
-                    className={`w-full py-2 px-4 font-semibold bg-${levelData.color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900 cursor-pointer`}
+                    className={`w-full py-2 px-4 font-semibold bg-${color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900 cursor-pointer`}
                   >
-                    {modal.textButton.left}
+                    {textButton.left}
                   </Button>
                 )}
 
-                {modal.textButton.right && (
+                {textButton.right && (
                   <Button
-                    onClick={
-                      modal.type === "exit" || modal.type === "reboot"
-                        ? closeStatusModal
-                        : leaveGame
-                    }
+                    onClick={handleActionButtonRight}
                     className={`w-full py-2 px-4 font-semibold bg-gray-500 text-white rounded-lg text-lg  shadow-black shadow-md hover:bg-gray-900 cursor-pointer`}
                   >
-                    {modal.textButton.right}
+                    {textButton.right}
                   </Button>
                 )}
               </div>

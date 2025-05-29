@@ -1,6 +1,6 @@
 
 
-import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE } from "../constants/audioSettings";
+import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE, SELFLESS } from "../constants/audioSettings";
 import { Level } from "../types";
 import { generateBotName } from "../utils/Bot/generateBotName";
 
@@ -1204,6 +1204,6 @@ export const levels: Level[] = [
       },
     ],
     color: 'stone',
-    music: SLOW
+    music: SELFLESS
   },
 ]

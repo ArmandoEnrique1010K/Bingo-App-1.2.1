@@ -56,6 +56,7 @@ export type Music = {
 
 export type Modal = {
   type: string
+  subType: string
   title: string
   message: string
   textButton: {

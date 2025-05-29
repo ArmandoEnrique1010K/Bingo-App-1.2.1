@@ -35,19 +35,6 @@ export default function TargetNumbers() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-
-    // if (currentTargets.length === 0) {
-    //   setButtonDisabled(true);
-    //   if (currentRound === 0) {
-    //     setButtonDisabled(false);
-    //   }
-    // } else {
-    //   const timer = setTimeout(
-    //     () => setButtonDisabled(false),
-    //     GENERATE_TARGETS_DELAY
-    //   );
-    //   return () => clearTimeout(timer);
-    // }
   }, [currentTargets, currentRound]);
 
   const getActionText = () => {

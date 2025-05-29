@@ -30,7 +30,7 @@ export type GameSliceType = {
   // changeWinner: (value: string) => void;
 
   openExitLevelModal: () => void;
-  resetLevel: () => void;
+  clearLevelData: () => void;
   noMoreRoundModal: () => void;
   openResetLevelModal: () => void;
 
@@ -122,7 +122,8 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
   // }, [winner]);
 
 
-  resetLevel: () => {
+  // TODO: ACCIÓN PARA REINICIAR UN NIVEL
+  clearLevelData: () => {
 
     // set({
     //   gameEnded: true,

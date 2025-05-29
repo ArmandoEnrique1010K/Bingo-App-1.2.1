@@ -9,7 +9,7 @@ export default function TargetNumbers() {
   const currentTargets = useAppStore((state) => state.currentTargets);
   const currentRound = useAppStore((state) => state.currentRound);
   const levelData = useAppStore((state) => state.levelData);
-  const updateTargets = useAppStore((state) => state.updateTargets);
+  const generateNewTargets = useAppStore((state) => state.generateNewTargets);
 
   const timeoutRef = useRef<number>(1);
 
@@ -77,7 +77,7 @@ export default function TargetNumbers() {
       <div className="text-center mt-2">
         <button
           className={buttonClasses}
-          onClick={updateTargets}
+          onClick={generateNewTargets}
           disabled={buttonDisabled}
         >
           {getActionText()}

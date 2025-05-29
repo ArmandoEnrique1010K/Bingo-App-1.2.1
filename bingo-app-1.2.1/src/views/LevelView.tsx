@@ -125,7 +125,6 @@ export default function LevelView() {
   }, [winner, location.pathname]);
 
   useEffect(() => {
-    // getLevelNumberFromUrl(location.pathname);
     changeStatusModal(START_LEVEL_MODAL);
   }, [location.pathname]);
 

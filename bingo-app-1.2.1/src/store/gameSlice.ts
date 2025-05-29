@@ -1,320 +1,125 @@
 import { StateCreator } from "zustand";
 import { PlayerSliceType } from "./playerSlice";
-
-import { Modal } from "../types";
-import { generateTargets } from "../utils/generateTargets";
 import { LevelSliceType } from "./levelSlice";
-import { generateBoard } from "../utils/Board/generateBoard";
 import { AudioSliceType } from "./audioSlice";
-import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
-import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
-import { BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, ANYMORE_ENDING } from "../constants/audioSettings";
+import { CLICK_SOUND, SOMEDAY } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
-import { initialPowerups, PowerUpSliceType } from "./powerUpSlice";
-import { createIdBoard } from "../utils/Bot/createIdBoard";
+import { PowerUpSliceType } from "./powerUpSlice";
+import { levels } from "../data/levels";
+import { Level } from "../types";
 
 export type GameSliceType = {
-  currentTargets: number[],
-  excludedTargets: number[],
-  currentRound: number,
-
-  // Ventana modal
-  modal: Modal,
-  isStatusModalOpen: boolean,
-  changeStatusModal: (modal: Modal) => void,
-  closeStatusModal: () => void,
-  openStatusModal: () => void,
-
-  updateTargets: () => void,
-  winner: string
-  // changeWinner: (value: string) => void;
-
-  openExitLevelModal: () => void;
-  resetLevelState: () => void;
-  noMoreRoundModal: () => void;
-  openResetLevelModal: () => void;
-
+  isLoadingStartScreen: boolean
+  isStartScreenButtonVisible: boolean
   showCreditsModal: boolean,
+  showHelpModal: boolean,
+  unlockedLevels: number[];
+  levelData: Level,
+  toogleStartScreenLoading: () => void
+  toogleStartScreenButton: () => void;
   openCreditsModal: () => void,
   closeCreditsModal: () => void,
-
-  showHelpModal: boolean,
   openHelpModal: () => void,
   closeHelpModal: () => void,
-
+  unlockLevel: (level: number) => void;
+  getUnlockedLevelsFromStorage: () => void
+  getLevelNumberFromUrl: (pathname: string) => void
+  getColorLevel: (level: number) => string;
 };
 
-
+const initialLevelData = {
+  level: 0,
+  targetText: "",
+  boards: 0,
+  patterns: [],
+  bots: [],
+  color: 'blue',
+  music: SOMEDAY,
+}
 
 export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSliceType & AudioSliceType & BotSliceType & PowerUpSliceType, [], [], GameSliceType> = (set, get) => ({
-  currentTargets: [],
-  excludedTargets: [],
-  currentRound: 0,
-
-  modal: NONE_MODAL,
-  isStatusModalOpen: false,
-  changeStatusModal: (modal) => {
-    set({
-      modal: modal,
-      isStatusModalOpen: true
-    });
-  },
-
-
-  updateTargets: () => {
-
-    if (get().currentRound === MAX_TURNS) {
-      set({ currentTargets: [], winner: "end" });
-      get().noMoreRoundModal()
-
-    } else {
-      set({ currentRound: get().currentRound + 1, currentTargets: [] });
-
-      get().playSound(BALLS_SOUND)
-      setTimeout(() => {
-        const newTargets = generateTargets(
-
-          // NO OLVIDAR ACTIVAR EL POWERUP DE AÑADIR 2 OBJETIVOS EXTRA
-          get().powerups.extraTargets.active ? DEFAULT_TARGETS + 2 :
-            DEFAULT_TARGETS, get().excludedTargets);
-        set({
-          currentTargets: newTargets,
-          excludedTargets: [...get().excludedTargets, ...newTargets]
-        });
-      }, TARGET_GENERATION_DELAY);
-    }
-
-    console.log('CAMBIANDO OBJETIVOS')
-    get().timeoutsIds.forEach(timeoutId => clearTimeout(timeoutId));
-    set({ timeoutsIds: [] });
-
-    // TODO: ZONA DE POWERUPS
-    if (get().powerups.extraTargets.active) {
-      get().decrementExtraTargetsTurn();
-    }
-
-  },
-
-
-  winner: "",
-  // changeWinner: (value) => {
-  //   set({ winner: value });
-  // },
-
-  openExitLevelModal: () => {
-    get().playSound(CLICK_SOUND)
-
-    set({
-      modal: EXIT_MODAL,
-      isStatusModalOpen: true,
-    })
-  },
-
-  // const newBoards = useMemo(() => {
-  //   if (winner === "none") {
-  //     return Array.from({ length: levelData.boards }).map((_, index) => ({
-  //       id: index + 1,
-  //       board: generateBoard(),
-  //     }));
-  //   } else {
-  //     return [];
-  //   }
-  // }, [winner]);
-
-
-  // TODO: ACCIÓN PARA REINICIAR UN NIVEL
-  resetLevelState: () => {
-
-    // set({
-    //   gameEnded: true,
-    // })
-
-    const levelData = get().levelData; // Obtén el nivel actual
-    const createPlayerBoards = Array.from({ length: levelData.boards }).map((_, index) => ({
-      id: index + 1,
-      board: generateBoard(), // Genera un tablero para cada jugador
-    }));
-
-
-
-    const createBotBoards = levelData.bots.map((bot, botIndex) => ({
-      name: bot.name, // El nombre del bot
-      boards: Array.from({ length: bot.boards }).map((_, boardIndex) => ({
-        id: createIdBoard(botIndex, boardIndex), // ID único para cada tablero
-        board: generateBoard(), // Genera un tablero nuevo
-      })),
-    }));
-
-    // console.log(createBotBoards)
-
-    const initialSelectedNumbersAndPositions = Array.from({ length: levelData.boards }).map((_, index) => (
-      {
-        id: index + 1,
-        board: [
-          {
-            position: 13,
-            number: 0
-          }
-        ]
-      }
-    ))
-
-
-    // [
-    //   {
-    //     id: "0",
-    //     board: [{
-    //       position: 13,
-    //       number: 0
-    //     }]
-    //   }
-    // ]
-
-
-    set({
-      playerBoards: createPlayerBoards,
-
-      botBoards: createBotBoards,
-
-      currentTargets: [],
-      currentRound: 0,
-      winner: 'none',
-      excludedTargets: [],
-      markedCells: initialSelectedNumbersAndPositions,
-      // MODAL
-
-      isStatusModalOpen: true,
-      modal: START_LEVEL_MODAL
-    })
-
-    set({
-      currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
-      confirmedWinners: {},
-      gameEnded: false,
-      powerups: initialPowerups,
-      timeoutsIds: [],
-      findedCells: [],
-    })
-
-    get().changeMusic(levelData.music)
-    // get().stopMusic()
-    // get().startMusic(levelData.music);
-
-    // Marcar las posiciones iniciales de los tableros del bot
-    // Inicializa `botSelectedNumbersAndPositions` si está vacío
-
-    // TYPES RELACIONADOS A LOS BOTS
-    // export type BotBoard = {
-    //   id: string,
-    //   board: {
-    //     position: number,
-    //     number: number
-    //   }[]
-    // }
-
-    // export type BotBoards = {
-    //   name: string; // Nombre del bot
-    //   boards: BotBoard[]; // Lista de tableros del bot
-    // }[];
-
-
-    // Construye botInitialSelectedNumbersAndPositions según el tipo BotBoards
-    // BotBoards = { name: string; boards: BotBoard[]; }[]
-    // BotBoard = { id: string, board: { position: number, number: number }[] }
-
-    const botInitialSelectedNumbersAndPositions = get().botBoards.map((bot) => ({
-      name: bot.name,
-      boards: bot.boards.map((board) => ({
-        id: board.id,
-        board: [
-          {
-            position: 13,
-            number: 0
-          }
-        ]
-      }))
-    }));
-    // console.log(get().botBoards)
-    // console.log(botInitialSelectedNumbersAndPositions)
-
-    set({
-      botSelectedNumbersAndPositions: botInitialSelectedNumbersAndPositions,
-    })
-
-  },
-  closeStatusModal: () => {
-    get().playSound(CLICK_SOUND)
-    set({
-      isStatusModalOpen: false,
-    })
-  },
-
-  openStatusModal: () => {
-    get().playSound(CLICK_SOUND)
-    set({
-      isStatusModalOpen: true
-    })
-  },
-
-  noMoreRoundModal: () => {
-
-    console.log("SE ACABARON LOS TURNOS")
-    get().playSound(DEFEAT_SOUND)
-    set(() => ({
-      gameEnded: true, // ✅ Termina el juego
-    }));
-
-    set({
-      modal: NO_MORE_ROUNDS_MODAL,
-      isStatusModalOpen: true
-    })
-
-    get().changeMusic(ANYMORE_ENDING)
-    // get().stopMusic()
-    // get().startMusic(ANYMORE_ENDING)
-
-  },
-
-  openResetLevelModal: () => {
-
-    get().playSound(CLICK_SOUND)
-
-    set({
-      modal: RESET_LEVEL_MODAL,
-      isStatusModalOpen: true
-    })
-  },
-
+  isLoadingStartScreen: true,
+  isStartScreenButtonVisible: true,
   showCreditsModal: false,
+  showHelpModal: false,
+  unlockedLevels: [],
+  levelData: initialLevelData,
+
+  toogleStartScreenLoading: () => {
+    set({ isLoadingStartScreen: false })
+  },
+
+  toogleStartScreenButton: () => {
+    set({ isStartScreenButtonVisible: false })
+  },
+
   openCreditsModal: () => {
-    get().playSound(CLICK_SOUND)
     set({
       showCreditsModal: true
     })
+    get().playSound(CLICK_SOUND)
   },
   closeCreditsModal: () => {
-    get().playSound(CLICK_SOUND)
     set({
       showCreditsModal: false
     })
+    get().playSound(CLICK_SOUND)
   },
 
-  showHelpModal: false,
   openHelpModal: () => {
-    get().playSound(CLICK_SOUND)
     set({
       showHelpModal: true
     })
-  },
-  closeHelpModal: () => {
     get().playSound(CLICK_SOUND)
+  },
+
+  closeHelpModal: () => {
     set({
       showHelpModal: false
     })
+    get().playSound(CLICK_SOUND)
   },
 
+  unlockLevel: (level: number) => {
+    set((state) => {
+      if (!state.unlockedLevels.includes(level)) {
+        const updatedLevels = [...state.unlockedLevels, level];
+        localStorage.setItem("unlockedLevels", JSON.stringify(updatedLevels));
 
-  // TODO: CREAR UNA NUEVA ACCIÓN PARA ACCEDER AL MENU
+        return { unlockedLevels: updatedLevels };
+      }
+      return state;
+    });
+  },
 
+  getUnlockedLevelsFromStorage: () => {
+    const storedLevels = localStorage.getItem('unlockedLevels');
 
+    if (storedLevels) {
+      try {
+        const parsedLevels = JSON.parse(storedLevels);
+        if (Array.isArray(parsedLevels)) {
+          set({ unlockedLevels: parsedLevels });
+        }
+      } catch (error) {
+        console.error("Error al cargar niveles desbloqueados:", error);
+      }
+    }
+  },
+
+  getLevelNumberFromUrl: (pathname) => {
+    const match = pathname.match(/\/level_(\d+)/);
+    const level = match ? parseInt(match[1], 10) : 0;
+    const numberLevel = levels.find(l => l.level === level) || initialLevelData;
+
+    set({
+      levelData: numberLevel,
+    })
+  },
+
+  getColorLevel: (level) => {
+    return levels.find(l => l.level === level)?.color ?? 'blue'
+  },
+
+  // TODO: CREAR UNA NUEVA ACCIÓN PARA ACCEDER AL MENU (SE MODIFICAN LOS DATOS)
 });

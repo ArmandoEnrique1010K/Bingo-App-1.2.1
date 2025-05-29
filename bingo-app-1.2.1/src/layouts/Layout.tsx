@@ -16,13 +16,15 @@ export default function Layout() {
   const getUnlockedLevelsFromStorage = useAppStore(
     (state) => state.getUnlockedLevelsFromStorage
   );
-  const changeStateStartScreenLoading = useAppStore(
-    (state) => state.changeStateStartScreenLoading
+  const toogleStartScreenLoading = useAppStore(
+    (state) => state.toogleStartScreenLoading
   );
   const getLevelNumberFromUrl = useAppStore(
     (state) => state.getLevelNumberFromUrl
   );
-  const startScreenButton = useAppStore((state) => state.startScreenButton);
+  const isStartScreenButtonVisible = useAppStore(
+    (state) => state.isStartScreenButtonVisible
+  );
 
   const location = useLocation();
 
@@ -32,7 +34,7 @@ export default function Layout() {
 
   useEffect(() => {
     setTimeout(() => {
-      changeStateStartScreenLoading();
+      toogleStartScreenLoading();
     }, LOADING_TIME);
 
     preloadMusicFiles();
@@ -43,7 +45,7 @@ export default function Layout() {
   return (
     <div className="flex flex-col min-w-full h-screen">
       <div className="flex flex-row items-center justify-start sm:py-0 py-0 px-8  bg-gray-900 text-white shadow-lg">
-        {startScreenButton || (
+        {isStartScreenButtonVisible || (
           <>
             <CreditsButton />
             <MusicButton />

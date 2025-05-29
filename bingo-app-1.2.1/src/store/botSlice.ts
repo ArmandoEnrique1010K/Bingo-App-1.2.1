@@ -22,8 +22,6 @@ export type BotSliceType = {
   gameEnded: boolean;
   setConfirmedWinner: (botId: string, boardId: string) => void;
   declareBotWinner: (botId: string) => void;
-
-
 };
 
 export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({

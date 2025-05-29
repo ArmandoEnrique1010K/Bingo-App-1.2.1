@@ -8,15 +8,16 @@ import { APP_VERSION } from "../constants/defaultConfigs";
 export default function MenuView() {
   const unlockedLevels = useAppStore((state) => state.unlockedLevels);
   const levelData = useAppStore((state) => state.levelData);
-  const startMusic = useAppStore((state) => state.startMusic);
   const getColorLevel = useAppStore((state) => state.getColorLevel);
-  const startScreenLoading = useAppStore((state) => state.startScreenLoading);
-  const startScreenButton = useAppStore((state) => state.startScreenButton);
-  const changeStateScreenButton = useAppStore(
-    (state) => state.changeStateScreenButton
+  const isLoadingStartScreen = useAppStore(
+    (state) => state.isLoadingStartScreen
   );
-  const stopMusic = useAppStore((state) => state.stopMusic);
-  const isPlayingMusic = useAppStore((state) => state.isPlayingMusic);
+  const isStartScreenButtonVisible = useAppStore(
+    (state) => state.isStartScreenButtonVisible
+  );
+  const toogleStartScreenButton = useAppStore(
+    (state) => state.toogleStartScreenButton
+  );
   const playSound = useAppStore((state) => state.playSound);
   const changeMusic = useAppStore((state) => state.changeMusic);
   const setIsPlayingMusic = useAppStore((state) => state.setIsPlayingMusic);
@@ -39,13 +40,13 @@ export default function MenuView() {
       <h1 className="text-4xl font-bold text-center my-8">
         BingoApp <span className="text-xl">v{APP_VERSION}</span>
       </h1>
-      {startScreenLoading === true ? (
+      {isLoadingStartScreen === true ? (
         <Loader />
-      ) : startScreenButton === true ? (
+      ) : isStartScreenButtonVisible === true ? (
         <button
           className={`w-full flex-grow flex items-center justify-center bg-${levelData.color}-500 text-white text-2xl font-semibold p-4 cursor-pointer `}
           onClick={() => {
-            changeStateScreenButton();
+            toogleStartScreenButton();
             playSound(CLICK_SOUND);
             setIsPlayingMusic(true);
             changeMusic(levelData.music);

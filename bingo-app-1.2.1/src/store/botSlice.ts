@@ -8,8 +8,11 @@ import { dynamicInterval } from "../utils/dynamicInterval";
 import { DEFEAT_MODAL } from '../constants/statusModalsText';
 
 export type BotSliceType = {
-  botWinner: (name: string) => void,
+  botWinner: () => void,
   botBoards: BotBoards,
+  // botSessionIds: Record<string, number>,
+  timeoutsIdsByBot: Record<string, number[]>,
+
   botSelectedNumbersAndPositions: BotBoards,
   timeoutsIds: number[],
   findedCells: BotBoards,
@@ -22,10 +25,14 @@ export type BotSliceType = {
   gameEnded: boolean;
   setConfirmedWinner: (botId: string, boardId: string) => void;
   declareBotWinner: (botId: string) => void;
+  currentSessionId: number
+  clearAllBotTimeouts: () => void
 };
 
 export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
-  botWinner: (name) => {
+  currentSessionId: 0,
+  timeoutsIdsByBot: {} as Record<string, number[]>,
+  botWinner: () => {
     set({
       winner: get().checkWinnerPatternBot() !== null ? 'bot' : '',
       modal: DEFEAT_MODAL,
@@ -65,68 +72,63 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
   // TODO: PERO SI LOS NUMEROS OBJETIVOS ESTA VACIO, DEBE PARAR DE EJECUTAR LA FUNCIÓN MARKCELLBOT Y DETENER LOS TEMPORIZADORES
   markCellBot: (name: string, interval: number) => {
+    // const sessionId = Date.now();
+    // set(state => ({
+    //   botSessionIds: {
+    //     ...state.botSessionIds,
+    //     [name]: sessionId
+    //   }
+    // }));
 
-    // OBTENER LAS CÉLULAS ENCONTRADAS PARA EL BOT ESPECÍFICO
+    // const getSessionId = () => get().botSessionIds[name];
+
+    // // Cancelar timeouts anteriores
+    // get().timeoutsIds.forEach(id => clearTimeout(id));
+    // set({ timeoutsIds: [] });
+
     const botFinded = get().findedCells.find(bot => bot.name === name);
-    // console.log(botFinded?.name)
-    if (
-      !botFinded ||
-      (get().winner === "player" || get().winner === "bot")
-      // || botFinded.boards.every(board => board.board.length === 0)
-    ) return;
+    if (!botFinded || get().winner !== "none" || get().gameEnded) return;
+
+    // Limpiar timeouts ANTERIORES SOLO para este bot
+    const previous = get().timeoutsIdsByBot[name] || [];
+    previous.forEach(id => clearTimeout(id));
+    set(state => ({
+      timeoutsIdsByBot: {
+        ...state.timeoutsIdsByBot,
+        [name]: []
+      }
+    }));
+
 
     const newTimeouts: number[] = [];
 
-    // Iterar sobre cada tablero y cada celda encontrada
-    botFinded.boards.forEach(board => {
-      board.board.forEach((cell, idx) => {
+    for (const board of botFinded.boards) {
+      for (const [idx, cell] of board.board.entries()) {
+        if (get().gameEnded || get().winner !== "none") return;
 
-        if (get().winner === "bot") return
-        // Si los objetivos han cambiado, no crear más timeouts
-        // if (!get().findedCells.find(bot => bot.name === name)) return;
-
-        // Usar setTimeout para simular el intervalo de reacción
-        const dynamicTime = dynamicInterval()
-        // Multiplicar por idx para escalonar los intervalos
-        const time = interval * dynamicTime * (idx + 1)
+        const dynamicTime = dynamicInterval();
+        const time = interval * dynamicTime * (idx + 1);
 
         const timeoutId = setTimeout(() => {
+          if (get().gameEnded || get().winner !== "none") return;
 
-          // Verificar si los objetivos siguen existiendo antes de marcar
-          // const stillExists = get().findedCells.find(bot =>
-          //   bot.name === name &&
-          //   bot.boards.some(b => b.id === board.id && b.board.some(c => c.position === cell.position))
-          // );
-          // if (!stillExists) return;
-
-          // Actualizar la selección del bot
-
-          // TODO: AQUI ESTABA EL PROBLEMA, LO ARREGLE, PERO SI gameEnded es true imprime el mensaje "No se van a seguir evaluando"
-          if (get().gameEnded === false) {
-            console.log(`El bot ${botFinded.name} ha marcado en el tablero ${board.id} el número ${cell.number} en la posición ${cell.position}, se demoro ${time} milisegundos`)
-            get().updateBotSelection(name, board.id, cell.number, cell.position);
-            get().playSound(CORRECT_BOT_SOUND)
-          } else {
-            // TODO: PERO SI gameEnded es false (AL MOMENTO DE REINICIAR EL NIVEL) VOLVERA A SEGUIR MARCANDO LOS NUMEROS, NO DEBERIA SEGUIR EVALUANDO
-            console.log("No se van a seguir evaluando")
-
-            // TODO: PROBABLEMENTE LA SOLUCIÓN SEA colocar gameEnded en true al momento de cerrar de nivel
-            return
-          }
+          console.log(`El bot ${botFinded.name} ha marcado en el tablero ${board.id} el número ${cell.number}`);
+          get().updateBotSelection(name, board.id, cell.number, cell.position);
+          get().playSound(CORRECT_BOT_SOUND);
         }, time);
 
         newTimeouts.push(timeoutId);
+      }
+    }
 
-      });
-    });
-    // Guardar el id del timeout para posible limpieza
-
+    // Guardar timeouts SOLO para este bot
     set(state => ({
-      timeoutsIds: [...state.timeoutsIds, ...newTimeouts]
+      timeoutsIdsByBot: {
+        ...state.timeoutsIdsByBot,
+        [name]: newTimeouts
+      }
     }));
-
   },
-
   // DEBE ACTUALIZAR LAS POSICIONES Y NUMEROS SELECCIONADOS DEL BOT, LUEGO DE UN CIERTO INTERVALO
 
   // TODO: ESTA FUNCIÓN DEBE VERIFICAR EN CADA MARCADO QUE HACE EL BOT SI TIENE EL PATRON GANADOR EN UNO DE SUS TABLEROS
@@ -201,7 +203,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
   },
 
   confirmedWinners: {},
-  gameEnded: false,
+  gameEnded: true,
 
   setConfirmedWinner: (botId, boardId) => {
     set((state) => {
@@ -221,4 +223,9 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
   },
 
   // TODO: AL REINICIAR UN NIVEL, EL BOT DEBE DEJAR DE SEGUIR MARCANDO
+  clearAllBotTimeouts: () => {
+    const all = get().timeoutsIdsByBot;
+    Object.values(all).flat().forEach(id => clearTimeout(id));
+    set({ timeoutsIdsByBot: {} });
+  },
 })

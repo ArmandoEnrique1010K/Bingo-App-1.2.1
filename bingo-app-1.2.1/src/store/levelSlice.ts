@@ -29,6 +29,7 @@ export type LevelSliceType = {
   openResetLevelModal: () => void;
   generateNewTargets: () => void,
 
+  defaultLevelState: () => void;
 };
 
 
@@ -100,10 +101,6 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
   // TODO: ACCIÓN PARA REINICIAR UN NIVEL
   resetLevelState: () => {
 
-    // set({
-    //   gameEnded: true,
-    // })
-
     const levelData = get().levelData; // Obtén el nivel actual
     const createPlayerBoards = Array.from({ length: levelData.boards }).map((_, index) => ({
       id: index + 1,
@@ -135,16 +132,6 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
     ))
 
 
-    // [
-    //   {
-    //     id: "0",
-    //     board: [{
-    //       position: 13,
-    //       number: 0
-    //     }]
-    //   }
-    // ]
-
 
     set({
       playerBoards: createPlayerBoards,
@@ -156,7 +143,6 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       winner: 'none',
       excludedTargets: [],
       markedCells: initialSelectedNumbersAndPositions,
-      // MODAL
 
       isStatusModalOpen: true,
       modal: START_LEVEL_MODAL
@@ -190,7 +176,31 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       botSelectedNumbersAndPositions: botInitialSelectedNumbersAndPositions,
     })
 
+    get().clearAllBotTimeouts()
   },
+  defaultLevelState: () => {
+    set({
+      playerBoards: [],
+      botBoards: [],
+      currentTargets: [],
+      currentRound: 0,
+      winner: '',
+      excludedTargets: [],
+      markedCells: [],
+      isStatusModalOpen: false,
+      modal: NONE_MODAL,
+      currentBoard: { id: 0, board: [] },
+      confirmedWinners: {},
+      gameEnded: true,
+      powerups: initialPowerups,
+      timeoutsIds: [],
+      findedCells: [],
+      botSelectedNumbersAndPositions: [],
+    })
+
+    get().clearAllBotTimeouts()
+  },
+
   closeStatusModal: () => {
     get().playSound(CLICK_SOUND)
     set({

@@ -11,6 +11,7 @@ export default function StatusGameModal() {
   const closeStatusModal = useAppStore((state) => state.closeStatusModal);
   const openStatusModal = useAppStore((state) => state.openStatusModal);
   const resetLevelState = useAppStore((state) => state.resetLevelState);
+  const defaultLevelState = useAppStore((state) => state.defaultLevelState);
 
   const { level, color } = levelData;
   const { type, title, message, textButton, subType } = modal;
@@ -24,6 +25,7 @@ export default function StatusGameModal() {
 
   const leaveGame = () => {
     closeStatusModal();
+    defaultLevelState();
     navigate(`/`);
   };
 

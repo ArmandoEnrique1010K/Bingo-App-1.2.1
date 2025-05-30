@@ -76,7 +76,7 @@ export default function LevelView() {
           //   return;
           if (gameEnded) return;
 
-          botWinner(info.botName); // 🚀 Declara ganador
+          botWinner(); // 🚀 Declara ganador
           declareBotWinner(info.botName); // 🚫 Bloquea evaluaciones futuras
 
           useAppStore.setState({

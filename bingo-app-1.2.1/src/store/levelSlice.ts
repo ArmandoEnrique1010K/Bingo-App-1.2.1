@@ -88,6 +88,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
   },
 
   generateNewTargets: () => {
+    get().resetBotTimeouts()
     if (get().currentRound === MAX_TURNS) {
       set({ currentTargets: [], winner: "end" });
       get().noMoreRoundModal()

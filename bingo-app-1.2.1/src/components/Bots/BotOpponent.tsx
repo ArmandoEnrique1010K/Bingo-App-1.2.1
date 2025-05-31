@@ -31,7 +31,7 @@ export default function BotOpponent({
         }, 0);
       }
     }
-  }, [currentTargets, winner, interval]);
+  }, [currentTargets, winner, selectBotCell, name, interval]);
 
   return (
     <div

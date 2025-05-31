@@ -33,12 +33,15 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
   botWinner: () => {
     set({
+      showHelpModal: false,
+      showCreditsModal: false,
       winner: get().checkWinnerPatternBot() !== null ? 'bot' : '',
       modal: DEFEAT_MODAL,
       isStatusModalOpen: true,
       foundCells: [],
     });
 
+    get().resetBotTimeouts()
     get().playSound(DEFEAT_SOUND)
     get().changeMusic(ANYMORE_ENDING)
   },
@@ -46,7 +49,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
   selectBotCell: (name: string, interval: number) => {
     const botFinded = get().foundCells.find(bot => bot.name === name);
-    if (!botFinded || get().winner !== "none" || get().gameEnded) return;
+    if (!botFinded || get().winner !== "none" || get().gameEnded || get().currentTargets.length === 0) return;
 
     const previous = get().botTimeoutsMap[name] || [];
     previous.forEach(id => clearTimeout(id));
@@ -90,7 +93,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     const patterns = levelData.patterns;
     const botSelected = get().botMarkedCells;
     const winners = [];
-
 
     for (const bot of botSelected) {
       for (const board of bot.boards) {

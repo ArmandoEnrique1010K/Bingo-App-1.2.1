@@ -43,6 +43,7 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
         if (get().levelData.level !== FINAL_LEVEL) {
           get().unlockLevel(get().levelData.level + 1)
         }
+        get().resetBotTimeouts()
 
         get().playSound(VICTORY_SOUND)
         get().changeMusic(DARKNESS_SOLO)

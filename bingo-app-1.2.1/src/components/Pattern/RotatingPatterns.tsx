@@ -12,14 +12,19 @@ export default function RotatingPatterns() {
 
   const intervalRef = useRef<number>(1);
 
+  // REVIEW: CADA VEZ QUE CAMBIA DE NIVEL SETCURRENTPATTERNINDEX DEBE INICIALIZAR EN 0, PORQUE HAY VECES QUE NO SE MUESTRA EL PATRON OBJETIVO AL CAMBIAR DE NIVEL
   useEffect(() => {
+    setCurrentPatternIndex(0);
     if (patterns.length <= 1) return;
+
     intervalRef.current = setInterval(() => {
       setCurrentPatternIndex((prevIndex) => (prevIndex + 1) % patterns.length);
     }, CHANGE_PATTERN_DELAY);
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, [patterns]);
 

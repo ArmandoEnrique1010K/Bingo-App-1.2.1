@@ -8,13 +8,11 @@ type BotBingoCellProps = {
 export default function BotBingoCell({ idBoard, value }: BotBingoCellProps) {
   const { position, number } = value;
   const levelData = useAppStore((state) => state.levelData);
-  const botSelectedNumbersAndPositions = useAppStore(
-    (state) => state.botSelectedNumbersAndPositions
-  );
+  const botMarkedCells = useAppStore((state) => state.botMarkedCells);
 
   const { color } = levelData;
 
-  const isMarked = botSelectedNumbersAndPositions.some((bot) =>
+  const isMarked = botMarkedCells.some((bot) =>
     bot.boards.some(
       (board) =>
         board.id === idBoard &&

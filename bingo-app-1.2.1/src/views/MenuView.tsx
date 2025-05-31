@@ -23,16 +23,7 @@ export default function MenuView() {
   const setIsPlayingMusic = useAppStore((state) => state.setIsPlayingMusic);
 
   useEffect(() => {
-    // stopMusic();
-
-    // if (isPlayingMusic) {
-    //   startMusic(levelData.music);
-    // } else {
-    //   stopMusic();
-    // }
-
     changeMusic(levelData.music);
-    console.log(levelData);
   }, [levelData]);
 
   return (

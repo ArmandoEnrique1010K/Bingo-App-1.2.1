@@ -19,18 +19,19 @@ export default function BotOpponent({
 }: BotOpponentProps) {
   const botBoards = useAppStore((state) => state.botBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
-  const markCellBot = useAppStore((state) => state.markCellBot);
+  const selectBotCell = useAppStore((state) => state.selectBotCell);
   const winner = useAppStore((state) => state.winner);
 
+  // TODO: MEJORAR ESTO, ELIMINAR EL TIMEOUT
   useEffect(() => {
     if (currentTargets.length !== 0) {
       if (winner !== "bot" && winner !== "player") {
         setTimeout(() => {
-          markCellBot(name, interval);
+          selectBotCell(name, interval);
         }, 0);
       }
     }
-  }, [currentTargets, winner, markCellBot, name, interval]);
+  }, [currentTargets, winner, interval]);
 
   return (
     <div

@@ -62,4 +62,6 @@ export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], A
   setIsPlayingSound: (value: boolean) => {
     set({ isPlayingSound: value });
   }
+
+  // TODO: PROBAR SI LOS BOTS SIGUEN EVALUANDO LOS NUMEROS OBJETIVOS, SI NO HAY NINGUN NUMERO OBJETIVO
 });

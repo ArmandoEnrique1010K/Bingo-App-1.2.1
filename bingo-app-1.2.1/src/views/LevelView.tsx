@@ -8,7 +8,7 @@ import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
-import ListPowerUps from "../components/PowerUps/ListPowerUps";
+// import ListPowerUps from "../components/PowerUps/ListPowerUps";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
@@ -26,9 +26,7 @@ export default function LevelView() {
   const botWinner = useAppStore((state) => state.botWinner);
   const winner = useAppStore((state) => state.winner);
 
-  const botSelectedNumbersAndPositions = useAppStore(
-    (state) => state.botSelectedNumbersAndPositions
-  );
+  const botMarkedCells = useAppStore((state) => state.botMarkedCells);
 
   const confirmedWinners = useAppStore((state) => state.confirmedWinners);
   const gameEnded = useAppStore((state) => state.gameEnded);
@@ -37,19 +35,8 @@ export default function LevelView() {
 
   const boardTimeoutsRef = useRef<{ [key: string]: number }>({}); // ✅ Almacena los timeouts activos
 
-  // TODO: FALTA EVITAR QUE LA FUNCIÓN QUE DETERMINA AL BOT COMO GANADOR SE DETENGA SI EL JUGADOR HA GANADO, TAMBIEN SI NO HAY TURNOS DISPONIBLES
-  // TODO: TAMBIEN SI EL JUGADOR HA GANADO, EL BOT DEBERIA DEJAR DE SEGUIR MARCANDO TABLEROS Y LOS NUMEROS OBJETIVOS DEBEN ESTAR EN BLANCO
-  // TODO: TAMBIEN DEBE DEJAR DE SEGUIR EJECUTANDO SI EL JUGADOR HA SALIDO DEL NIVEL
-  // TODO: SI EL BOT HA GANADO, DEBE DEJAR DE MARCAR LOS NUMEROS
   useEffect(() => {
-    if (
-      gameEnded
-      // ||
-      // winner === "bot" ||
-      // winner === "player" ||
-      // winner === "end"
-    ) {
-      console.log("⚠️ El juego ya terminó, bloqueando evaluaciones...");
+    if (gameEnded) {
       return;
     }
 
@@ -64,9 +51,9 @@ export default function LevelView() {
         !confirmedWinners[key] // && !gameEnded
       ) {
         // ✅ Solo inicia si el bot aún no fue declarado ganador
-        console.log(
-          `🏆 ${info.botName} ha encontrado un patrón. Esperando ${reactionTime}ms...`
-        );
+        // console.log(
+        //   `🏆 ${info.botName} ha encontrado un patrón. Esperando ${reactionTime}ms...`
+        // );
 
         setConfirmedWinner(info.botName, info.boardId);
         // confirmedWinners[key] = reactionTime;
@@ -81,7 +68,7 @@ export default function LevelView() {
 
           useAppStore.setState({
             gameEnded: true,
-            // botSelectedNumbersAndPositions: [],
+            // botMarkedCells: [],
           });
 
           // 🔥 Limpia todos los demás `setTimeout` para evitar múltiples llamadas a `botWinner`
@@ -95,14 +82,14 @@ export default function LevelView() {
         boardTimeoutsRef.current[key] = timeoutId;
       }
     });
-  }, [botSelectedNumbersAndPositions, winner]); // ✅ Se ejecuta cuando los números marcados cambian
+  }, [botMarkedCells, winner]); // ✅ Se ejecuta cuando los números marcados cambian
 
   // ✅ Cancela todos los `setTimeout` si el jugador gana
   useEffect(() => {
     if (winner === "player") {
-      console.log(
-        "🏆 ¡El jugador ha ganado! Cancelando todos los tiempos de espera..."
-      );
+      // console.log(
+      //   "🏆 ¡El jugador ha ganado! Cancelando todos los tiempos de espera..."
+      // );
       Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
         clearTimeout(boardTimeoutsRef.current[botKey]);
         delete boardTimeoutsRef.current[botKey];
@@ -112,9 +99,9 @@ export default function LevelView() {
     }
 
     if (winner === "bot" || winner === "end") {
-      console.log(
-        "🏆 ¡El bot ha ganado! Cancelando todos los tiempos de espera..."
-      );
+      // console.log(
+      //   "🏆 ¡El bot ha ganado! Cancelando todos los tiempos de espera..."
+      // );
       Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
         clearTimeout(boardTimeoutsRef.current[botKey]);
         delete boardTimeoutsRef.current[botKey];
@@ -129,13 +116,17 @@ export default function LevelView() {
   }, [location.pathname]);
 
   useEffect(() => {
-    resetLevelState();
-    console.log("HA CAMBIADO DE NIVEL");
+    if (levelData.level !== 0) {
+      resetLevelState();
+      // console.log("HA CAMBIADO DE NIVEL");
+    }
   }, [levelData]);
 
   useEffect(() => {
-    console.log("Encontrando los numeros objetivos: " + currentTargets);
+    // if (currentTargets.length !== 0) {
+    // console.log("Encontrando los numeros objetivos: " + currentTargets);
     findNumbersOnBoards(currentTargets);
+    // }
   }, [currentTargets]);
 
   return (
@@ -166,7 +157,8 @@ export default function LevelView() {
           </div>
 
           <PlayerBoard />
-          <ListPowerUps />
+          {/* TODO: MOSTRAR LOS POWERUPS */}
+          {/* <ListPowerUps /> */}
         </div>
 
         {/* Contenedor dinámico para mostrar los tableros de los bots */}

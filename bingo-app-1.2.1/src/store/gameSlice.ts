@@ -89,23 +89,23 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
         return { unlockedLevels: updatedLevels };
       }
       return state;
-    });
-  },
 
+    },
+
+    )
+  },
   getUnlockedLevelsFromStorage: () => {
     const storedLevels = localStorage.getItem('unlockedLevels');
 
-    if (storedLevels) {
-      try {
-        const parsedLevels = JSON.parse(storedLevels);
-        if (Array.isArray(parsedLevels)) {
-          set({ unlockedLevels: parsedLevels });
-        }
-      } catch (error) {
-        console.error("Error al cargar niveles desbloqueados:", error);
-      }
+    if (!storedLevels) {
+      localStorage.setItem('unlockedLevels', JSON.stringify([1]));
+      set({ unlockedLevels: [1] });
+      return;
     }
+
+    set({ unlockedLevels: JSON.parse(storedLevels) });
   },
+
 
   getLevelNumberFromUrl: (pathname) => {
     const match = pathname.match(/\/level_(\d+)/);
@@ -120,6 +120,4 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
   getColorLevel: (level) => {
     return levels.find(l => l.level === level)?.color ?? 'blue'
   },
-
-  // TODO: CREAR UNA NUEVA ACCIÓN PARA ACCEDER AL MENU (SE MODIFICAN LOS DATOS)
 });

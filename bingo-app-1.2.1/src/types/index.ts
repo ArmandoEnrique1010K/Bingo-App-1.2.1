@@ -1,6 +1,4 @@
-
-
-
+// TODO: MEJORAR LA SINTAXIS DE LOS TYPES
 export type Board = {
   id: number,
   board: {
@@ -70,9 +68,6 @@ export type TargetResult = {
   targets: { number: number; position: number }[];
 };
 
-
-
-// TYPES RELACIONADOS A LOS BOTS
 export type BotBoard = {
   id: string,
   board: {
@@ -81,39 +76,15 @@ export type BotBoard = {
   }[]
 }
 
-// export type BotBoards = BotBoard[]
 export type BotBoards = {
-  name: string; // Nombre del bot
-  boards: BotBoard[]; // Lista de tableros del bot
+  name: string;
+  boards: BotBoard[];
 }[];
 
-// DATOS DEL BOT GANADOR
 export type BotsWinners = {
   botName: string,
   boardId: string,
   markedCells: BotBoard['board']
-  // winningPattern: Pattern,
   reactionTime: number
 }[]
-
-
-// DEBE SER EL TYPE BOTBOARDS
-// export type BotSelectedNumbersAndPositions = {
-//   id: string,
-//   board: {
-//     position: number,
-//     number: number
-//   }[]
-// }[]
-
-
-// ESTO NO DEBERIA EXISTIR, DEBE SER EL MISMO TYPE BOTBOARDS
-// export type FindedCells = {
-//   id: string,
-//   targets: {
-//     position: number,
-//     number: number
-//   }[]
-// }[]
-
 

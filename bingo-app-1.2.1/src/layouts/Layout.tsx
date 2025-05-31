@@ -25,6 +25,7 @@ export default function Layout() {
   const isStartScreenButtonVisible = useAppStore(
     (state) => state.isStartScreenButtonVisible
   );
+  // const unlockLevel = useAppStore((state) => state.unlockLevel);
 
   const location = useLocation();
 
@@ -40,6 +41,7 @@ export default function Layout() {
     preloadMusicFiles();
     preloadSoundFiles();
     getUnlockedLevelsFromStorage();
+    // unlockLevel(1);
   }, []);
 
   return (

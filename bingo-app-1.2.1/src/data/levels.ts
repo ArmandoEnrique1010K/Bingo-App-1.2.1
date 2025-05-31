@@ -1,16 +1,18 @@
-
-
 import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE, SELFLESS } from "../constants/audioSettings";
 import { Level } from "../types";
 import { generateBotName } from "../utils/Bot/generateBotName";
 
-// TODO: SOUNDTRACKS
-// NIVEL +1 SLOW TAP MOONLIGHT
-// NIVEL +6  LIVE
-// NIVEL +11  MOUNTAIN
-// NIVEL +16  DARKNESS
-// NIVEL +21  FRIENDS
-// NIVEL +26  ANYMORE
+// TODO: SOUNDTRACKS / TIEMPO DE REACCIÓN DE LOS BOTS
+// NIVEL +1 SLOW TAP MOONLIGHT    6000
+// NIVEL +6  SELFLESS             5500
+// NIVEL +11  MOUNTAIN            5000
+// NIVEL +16  LIVE                 4500
+// NIVEL +21  FRIENDS              4000
+// NIVEL +26  DARKNESS              3500
+// NIVEL +31 ANYMORE               3000
+// NIVEL 36 - 43 RANDOM              2500
+
+// TODO: ES MUY PROBABLE QUE ENTRE LOS NIVELES 36 Y 42 SEAN UN NIVEL ALEATORIO ENTRE LOS NIVELES 1 AL 5 DE SU RANGO DE VALORES, PERO LOS BOTS SE MANTIENEN
 
 
 
@@ -33,7 +35,7 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(2200, 6000, 1),
+        name: generateBotName(2200, 1),
         interval: 2200,
         boards: 1,
         reactionTime: 6000
@@ -61,7 +63,7 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1900, 6000, 1),
+        name: generateBotName(1900, 1),
         interval: 1900,
         boards: 1,
         reactionTime: 6000
@@ -72,7 +74,7 @@ export const levels: Level[] = [
   },
   {
     level: 3,
-    targetText: "Rectangulo de 6 números",
+    targetText: "Rectangulo de 3 x 2 números",
     boards: 1,
     patterns: [
       [1, 2, 6, 7, 11, 12],
@@ -92,7 +94,7 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1600, 6000, 1),
+        name: generateBotName(1600, 1),
         interval: 1600,
         boards: 1,
         reactionTime: 6000
@@ -118,13 +120,13 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(2200, 6000, 1),
+        name: generateBotName(2200, 1),
         interval: 2200,
         boards: 1,
         reactionTime: 6000
       },
       {
-        name: generateBotName(1900, 6000, 2),
+        name: generateBotName(1900, 2),
         interval: 1900,
         boards: 1,
         reactionTime: 6000
@@ -144,75 +146,94 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1600, 6000, 1),
+        name: generateBotName(1600, 1),
         interval: 1600,
         boards: 1,
         reactionTime: 6000
       },
-      {
-        name: generateBotName(1900, 6000, 2),
-        interval: 1900,
-        boards: 1,
-        reactionTime: 6000
-      },
+      // {
+      //   name: generateBotName(1900, 2),
+      //   interval: 1900,
+      //   boards: 1,
+      //   reactionTime: 6000
+      // },
     ],
     color: 'blue',
     music: TAP
   },
+
   {
     level: 6,
-    targetText: "Esquina de 90 grados",
+    targetText: "Simbolo de exclamación",
     boards: 1,
     patterns: [
-      [
-        1, 6, 11, 16, 21,
-        2,
-        3,
-        4,
-        5,
-      ],
-      [
-        1, 6, 11, 16, 21,
-        22,
-        23,
-        24,
-        25
-      ],
-      [
-        21,
-        22,
-        23,
-        24,
-        5, 10, 15, 20, 25
-      ],
-      [
-        1,
-        2,
-        3,
-        4,
-        5, 10, 15, 20, 25
-      ]
+      /*
+      1  6  11  16  21
+      2  7  12  17  22
+      3  8  13  18  23
+      4  9  14  19  24
+      5  10 15  20  25
+      */
+
+      [1, 2, 3, 5],
+      [6, 7, 8, 10],
+      [11, 12, 13, 15],
+      [16, 17, 18, 20],
+      [21, 22, 23, 25],
+      [1, 3, 4, 5],
+      [6, 8, 9, 10],
+      [11, 13, 14, 15],
+      [16, 18, 19, 20],
+      [21, 23, 24, 25],
+
+
     ],
-    // TODO: CAMBIAR LOS BOTS
     bots: [
       {
-        name: "F-Bot",
-        interval: 800,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot",
+        name: generateBotName(1500, 1),
         interval: 1500,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5500
       },
     ],
     color: 'cyan',
-    music: LIVE
+    music: SELFLESS
   },
+
   {
     level: 7,
+    targetText: "Ojo en el centro",
+    boards: 2,
+    patterns: [
+      [
+        6, 11, 16,
+        2, 22,
+        3, 13, 23,
+        4, 24,
+        10, 15, 20,
+      ]
+    ],
+    bots: [
+      {
+        name: generateBotName(1400, 1),
+        interval: 1400,
+        boards: 1,
+        reactionTime: 5500
+      },
+      {
+        name: generateBotName(1700, 1),
+        interval: 1700,
+        boards: 1,
+        reactionTime: 5500
+      },
+    ],
+    color: 'cyan',
+    music: SLOW
+  },
+
+
+  {
+    level: 8,
     targetText: "2 cuadrados en 2 esquinas",
     boards: 2,
     patterns: [
@@ -225,49 +246,19 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot",
+        name: generateBotName(1500, 1),
         interval: 1500,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 5500
       },
     ],
     color: 'cyan',
     music: MOONLIGHT
   },
   {
-    level: 8,
-    targetText: "Ojo en el centro",
-    boards: 1,
-    patterns: [
-      [
-        6, 11, 16,
-        2, 22,
-        3, 13, 23,
-        4, 24,
-        10, 15, 20,
-      ]
-    ],
-    bots: [
-      {
-        name: "M-Bot",
-        interval: 1400,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "S-Bot",
-        interval: 1700,
-        boards: 1,
-        reactionTime: 0
-      },
-    ],
-    color: 'cyan',
-    music: SLOW
-  },
-  {
     level: 9,
     targetText: "Matriz de 9 números",
-    boards: 1,
+    boards: 2,
     patterns: [
       [
         1, 11, 21,
@@ -277,33 +268,34 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot 1",
+        name: generateBotName(1800, 1),
         interval: 1800,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5500
       },
       {
-        name: "S-Bot 2",
+        name: generateBotName(2000, 2),
         interval: 2000,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5500
       },
       {
-        name: "S-Bot 3",
+        name: generateBotName(2200, 3),
         interval: 2200,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5500
       },
       {
-        name: "S-Bot 4",
+        name: generateBotName(1800, 4),
         interval: 1800,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5500
       },
     ],
     color: 'cyan',
     music: TAP
   },
+
   {
     level: 10,
     targetText: "Dos filas de 10 números",
@@ -322,21 +314,76 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot 1",
+        name: generateBotName(2100, 1),
         interval: 2100,
-        boards: 1,
-        reactionTime: 0
+        boards: 2,
+        reactionTime: 5500
       },
       {
-        name: "S-Bot 2",
+        name: generateBotName(1700, 1),
         interval: 1700,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5500
       }
     ],
     color: 'cyan',
     music: MOONLIGHT
   },
+
+
+  // {
+  //   level: 6,
+  //   targetText: "Esquina de 90 grados",
+  //   boards: 1,
+  //   patterns: [
+  //     [
+  //       1, 6, 11, 16, 21,
+  //       2,
+  //       3,
+  //       4,
+  //       5,
+  //     ],
+  //     [
+  //       1, 6, 11, 16, 21,
+  //       22,
+  //       23,
+  //       24,
+  //       25
+  //     ],
+  //     [
+  //       21,
+  //       22,
+  //       23,
+  //       24,
+  //       5, 10, 15, 20, 25
+  //     ],
+  //     [
+  //       1,
+  //       2,
+  //       3,
+  //       4,
+  //       5, 10, 15, 20, 25
+  //     ]
+  //   ],
+  //   // TODO: CAMBIAR LOS BOTS
+  //   bots: [
+  //     {
+  //       name: "F-Bot",
+  //       interval: 800,
+  //       boards: 1,
+  //       reactionTime: 0
+  //     },
+  //     {
+  //       name: "M-Bot",
+  //       interval: 1500,
+  //       boards: 1,
+  //       reactionTime: 0
+  //     },
+  //   ],
+  //   color: 'cyan',
+  //   music: SELFLESS
+  // },
+
   {
     level: 11,
     targetText: "Aspa de 9 números",
@@ -1206,4 +1253,32 @@ export const levels: Level[] = [
     color: 'stone',
     music: SELFLESS
   },
+  // {
+  //   level: 32,
+  //   ...getRandomLevel([1, 2, 3, 4, 5]),
+  //   bots: [
+  //     {
+  //       name: "S-Bot",
+  //       interval: 1000,
+  //       boards: 3,
+  //       reactionTime: 5000
+  //     },
+  //     {
+  //       name: "S-Bot-2",
+  //       interval: 1000,
+  //       boards: 2,
+  //       reactionTime: 5000
+  //     },
+  //     {
+  //       name: "S-Bot-3",
+  //       interval: 1000,
+  //       boards: 2,
+  //       reactionTime: 5000
+  //     },
+  //   ],
+  //   color: 'stone',
+  //   music: SELFLESS
+  // }
 ]
+
+

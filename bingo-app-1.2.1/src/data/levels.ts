@@ -1,18 +1,14 @@
-import { FRIENDS, LIVE, SOMEDAY, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE, SELFLESS } from "../constants/audioSettings";
+import { FRIENDS, LIVE, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE, SELFLESS } from "../constants/audioSettings";
 import { Level } from "../types";
 import { generateBotName } from "../utils/Bot/generateBotName";
 
-// TODO: SOUNDTRACKS / TIEMPO DE REACCIÓN DE LOS BOTS
-// NIVEL +1 SLOW TAP MOONLIGHT    6000
-// NIVEL +6  SELFLESS             5500
-// NIVEL +11  MOUNTAIN            5000
-// NIVEL +16  LIVE                 4500
-// NIVEL +21  FRIENDS              4000
-// NIVEL +26  DARKNESS              3500
-// NIVEL +31 ANYMORE               3000
-
-
-
+/*
+1  6  11  16  21
+2  7  12  17  22
+3  8  13  18  23
+4  9  14  19  24
+5  10 15  20  25
+*/
 
 export const levels: Level[] = [
   {
@@ -315,67 +311,6 @@ export const levels: Level[] = [
     color: 'cyan',
     music: SELFLESS
   },
-  /*
-  1  6  11  16  21
-  2  7  12  17  22
-  3  8  13  18  23
-  4  9  14  19  24
-  5  10 15  20  25
-  */
-
-
-  // {
-  //   level: 6,
-  //   targetText: "Esquina de 90 grados",
-  //   boards: 1,
-  //   patterns: [
-  //     [
-  //       1, 6, 11, 16, 21,
-  //       2,
-  //       3,
-  //       4,
-  //       5,
-  //     ],
-  //     [
-  //       1, 6, 11, 16, 21,
-  //       22,
-  //       23,
-  //       24,
-  //       25
-  //     ],
-  //     [
-  //       21,
-  //       22,
-  //       23,
-  //       24,
-  //       5, 10, 15, 20, 25
-  //     ],
-  //     [
-  //       1,
-  //       2,
-  //       3,
-  //       4,
-  //       5, 10, 15, 20, 25
-  //     ]
-  //   ],
-  //   // TODO: CAMBIAR LOS BOTS
-  //   bots: [
-  //     {
-  //       name: "F-Bot",
-  //       interval: 800,
-  //       boards: 1,
-  //       reactionTime: 0
-  //     },
-  //     {
-  //       name: "M-Bot",
-  //       interval: 1500,
-  //       boards: 1,
-  //       reactionTime: 0
-  //     },
-  //   ],
-  //   color: 'cyan',
-  //   music: SELFLESS
-  // },
   {
     level: 11,
     targetText: "Número 1",
@@ -467,7 +402,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: MOUNTAIN
+    music: SLOW
   },
 
   {
@@ -555,7 +490,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: SELFLESS
+    music: FRIENDS
   },
 
 
@@ -689,7 +624,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: TAP
+    music: SELFLESS
   },
   {
     level: 18,
@@ -774,7 +709,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: LIVE
+    music: FRIENDS
   },
   {
     level: 20,
@@ -822,7 +757,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: DARKNESS
+    music: LIVE
   },
   {
     level: 21,
@@ -857,7 +792,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: FRIENDS
+    music: DARKNESS
   },
   {
     level: 22,
@@ -911,7 +846,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: FRIENDS
+    music: TAP
   },
 
   {
@@ -952,7 +887,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: TAP
+    music: FRIENDS
   },
 
   {
@@ -1031,7 +966,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: SOMEDAY
+    music: DARKNESS
   },
   {
     level: 26,
@@ -1073,7 +1008,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: DARKNESS
+    music: ANYMORE
   },
   {
     level: 27,
@@ -1176,7 +1111,7 @@ export const levels: Level[] = [
 
     ],
     color: 'red',
-    music: MOUNTAIN
+    music: DARKNESS
   },
   {
     level: 29,
@@ -1239,7 +1174,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: MOUNTAIN
+    music: SELFLESS
   },
   {
     level: 30, // ULTIMO NIVEL
@@ -1311,7 +1246,7 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: DARKNESS
+    music: ANYMORE
   },
   {
     level: 31,
@@ -1332,13 +1267,13 @@ export const levels: Level[] = [
     bots: [
       {
         name: "S-Bot",
-        interval: 1000,
+        interval: 100,
         boards: 3,
         reactionTime: 5000
       },
       {
         name: "S-Bot-2",
-        interval: 1000,
+        interval: 100,
         boards: 2,
         reactionTime: 5000
       },
@@ -1346,7 +1281,7 @@ export const levels: Level[] = [
         name: "S-Bot-3",
         interval: 1000,
         boards: 2,
-        reactionTime: 5000
+        reactionTime: 100
       },
     ],
     color: 'stone',

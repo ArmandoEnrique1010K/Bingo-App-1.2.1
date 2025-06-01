@@ -42,9 +42,10 @@ export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], A
 
   playSound: (sound: Music) => {
     const player = preloadedSoundPlayers.get(sound.name);
+    player?.stop()
 
     if (player && get().isPlayingSound) {
-      player.autostart = false
+      player.autostart = true
       player.volume.value = sound.volume;
       player.start()
     }

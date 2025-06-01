@@ -126,8 +126,8 @@ export const levels: Level[] = [
         reactionTime: 6000
       },
       {
-        name: generateBotName(1900, 2),
-        interval: 1900,
+        name: generateBotName(2200, 2),
+        interval: 2200,
         boards: 1,
         reactionTime: 6000
       }
@@ -151,12 +151,6 @@ export const levels: Level[] = [
         boards: 1,
         reactionTime: 6000
       },
-      // {
-      //   name: generateBotName(1900, 2),
-      //   interval: 1900,
-      //   boards: 1,
-      //   reactionTime: 6000
-      // },
     ],
     color: 'blue',
     music: TAP
@@ -167,14 +161,6 @@ export const levels: Level[] = [
     targetText: "Simbolo de exclamación",
     boards: 1,
     patterns: [
-      /*
-      1  6  11  16  21
-      2  7  12  17  22
-      3  8  13  18  23
-      4  9  14  19  24
-      5  10 15  20  25
-      */
-
       [1, 2, 3, 5],
       [6, 7, 8, 10],
       [11, 12, 13, 15],
@@ -185,13 +171,11 @@ export const levels: Level[] = [
       [11, 13, 14, 15],
       [16, 18, 19, 20],
       [21, 23, 24, 25],
-
-
     ],
     bots: [
       {
-        name: generateBotName(1500, 1),
-        interval: 1500,
+        name: generateBotName(1300, 1),
+        interval: 1300,
         boards: 1,
         reactionTime: 5500
       },
@@ -202,36 +186,34 @@ export const levels: Level[] = [
 
   {
     level: 7,
-    targetText: "Ojo en el centro",
+    targetText: "Los bordes sin esquinas",
     boards: 2,
     patterns: [
       [
         6, 11, 16,
         2, 22,
-        3, 13, 23,
+        3, 23,
         4, 24,
         10, 15, 20,
       ]
     ],
     bots: [
       {
-        name: generateBotName(1400, 1),
-        interval: 1400,
+        name: generateBotName(2200, 1),
+        interval: 2200,
         boards: 1,
         reactionTime: 5500
       },
       {
-        name: generateBotName(1700, 1),
-        interval: 1700,
+        name: generateBotName(1900, 2),
+        interval: 1900,
         boards: 1,
         reactionTime: 5500
-      },
+      }
     ],
     color: 'cyan',
     music: SLOW
   },
-
-
   {
     level: 8,
     targetText: "2 cuadrados en 2 esquinas",
@@ -246,8 +228,8 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1500, 1),
-        interval: 1500,
+        name: generateBotName(1900, 1),
+        interval: 1900,
         boards: 2,
         reactionTime: 5500
       },
@@ -268,26 +250,26 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1800, 1),
-        interval: 1800,
-        boards: 1,
-        reactionTime: 5500
-      },
-      {
-        name: generateBotName(2000, 2),
-        interval: 2000,
-        boards: 1,
-        reactionTime: 5500
-      },
-      {
-        name: generateBotName(2200, 3),
+        name: generateBotName(2200, 1),
         interval: 2200,
         boards: 1,
         reactionTime: 5500
       },
       {
-        name: generateBotName(1800, 4),
-        interval: 1800,
+        name: generateBotName(2500, 2),
+        interval: 2500,
+        boards: 1,
+        reactionTime: 5500
+      },
+      {
+        name: generateBotName(1900, 3),
+        interval: 1900,
+        boards: 1,
+        reactionTime: 5500
+      },
+      {
+        name: generateBotName(2500, 4),
+        interval: 2500,
         boards: 1,
         reactionTime: 5500
       },
@@ -302,33 +284,46 @@ export const levels: Level[] = [
     boards: 1,
     patterns: [
       [1, 6, 11, 16, 21, 2, 7, 12, 17, 22],
+      [2, 7, 12, 17, 22, 3, 8, 13, 18, 23],
+
+
+      [3, 8, 13, 18, 23, 4, 9, 14, 19, 24],
+      [4, 9, 14, 19, 24, 5, 10, 15, 20, 25],
+
       [1, 6, 11, 16, 21, 3, 8, 13, 18, 23],
+      [2, 7, 12, 17, 22, 4, 9, 14, 19, 24],
+      [3, 8, 13, 18, 23, 5, 10, 15, 20, 25],
+
       [1, 6, 11, 16, 21, 4, 9, 14, 19, 24],
       [1, 6, 11, 16, 21, 5, 10, 15, 20, 25],
-      [2, 7, 12, 17, 22, 3, 8, 13, 18, 23],
-      [2, 7, 12, 17, 22, 4, 9, 14, 19, 24],
       [2, 7, 12, 17, 22, 5, 10, 15, 20, 25],
-      [3, 8, 13, 18, 23, 4, 9, 14, 19, 24],
-      [3, 8, 13, 18, 23, 5, 10, 15, 20, 25],
-      [4, 9, 14, 19, 24, 5, 10, 15, 20, 25],
+
+
     ],
     bots: [
       {
-        name: generateBotName(2100, 1),
-        interval: 2100,
+        name: generateBotName(1600, 1),
+        interval: 1600,
         boards: 2,
         reactionTime: 5500
       },
       {
-        name: generateBotName(1700, 1),
-        interval: 1700,
+        name: generateBotName(1900, 2),
+        interval: 1900,
         boards: 1,
         reactionTime: 5500
       }
     ],
     color: 'cyan',
-    music: MOONLIGHT
+    music: SELFLESS
   },
+  /*
+  1  6  11  16  21
+  2  7  12  17  22
+  3  8  13  18  23
+  4  9  14  19  24
+  5  10 15  20  25
+  */
 
 
   // {
@@ -383,50 +378,32 @@ export const levels: Level[] = [
   //   color: 'cyan',
   //   music: SELFLESS
   // },
-
   {
     level: 11,
-    targetText: "Aspa de 9 números",
-    boards: 2,
+    targetText: "Número 1",
+    boards: 1,
     patterns: [
-      [
-        1, 21,
-        7, 17,
-        13,
-        9, 19,
-        5, 25,
-      ],
+      [6, 2, 7, 8, 9, 5, 10, 15],
+      [11, 7, 12, 13, 14, 10, 15, 20],
+      [16, 12, 17, 18, 19, 15, 20, 25]
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1500,
+        name: generateBotName(1000, 1),
+        interval: 1000,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5000
       },
       {
-        name: "S-Bot",
-        interval: 1800,
-        boards: 2,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot 2",
-        interval: 1300,
+        name: generateBotName(1600, 2),
+        interval: 1600,
         boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "F-Bot",
-        interval: 900,
-        boards: 1,
-        reactionTime: 0
+        reactionTime: 5000
       },
     ],
     color: 'emerald',
     music: MOUNTAIN
   },
-
   {
     level: 12,
     targetText: "Cuadrado de 16 números",
@@ -443,53 +420,58 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1500,
+        name: generateBotName(1600, 1),
+        interval: 1600,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 5000
       },
       {
-        name: "M-Bot 2",
-        interval: 1400,
+        name: generateBotName(1900, 2),
+        interval: 1900,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 5000
       }
     ],
     color: 'emerald',
-    music: DARKNESS
+    music: MOONLIGHT
   },
   {
     level: 13,
-    targetText: "Número 1",
-    boards: 1,
+    targetText: "Aspa de 9 números",
+    boards: 2,
     patterns: [
-      [6, 2, 7, 8, 9, 5, 10, 15],
-      [11, 7, 12, 13, 14, 10, 15, 20],
-      [16, 12, 17, 18, 19, 15, 20, 25]
+      [
+        1, 21,
+        7, 17,
+        13,
+        9, 19,
+        5, 25,
+      ],
     ],
     bots: [
       {
-        name: "S-Bot",
+        name: generateBotName(1300, 1),
+        interval: 1300,
+        boards: 1,
+        reactionTime: 5000
+      },
+      {
+        name: generateBotName(1900, 2),
         interval: 1900,
-        boards: 1,
-        reactionTime: 0
+        boards: 2,
+        reactionTime: 5000
       },
       {
-        name: "M-Bot",
-        interval: 1400,
+        name: generateBotName(2500, 3),
+        interval: 2500,
         boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "F-Bot",
-        interval: 900,
-        boards: 1,
-        reactionTime: 0
+        reactionTime: 5000
       },
     ],
     color: 'emerald',
-    music: SLOW
+    music: MOUNTAIN
   },
+
   {
     level: 14,
     targetText: "Circulo de 8 números",
@@ -507,14 +489,32 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot",
+        name: generateBotName(2200, 1),
+        interval: 2200,
+        boards: 1,
+        reactionTime: 5000
+      },
+      {
+        name: generateBotName(1600, 2),
+        interval: 1600,
+        boards: 1,
+        reactionTime: 5000
+      },
+      {
+        name: generateBotName(1900, 3),
         interval: 1900,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5000
+      },
+      {
+        name: generateBotName(1600, 4),
+        interval: 1600,
+        boards: 1,
+        reactionTime: 5000
       },
     ],
     color: 'emerald',
-    music: LIVE
+    music: MOUNTAIN
   },
   {
     level: 15,
@@ -532,36 +532,38 @@ export const levels: Level[] = [
 
     bots: [
       {
-        name: "S-Bot 1",
-        interval: 1900,
-        boards: 2,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot 2",
-        interval: 1200,
+        name: generateBotName(2200, 1),
+        interval: 2200,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5000
       },
       {
-        name: "M-Bot 1",
-        interval: 1400,
+        name: generateBotName(1300, 2),
+        interval: 1300,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 5000
       },
       {
-        name: "S-Bot 2",
-        interval: 1700,
+        name: generateBotName(2500, 3),
+        interval: 2500,
+        boards: 1,
+        reactionTime: 5000
+      },
+      {
+        name: generateBotName(1600, 4),
+        interval: 1600,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 5000
       },
     ],
     color: 'emerald',
-    music: FRIENDS
+    music: SELFLESS
   },
+
+
   {
     level: 16,
-    targetText: "Señal de transito",
+    targetText: "Flecha undireccional",
     boards: 2,
     patterns: [
       [
@@ -596,19 +598,24 @@ export const levels: Level[] = [
 
     bots: [
       {
-        name: "S-Bot 1",
-        interval: 1900,
+        name: generateBotName(1600, 1),
+        interval: 1300,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 4500
+      },
+      {
+        name: generateBotName(1300, 2),
+        interval: 1300,
+        boards: 2,
+        reactionTime: 4500
       },
     ],
     color: 'lime',
-    music: TAP
+    music: LIVE
   },
-
   {
     level: 17,
-    targetText: "Un cuadrado de 9 números",
+    targetText: "Cuadrado de 9 números",
     boards: 1,
     patterns: [
       [
@@ -659,38 +666,32 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "F-Bot 1",
-        interval: 800,
+        name: generateBotName(1300, 1),
+        interval: 1300,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "M-Bot 2",
-        interval: 1400,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "S-Bot",
-        interval: 2000,
+        name: generateBotName(1600, 2),
+        interval: 1600,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "M-Bot 1",
-        interval: 1500,
+        name: generateBotName(1900, 3),
+        interval: 1900,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "F-Bot 2",
-        interval: 900,
+        name: generateBotName(1000, 4),
+        interval: 1000,
         boards: 1,
-        reactionTime: 0
-      }
+        reactionTime: 4500
+      },
     ],
     color: 'lime',
-    music: MOONLIGHT
+    music: TAP
   },
   {
     level: 18,
@@ -724,22 +725,22 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
+        name: generateBotName(1300, 1),
+        interval: 1300,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "F-Bot",
-        interval: 800,
+        name: generateBotName(1600, 2),
+        interval: 1600,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "M-Bot 2",
-        interval: 1500,
+        name: generateBotName(1300, 3),
+        interval: 1300,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 4500
       },
     ],
     color: 'lime',
@@ -748,7 +749,7 @@ export const levels: Level[] = [
   {
     level: 19,
     targetText: "Letra 'Z' o letra 'N'",
-    boards: 1,
+    boards: 2,
     patterns: [
       [1, 6, 11, 16, 21, 17, 13, 9, 5, 10, 15, 20, 25],
       [1, 2, 3, 4, 5, 7, 13, 19, 25, 21, 22, 23, 24]
@@ -756,10 +757,22 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "F-Bot 1",
-        interval: 800,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(1300, 1),
+        interval: 1300,
+        boards: 2,
+        reactionTime: 4500
+      },
+      {
+        name: generateBotName(1000, 2),
+        interval: 1000,
+        boards: 2,
+        reactionTime: 4500
+      },
+      {
+        name: generateBotName(1300, 3),
+        interval: 1300,
+        boards: 2,
+        reactionTime: 4500
       },
     ],
     color: 'lime',
@@ -780,28 +793,34 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "S-Bot",
-        interval: 2000,
+        name: generateBotName(1900, 1),
+        interval: 1900,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "M-Bot 1",
-        interval: 1500,
+        name: generateBotName(1600, 2),
+        interval: 1600,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "M-Bot 2",
+        name: generateBotName(1300, 3),
         interval: 1300,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 4500
       },
       {
-        name: "F-Bot",
-        interval: 800,
+        name: generateBotName(1000, 4),
+        interval: 1000,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 4500
+      },
+      {
+        name: generateBotName(1000, 5),
+        interval: 1000,
+        boards: 1,
+        reactionTime: 4500
       },
     ],
     color: 'lime',
@@ -827,20 +846,20 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1500,
+        name: generateBotName(1600, 1),
+        interval: 1600,
         boards: 3,
-        reactionTime: 0
+        reactionTime: 4000
       },
       {
-        name: "M-Bot 2",
+        name: generateBotName(1300, 2),
         interval: 1300,
         boards: 3,
-        reactionTime: 0
+        reactionTime: 4000
       },
     ],
     color: 'amber',
-    music: SLOW
+    music: FRIENDS
   },
   {
     level: 22,
@@ -857,41 +876,41 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "S-Bot",
-        interval: 1800,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot 2",
-        interval: 1500,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot 3",
+        name: generateBotName(1300, 1),
         interval: 1300,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 3500
       },
       {
-        name: "F-Bot 1",
-        interval: 700,
+        name: generateBotName(1900, 2),
+        interval: 1900,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 3500
       },
       {
-        name: "F-Bot 2",
-        interval: 600,
+        name: generateBotName(1600, 3),
+        interval: 1600,
         boards: 1,
-        reactionTime: 0
-      }
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1300, 4),
+        interval: 1300,
+        boards: 1,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1000, 5),
+        interval: 1000,
+        boards: 1,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(2100, 6),
+        interval: 2100,
+        boards: 1,
+        reactionTime: 3500
+      },
     ],
     color: 'amber',
     music: FRIENDS
@@ -910,10 +929,28 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
+        name: generateBotName(1300, 1),
+        interval: 1300,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1300, 2),
+        interval: 1300,
+        boards: 3,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1300, 3),
+        interval: 1300,
+        boards: 1,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1300, 4),
+        interval: 1300,
+        boards: 1,
+        reactionTime: 3500
       },
     ],
     color: 'amber',
@@ -935,10 +972,22 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(700, 1),
+        interval: 700,
+        boards: 2,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1000, 2),
+        interval: 1000,
+        boards: 2,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(700, 3),
+        interval: 700,
+        boards: 2,
+        reactionTime: 3500
       },
     ],
     color: 'amber',
@@ -947,7 +996,7 @@ export const levels: Level[] = [
   {
     level: 25,
     targetText: "Asterisco",
-    boards: 1,
+    boards: 2,
     patterns: [
       [
         1, 11, 21,
@@ -959,10 +1008,28 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
+        name: generateBotName(700, 1),
+        interval: 700,
+        boards: 2,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1300, 2),
+        interval: 1300,
+        boards: 3,
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(1600, 3),
+        interval: 1600,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 3500
+      },
+      {
+        name: generateBotName(700, 4),
+        interval: 700,
+        boards: 1,
+        reactionTime: 3500
       },
     ],
     color: 'amber',
@@ -971,7 +1038,7 @@ export const levels: Level[] = [
   {
     level: 26,
     targetText: "La parca",
-    boards: 1,
+    boards: 2,
     patterns: [
       [
         1, 6, 11, 16, 21,
@@ -983,19 +1050,37 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(1900, 1),
+        interval: 1900,
+        boards: 2,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1600, 2),
+        interval: 1600,
+        boards: 2,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1300, 3),
+        interval: 1300,
+        boards: 2,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1000, 4),
+        interval: 1000,
+        boards: 2,
+        reactionTime: 3000
       },
     ],
     color: 'red',
-    music: FRIENDS
+    music: DARKNESS
   },
   {
     level: 27,
     targetText: "Diseño de mosaico",
-    boards: 1,
+    boards: 2,
     patterns: [
       [
         1, 11, 21,
@@ -1014,10 +1099,22 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(1000, 1),
+        interval: 1000,
+        boards: 3,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1600, 2),
+        interval: 1600,
+        boards: 3,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1000, 3),
+        interval: 1000,
+        boards: 3,
+        reactionTime: 3000
       },
     ],
     color: 'red',
@@ -1121,35 +1218,35 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "F-Bot 1",
-        interval: 900,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(700, 1),
+        interval: 700,
+        boards: 2,
+        reactionTime: 3500
       },
       {
-        name: "F-Bot 2",
-        interval: 800,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(700, 2),
+        interval: 700,
+        boards: 3,
+        reactionTime: 3500
       },
       {
-        name: "M-Bot 1",
-        interval: 1400,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(1000, 3),
+        interval: 1000,
+        boards: 2,
+        reactionTime: 3500
       },
       {
-        name: "M-Bot 2",
-        interval: 1300,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(1000, 4),
+        interval: 1000,
+        boards: 2,
+        reactionTime: 3500
       },
     ],
     color: 'red',
-    music: SOMEDAY
+    music: MOUNTAIN
   },
   {
-    level: 30,
+    level: 30, // ULTIMO NIVEL
     targetText: "Marca todo el tablero",
     boards: 2,
     patterns: [
@@ -1163,56 +1260,62 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: "M-Bot 1",
-        interval: 1200,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "S-Bot 1",
-        interval: 1800,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "F-Bot 1",
-        interval: 700,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot 2",
-        interval: 1500,
-        boards: 2,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot 3",
+        name: generateBotName(1300, 1),
         interval: 1300,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 3000
       },
       {
-        name: "F-Bot 2",
-        interval: 600,
+        name: generateBotName(1900, 2),
+        interval: 1900,
+        boards: 1,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(700, 3),
+        interval: 700,
+        boards: 1,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1600, 4),
+        interval: 1600,
         boards: 2,
-        reactionTime: 0
+        reactionTime: 3000
       },
       {
-        name: "S-Bot 2",
-        interval: 2000,
+        name: generateBotName(1300, 5),
+        interval: 1300,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 3000
       },
       {
-        name: "F-Bot 3",
-        interval: 800,
+        name: generateBotName(700, 6),
+        interval: 700,
+        boards: 2,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1900, 7),
+        interval: 1900,
         boards: 1,
-        reactionTime: 0
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(700, 8),
+        interval: 700,
+        boards: 1,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1900, 9),
+        interval: 1900,
+        boards: 2,
+        reactionTime: 3000
       },
     ],
     color: 'red',
-    music: ANYMORE
+    music: DARKNESS
   },
   {
     level: 31,
@@ -1251,34 +1354,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'stone',
-    music: SELFLESS
+    music: ANYMORE
   },
-  // {
-  //   level: 32,
-  //   ...getRandomLevel([1, 2, 3, 4, 5]),
-  //   bots: [
-  //     {
-  //       name: "S-Bot",
-  //       interval: 1000,
-  //       boards: 3,
-  //       reactionTime: 5000
-  //     },
-  //     {
-  //       name: "S-Bot-2",
-  //       interval: 1000,
-  //       boards: 2,
-  //       reactionTime: 5000
-  //     },
-  //     {
-  //       name: "S-Bot-3",
-  //       interval: 1000,
-  //       boards: 2,
-  //       reactionTime: 5000
-  //     },
-  //   ],
-  //   color: 'stone',
-  //   music: SELFLESS
-  // }
 ]
 
 

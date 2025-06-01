@@ -26,7 +26,7 @@ export const audioSlice: StateCreator<AudioSliceType & LevelSliceType, [], [], A
     const player = preloadedMusicPlayers.get(music.name);
 
     if (player && get().isPlayingMusic) {
-      player.autostart = false
+      player.autostart = true
       player.loop = true
       player.volume.value = music.volume;
       player.start();

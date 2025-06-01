@@ -51,6 +51,7 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
         return true
       } else {
         get().playSound(WRONG_SOUND)
+
       }
     }
 

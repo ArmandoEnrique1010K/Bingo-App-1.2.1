@@ -10,9 +10,7 @@ import { generateBotName } from "../utils/Bot/generateBotName";
 // NIVEL +21  FRIENDS              4000
 // NIVEL +26  DARKNESS              3500
 // NIVEL +31 ANYMORE               3000
-// NIVEL 36 - 43 RANDOM              2500
 
-// TODO: ES MUY PROBABLE QUE ENTRE LOS NIVELES 36 Y 42 SEAN UN NIVEL ALEATORIO ENTRE LOS NIVELES 1 AL 5 DE SU RANGO DE VALORES, PERO LOS BOTS SE MANTIENEN
 
 
 
@@ -1123,61 +1121,59 @@ export const levels: Level[] = [
 
   {
     level: 28,
-    targetText: "Patrón irregular",
+    targetText: "El Yin y el Yang",
     boards: 2,
-    patterns: [
+    patterns: [ // PATRON ABSTRACTO
       [
-        4, 5, 9, 10, 14, 15, 19, 20, 24, 25,
-        3, 8, 18, 23, 2
+        11, 21,
+        22,
+        8, 13, 18, 23,
+        9, 19, 24,
+        10, 15, 20, 25
+      ],
+      [
+        2, 3, 4, 5, 7, 9, 10, 12, 13, 14, 15, 20, 23, 25
+      ],
+      [
+        1, 2, 3, 4, 5, 6, 7, 8, 11, 13, 15, 16, 17, 18
+      ],
+      [
+        1, 3, 6, 11, 12, 13, 14, 16, 17, 19, 21, 22, 23, 24
       ],
 
-      [
-        4, 5, 9, 10, 14, 15, 19, 20, 24, 25,
-        3, 8, 13, 23, 7
-      ],
-      [
-        4, 5, 9, 10, 14, 15, 19, 20, 24, 25,
-        3, 8, 13, 18, 12
-      ],
-      [
-        4, 5, 9, 10, 14, 15, 19, 20, 24, 25,
-        3, 8, 18, 22, 23
-      ],
-      [
-        4, 5, 9, 10, 14, 15, 19, 20, 24, 25,
-        3, 13, 18, 17, 23
-      ],
-      [
-        4, 5, 9, 10, 14, 15, 19, 20, 24, 25,
-        8, 13, 18, 12, 23
-      ],
     ],
     bots: [
-      // MODIFICAR ESTO
       {
-        name: "M-Bot 1",
-        interval: 1500,
-        boards: 1,
-        reactionTime: 0
+        name: generateBotName(1600, 1),
+        interval: 1600,
+        boards: 2,
+        reactionTime: 3000
       },
       {
-        name: "M-Bot 3",
-        interval: 1500,
-        boards: 3,
-        reactionTime: 0
+        name: generateBotName(1600, 2),
+        interval: 1600,
+        boards: 2,
+        reactionTime: 3000
       },
       {
-        name: "F-Bot",
-        interval: 900,
-        boards: 1,
-        reactionTime: 0
-      },
-      {
-        name: "M-Bot 2",
+        name: generateBotName(1300, 3),
         interval: 1300,
-        boards: 1,
-        reactionTime: 0
+        boards: 2,
+        reactionTime: 3000
       },
+      {
+        name: generateBotName(1300, 4),
+        interval: 1300,
+        boards: 2,
+        reactionTime: 3000
+      },
+      {
+        name: generateBotName(1300, 5),
+        interval: 1300,
+        boards: 2,
+        reactionTime: 3000
+      },
+
     ],
     color: 'red',
     music: MOUNTAIN

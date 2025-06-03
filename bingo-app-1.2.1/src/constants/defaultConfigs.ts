@@ -29,4 +29,4 @@ export const CHANGE_PATTERN_DELAY = 3000
 // Tiempo de demora de habilitado del boton de generar objetivo
 export const UNLOCK_BUTTON_GENERATE_TARGETS_DELAY = 1500
 
-export const APP_VERSION = "1.2.2"
+export const APP_VERSION = "1.2.1"

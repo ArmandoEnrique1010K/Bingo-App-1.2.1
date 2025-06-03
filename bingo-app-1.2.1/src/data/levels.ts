@@ -1248,45 +1248,45 @@ export const levels: Level[] = [
     color: 'red',
     music: ANYMORE
   },
-  {
-    level: 31,
-    targetText: "Columna o una fila de 5 números",
-    boards: 1,
-    patterns: [
-      [1, 2, 3, 4, 5],
-      [6, 7, 8, 9, 10],
-      [11, 12, 13, 14, 15],
-      [16, 17, 18, 19, 20],
-      [21, 22, 23, 24, 25],
-      [1, 6, 11, 16, 21],
-      [2, 7, 12, 17, 22],
-      [3, 8, 13, 18, 23],
-      [4, 9, 14, 19, 24],
-      [5, 10, 15, 20, 25],
-    ],
-    bots: [
-      {
-        name: "S-Bot",
-        interval: 100,
-        boards: 3,
-        reactionTime: 5000
-      },
-      {
-        name: "S-Bot-2",
-        interval: 100,
-        boards: 2,
-        reactionTime: 5000
-      },
-      {
-        name: "S-Bot-3",
-        interval: 1000,
-        boards: 2,
-        reactionTime: 100
-      },
-    ],
-    color: 'stone',
-    music: ANYMORE
-  },
+  // {
+  //   level: 31,
+  //   targetText: "Columna o una fila de 5 números",
+  //   boards: 1,
+  //   patterns: [
+  //     [1, 2, 3, 4, 5],
+  //     [6, 7, 8, 9, 10],
+  //     [11, 12, 13, 14, 15],
+  //     [16, 17, 18, 19, 20],
+  //     [21, 22, 23, 24, 25],
+  //     [1, 6, 11, 16, 21],
+  //     [2, 7, 12, 17, 22],
+  //     [3, 8, 13, 18, 23],
+  //     [4, 9, 14, 19, 24],
+  //     [5, 10, 15, 20, 25],
+  //   ],
+  //   bots: [
+  //     {
+  //       name: "S-Bot",
+  //       interval: 100,
+  //       boards: 3,
+  //       reactionTime: 5000
+  //     },
+  //     {
+  //       name: "S-Bot-2",
+  //       interval: 100,
+  //       boards: 2,
+  //       reactionTime: 5000
+  //     },
+  //     {
+  //       name: "S-Bot-3",
+  //       interval: 1000,
+  //       boards: 2,
+  //       reactionTime: 100
+  //     },
+  //   ],
+  //   color: 'stone',
+  //   music: ANYMORE
+  // },
 ]
 
 

@@ -118,15 +118,11 @@ export default function LevelView() {
   useEffect(() => {
     if (levelData.level !== 0) {
       resetLevelState();
-      // console.log("HA CAMBIADO DE NIVEL");
     }
   }, [levelData]);
 
   useEffect(() => {
-    // if (currentTargets.length !== 0) {
-    // console.log("Encontrando los numeros objetivos: " + currentTargets);
     findNumbersOnBoards(currentTargets);
-    // }
   }, [currentTargets]);
 
   return (

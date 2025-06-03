@@ -64,20 +64,42 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     const newTimeouts: number[] = [];
 
     for (const board of botFinded.boards) {
-      for (const [idx, cell] of board.board.entries()) {
+      for (const target of get().currentTargets) {  // ✅ Iterar sobre los objetivos en lugar de todas las celdas
+        const cell = board.board.find(c => c.number === target); // ✅ Buscar solo la celda que contiene el número objetivo
+        if (!cell) continue; // Si no existe en este tablero, pasa al siguiente objetivo
+
         if (get().gameEnded || get().winner !== "none") return;
 
         const dynamicTime = dynamicInterval();
-        const time = interval * dynamicTime * (idx + 1);
+        const time = interval * dynamicTime * (newTimeouts.length + 1);
 
         const timeoutId = setTimeout(() => {
           if (get().gameEnded || get().winner !== "none") return;
+
+          // ✅ Ahora solo se marca el número en su tablero correspondiente
           get().updateBotMarkedCell(name, board.id, cell.number, cell.position);
           get().playSound(CORRECT_BOT_SOUND);
         }, time);
 
         newTimeouts.push(timeoutId);
+
       }
+      // for (const [idx, cell] of board.board.entries()) {
+      //   if (get().gameEnded || get().winner !== "none") return;
+
+      //   const dynamicTime = dynamicInterval();
+      //   const time = interval * dynamicTime * (idx + 1);
+      //   // TODO: AQUI PODRIA ESTAR EL PROBLEMA, SUCEDE QUE SI UN BOT TIENE MÁS DE 1 TABLERO, MARCA TODOS LOS NUMEROS OBJETIVOS EN TODOS SUS TABLEROS AL MISMO TIEMPO, DE OTRA FORMA, ENCUENTRA UN NUMERO "X", EVALUA TODOS SUS TABLEROS Y MARCA ESE MISMO NUMERO "X" EN TODOS SUS TABLEROS, LUEGO PASA AL SIGUIENTE NUMERO OBJETIVO ENCONTRADO "Z" Y REPITE EL MISMO PROCEDIMIENTO
+      //   const timeoutId = setTimeout(() => {
+      //     if (get().gameEnded || get().winner !== "none") return;
+
+      //     // ACCIÓN ENCARGADA DE MARCAR EL NUMERO EN LA CEDULA DEL TABLERO
+      //     get().updateBotMarkedCell(name, board.id, cell.number, cell.position);
+      //     get().playSound(CORRECT_BOT_SOUND);
+      //   }, time);
+
+      //   newTimeouts.push(timeoutId);
+      // }
     }
 
     set(state => ({

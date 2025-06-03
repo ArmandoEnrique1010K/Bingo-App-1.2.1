@@ -60,11 +60,13 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
       }
     }));
 
-
+    // 🔀 Mezclar aleatoriamente los números objetivos
+    const shuffledTargets = [...get().currentTargets].sort(() => Math.random() - 0.5);
     const newTimeouts: number[] = [];
 
-    for (const board of botFinded.boards) {
-      for (const target of get().currentTargets) {  // ✅ Iterar sobre los objetivos en lugar de todas las celdas
+    for (const target of shuffledTargets) {  // ✅ Ahora los objetivos son aleatorios
+      for (const board of botFinded.boards) {
+
         const cell = board.board.find(c => c.number === target); // ✅ Buscar solo la celda que contiene el número objetivo
         if (!cell) continue; // Si no existe en este tablero, pasa al siguiente objetivo
 

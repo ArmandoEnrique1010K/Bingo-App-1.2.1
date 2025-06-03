@@ -2,7 +2,7 @@
 export const LOADING_TIME = 2000;
 
 // Numero de numeros objetivos por turno por defecto
-export const DEFAULT_TARGETS = 10 // 3
+export const DEFAULT_TARGETS = 3 // 3
 
 // Tiempo de demora para generar numeros objetivos
 export const TARGET_GENERATION_DELAY = 1000;
@@ -13,8 +13,8 @@ export const MAX_TURNS = 20 // 20
 // Nivel final (DEBE SER EL ULTIMO NIVEL)
 export const FINAL_LEVEL = 30;
 
-// Tiempo de respuesta de reacción del bot si ha ganado (milisegundos) (/1000)
-export const BOT_REACTION_DELAY = 3000
+// Tiempo de respuesta de reacción del bot si ha ganado (milisegundos) (/1000) (Era muy estatico, no valia la pena)
+// export const BOT_REACTION_DELAY = 3000
 
 // Tiempo de demora de cambio de patrones del nivel
 export const CHANGE_PATTERN_DELAY = 3000
@@ -25,6 +25,8 @@ export const CHANGE_PATTERN_DELAY = 3000
 
 // Tiempo de demora para que el bot se declare ganador (No sive, ahora es dinamico por cada uno de los bots en un nivel)
 // export const BOT_WINNER_DELAY = 10000
-export const GENERATE_TARGETS_DELAY = 1500
 
-export const APP_VERSION = "1.2.1"
+// Tiempo de demora de habilitado del boton de generar objetivo
+export const UNLOCK_BUTTON_GENERATE_TARGETS_DELAY = 1500
+
+export const APP_VERSION = "1.2.2"

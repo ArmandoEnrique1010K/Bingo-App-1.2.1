@@ -1,5 +1,6 @@
 // Numero aleatorio entre 2 y 1.5
 export const dynamicInterval = () => {
-  return 1
-  // Math.random() * (2 - 1) + 1
+  return Math.random() * (2 - 1) + 1
+  // 1
+  // 
 }

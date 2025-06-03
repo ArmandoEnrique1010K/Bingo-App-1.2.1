@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import {
-  GENERATE_TARGETS_DELAY,
   MAX_TURNS,
+  UNLOCK_BUTTON_GENERATE_TARGETS_DELAY,
 } from "../../constants/defaultConfigs";
 
 export default function TargetNumbers() {
@@ -29,7 +29,7 @@ export default function TargetNumbers() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(
       () => setButtonDisabled(false),
-      GENERATE_TARGETS_DELAY
+      UNLOCK_BUTTON_GENERATE_TARGETS_DELAY
     );
 
     return () => {

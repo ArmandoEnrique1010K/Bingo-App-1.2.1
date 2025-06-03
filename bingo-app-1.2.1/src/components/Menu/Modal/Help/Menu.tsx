@@ -6,31 +6,30 @@ export default function Menu() {
         En el menú principal encontrarás varias opciones para interactuar con el
         juego:
       </p>
-      <ul className="list-disc list-inside pl-5 space-y-2">
+      <ul className="list-disc pl-10 list-outside space-y-2">
         <li>
           <span className="font-semibold">Niveles: </span>Accede a los distintos
-          niveles del juego. A medida que completes los desafios podras
-          desbloquear los niveles.
+          desafíos y desbloquea nuevos niveles
         </li>
         <li>
           <span className="font-semibold">Música: </span> Activa o desactiva la
           música de fondo.
         </li>
         <li>
-          <span className="font-semibold">Sonido: </span> Activa o desactiva los
-          sonidos.
+          <span className="font-semibold">Sonidos: </span> Ajusta los efectos de
+          sonido del juego.
         </li>
         <li>
-          <span className="font-semibold">Créditos: </span>Consulta la
-          información sobre los creadores del juego.
+          <span className="font-semibold">Créditos: </span>Conoce al creador de
+          BingoApp.
         </li>
         <li>
-          <span className="font-semibold">Reiniciar partida: </span>Reinicia la
-          partida actual.
+          <span className="font-semibold">Reiniciar partida: </span>Vuelve a
+          empezar el nivel actual.
         </li>
         <li>
           <span className="font-semibold">Abandonar partida: </span>
-          Termina la partida y redirige al menú principal.
+          Regresa al menú principal
         </li>
       </ul>
     </>

@@ -4,7 +4,7 @@ export default function Intro() {
       <h3 className="text-2xl font-bold">¡Bienvenido a BingoApp!</h3>
       <p>
         Tu objetivo es derrotar a los bots en un juego de Bingo. Sé el primero
-        en marcar las cedulas en el tablero formando el patrón ganador antes que
+        en marcar los números en el tablero formando el patrón ganador antes que
         ellos.
       </p>
     </>

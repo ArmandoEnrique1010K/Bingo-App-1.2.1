@@ -48,6 +48,9 @@ export default function BotBingoCell({ idBoard, value, botName }: BotBingoCellPr
       >
         {position === 13 ? "F" : isMarked ? number : ""}
       </div>
+
     )
+  
+
   );
 }

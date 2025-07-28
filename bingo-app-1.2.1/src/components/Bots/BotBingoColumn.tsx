@@ -16,24 +16,20 @@ export default function BotBingoColumn({
   max,
   botName,
 }: BotBingoColumnProps) {
-
-
   return (
     <>
-        <div className="flex flex-col">
-          {board
-            .filter((n) => n.position >= min && n.position <= max)
-            .map((n) => (
-           
-                <BotBingoCell
-                  key={n.position}
-                  idBoard={idBoard}
-                  value={{ number: n.number, position: n.position }}
-                  botName={botName}
-                />
-
-            ))}
-        </div>
+      <div className="flex flex-col">
+        {board
+          .filter((n) => n.position >= min && n.position <= max)
+          .map((n) => (
+            <BotBingoCell
+              key={n.position}
+              idBoard={idBoard}
+              value={{ number: n.number, position: n.position }}
+              botName={botName}
+            />
+          ))}
+      </div>
     </>
   );
 }

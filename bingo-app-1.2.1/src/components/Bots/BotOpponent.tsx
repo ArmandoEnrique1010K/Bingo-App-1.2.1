@@ -56,6 +56,7 @@ export default function BotOpponent({
                 )?.board || []
             }
             idBoard={createIdBoard(botIndex, boardIndex)}
+            botName={name}
           />
         ))}
       </div>

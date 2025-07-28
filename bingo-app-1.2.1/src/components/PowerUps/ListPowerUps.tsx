@@ -14,6 +14,9 @@ export default function ListPowerUps() {
     (state) => state.activateSlowBots
   );
 
+  const toggleUnmarkNumberBot = useAppStore(
+    (state) => state.toggleUnmarkNumberBot
+  );  
 
   const powerups = useAppStore((state) => state.powerups);
 
@@ -63,6 +66,25 @@ export default function ListPowerUps() {
         Turnos: {powerups.slowBots.turnsRemaining} <br></br>
         Activo: {powerups.slowBots.active ? "SI" : "NO"}
       </div>
+
+      <div>
+        <button
+          onClick={() => {
+            if (!powerups.unmarkNumberBot.hasActivated) {
+              toggleUnmarkNumberBot();
+            }
+          }}
+        >
+          {powerups.unmarkNumberBot.active
+            ? "Desmarcar un numero del bot"
+            : "Activar Desmarcar un numero del bot"}
+        </button>
+        Turnos: {powerups.unmarkNumberBot.turnsRemaining} <br></br>
+        Activo: {powerups.unmarkNumberBot.active ? "SI" : "NO"}
+      </div>
+
+
+
     </>
   );
 }

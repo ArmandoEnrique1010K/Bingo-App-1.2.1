@@ -4,9 +4,10 @@ import BotBingoColumn from "./BotBingoColumn";
 type BotBingoBoardProps = {
   board: BoardPositions;
   idBoard: string;
+  botName: string
 };
 
-export default function BotBingoBoard({ board, idBoard }: BotBingoBoardProps) {
+export default function BotBingoBoard({ board, idBoard, botName }: BotBingoBoardProps) {
   return (
     <>
       <div className="flex flex-col justify-center text-center">
@@ -18,6 +19,7 @@ export default function BotBingoBoard({ board, idBoard }: BotBingoBoardProps) {
               board={board}
               min={index * 5 + 1}
               max={(index + 1) * 5}
+              botName={botName}
             />
           ))}
         </div>

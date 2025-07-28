@@ -6,6 +6,7 @@ type BotBingoColumnProps = {
   board: BoardPositions;
   min: number;
   max: number;
+  botName: string;
 };
 
 export default function BotBingoColumn({
@@ -13,6 +14,7 @@ export default function BotBingoColumn({
   board,
   min,
   max,
+  botName,
 }: BotBingoColumnProps) {
   return (
     <>
@@ -24,6 +26,7 @@ export default function BotBingoColumn({
               key={n.position}
               idBoard={idBoard}
               value={{ number: n.number, position: n.position }}
+              botName={botName}
             />
           ))}
       </div>

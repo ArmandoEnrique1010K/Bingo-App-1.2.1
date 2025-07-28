@@ -79,6 +79,9 @@ export type PowerUpSliceType = {
 
   activateSlowBots: () => void,
   decrementActivateSlowBots: () => void
+
+  toggleUnmarkNumberBot: () => void,
+  activateUnmarkNumberBotOnNumberClick: (botName: string, idBoard: string, numberClicked: number) => void;
 }
 
 export const initialPowerups = {
@@ -102,6 +105,7 @@ export const initialPowerups = {
     active: false,
     turnsRemaining: 0,
   },
+
   swapColumnNumbers: {
     hasActivated: false,
     active: false,
@@ -302,66 +306,92 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
     }));
   },
 
-  // El powerup de desmarcar un numero de un bot se activa al hacer clic en el numero objetivo, solamente tiene un solo uso
-  activateUnmarkNumberBotOnNumberClick: (boardId: number, numberClicked: number) => {
-    const { botBoards, currentTargets, markedCells, powerups } = get();
-
+  // El powerup de desmarcar un numero de un tablero del bot, se activa al hacer clic en el numero objetivo, solamente tiene un solo uso
+  activateUnmarkNumberBotOnNumberClick: (botName: string, idBoard: string, numberClicked: number) => {
+    const { botBoards, botMarkedCells, powerups } = get();
+   
     // Verificación de power-up y objetivo
-    if (!powerups.unmarkNumberBot.active || !currentTargets.includes(numberClicked)) return;
+    if (!powerups.unmarkNumberBot.active) return;
 
     // TODO: CORREGIR AQUI
-    // Encontrar el board correspondiente
-    const boardObj = botBoards.find((b) => b.boards.find(board => board.id === boardId));
+    // Encontrar el board correspondiente y buscar el numero objetivo en el tablero del bot
+    const boardObj = botBoards.find((b) => b.boards.find(board => board.id === idBoard && board.board.find(cell => cell.number === numberClicked)));
     if (!boardObj) return;
 
-    // Buscar el número objetivo en el tablero del bot
-    const findedNumber = boardObj.board.find(cell => cell.number === numberClicked);
+    // EL NUMERO QUE HA SIDO ENCONTRADO, ES UN OBJETO
+    // finded Number contiene las propiedades position y number
+    const findedNumber = boardObj.boards.find(board => board.id === idBoard)?.board.find(cell => cell.number === numberClicked);
     if (!findedNumber) return;
+    console.log(findedNumber);
 
-    // Buscar posiciones de estos números dentro del tablero del jugador
-    // Buscar números vecinos
-    const matched = boardObj.board.filter(cell => neighbors.includes(cell.number));
-    if (matched.length === 0) return;
+    //   (property) botMarkedCells: ({
+    //     id: number;
+    //     board: {
+    //         position: number;
+    //         number: number;
+    //     }[];
+    // } | {
+    //     id: string;
+    //     board: any[];
+    // })[]
 
-    const existingBoard = markedCells.find(sel => sel.id === boardId)?.board ?? [];
-    // Verificar si alguno de los vecinos ya ha sido marcado
-    // const hasAlreadyMarked = matched.some(matchedCell =>
-    //   existingBoard.some(existing => existing.position === matchedCell.position)
-    // );
-    // if (hasAlreadyMarked) return;
+    // Imprimir los numeros marcados del tablero del bot seleccionado
+    const markedNumbers = botMarkedCells.find(bot => bot.name === botName)?.boards.find(board => board.id === idBoard)?.board;
+    console.log(markedNumbers);
+
+    
+    // Eliminar del tablero del bot el numero marcado
+    const updatedMarkedNumbers = markedNumbers?.filter(cell => cell.number !== numberClicked);
+    console.log(updatedMarkedNumbers);
+    
+    // Actualizar el tablero del bot
+    const updatedBotMarkedCells = botMarkedCells.map(bot => bot.name === botName ? {
+      ...bot,
+      boards: bot.boards.map(board => board.id === idBoard ? {
+        ...board,
+        board: board.board.filter(cell => cell.number !== numberClicked)
+      } : board)
+    } : bot);
+    console.log(updatedBotMarkedCells);
+
+    // // Actualizar el tablero del bot
+    // const updatedSelectedBotMarkedCells = [
+
+    //   ...botMarkedCells.filter(bot => bot.name !== botName).map(bot => ({
+    //     ...bot,
+    //     boards: bot.boards.map(board => board.id === idBoard ? {
+    //       ...board,
+    //       board: board.board.filter(cell => cell.number !== numberClicked)
+    //     } : board)
+    //   })),
+    //   // {
+    //   //   name: botName,
+    //   //   boards: [...boardObj.boards.find(board => board.id === idBoard)?.board.filter(cell => cell.number !== numberClicked) ?? []]
+    //   // }
+    // ];
+  
+    // console.log(updatedSelectedBotMarkedCells);
 
 
-    // Reemplazar si ya existía el boardId en markedCells
-    // const updatedSelected = [...markedCells.filter(sel => sel.id !== boardId), {
-    //   id: boardId,
-    //   board: [
-    //     ...(markedCells.find(sel => sel.id === boardId)?.board ?? []),
-    //     ...matched.filter(
-    //       (newItem) =>
-    //         !markedCells
-    //           .find(sel => sel.id === boardId)?.board
-    //           ?.some(existing => existing.position === newItem.position)
-    //     )
-    //   ]
-    // }];
+      // ...botMarkedCells.filter(bot => bot.id !== idBoard),
+      // {
+      //   id: idBoard,
+      //   board: [...boardObj.boards.find(board => board.id === idBoard)?.board, ...matched]
+      // }
 
-    const updatedSelected = [
-      ...markedCells.filter(sel => sel.id !== boardId),
-      {
-        id: boardId,
-        board: [...existingBoard, ...matched]
-      }
-    ];
+      
 
 
-    // Agregar al estado de seleccionados
+    // Luego se haber hecho clic en un numero del tablero del bot, el powerup se debe desactivar
+
     set(() => ({
-      markedCells: updatedSelected,
+      botMarkedCells: updatedBotMarkedCells,
       powerups: {
         ...powerups,
-        markNeighborgNumbers: {
-          ...powerups.markNeighborgNumbers,
+        unmarkNumberBot: {
+          ...powerups.unmarkNumberBot,
           active: false,
+          hasActivated: true,
           turnsRemaining: 0,
         },
       },

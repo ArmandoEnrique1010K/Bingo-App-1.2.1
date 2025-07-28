@@ -6,6 +6,7 @@ import { BotBoards, BotsWinners, } from "../types";
 import { CORRECT_BOT_SOUND, DEFEAT_SOUND, ANYMORE_ENDING, } from "../constants/audioSettings";
 import { dynamicInterval } from "../utils/dynamicInterval";
 import { DEFEAT_MODAL } from '../constants/statusModalsText';
+import { PowerUpSliceType } from "./powerUpSlice";
 
 export type BotSliceType = {
   botBoards: BotBoards,
@@ -24,7 +25,7 @@ export type BotSliceType = {
   resetBotTimeouts: () => void
 };
 
-export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceType & GameSliceType, [], [], BotSliceType> = (set, get) => ({
+export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceType & GameSliceType & PowerUpSliceType, [], [], BotSliceType> = (set, get) => ({
   botBoards: [],
   botMarkedCells: [],
   foundCells: [],
@@ -60,6 +61,9 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
       }
     }));
 
+    // POWERUP DE RALENTIZAR BOT
+    const randomInterval = get().powerups.slowBots.active ? 3 : 1
+
     // 🔀 Mezclar aleatoriamente los números objetivos
     const shuffledTargets = [...get().currentTargets].sort(() => Math.random() - 0.5);
     const newTimeouts: number[] = [];
@@ -81,7 +85,12 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
           // ✅ Ahora solo se marca el número en su tablero correspondiente
           get().updateBotMarkedCell(name, board.id, cell.number, cell.position);
           get().playSound(CORRECT_BOT_SOUND);
-        }, time);
+
+          // TODO: CONFIGURACION DEL POWERUP DE RALENTIZAR BOTS
+
+          console.log(`El bot ${name}, se ha demorado ${time * randomInterval}ms para marcar el numero ${cell.number}`)
+
+        }, time * randomInterval);
 
         newTimeouts.push(timeoutId);
 

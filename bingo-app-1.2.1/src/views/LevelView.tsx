@@ -8,7 +8,7 @@ import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
-// import ListPowerUps from "../components/PowerUps/ListPowerUps";
+import ListPowerUps from "../components/PowerUps/ListPowerUps";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
@@ -17,7 +17,6 @@ export default function LevelView() {
   const currentRound = useAppStore((state) => state.currentRound);
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
-  // const changeMusic = useAppStore((state) => state.changeMusic);
 
   const location = useLocation();
   const checkWinnerPatternBot = useAppStore(
@@ -154,7 +153,7 @@ export default function LevelView() {
 
           <PlayerBoard />
           {/* TODO: MOSTRAR LOS POWERUPS */}
-          {/* <ListPowerUps /> */}
+           <ListPowerUps />
         </div>
 
         {/* Contenedor dinámico para mostrar los tableros de los bots */}

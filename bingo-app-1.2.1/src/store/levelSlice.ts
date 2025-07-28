@@ -111,6 +111,10 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
     if (get().powerups.extraTargets.active) {
       get().decrementExtraTargetsTurn();
     }
+
+    if (get().powerups.slowBots.active) {
+      get().decrementActivateSlowBots();
+    } 
   },
 
   defaultLevelState: () => {

@@ -24,7 +24,7 @@ export default function BotBingoCell({ idBoard, value }: BotBingoCellProps) {
     <div
       className={`text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${
         isMarked ? color : "gray"
-      }-500`}
+      }-500 `}
     >
       {position === 13 ? "F" : isMarked ? number : ""}
     </div>

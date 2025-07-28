@@ -21,6 +21,7 @@ export default function BotOpponent({
   const currentTargets = useAppStore((state) => state.currentTargets);
   const selectBotCell = useAppStore((state) => state.selectBotCell);
   const winner = useAppStore((state) => state.winner);
+  const powerups = useAppStore((state) => state.powerups);
 
   // TODO: MEJORAR ESTO, ELIMINAR EL TIMEOUT
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function BotOpponent({
         }, 0);
       }
     }
-  }, [currentTargets, winner, selectBotCell, name, interval]);
+  }, [currentTargets, winner, selectBotCell, name, interval, powerups.slowBots.active]);
 
   return (
     <div

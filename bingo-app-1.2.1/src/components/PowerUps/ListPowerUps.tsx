@@ -10,6 +10,11 @@ export default function ListPowerUps() {
     (state) => state.toggleMarkNeighborgNumbers
   );
 
+  const activateSlowBots = useAppStore(
+    (state) => state.activateSlowBots
+  );
+
+
   const powerups = useAppStore((state) => state.powerups);
 
   return (
@@ -42,6 +47,21 @@ export default function ListPowerUps() {
         </button>
         Turnos: {powerups.markNeighborgNumbers.turnsRemaining} <br></br>
         Activo: {powerups.markNeighborgNumbers.active ? "SI" : "NO"}
+      </div>
+
+
+      <div>
+        <button
+          onClick={() => {
+            if (!powerups.slowBots.hasActivated) {
+              activateSlowBots();
+            }
+          }}
+        >
+          Ralentizar bots por 5 segundos
+        </button>
+        Turnos: {powerups.slowBots.turnsRemaining} <br></br>
+        Activo: {powerups.slowBots.active ? "SI" : "NO"}
       </div>
     </>
   );

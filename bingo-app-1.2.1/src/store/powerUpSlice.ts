@@ -20,7 +20,6 @@ export type PowerUpSliceType = {
       turnsRemaining: number
     }
 
-    // TODO: CREAR LO SIGUIENTE
     // Ralentizar bots
     slowBots: {
       hasActivated: boolean,
@@ -34,6 +33,8 @@ export type PowerUpSliceType = {
       active: boolean,
       turnsRemaining: number 
     },
+
+        // TODO: CREAR LO SIGUIENTE
 
     // Intercambiar posiciones de una columna de numeros
     swapColumnNumbers: {
@@ -397,6 +398,40 @@ export const powerUpSlice: StateCreator<PowerUpSliceType & LevelSliceType & Play
       },
     }));
   },
+  
+    // FUNCIONES PARA EL POTENCIADOR DE INTERCAMBIAR NUMEROS DE UNA COLUMNA DEL TABLERO DEL JUGADOR
+    activeSwapNumbersColumn: () => {
+      return set((state) => ({
+        powerups: {
+          ...state.powerups,
+          swapColumnNumbers: {
+            ...state.powerups.swapColumnNumbers,
+            hasActivated: true,
+            active: true,
+            turnsRemaining: 1,
+          },
+        },
+      }));
+    },
+
+    activateSwapNumbersColumnOnNumberClick: () => {
+
+      // Desactivar el powerup una vez activado, solo dura 1 vez
+      return set((state) => ({
+        powerups: {
+          ...state.powerups,
+          swapColumnNumbers: {
+            ...state.powerups.swapColumnNumbers,
+            active: false,
+            hasActivated: true,
+            turnsRemaining: 0,
+          },
+        },
+      }));
+    }
+
+
+
 
   // TODO: SE DEBE REINICIAR A LOS VALORES INICIALES DEL POWERUP CADA VEZ QUE CAMBIA DE NIVEL
 

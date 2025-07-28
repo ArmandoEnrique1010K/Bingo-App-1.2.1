@@ -16,6 +16,8 @@ export type PlayerSliceType = {
   hasWinnerPattern: () => boolean,
   isCellMarked: (idBoard: number, position: number) => boolean,
   selectCell: (idBoard: number, number: number, position: number) => void
+  updateBoardPlayer: (idBoard: number, columnId: number, number: number, position: number) => void
+  swapCells: (boardId: number, position1: number, position2: number) => void
 }
 
 export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType & BotSliceType, [], [], PlayerSliceType> = (set, get) => ({
@@ -91,4 +93,73 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
       get().playSound(WRONG_SOUND)
     }
   },
+
+  // Esta función es para actualizar el tablero, cuando se arrastra un numero de un tablero del bot a un tablero del jugador,
+  // Debe intercambiar el numero y la posición del numero dependiendo de la columna del numero
+
+  // columna 0: posiciones: 0,1,2,3,4
+
+
+  // Si es la columna 0, el numero se debe intercambiar con el numero de la columna 0
+  // Si es la columna 1, el numero se debe intercambiar con el numero de la columna 1
+  // Si es la columna 2, el numero se debe intercambiar con el numero de la columna 2
+  // Si es la columna 3, el numero se debe intercambiar con el numero de la columna 3
+  // Si es la columna 4, el numero se debe intercambiar con el numero de la columna 4
+
+  updateBoardPlayer: (idBoard: number, idColumn: number, number: number, position: number) => {
+
+    console.log('ACTUALIZADO LAS COLUMNAS')
+
+    set({
+      playerBoards: get().playerBoards.map(b => {
+        if (b.id === idBoard) {
+          return {
+            ...b,
+            board: b.board.map((cell) => {
+              if (cell.position === position) {
+                return {
+                  ...cell,
+                  number,
+                };
+              }
+              return cell;
+            }),
+          };
+        }
+        return b;
+      }),
+    });
+  },
+
+
+// Intercambiar celdas de una columna
+swapCells: (boardId: number, position1: number, position2: number) => {
+  set({
+    playerBoards: get().playerBoards.map(b => {
+      if (b.id === boardId) {
+        // Encontrar los números en las posiciones
+        const cell1 = b.board.find(c => c.position === position1);
+        const cell2 = b.board.find(c => c.position === position2);
+        
+        if (!cell1 || !cell2) return b;
+
+        // Intercambiar los números
+        return {
+          ...b,
+          board: b.board.map(cell => {
+            if (cell.position === position1) {
+              return { ...cell, number: cell2.number };
+            }
+            if (cell.position === position2) {
+              return { ...cell, number: cell1.number };
+            }
+            return cell;
+          }),
+        };
+      }
+      return b;
+    }),
+  });
+},
+
 });

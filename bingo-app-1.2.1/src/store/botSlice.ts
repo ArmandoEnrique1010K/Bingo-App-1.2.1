@@ -62,7 +62,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     }));
 
     // POWERUP DE RALENTIZAR BOT
-    const randomInterval = get().powerups.slowBots.active ? 3 : 1
+    const randomInterval = get().slowBots.active ? 3 : 1
 
     // 🔀 Mezclar aleatoriamente los números objetivos
     const shuffledTargets = [...get().currentTargets].sort(() => Math.random() - 0.5);

@@ -10,10 +10,9 @@ export default function BotBingoCell({ idBoard, value, botName }: BotBingoCellPr
   const { position, number } = value;
   const levelData = useAppStore((state) => state.levelData);
   const botMarkedCells = useAppStore((state) => state.botMarkedCells);
-  const activateUnmarkNumberBotOnNumberClick = useAppStore((state) => state.activateUnmarkNumberBotOnNumberClick);
+  const unmarkNumberBotOnNumberClick = useAppStore((state) => state.unmarkNumberBotOnNumberClick);
 
-  const powerups = useAppStore((state) => state.powerups);
-  const { unmarkNumberBot} = powerups
+  const unmarkNumberBot = useAppStore((state) => state.unmarkNumberBot);
 
 
   const { color } = levelData;
@@ -28,29 +27,27 @@ export default function BotBingoCell({ idBoard, value, botName }: BotBingoCellPr
 
   return (
     unmarkNumberBot.active
-    ? (
-      <button
-      className={`cursor-pointer hover:bg-black text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${
-        isMarked ? color : "gray"
-      }-500 `}
-      onClick={() => {
-        activateUnmarkNumberBotOnNumberClick(botName, idBoard, number)
-      }}
-    >
-      {position === 13 ? "F" : isMarked ? number : ""}
-    </button>
+      ? (
+        <button
+          className={`cursor-pointer hover:bg-black text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${isMarked ? color : "gray"
+            }-500 `}
+          onClick={() => {
+            unmarkNumberBotOnNumberClick(botName, idBoard, number)
+          }}
+        >
+          {position === 13 ? "F" : isMarked ? number : ""}
+        </button>
 
-    ) : (
-      <div
-        className={`text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${
-          isMarked ? color : "gray"
-        }-500 `}
-      >
-        {position === 13 ? "F" : isMarked ? number : ""}
-      </div>
+      ) : (
+        <div
+          className={`text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${isMarked ? color : "gray"
+            }-500 `}
+        >
+          {position === 13 ? "F" : isMarked ? number : ""}
+        </div>
 
-    )
-  
+      )
+
 
   );
 }

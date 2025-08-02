@@ -21,7 +21,7 @@ export default function BotOpponent({
   const currentTargets = useAppStore((state) => state.currentTargets);
   const selectBotCell = useAppStore((state) => state.selectBotCell);
   const winner = useAppStore((state) => state.winner);
-  const powerups = useAppStore((state) => state.powerups);
+  const slowBots = useAppStore((state) => state.slowBots);
 
   // TODO: MEJORAR ESTO, ELIMINAR EL TIMEOUT
   useEffect(() => {
@@ -32,15 +32,13 @@ export default function BotOpponent({
         }, 0);
       }
     }
-  }, [currentTargets, winner, selectBotCell, name, interval, powerups.slowBots.active]);
+  }, [currentTargets, winner, selectBotCell, name, interval, slowBots.active]);
 
   return (
     <div
-      className={`flex flex-col items-center bg-gray-700 p-2 rounded-lg shadow-md  ${
-        boards >= 2 ? "col-span-2" : ""
-      } ${
-        boards < 2 && (nextBoards !== 0 || nextBoards >= 2) ? "col-span-2" : ""
-      }`}
+      className={`flex flex-col items-center bg-gray-700 p-2 rounded-lg shadow-md  ${boards >= 2 ? "col-span-2" : ""
+        } ${boards < 2 && (nextBoards !== 0 || nextBoards >= 2) ? "col-span-2" : ""
+        }`}
     >
       <h2 className="text-lg font-semibold text-gray-200 mb-2">{name}</h2>
       <div className="flex flex-row gap-4">

@@ -5,7 +5,7 @@ import { ANYMORE_ENDING, BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, } from "../cons
 import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
 import { generateTargets } from "../utils/generateTargets";
-import { initialPowerups, PowerUpSliceType } from "./powerUpSlice";
+import { PowerUpSliceType } from "./powerUpSlice";
 import { BotSliceType } from "./botSlice";
 import { generateBoard } from "../utils/Board/generateBoard";
 import { createIdBoard } from "../utils/Bot/createIdBoard";
@@ -98,7 +98,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       setTimeout(() => {
         const newTargets = generateTargets(
           // TODO: NO OLVIDAR ACTIVAR EL POWERUP DE AÑADIR 2 OBJETIVOS EXTRA
-          get().powerups.extraTargets.active ? DEFAULT_TARGETS + 2 :
+          get().extraTargets.active ? DEFAULT_TARGETS + 2 :
             DEFAULT_TARGETS, get().excludedTargets);
         set({
           currentTargets: newTargets,
@@ -108,13 +108,13 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
     }
 
     // TODO: ZONA DE POWERUPS
-    if (get().powerups.extraTargets.active) {
-      get().decrementExtraTargetsTurn();
+    if (get().extraTargets.active) {
+      get().decrementExtraTargetsTurnsRemaining();
     }
 
-    if (get().powerups.slowBots.active) {
-      get().decrementActivateSlowBots();
-    } 
+    if (get().slowBots.active) {
+      get().decrementSlowBotsTurnsRemaining();
+    }
   },
 
   defaultLevelState: () => {
@@ -131,10 +131,10 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       currentBoard: { id: 0, board: [] },
       confirmedWinners: {},
       gameEnded: true,
-      powerups: initialPowerups,
       foundCells: [],
       botMarkedCells: [],
     })
+    get().resetDefaultPowerups()
     get().resetBotTimeouts()
   },
 
@@ -195,12 +195,11 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       modal: START_LEVEL_MODAL,
       confirmedWinners: {},
       gameEnded: false,
-      powerups: initialPowerups,
       foundCells: [],
       markedCells: initialSelectedNumbersAndPositions,
       currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
     })
-
+    get().resetDefaultPowerups()
     get().resetBotTimeouts()
     get().changeMusic(music)
   },

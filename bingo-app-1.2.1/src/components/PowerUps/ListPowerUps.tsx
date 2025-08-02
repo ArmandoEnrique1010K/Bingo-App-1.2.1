@@ -6,81 +6,84 @@ export default function ListPowerUps() {
     (state) => state.activateExtraTargets
   );
 
-  const toggleMarkNeighborgNumbers = useAppStore(
-    (state) => state.toggleMarkNeighborgNumbers
+  const activateMarkNeighborgNumbers = useAppStore(
+    (state) => state.activateMarkNeighborgNumbers
   );
 
   const activateSlowBots = useAppStore(
     (state) => state.activateSlowBots
   );
 
-  const toggleUnmarkNumberBot = useAppStore(
-    (state) => state.toggleUnmarkNumberBot
-  );  
+  const activateUnmarkNumberBot = useAppStore(
+    (state) => state.activateUnmarkNumberBot
+  );
 
-  const powerups = useAppStore((state) => state.powerups);
+  const extraTargets = useAppStore((state) => state.extraTargets);
+  const markNeighborgNumbers = useAppStore((state) => state.markNeighborgNumbers);
+  const slowBots = useAppStore((state) => state.slowBots);
+  const unmarkNumberBot = useAppStore((state) => state.unmarkNumberBot);
 
   return (
     <>
       <div>
         <button
           onClick={() => {
-            if (!powerups.extraTargets.hasActivated) {
+            if (!extraTargets.hasActivated) {
               activateExtraTargets();
             }
           }}
         >
           Agregar 2 objetivos extra
         </button>
-        Turnos: {powerups.extraTargets.turnsRemaining} <br></br>
-        Activo: {powerups.extraTargets.active ? "SI" : "NO"}
+        Turnos: {extraTargets.turnsRemaining} <br></br>
+        Activo: {extraTargets.active ? "SI" : "NO"}
       </div>
 
       <div>
         <button
           onClick={() => {
-            if (!powerups.markNeighborgNumbers.hasActivated) {
-              toggleMarkNeighborgNumbers();
+            if (!markNeighborgNumbers.hasActivated) {
+              activateMarkNeighborgNumbers();
             }
           }}
         >
-          {powerups.markNeighborgNumbers.active
+          {markNeighborgNumbers.active
             ? "Cancelar Vecinos"
             : "Activar Vecinos"}
         </button>
-        Turnos: {powerups.markNeighborgNumbers.turnsRemaining} <br></br>
-        Activo: {powerups.markNeighborgNumbers.active ? "SI" : "NO"}
+        Turnos: {markNeighborgNumbers.turnsRemaining} <br></br>
+        Activo: {markNeighborgNumbers.active ? "SI" : "NO"}
       </div>
 
 
       <div>
         <button
           onClick={() => {
-            if (!powerups.slowBots.hasActivated) {
+            if (!slowBots.hasActivated) {
               activateSlowBots();
             }
           }}
         >
           Ralentizar bots por 5 segundos
         </button>
-        Turnos: {powerups.slowBots.turnsRemaining} <br></br>
-        Activo: {powerups.slowBots.active ? "SI" : "NO"}
+        Turnos: {slowBots.turnsRemaining} <br></br>
+        Activo: {slowBots.active ? "SI" : "NO"}
       </div>
 
       <div>
         <button
           onClick={() => {
-            if (!powerups.unmarkNumberBot.hasActivated) {
-              toggleUnmarkNumberBot();
+            if (!unmarkNumberBot.hasActivated) {
+              activateUnmarkNumberBot();
             }
           }}
         >
-          {powerups.unmarkNumberBot.active
+          {unmarkNumberBot.active
             ? "Desmarcar un numero del bot"
             : "Activar Desmarcar un numero del bot"}
         </button>
-        Turnos: {powerups.unmarkNumberBot.turnsRemaining} <br></br>
-        Activo: {powerups.unmarkNumberBot.active ? "SI" : "NO"}
+        Turnos: {unmarkNumberBot.turnsRemaining} <br></br>
+        Activo: {unmarkNumberBot.active ? "SI" : "NO"}
       </div>
 
 

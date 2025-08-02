@@ -20,6 +20,9 @@ export type LevelSliceType = {
   excludedTargets: number[],
   gameEnded: boolean;
   winner: string
+  selectedPowerUpsIds: number[],
+  selectPowerUp: (id: number) => void,
+  unSelectPowerUp: (id: number) => void,
   changeStatusModal: (modal: Modal) => void,
   openStatusModal: () => void,
   closeStatusModal: () => void,
@@ -39,7 +42,17 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
   excludedTargets: [],
   gameEnded: true,
   winner: "",
-
+  selectedPowerUpsIds: [],
+  selectPowerUp: (id: number) => {
+    set({
+      selectedPowerUpsIds: [...get().selectedPowerUpsIds, id]
+    })
+  },
+  unSelectPowerUp: (id: number) => {
+    set({
+      selectedPowerUpsIds: get().selectedPowerUpsIds.filter((powerUpId) => powerUpId !== id)
+    })
+  },
   changeStatusModal: (modal) => {
     set({
       modal: modal,

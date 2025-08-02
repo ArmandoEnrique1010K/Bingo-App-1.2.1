@@ -37,6 +37,7 @@ export type Level = {
   bots: Bot[]
   color: string
   music: Music
+  tip: string
 }
 export type Winner = 'none' | 'player' | 'bot' | 'end' | ''
 
@@ -88,3 +89,17 @@ export type BotsWinners = {
   reactionTime: number
 }[]
 
+export type PowerUp = {
+  id: number,
+  name: string,
+  description: string,
+  icon: string,
+  details: DetailsPowerUp,
+  activateFunction: () => void,
+}
+
+export type DetailsPowerUp = {
+  hasActivated: boolean,
+  active: boolean,
+  turnsRemaining: number,
+}

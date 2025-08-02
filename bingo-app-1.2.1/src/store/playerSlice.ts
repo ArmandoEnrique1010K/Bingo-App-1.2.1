@@ -43,6 +43,23 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
         if (get().levelData.level !== FINAL_LEVEL) {
           get().unlockLevel(get().levelData.level + 1)
         }
+
+        // DESBLOQUEAR UN POWERUP
+        // Completa el nivel 2 para desbloquear el powerup del id 1
+        // Completa el nivel 5 para desbloquear el powerup del id 2
+        // Completa el nivel 8 para desbloquear el powerup del id 3
+        // Completa el nivel 11 para desbloquear el powerup del id 4
+        // Completa el nivel 14 para desbloquear el powerup del id 5
+
+        // Si el nivel completado es multiplo de 3 menos 1, desbloquea el powerup
+        const completedLevel = get().levelData.level;
+        const powerUpId = Math.floor(completedLevel / 3) + 1;
+
+        if (completedLevel % 3 === 2) {
+          get().unlockPowerUp(powerUpId)
+          console.log("Se ha desbloqueado el powerup con el id: ", powerUpId)
+        }
+
         get().resetBotTimeouts()
 
         get().playSound(VICTORY_SOUND)

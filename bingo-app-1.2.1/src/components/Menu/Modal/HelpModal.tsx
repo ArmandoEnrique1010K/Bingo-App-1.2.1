@@ -9,7 +9,6 @@ export default function HelpModal() {
   const closeHelpModal = useAppStore((state) => state.closeHelpModal);
   const showHelpModal = useAppStore((state) => state.showHelpModal);
 
-  // TODO: DESCOMPONER EN SUBCOMPONENTES ESTE COMPONENTES
   return (
     <>
       <Dialog

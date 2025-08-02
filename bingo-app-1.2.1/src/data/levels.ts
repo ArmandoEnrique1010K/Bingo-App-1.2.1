@@ -36,7 +36,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'blue',
-    music: SLOW
+    music: SLOW,
+    tip: "Felicidades, has completado el nivel 1"
   },
   {
     level: 2,
@@ -64,7 +65,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'blue',
-    music: TAP
+    music: TAP,
+    tip: "Completa los niveles 2, 5, 8 y asi sucesivamente para desbloquear un nuevo PowerUp."
   },
   {
     level: 3,
@@ -95,7 +97,8 @@ export const levels: Level[] = [
       }
     ],
     color: 'blue',
-    music: SLOW
+    music: SLOW,
+    tip: "Si pudistes derrotar a un Bot, ¿Podras derrotar a 2 Bots?"
   },
   {
     level: 4,
@@ -127,7 +130,8 @@ export const levels: Level[] = [
       }
     ],
     color: 'blue',
-    music: MOONLIGHT
+    music: MOONLIGHT,
+    tip: "Algunos niveles tienen un número reducido de combinaciones de patrones objetivos"
   },
   {
     level: 5,
@@ -147,7 +151,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'blue',
-    music: TAP
+    music: TAP,
+    tip: ""
   },
 
   {
@@ -175,7 +180,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'cyan',
-    music: SELFLESS
+    music: SELFLESS,
+    tip: ""
   },
 
   {
@@ -206,7 +212,8 @@ export const levels: Level[] = [
       }
     ],
     color: 'cyan',
-    music: SLOW
+    music: SLOW,
+    tip: ""
   },
   {
     level: 8,
@@ -229,7 +236,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'cyan',
-    music: MOONLIGHT
+    music: MOONLIGHT,
+    tip: ""
   },
   {
     level: 9,
@@ -269,7 +277,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'cyan',
-    music: TAP
+    music: TAP,
+    tip: ""
   },
 
   {
@@ -291,8 +300,6 @@ export const levels: Level[] = [
       [1, 6, 11, 16, 21, 4, 9, 14, 19, 24],
       [1, 6, 11, 16, 21, 5, 10, 15, 20, 25],
       [2, 7, 12, 17, 22, 5, 10, 15, 20, 25],
-
-
     ],
     bots: [
       {
@@ -309,7 +316,8 @@ export const levels: Level[] = [
       }
     ],
     color: 'cyan',
-    music: SELFLESS
+    music: SELFLESS,
+    tip: ""
   },
   {
     level: 11,
@@ -335,7 +343,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: MOUNTAIN
+    music: MOUNTAIN,
+    tip: ""
   },
   {
     level: 12,
@@ -366,7 +375,8 @@ export const levels: Level[] = [
       }
     ],
     color: 'emerald',
-    music: MOONLIGHT
+    music: MOONLIGHT,
+    tip: ""
   },
   {
     level: 13,
@@ -402,7 +412,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: SLOW
+    music: SLOW,
+    tip: ""
   },
 
   {
@@ -447,7 +458,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: MOUNTAIN
+    music: MOUNTAIN,
+    tip: ""
   },
   {
     level: 15,
@@ -490,7 +502,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'emerald',
-    music: FRIENDS
+    music: FRIENDS,
+    tip: ""
   },
 
 
@@ -544,7 +557,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: LIVE
+    music: LIVE,
+    tip: ""
   },
   {
     level: 17,
@@ -624,7 +638,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: SELFLESS
+    music: SELFLESS,
+    tip: ""
   },
   {
     level: 18,
@@ -677,7 +692,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: MOUNTAIN
+    music: MOUNTAIN,
+    tip: ""
   },
   {
     level: 19,
@@ -686,7 +702,6 @@ export const levels: Level[] = [
     patterns: [
       [1, 6, 11, 16, 21, 17, 13, 9, 5, 10, 15, 20, 25],
       [1, 2, 3, 4, 5, 7, 13, 19, 25, 21, 22, 23, 24]
-
     ],
     bots: [
       {
@@ -709,7 +724,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: FRIENDS
+    music: FRIENDS,
+    tip: ""
   },
   {
     level: 20,
@@ -757,7 +773,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'lime',
-    music: LIVE
+    music: LIVE,
+    tip: ""
   },
   {
     level: 21,
@@ -792,7 +809,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: DARKNESS
+    music: DARKNESS,
+    tip: ""
   },
   {
     level: 22,
@@ -846,7 +864,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: TAP
+    music: TAP,
+    tip: ""
   },
 
   {
@@ -887,7 +906,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: FRIENDS
+    music: FRIENDS,
+    tip: ""
   },
 
   {
@@ -924,7 +944,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: LIVE
+    music: LIVE,
+    tip: ""
   },
   {
     level: 25,
@@ -966,7 +987,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'amber',
-    music: DARKNESS
+    music: DARKNESS,
+    tip: "Tu nunca podras llegar al final, a partir de ahora dispones de 2 tableros y los bots tienen más posibilidades de ganar"
   },
   {
     level: 26,
@@ -1008,7 +1030,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: ANYMORE
+    music: ANYMORE,
+    tip: ""
   },
   {
     level: 27,
@@ -1051,14 +1074,15 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: MOONLIGHT
+    music: MOONLIGHT,
+    tip: ""
   },
 
   {
     level: 28,
     targetText: "El Yin y el Yang",
     boards: 2,
-    patterns: [ // PATRON ABSTRACTO
+    patterns: [
       [
         11, 21,
         22,
@@ -1075,7 +1099,6 @@ export const levels: Level[] = [
       [
         1, 3, 6, 11, 12, 13, 14, 16, 17, 19, 21, 22, 23, 24
       ],
-
     ],
     bots: [
       {
@@ -1108,10 +1131,10 @@ export const levels: Level[] = [
         boards: 2,
         reactionTime: 3000
       },
-
     ],
     color: 'red',
-    music: DARKNESS
+    music: DARKNESS,
+    tip: ""
   },
   {
     level: 29,
@@ -1174,7 +1197,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: SELFLESS
+    music: SELFLESS,
+    tip: "Ok, todavia no te alegres, el siguiente nivel es el último"
   },
   {
     level: 30, // ULTIMO NIVEL
@@ -1246,7 +1270,8 @@ export const levels: Level[] = [
       },
     ],
     color: 'red',
-    music: ANYMORE
+    music: ANYMORE,
+    tip: "Pudistes derrotar a todos los bots del juego, nada mal eh!, nada mal..."
   },
   // {
   //   level: 31,

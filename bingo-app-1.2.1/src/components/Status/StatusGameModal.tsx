@@ -3,6 +3,7 @@ import { useAppStore } from "../../store/useAppStore";
 import { Dialog, DialogPanel, DialogTitle, Button } from "@headlessui/react";
 import { FINAL_LEVEL } from "../../constants/defaultConfigs";
 import DefeatMessage from "./DefeatMessage";
+import SelectPowerUps from "./SelectPowerUps";
 
 export default function StatusGameModal() {
   const levelData = useAppStore((state) => state.levelData);
@@ -12,6 +13,7 @@ export default function StatusGameModal() {
   const openStatusModal = useAppStore((state) => state.openStatusModal);
   const resetLevelState = useAppStore((state) => state.resetLevelState);
   const defaultLevelState = useAppStore((state) => state.defaultLevelState);
+  const unlockedPowerUpsIds = useAppStore((state) => state.unlockedPowerUpsIds);
 
   const { level, color } = levelData;
   const { type, title, message, textButton, subType } = modal;
@@ -96,6 +98,11 @@ export default function StatusGameModal() {
                 {type === "start" && level}
               </DialogTitle>
               <div className="space-y-3 text-lg text-gray-700">
+
+                {type === "start" && unlockedPowerUpsIds.length > 3 && (
+                  <SelectPowerUps />
+                )}
+
                 {type === "defeat" && subType === "game_over" ? (
                   <DefeatMessage message={message} />
                 ) : (

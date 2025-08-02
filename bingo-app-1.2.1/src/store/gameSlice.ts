@@ -15,6 +15,7 @@ export type GameSliceType = {
   showHelpModal: boolean,
   unlockedLevels: number[];
   levelData: Level,
+  unlockedPowerUpsIds: number[];
   toogleStartScreenLoading: () => void
   toogleStartScreenButton: () => void;
   openCreditsModal: () => void,
@@ -25,6 +26,8 @@ export type GameSliceType = {
   getUnlockedLevelsFromStorage: () => void
   getLevelNumberFromUrl: (pathname: string) => void
   getColorLevel: (level: number) => string;
+  unlockPowerUp: (id: number) => void;
+  getUnlockedPowerUpsFromStorage: () => void;
 };
 
 const initialLevelData = {
@@ -44,6 +47,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
   showHelpModal: false,
   unlockedLevels: [],
   levelData: initialLevelData,
+  unlockedPowerUpsIds: [],
 
   toogleStartScreenLoading: () => {
     set({ isLoadingStartScreen: false })
@@ -119,5 +123,36 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
   getColorLevel: (level) => {
     return levels.find(l => l.level === level)?.color ?? 'blue'
+  },
+
+  unlockPowerUp: (id: number) => {
+    // Los powerups se desbloquean al completar un nivel 
+    // Si el jugador ha completado el nivel 2, se desbloquea el powerup con el id 1
+    // Si el jugador ha completado el nivel 5, se desbloquea el powerup con el id 2
+    // Si el jugador ha completado el nivel 8, se desbloquea el powerup con el id 3
+    // Si el jugador ha completado el nivel 11, se desbloquea el powerup con el id 4
+    // Si el jugador ha completado el nivel 14, se desbloquea el powerup con el id 5
+    // Etc...
+    set((state) => {
+      if (!state.unlockedPowerUpsIds.includes(id)) {
+        const updatedPowerUps = [...state.unlockedPowerUpsIds, id];
+        localStorage.setItem("unlockedPowerUpsIds", JSON.stringify(updatedPowerUps));
+
+        return { unlockedPowerUpsIds: updatedPowerUps };
+      }
+      return state;
+    })
+  },
+
+  getUnlockedPowerUpsFromStorage: () => {
+    const storedPowerUps = localStorage.getItem('unlockedPowerUpsIds');
+
+    if (!storedPowerUps) {
+      localStorage.setItem('unlockedPowerUpsIds', JSON.stringify([]));
+      set({ unlockedPowerUpsIds: [] });
+      return;
+    }
+
+    set({ unlockedPowerUpsIds: JSON.parse(storedPowerUps) });
   },
 });

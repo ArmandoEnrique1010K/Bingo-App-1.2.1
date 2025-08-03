@@ -6,7 +6,7 @@ import { BotSliceType } from "./botSlice";
 import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
 import { MAX_POWERUPS } from "../constants/defaultConfigs";
 import { AudioSliceType } from "./audioSlice";
-import { DetailsPowerUp } from "../types";
+import { DetailsPowerUp, SwapNumberSelected } from "../types";
 
 export type PowerUpSliceType = {
   // Definición de los powerups
@@ -62,9 +62,8 @@ export type PowerUpSliceType = {
   // Intercambiar posiciones de 2 números de un tablero
   activateSwapNumbersBoard: () => void;
   swapNumberBoardOnNumbersClicks: (
-    boardId: number,
-    firstNumberClicked: number,
-    secondNumberClicked: number,
+    firstNumberClicked: SwapNumberSelected,
+    secondNumberClicked: SwapNumberSelected,
   ) => void;
 
   // Forzar un numero objetivo de un patron de cruz
@@ -362,8 +361,33 @@ export const powerUpSlice: StateCreator<
     }));
   },
 
-  swapNumberBoardOnNumbersClicks: (boardId: number, firstNumberClicked: number, secondNumberClicked: number) => {
-    console.log(boardId, firstNumberClicked, secondNumberClicked)
+  // Esta acción es la encargada de establecer 2 numeros en el tablero
+  // Debe recibir el id del tablero, el primer numero y el segundo numero
+  swapNumberBoardOnNumbersClicks: (firstNumberClicked: SwapNumberSelected, secondNumberClicked: SwapNumberSelected) => {
+
+    const firstNumberData = firstNumberClicked
+    const secondNumberData = secondNumberClicked
+
+    // Actualizar el tablero del jugador, intercambiando los numeros
+    const updatedPlayerBoards = get().playerBoards.map((board) =>
+      board.id === firstNumberData?.id
+        ? {
+          ...board,
+          // TODO: En cada celda, si la posicion es la misma que la del primer numero, se debe intercambiar
+          board: board.board.map((cell) =>
+            cell.number === firstNumberData?.number
+              ? { ...cell, number: secondNumberData?.number }
+              : cell
+          ),
+        }
+        : board
+    );
+
+    console.log(updatedPlayerBoards)
+
+    // set(() => ({
+    //   playerBoards: get().updatedPlayerBoards,
+    // }))
   },
 
   activateMarkNeighborgNumbers: () => {

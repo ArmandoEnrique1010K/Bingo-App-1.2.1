@@ -104,3 +104,7 @@ export type DetailsPowerUp = {
   active: boolean,
   turnsRemaining: number,
 }
+
+export type SwapNumberSelected = {
+  id: number, number: number, position: number
+} | null

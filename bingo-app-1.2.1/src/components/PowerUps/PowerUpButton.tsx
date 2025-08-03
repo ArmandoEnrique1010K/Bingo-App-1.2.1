@@ -81,7 +81,6 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
         }
     }
 
-    // TODO: APLICAR UN ESTILO DE COLOR DE FONDO QUE CAMBIE DE COLOR SI EL TIPO ES DE TIPO 'oneTime'
     const applyStyle = () => {
 
         if (isSelected) {

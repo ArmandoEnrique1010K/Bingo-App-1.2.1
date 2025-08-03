@@ -37,6 +37,7 @@ const initialLevelData = {
   patterns: [],
   bots: [],
   color: 'blue',
+  tip: "",
   music: SOMEDAY,
 }
 

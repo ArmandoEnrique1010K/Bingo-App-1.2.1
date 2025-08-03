@@ -6,7 +6,7 @@ import { BotSliceType } from "./botSlice";
 import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
 import { MAX_POWERUPS } from "../constants/defaultConfigs";
 import { AudioSliceType } from "./audioSlice";
-import { Board, DetailsPowerUp, SwapNumberSelected } from "../types";
+import { Boards, DetailsPowerUp, SwapNumberSelected } from "../types";
 
 export type PowerUpSliceType = {
   // Definición de los powerups
@@ -425,7 +425,7 @@ export const powerUpSlice: StateCreator<
       console.log(`Intercambiando numeros ${updatedState.firstNumber?.number} y ${updatedState.secondNumber?.number}`)
 
       // Actualizar el tablero del jugador
-      const updatedBoard: Board = get().playerBoards.map((board) =>
+      const updatedBoards: Boards = get().playerBoards.map((board) =>
         board.id === updatedState.firstNumber?.id
           ? {
             ...board,
@@ -443,21 +443,50 @@ export const powerUpSlice: StateCreator<
             })
           }
           : board
-      )[0];
+      );
 
-      // Encontrar el tablero del jugador por id y actualizar las celdas
-      const findBoardById = get().playerBoards.find((board) => board.id === updatedState.firstNumber?.id)
-
-      console.log(findBoardById)
-      console.log(updatedBoard)
+      // console.log(updatedBoards)
 
       // Actualizar el tablero del jugador, sin agregar otros nuevos tableros
       set({
-        playerBoards: [
+        playerBoards:
           // ...get().playerBoards,
-          updatedBoard
-        ]
+          updatedBoards
       });
+
+
+
+
+      // Actualizar las posiciones de los numeros seleccionados en el tablero
+      const updateMarkedCells = get().markedCells.map((board) =>
+        board.id === updatedState.firstNumber?.id
+          ? {
+            ...board,
+            board: board.board.map((cell) => {
+              if (cell.position === updatedState.firstNumber?.position &&
+                cell.number === updatedState.firstNumber?.number &&
+                updatedState.secondNumber?.position !== undefined) {
+                return { ...cell, number: updatedState.firstNumber.number, position: updatedState.secondNumber.position };
+              }
+
+              // Intercambia el segundo numero
+              if (cell.position === updatedState.secondNumber?.position &&
+                cell.number === updatedState.secondNumber?.number &&
+                updatedState.firstNumber?.position !== undefined) {
+                return { ...cell, number: updatedState.secondNumber.number, position: updatedState.firstNumber.position };
+              }
+              return cell;
+            })
+          }
+          : board
+      );
+
+      console.log(updateMarkedCells)
+
+      set({
+        markedCells: updateMarkedCells
+      })
+
       // Opcional: reiniciar selección
       set({
         // Bloquear el powerup

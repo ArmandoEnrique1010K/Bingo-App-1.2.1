@@ -65,20 +65,20 @@ export default function PlayerBingoCell({
     return markedCells.some(
       (b) => b.id === boardId && b.board.some((e) => e.position === position)
     );
-  }, [markedCells, boardId, position]);
+  }, [markedCells, boardId, position, swapNumbersBoard.turnsRemaining]);
 
   useEffect(() => {
     setcellColor(isSelected ? color : "gray");
-  }, [markedCells]);
+  }, [markedCells, swapNumbersBoard.turnsRemaining]);
 
   return (
     <button
       className={`sm:text-xl md:text-2xl text-xl font-bold md:size-16 sm:size-13 size-12 border-none rounded-lg text-white
-         bg-${position === 13 ? color : cellColor
+         bg-${cellColor
         }-500 cursor-pointer shadow-md shadow-black hover:bg-gray-900`}
       onClick={handleClick}
     >
-      {position === 13 ? "Free" : number}
+      {number === 0 ? "Free" : number}
     </button>
   );
 }

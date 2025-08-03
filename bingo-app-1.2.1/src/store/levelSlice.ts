@@ -3,7 +3,7 @@ import { Modal } from "../types";
 import { AudioSliceType } from "./audioSlice";
 import { ANYMORE_ENDING, BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, } from "../constants/audioSettings";
 import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
-import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
+import { DEFAULT_TARGETS, MAX_POWERUPS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
 import { generateTargets } from "../utils/generateTargets";
 import { PowerUpSliceType } from "./powerUpSlice";
 import { BotSliceType } from "./botSlice";
@@ -42,6 +42,9 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
   excludedTargets: [],
   gameEnded: true,
   winner: "",
+  unlockedPowerUpsIds: [],
+  // Si el numero de powerups desbloqueados es menor que 3, se seleccionan todos los powerups desbloqueados, de lo contrario no se seleccionan ninguno, el jugador debera seleccionar los powerups
+  // selectedPowerUpsIds: get().unlockedPowerUpsIds.length > MAX_POWERUPS ? get().unlockedPowerUpsIds : [],
   selectedPowerUpsIds: [],
   selectPowerUp: (id: number) => {
     set({
@@ -212,7 +215,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       foundCells: [],
       markedCells: initialSelectedNumbersAndPositions,
       currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
-      selectedPowerUpsIds: [],
+      selectedPowerUpsIds: get().unlockedPowerUpsIds.length <= MAX_POWERUPS ? get().unlockedPowerUpsIds : [],
     })
     get().resetDefaultPowerups()
     get().resetBotTimeouts()

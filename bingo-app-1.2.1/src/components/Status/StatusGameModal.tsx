@@ -16,7 +16,7 @@ export default function StatusGameModal() {
   const unlockedPowerUpsIds = useAppStore((state) => state.unlockedPowerUpsIds);
   const selectedPowerUpsIds = useAppStore((state) => state.selectedPowerUpsIds);
 
-  const { level, color } = levelData;
+  const { level, color, tip } = levelData;
   const { type, title, message, textButton, subType } = modal;
 
   const navigate = useNavigate();
@@ -77,6 +77,11 @@ export default function StatusGameModal() {
     }
   };
 
+
+  const verifyQuantityPowerUps = () => {
+    return unlockedPowerUpsIds.length > MAX_POWERUPS;
+  };
+
   return (
     <>
       <Dialog
@@ -100,7 +105,7 @@ export default function StatusGameModal() {
               </DialogTitle>
               <div className="space-y-3 text-lg text-gray-700">
 
-                {type === "start" && unlockedPowerUpsIds.length > 3 && (
+                {type === "start" && verifyQuantityPowerUps() && (
                   <SelectPowerUps />
                 )}
 
@@ -109,6 +114,10 @@ export default function StatusGameModal() {
                 ) : (
                   <p className="text-center">{message}</p>
                 )}
+
+                {type === "victory" && subType === "level_completed" && (
+                  <p className="text-left text-base mt-6"><span className="font-bold">Tip: </span>{tip}</p>
+                )}
               </div>
 
               <div className="mt-6 flex flex-row gap-4">
@@ -116,8 +125,8 @@ export default function StatusGameModal() {
                   <button
                     onClick={handlePrimaryAction}
                     className={`w-full py-2 px-4 font-semibold bg-${color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900   
-                    ${type === "start" && selectedPowerUpsIds.length < MAX_POWERUPS ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                    disabled={type === "start" && selectedPowerUpsIds.length < MAX_POWERUPS}
+                    ${type === "start" && selectedPowerUpsIds.length !== MAX_POWERUPS ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    disabled={type === "start" && selectedPowerUpsIds.length !== MAX_POWERUPS}
                   >
                     {textButton.left}
                   </button>

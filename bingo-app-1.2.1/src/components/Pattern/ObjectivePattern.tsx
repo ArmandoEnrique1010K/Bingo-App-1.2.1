@@ -15,12 +15,12 @@ export default function ObjectivePattern() {
   }, [targetText]);
 
   return (
-    <div className="w-full bg-gray-700 p-3 rounded-lg shadow-lg flex flex-col sm:min-w-20 sm:ml-0 sm:mr-0 mr-2 sm:w-auto ">
-      <div
-        className={`sm:text-xl text-xl md:text-2xl font-semibold text-center mb-2 text-${color}-500`}
+    <div className="w-full bg-gray-700 p-2 rounded-xl shadow-lg flex flex-col sm:min-w-20 sm:ml-0 sm:mr-0 sm:w-auto ">
+      <h2
+        className={`sm:text-base text-lg md:text-xl font-semibold text-center text-${color}-500 mb-2`}
       >
         Patrón objetivo
-      </div>
+      </h2>
 
       <div className="flex flex-col sm:flex-row gap-2 justify-center text-center m-auto">
         <RotatingPatterns />

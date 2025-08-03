@@ -128,15 +128,16 @@ export default function LevelView() {
     <>
       <div className="text-white m-auto">
         <div className="container py-4 flex sm:flex-row flex-col items-start sm:gap-3 md:gap-6 gap-3 justify-center mx-auto">
-          <div className="flex sm:flex-col flex-row  sm:w-96 w-full justify-center sm:m-0 sm:gap-0 gap-3 mx-auto">
-            <div className=" flex flex-col min-w-20 sm:ml-0 ml-2 sm:w-auto w-full">
-              <div className="mb-4 text-center bg-gray-700 rounded-xl p-1">
+          <div className="flex sm:flex-col flex-row  sm:w-96 w-full justify-center sm:m-0 sm:gap-0 gap-3 mx-auto pr-2 pl-2">
+            {/* El asterico (*) indica que los estilos se aplicaran a sus elementos hijos */}
+            <div className=" flex flex-col gap-3 min-w-20 sm:ml-0  sm:w-auto w-full *:p-2 ">
+              <div className="flex flex-col bg-gray-700 rounded-xl p-2 items-baseline *:mx-auto">
                 <h1
-                  className={`sm:text-xl text-xl md:text-2xl font-bold mb-2 text-${levelData.color}-500`}
+                  className={`text-base sm:text-lg md:text-xl font-bold text-${levelData.color}-500`}
                 >
                   Nivel {levelData.level}
                 </h1>
-                <p className="md:text-lg sm:text-sm text-sm">
+                <p className="md:text-base sm:text-sm text-xs">
                   Ronda:{" "}
                   <span className={`font-semibold text-${levelData.color}-500`}>
                     {currentRound}
@@ -146,12 +147,12 @@ export default function LevelView() {
               </div>
 
               <TargetNumbers />
+              <SelectedPowerUps />
             </div>
 
             <MarkedPositionsBoard />
           </div>
-          <div className="flex flex-col gap-4 mx-auto">
-            <SelectedPowerUps />
+          <div className="flex flex-col gap-4 ">
             <PlayerBoard />
           </div>
           {/* TODO: MOSTRAR LOS POWERUPS */}

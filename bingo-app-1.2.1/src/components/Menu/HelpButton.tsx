@@ -12,7 +12,7 @@ export default function HelpButton() {
     <>
       <button
         onClick={openHelpModal}
-        className={`sm:py-4 py-2 px-3 text-${color}-500 cursor-pointer`}
+        className={`sm:py-4 py-2 px-2 text-${color}-500 cursor-pointer`}
       >
         <QuestionMarkCircleIcon className="sm:w-8 w-6" aria-hidden="true" />
       </button>

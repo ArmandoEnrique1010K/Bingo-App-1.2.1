@@ -4,6 +4,11 @@
 @import "tailwindcss";
 
 
+/* Nuevo limite de ancho de pantalla, extra pequeño, normalmente tailwind lo define como "sm" que se aplica a 640px o 40rem */
+@theme{
+  --breakpoint-xsm: 400px
+}
+
 /* https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities */
 @layer components {
   
@@ -11,7 +16,7 @@
   .bg-with-logo {
     Sets the background image to the big logo,
     resizes it to fit the container,
-    positions it to the right and bottom of the container,
+    positions it to the right and bottom of the container,|
     and does not repeat the image.
   }
   */

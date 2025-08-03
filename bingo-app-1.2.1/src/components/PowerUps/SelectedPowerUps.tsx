@@ -93,6 +93,7 @@ export default function SelectedPowerUps() {
                                     id={powerUp.id}
                                     name={powerUp.name}
                                     icon={powerUp.icon}
+                                    // description={powerUp.description}
                                     typeButton='round'
                                 />
                             </div>

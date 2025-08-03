@@ -10,7 +10,7 @@ export default function ResetButton() {
   return (
     <>
       <button
-        className={`sm:py-4 py-2 px-3 cursor-pointer text-${color}-500`}
+        className={`sm:py-4 py-2 px-2 cursor-pointer text-${color}-500`}
         onClick={openResetLevelModal}
       >
         <ArrowPathIcon className={`sm:w-8 w-6`} />

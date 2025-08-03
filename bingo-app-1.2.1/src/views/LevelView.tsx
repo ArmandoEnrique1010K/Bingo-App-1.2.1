@@ -150,7 +150,7 @@ export default function LevelView() {
 
             <MarkedPositionsBoard />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mx-auto">
             <SelectedPowerUps />
             <PlayerBoard />
           </div>

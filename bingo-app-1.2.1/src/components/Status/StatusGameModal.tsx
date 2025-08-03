@@ -125,8 +125,8 @@ export default function StatusGameModal() {
                   <button
                     onClick={handlePrimaryAction}
                     className={`w-full py-2 px-4 font-semibold bg-${color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900   
-                    ${type === "start" && selectedPowerUpsIds.length !== MAX_POWERUPS ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                    disabled={type === "start" && selectedPowerUpsIds.length !== MAX_POWERUPS}
+                    ${type === "start" && unlockedPowerUpsIds.length >= MAX_POWERUPS && selectedPowerUpsIds.length !== MAX_POWERUPS ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    disabled={type === "start" && unlockedPowerUpsIds.length >= MAX_POWERUPS && selectedPowerUpsIds.length !== MAX_POWERUPS}
                   >
                     {textButton.left}
                   </button>

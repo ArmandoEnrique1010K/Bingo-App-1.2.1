@@ -6,8 +6,9 @@ import PowerUpButton from './PowerUpButton';
 export default function SelectedPowerUps() {
     const selectedPowerUpsIds = useAppStore((state) => state.selectedPowerUpsIds)
     // const levelData = useAppStore((state) => state.levelData)
-    const powerUps = powerups.filter((powerUp) => selectedPowerUpsIds.includes(powerUp.id));
+    const unlockedPowerUpsIds = useAppStore((state) => state.unlockedPowerUpsIds)
 
+    const powerUps = powerups.filter((powerUp) => selectedPowerUpsIds.includes(powerUp.id));
     // // Obtener todos los datos del state de cada uno de los powerups
     // const slowBots = useAppStore((state) => state.slowBots)
     // const extraTargets = useAppStore((state) => state.extraTargets)
@@ -78,19 +79,26 @@ export default function SelectedPowerUps() {
         <>
             <div className='flex flex-col 
              gap-2 rounded-xl p-3 bg-gray-700'>
-                <div className='flex flex-row gap-5 justify-center'>
-                    {powerUps.map((powerUp) => (
-                        <div className='flex flex-row gap-2 relative' key={powerUp.id} >
-                            <PowerUpButton
-                                id={powerUp.id}
-                                name={powerUp.name}
-                                icon={powerUp.icon}
-                                // description={powerUp.description}
-                                typeButton='round'
-                            />
-                        </div>
-                    ))}
-                </div>
+
+                {unlockedPowerUpsIds.length === 0 ? (
+                    <div className='flex flex-row gap-5 justify-center h-16 items-center'>
+                        ¡No tienes powerups desbloqueados!
+                    </div>
+                ) : (
+
+                    <div className='flex flex-row gap-5 justify-center'>
+                        {powerUps.map((powerUp) => (
+                            <div className='flex flex-row gap-2 relative' key={powerUp.id} >
+                                <PowerUpButton
+                                    id={powerUp.id}
+                                    name={powerUp.name}
+                                    icon={powerUp.icon}
+                                    typeButton='round'
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </>
     )

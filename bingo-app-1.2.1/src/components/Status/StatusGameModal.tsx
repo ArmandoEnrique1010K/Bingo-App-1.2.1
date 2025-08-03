@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../../store/useAppStore";
-import { Dialog, DialogPanel, DialogTitle, Button } from "@headlessui/react";
-import { FINAL_LEVEL } from "../../constants/defaultConfigs";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import { FINAL_LEVEL, MAX_POWERUPS } from "../../constants/defaultConfigs";
 import DefeatMessage from "./DefeatMessage";
-import SelectPowerUps from "./SelectPowerUps";
+import SelectPowerUps from "./PowerUpsContainer";
 
 export default function StatusGameModal() {
   const levelData = useAppStore((state) => state.levelData);
@@ -14,6 +14,7 @@ export default function StatusGameModal() {
   const resetLevelState = useAppStore((state) => state.resetLevelState);
   const defaultLevelState = useAppStore((state) => state.defaultLevelState);
   const unlockedPowerUpsIds = useAppStore((state) => state.unlockedPowerUpsIds);
+  const selectedPowerUpsIds = useAppStore((state) => state.selectedPowerUpsIds);
 
   const { level, color } = levelData;
   const { type, title, message, textButton, subType } = modal;
@@ -92,7 +93,7 @@ export default function StatusGameModal() {
             >
               <DialogTitle
                 as="h2"
-                className="text-4xl font-semibold text-center text-gray-900 mb-10"
+                className="text-4xl font-semibold text-center text-gray-900 mb-6"
               >
                 {title}
                 {type === "start" && level}
@@ -110,23 +111,27 @@ export default function StatusGameModal() {
                 )}
               </div>
 
-              <div className="mt-10 flex flex-row gap-4">
+              <div className="mt-6 flex flex-row gap-4">
                 {textButton.left && (
-                  <Button
+                  <button
                     onClick={handlePrimaryAction}
-                    className={`w-full py-2 px-4 font-semibold bg-${color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900 cursor-pointer`}
+                    className={`w-full py-2 px-4 font-semibold bg-${color}-500 text-white rounded-lg text-lg shadow-md shadow-black hover:bg-gray-900   
+                    ${type === "start" && selectedPowerUpsIds.length < MAX_POWERUPS ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    disabled={type === "start" && selectedPowerUpsIds.length < MAX_POWERUPS}
                   >
                     {textButton.left}
-                  </Button>
+                  </button>
                 )}
 
                 {textButton.right && (
-                  <Button
+                  <button
                     onClick={handleSecondaryAction}
-                    className={`w-full py-2 px-4 font-semibold bg-gray-500 text-white rounded-lg text-lg  shadow-black shadow-md hover:bg-gray-900 cursor-pointer`}
+                    className={`w-full py-2 px-4 font-semibold bg-gray-500 text-white rounded-lg text-lg  shadow-black shadow-md hover:bg-gray-900 cursor-pointer
+                      
+                      `}
                   >
                     {textButton.right}
-                  </Button>
+                  </button>
                 )}
               </div>
             </DialogPanel>

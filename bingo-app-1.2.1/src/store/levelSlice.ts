@@ -146,6 +146,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       gameEnded: true,
       foundCells: [],
       botMarkedCells: [],
+      selectedPowerUpsIds: [],
     })
     get().resetDefaultPowerups()
     get().resetBotTimeouts()
@@ -211,6 +212,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       foundCells: [],
       markedCells: initialSelectedNumbersAndPositions,
       currentBoard: get().playerBoards?.find(b => b.id === 1) || { id: 0, board: [] },
+      selectedPowerUpsIds: [],
     })
     get().resetDefaultPowerups()
     get().resetBotTimeouts()

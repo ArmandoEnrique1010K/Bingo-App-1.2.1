@@ -8,7 +8,7 @@ import PlayerBoard from "../components/Player/PlayerBingoBoard";
 import { START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { MAX_TURNS } from "../constants/defaultConfigs";
 import BotOpponent from "../components/Bots/BotOpponent";
-import ListPowerUps from "../components/PowerUps/ListPowerUps";
+import SelectedPowerUps from "../components/PowerUps/SelectedPowerUps";
 
 export default function LevelView() {
   const levelData = useAppStore((state) => state.levelData);
@@ -150,18 +150,19 @@ export default function LevelView() {
 
             <MarkedPositionsBoard />
           </div>
-
-          <PlayerBoard />
+          <div className="flex flex-col gap-4">
+            <SelectedPowerUps />
+            <PlayerBoard />
+          </div>
           {/* TODO: MOSTRAR LOS POWERUPS */}
-           <ListPowerUps />
+          {/* <ListPowerUps /> */}
         </div>
 
         {/* Contenedor dinámico para mostrar los tableros de los bots */}
 
         <div
-          className={`grid gap-3 mb-4 mt-2 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mx-auto container ${
-            true // viewPlayerBoard === false ? "grid" : "hidden"
-          } sm:grid`}
+          className={`grid gap-3 mb-4 mt-2 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mx-auto container ${true // viewPlayerBoard === false ? "grid" : "hidden"
+            } sm:grid`}
         >
           {
             // Grupo de los bots

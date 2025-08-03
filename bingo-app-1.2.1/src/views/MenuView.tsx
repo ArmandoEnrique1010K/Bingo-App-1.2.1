@@ -27,7 +27,7 @@ export default function MenuView() {
   }, [levelData]);
 
   return (
-    <div className="min-h-full max-h-full flex flex-col items-center bg-gray-800 text-white">
+    <div className="min-h-full max-h-full flex flex-col items-center text-white">
       <h1 className="text-4xl font-bold text-center my-8">
         BingoApp <span className="text-xl">v{APP_VERSION}</span>
       </h1>

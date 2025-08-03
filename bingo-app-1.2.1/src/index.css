@@ -1,7 +1,40 @@
 
 
 
-@import "tailwindcss"
+@import "tailwindcss";
+
+
+/* https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities */
+@layer components {
+  
+  /*
+  .bg-with-logo {
+    Sets the background image to the big logo,
+    resizes it to fit the container,
+    positions it to the right and bottom of the container,
+    and does not repeat the image.
+  }
+  */
+  .bg-with-logo {
+    background-image: url('./images/bigLogo.svg');
+    background-size: contain;
+    background-position-x: right;
+    background-position-y: top;
+    background-repeat: no-repeat;
+  }
+  @media screen and (max-width: 640px) {
+    .bg-with-logo {
+      background-image: none;
+    }
+   }
+
+}
+
+
+/* @theme {
+  --bg-with-logo: url('./assets/bigLogo.png') bg-cover bg-center bg-no-repeat bg-color: blue;
+} */
+
 
 /* @config
 @layer utilities {

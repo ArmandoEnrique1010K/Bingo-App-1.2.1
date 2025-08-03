@@ -11,3 +11,6 @@ createRoot(document.getElementById("root")!).render(
   </BrowserRouter>
   // </StrictMode>
 );
+
+// Convertidor de img a svg
+// https://www.adobe.com/express/feature/image/convert/svg

@@ -4,7 +4,7 @@ import BotBingoColumn from "./BotBingoColumn";
 type BotBingoBoardProps = {
   board: BoardPositions;
   idBoard: string;
-  botName: string
+  botName?: string
 };
 
 export default function BotBingoBoard({ board, idBoard, botName }: BotBingoBoardProps) {
@@ -19,7 +19,7 @@ export default function BotBingoBoard({ board, idBoard, botName }: BotBingoBoard
               board={board}
               min={index * 5 + 1}
               max={(index + 1) * 5}
-              botName={botName}
+              botName={botName || ""}
             />
           ))}
         </div>

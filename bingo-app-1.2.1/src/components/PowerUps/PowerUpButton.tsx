@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { useAppStore } from "../../store/useAppStore";
+import { CORRECT_SOUND, WRONG_SOUND } from "../../constants/audioSettings";
 
 type PowerUpButtonProps = {
     id: number;
     name: string;
     icon: string;
+    description?: string;
     typeButton: 'modal' | 'round';
 }
 
-export default function PowerUpButton({ id, name, icon, typeButton }: PowerUpButtonProps) {
+export default function PowerUpButton({ id, name, icon, description, typeButton }: PowerUpButtonProps) {
 
     const levelData = useAppStore((state) => state.levelData)
 
@@ -43,36 +45,88 @@ export default function PowerUpButton({ id, name, icon, typeButton }: PowerUpBut
     // const activateKillBot = useAppStore((state) => state.activateKillBot)
 
     // Asignar la acción correspondiente a cada powerup
-    const powerUpsAction = id === 1 ? activateSlowBots : id === 2 ? activateExtraTargets : id === 3 ? activateUnmarkNumberBot : id === 4 ? activateSwapNumbersBoard : id === 6 ? activateMarkNeighborgNumbers : () => { };
+    const powerUpsAction = id === 1 ? activateSlowBots : id === 2 ? activateExtraTargets : id === 3 ? activateUnmarkNumberBot : id === 4 ? activateSwapNumbersBoard : id === 7 ? activateMarkNeighborgNumbers : () => { };
 
     // Asignar el estado correspondiente a cada powerup
-    const powerUpsState = id === 1 ? slowBots : id === 2 ? extraTargets : id === 3 ? unmarkNumberBot : id === 4 ? swapNumbersBoard : id === 6 ? markNeighborgNumbers : { hasActivated: false, active: false, turnsRemaining: 0 };
+    const powerUpsState = id === 1 ? slowBots : id === 2 ? extraTargets : id === 3 ? unmarkNumberBot : id === 4 ? swapNumbersBoard : id === 7 ? markNeighborgNumbers : { hasActivated: false, active: false, turnsRemaining: 0, type: 'oneTime' };
 
     const tooglePowerUp = useAppStore((state) => state.togglePowerUp);
 
+    const playSound = useAppStore((state) => state.playSound);
 
+    const changeCurrentSelectPowerUp = useAppStore((state) => state.changeCurrentSelectPowerUp);
 
     const handleClickButton = (id: number) => {
-        if (typeButton === 'round') {
+        if (typeButton === 'round' && !powerUpsState.hasActivated) {
+            playSound(CORRECT_SOUND)
+            console.log('Ha activado el powerup ' + id)
             powerUpsAction()
-        } else {
+            return
+        }
+
+        if (typeButton === 'round' && powerUpsState.hasActivated) {
+            playSound(WRONG_SOUND)
+            alert('No va a pasar nada')
+            return
+        }
+
+        if (typeButton === 'modal') {
             tooglePowerUp(id)
+            return
         }
     }
 
+    // TODO: APLICAR UN ESTILO DE COLOR DE FONDO QUE CAMBIE DE COLOR SI EL TIPO ES DE TIPO 'oneTime'
+    const applyStyle = () => {
+
+        if (isSelected) {
+
+            if (typeButton === 'round' && powerUpsState.active) {
+                return 'bg-gray-500'
+            } else if (typeButton === 'round' && powerUpsState.hasActivated) {
+                return 'bg-gray-700'
+            } else if (typeButton === 'round' && powerUpsState.type === 'oneTime') {
+                return 'bg-gray-500 transition-colors duration-50'
+            }
+
+            return `bg-${levelData.color}-500`
+
+
+        } else {
+            return 'bg-gray-500'
+        }
+    }
+
+    const textOnButton = () => {
+        if (typeButton === 'round' && powerUpsState.active && powerUpsState.type === 'continuous') {
+            return powerUpsState.turnsRemaining
+        }
+
+        if (typeButton === 'round' && powerUpsState.active && powerUpsState.type === 'oneTime') {
+            return 'A'
+        }
+
+        if (typeButton === 'round' && powerUpsState.hasActivated) {
+            return 'X'
+        }
+        return 'R'
+    }
     useEffect(() => {
         console.log(selectedPowerUpsIds)
     }, [selectedPowerUpsIds])
 
     return (
         <>
-            <button className={` flex justify-center items-center md:size-16 sm:size-14 size-11 border-none rounded-lg text-white cursor-pointer shadow-md shadow-black hover:bg-gray-900 ${isSelected ? `bg-${levelData.color}-500` : 'bg-gray-500'}`}
-                onClick={() => handleClickButton(id)}>
+            <button className={`flex justify-center items-center md:size-16 sm:size-14 size-11 border-none rounded-lg
+             text-white cursor-pointer shadow-md shadow-black hover:bg-gray-900 ${applyStyle()}`}
+                onClick={() => handleClickButton(id)} onMouseEnter={() => changeCurrentSelectPowerUp(name, description || '')} onMouseLeave={() => changeCurrentSelectPowerUp('', '')}
+            // disabled={powerUpsState.hasActivated}
+            >
                 <img className={`size-6 sm:size-8 md:size-10 `} src={icon} alt={name} />
                 {
                     typeButton === 'round' &&
                     <div className={`absolute top-11 left-11 bg-${levelData.color}-500 rounded-full size-6 flex items-center justify-center border-2 border-gray-700`}>{
-                        powerUpsState.turnsRemaining || 99
+                        textOnButton()
                     }</div>
                 }
             </button>

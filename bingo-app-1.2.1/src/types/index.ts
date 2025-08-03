@@ -99,6 +99,7 @@ export type PowerUp = {
 }
 
 export type DetailsPowerUp = {
+  type: 'oneTime' | 'continuous'
   hasActivated: boolean,
   active: boolean,
   turnsRemaining: number,

@@ -6,80 +6,41 @@ import { BotSliceType } from "./botSlice";
 import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
 import { MAX_POWERUPS } from "../constants/defaultConfigs";
 import { AudioSliceType } from "./audioSlice";
+import { DetailsPowerUp } from "../types";
 
 export type PowerUpSliceType = {
   // Definición de los powerups
 
   // Ralentizar bots
-  slowBots: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  slowBots: DetailsPowerUp;
 
   // Incrementar 2 números objetivos extra
-  extraTargets: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  extraTargets: DetailsPowerUp;
 
   // Desmarcar un numero de un bot
-  unmarkNumberBot: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  unmarkNumberBot: DetailsPowerUp;
 
   // Intercambiar posiciones de 2 números de un tablero
-  swapNumbersBoard: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  swapNumbersBoard: DetailsPowerUp;
+
 
   // Forzar un numero objetivo de un patron de cruz
-  forceNumberObjectiveCross: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  forceNumberObjectiveCross: DetailsPowerUp;
 
   // Automarcar un tablero por 5 turnos
-  automaticMarkBoard: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  automaticMarkBoard: DetailsPowerUp;
 
   // Marcar numeros vecinos (los numeros de la forma: X - 2, X - 1, X, X + 1 y X + 2). X es un numero en el tablero
-  markNeighborgNumbers: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  markNeighborgNumbers: DetailsPowerUp;
 
   // Ver todos los tableros de los bots por 5 turnos
-  viewAllBotBoards: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  viewAllBotBoards: DetailsPowerUp;
 
   // Numero aleatorio objetivo
-  randomNumberObjective: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
+  randomNumberObjective: DetailsPowerUp;
 
   // Eliminar un bot del nivel permanentemente
-  killBot: {
-    hasActivated: boolean;
-    active: boolean;
-    turnsRemaining: number;
-  };
-
+  killBot: DetailsPowerUp;
   // Acciones de los powerups
 
   // Ralentizar bots
@@ -169,60 +130,70 @@ export const powerUpSlice: StateCreator<
   PowerUpSliceType
 > = (set, get) => ({
   slowBots: {
+    type: 'continuous',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   extraTargets: {
+    type: 'continuous',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   unmarkNumberBot: {
+    type: 'oneTime',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   swapNumbersBoard: {
+    type: 'oneTime',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   forceNumberObjectiveCross: {
+    type: 'oneTime',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   automaticMarkBoard: {
+    type: 'continuous',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   markNeighborgNumbers: {
+    type: 'oneTime',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   viewAllBotBoards: {
+    type: 'continuous',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   randomNumberObjective: {
+    type: 'oneTime',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
   },
 
   killBot: {
+    type: 'oneTime',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
@@ -266,6 +237,7 @@ export const powerUpSlice: StateCreator<
   activateExtraTargets: () => {
     set({
       extraTargets: {
+        ...get().extraTargets,
         hasActivated: true,
         active: true,
         turnsRemaining: 3,
@@ -515,60 +487,70 @@ export const powerUpSlice: StateCreator<
     set({
 
       slowBots: {
+        type: 'continuous',
         hasActivated: false,
         active: false,
         turnsRemaining: 5,
       },
 
       extraTargets: {
+        type: 'continuous',
         hasActivated: false,
         active: false,
         turnsRemaining: 3,
       },
 
       unmarkNumberBot: {
+        type: 'oneTime',
         hasActivated: false,
         active: false,
         turnsRemaining: 1,
       },
 
       swapNumbersBoard: {
+        type: 'oneTime',
         hasActivated: false,
         active: false,
         turnsRemaining: 1,
       },
 
       forceNumberObjectiveCross: {
+        type: 'oneTime',
         hasActivated: false,
         active: false,
         turnsRemaining: 1,
       },
 
       automaticMarkBoard: {
+        type: 'continuous',
         hasActivated: false,
         active: false,
         turnsRemaining: 5,
       },
 
       markNeighborgNumbers: {
+        type: 'oneTime',
         hasActivated: false,
         active: false,
         turnsRemaining: 1,
       },
 
       viewAllBotBoards: {
+        type: 'continuous',
         hasActivated: false,
         active: false,
         turnsRemaining: 5,
       },
 
       randomNumberObjective: {
+        type: 'oneTime',
         hasActivated: false,
         active: false,
         turnsRemaining: 1,
       },
 
       killBot: {
+        type: 'oneTime',
         hasActivated: false,
         active: false,
         turnsRemaining: 1,

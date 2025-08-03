@@ -32,4 +32,4 @@ export const UNLOCK_BUTTON_GENERATE_TARGETS_DELAY = 1500
 // Numero maximo de powerups seleccionados por un nivel
 export const MAX_POWERUPS = 3;
 
-export const APP_VERSION = "1.2.1"
+export const APP_VERSION = "1.3"

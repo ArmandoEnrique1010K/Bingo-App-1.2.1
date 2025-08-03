@@ -34,6 +34,7 @@ export default function PowerUpsContainer() {
                         id={powerUp.id}
                         name={powerUp.name}
                         icon={powerUp.icon}
+                        description={powerUp.description}
                         typeButton='modal'
                     />
                 ))}

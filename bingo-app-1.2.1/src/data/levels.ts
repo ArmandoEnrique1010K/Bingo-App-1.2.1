@@ -152,7 +152,7 @@ export const levels: Level[] = [
     ],
     color: 'blue',
     music: TAP,
-    tip: ""
+    tip: "Ten en cuenta que si aumentas los numeros objetivos generados, los bots tambien tendrán más números que marcar"
   },
 
   {
@@ -181,7 +181,7 @@ export const levels: Level[] = [
     ],
     color: 'cyan',
     music: SELFLESS,
-    tip: ""
+    tip: "En algunos niveles tu tienes 2 tableros para jugar, solamente debes formar el patrón objetivo en uno de los tableros"
   },
 
   {
@@ -237,7 +237,7 @@ export const levels: Level[] = [
     ],
     color: 'cyan',
     music: MOONLIGHT,
-    tip: ""
+    tip: "Por alguna extraña razón, al comparar los números de los 2 tableros, ¡pueden haber números en la misma posición!"
   },
   {
     level: 9,
@@ -344,7 +344,7 @@ export const levels: Level[] = [
     ],
     color: 'emerald',
     music: MOUNTAIN,
-    tip: ""
+    tip: "Elige tus powerups antes de empezar un nivel, ¿podras desbloquear todos los powerups?"
   },
   {
     level: 12,
@@ -774,7 +774,7 @@ export const levels: Level[] = [
     ],
     color: 'lime',
     music: LIVE,
-    tip: ""
+    tip: "¿Qué estrategia utilizarias si tu pudieras ver los números de los tableros de los bots?"
   },
   {
     level: 21,
@@ -865,7 +865,7 @@ export const levels: Level[] = [
     ],
     color: 'amber',
     music: TAP,
-    tip: ""
+    tip: "Una varita magica es el objeto más poderoso que hay en el juego, podrias usarla para marcar los números vecinos"
   },
 
   {
@@ -907,7 +907,7 @@ export const levels: Level[] = [
     ],
     color: 'amber',
     music: FRIENDS,
-    tip: ""
+    tip: "Puedes automatizar el marcado de los números de uno de tus tableros con un simple powerup"
   },
 
   {
@@ -1198,7 +1198,7 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: SELFLESS,
-    tip: "Ok, todavia no te alegres, el siguiente nivel es el último"
+    tip: "Ok, todavia los bots no se han rendido, en el siguiente nivel te enfrentaras a 8 bots al mismo tiempo, piensa bien al elegir tus powerups, muchos jugadores no han podido formar el patrón objetivo"
   },
   {
     level: 30, // ULTIMO NIVEL

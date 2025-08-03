@@ -19,7 +19,7 @@ export default function PlayerBingoBoard() {
 
   // TODO: EN LUGAR DE UTILIZAR UN PAGINADOR PARA CAMBIAR DE TABLERO, AHORA SE TIENE QUE MOSTRAR TODOS LOS TABLEROS (max: 2) EN LA VISTA DEL USUARIO
   return (
-    <div className="flex flex-col gap-4 sm:mx-0 mx-auto pr-1 pl-1 w-full border-4 bg-gray-700 border-gray-700 rounded-xl max-w-[71rem]">
+    <div className="flex flex-col xl:flex-row justify-center gap-4 sm:mx-0 mx-auto pr-1 pl-1 w-full border-4 bg-gray-700 border-gray-700 rounded-xl max-w-[71rem]">
 
       {
         playerBoards.map((board) => (

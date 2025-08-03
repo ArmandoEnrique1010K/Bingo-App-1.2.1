@@ -2,7 +2,7 @@
 export const LOADING_TIME = 2000;
 
 // Numero de numeros objetivos por turno por defecto
-export const DEFAULT_TARGETS = 5 // 3
+export const DEFAULT_TARGETS = 3 // 3
 
 // Tiempo de demora para generar numeros objetivos
 export const TARGET_GENERATION_DELAY = 1000;

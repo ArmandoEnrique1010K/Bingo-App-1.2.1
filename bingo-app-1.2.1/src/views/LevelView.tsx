@@ -128,7 +128,7 @@ export default function LevelView() {
     <>
       <div className="text-white flex justify-center" >
         <div className="container flex flex-col">
-          <div className="container py-4 flex sm:flex-row flex-col items-start sm:gap-3 md:gap-6 gap-3 justify-center mx-auto">
+          <div className="container py-4 flex sm:flex-row flex-col items-start sm:gap-3 md:gap-4 gap-3 justify-center mx-auto">
             <div className="flex sm:flex-col flex-row  sm:w-96 w-full justify-center sm:m-0 sm:gap-0 gap-3 mx-auto ">
               {/* El asterico (*) indica que los estilos se aplicaran a sus elementos hijos */}
               <div className=" flex flex-col gap-3 min-w-20 sm:ml-0  sm:w-auto w-full *:p-2 ">

@@ -73,7 +73,7 @@ export default function PlayerBingoCell({
 
   return (
     <button
-      className={`sm:text-xl md:text-2xl text-xl font-bold md:size-14 sm:size-13 size-12 border-none rounded-lg text-white
+      className={`sm:text-xl md:text-2xl text-xl  lg:size-16 xl:size-18 xl:text-3xl font-bold md:size-14 sm:size-13 size-12 border-none rounded-lg text-white
          bg-${cellColor
         }-500 cursor-pointer shadow-md shadow-black hover:bg-gray-900`}
       onClick={handleClick}

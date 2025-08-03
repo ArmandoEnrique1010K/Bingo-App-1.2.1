@@ -3,6 +3,9 @@ import { LevelSliceType } from "./levelSlice";
 import { PlayerSliceType } from "./playerSlice";
 import { GameSliceType } from "./gameSlice";
 import { BotSliceType } from "./botSlice";
+import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
+import { MAX_POWERUPS } from "../constants/defaultConfigs";
+import { AudioSliceType } from "./audioSlice";
 
 export type PowerUpSliceType = {
   // Definición de los powerups
@@ -147,6 +150,10 @@ export type PowerUpSliceType = {
   // ) => void;
 
   // Reiniciar los valores predeterminados de los powerups
+  currentSelectPowerUpName: string;
+  currentSelectPowerUpDescription: string;
+  changeCurrentSelectPowerUp: (name: string, description: string) => void;
+  togglePowerUp: (id: number) => void;
   resetDefaultPowerups: () => void;
 };
 
@@ -155,7 +162,8 @@ export const powerUpSlice: StateCreator<
   LevelSliceType &
   PlayerSliceType &
   GameSliceType &
-  BotSliceType,
+  BotSliceType &
+  AudioSliceType,
   [],
   [],
   PowerUpSliceType
@@ -472,8 +480,33 @@ export const powerUpSlice: StateCreator<
     }));
   },
 
+  currentSelectPowerUpName: '',
+  currentSelectPowerUpDescription: '',
+  changeCurrentSelectPowerUp(name: string, description: string) {
+    set({
+      currentSelectPowerUpName: name,
+      currentSelectPowerUpDescription: description,
+    });
+  },
 
 
+  // Función para agregar o quitar powerups
+  togglePowerUp(id: number) {
+
+    // Si el powerup ya esta seleccionado, se deselecciona, de lo contrario se selecciona
+    if (get().selectedPowerUpsIds.includes(id)) {
+      get().unSelectPowerUp(id)
+      get().playSound(WRONG_SOUND)
+    } else {
+      // Si el numero de powerups seleccionados es mayor o igual al maximo, no se puede seleccionar otro
+      if (get().selectedPowerUpsIds.length >= MAX_POWERUPS) {
+        get().playSound(WRONG_SOUND)
+        return;
+      }
+      get().selectPowerUp(id)
+      get().playSound(CORRECT_SOUND)
+    }
+  },
 
 
 

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import { CORRECT_SOUND, WRONG_SOUND } from "../../constants/audioSettings";
 
@@ -127,9 +126,9 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
         }
         return 'R'
     }
-    useEffect(() => {
-        console.log(selectedPowerUpsIds)
-    }, [selectedPowerUpsIds])
+    // useEffect(() => {
+    //     console.log(selectedPowerUpsIds)
+    // }, [selectedPowerUpsIds])
 
     return (
         <>

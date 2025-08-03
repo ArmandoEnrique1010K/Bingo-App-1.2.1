@@ -6,7 +6,7 @@ import { BotSliceType } from "./botSlice";
 import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
 import { MAX_POWERUPS } from "../constants/defaultConfigs";
 import { AudioSliceType } from "./audioSlice";
-import { DetailsPowerUp, SwapNumberSelected } from "../types";
+import { Board, DetailsPowerUp, SwapNumberSelected } from "../types";
 
 export type PowerUpSliceType = {
   // Definición de los powerups
@@ -60,7 +60,9 @@ export type PowerUpSliceType = {
   ) => void;
 
   // Intercambiar posiciones de 2 números de un tablero
+  swapNumbersSelected: { firstNumber: SwapNumberSelected | null, secondNumber: SwapNumberSelected | null };
   activateSwapNumbersBoard: () => void;
+  selectNumbersFromSwapNumbersBoard: (firstNumberClicked: SwapNumberSelected, secondNumberClicked: SwapNumberSelected) => void;
   swapNumberBoardOnNumbersClicks: (
     firstNumberClicked: SwapNumberSelected,
     secondNumberClicked: SwapNumberSelected,
@@ -361,6 +363,125 @@ export const powerUpSlice: StateCreator<
     }));
   },
 
+  swapNumbersSelected: { firstNumber: null, secondNumber: null },
+
+  selectNumbersFromSwapNumbersBoard: (firstNumberClicked: SwapNumberSelected, secondNumberClicked: SwapNumberSelected) => {
+    // Debe llamar 2 veces a la funcion swapNumberBoardOnNumbersClicks para asignar los numeros
+    // console.log('Seleccionando numeros para intercambiar ' + number)
+    // swapNumberBoardOnNumbersClicks(boardId, number, position);
+
+    // Si no se ha seleccionado ningun numero
+    if (!get().swapNumbersSelected.firstNumber) {
+      set({
+        swapNumbersSelected: {
+          firstNumber: {
+            id: firstNumberClicked!.id,
+            number: firstNumberClicked!.number,
+            position: firstNumberClicked!.position
+          },
+          secondNumber: null,
+        },
+      })
+      console.log(`Seleccionando primer numero ${firstNumberClicked?.id} ${firstNumberClicked?.position} ${firstNumberClicked?.number}`)
+
+    } else if (!get().swapNumbersSelected.secondNumber) {
+      const updatedState = {
+        firstNumber: get().swapNumbersSelected.firstNumber,
+        secondNumber: {
+          id: secondNumberClicked!.id,
+          number: secondNumberClicked!.number,
+          position: secondNumberClicked!.position
+        },
+      };
+
+      console.log(`Seleccionando segundo numero ${secondNumberClicked!.id} ${secondNumberClicked!.position} ${secondNumberClicked!.number}`)
+
+      // Si ha seleccionado el primer numero y luego vuelve hacer clic en el mismo numero, se debe deseleccionar
+      if (get().swapNumbersSelected.firstNumber?.id === secondNumberClicked?.id &&
+        get().swapNumbersSelected.firstNumber?.number === secondNumberClicked?.number &&
+        get().swapNumbersSelected.firstNumber?.position === secondNumberClicked?.position) {
+        set({
+          swapNumbersSelected: {
+            firstNumber: null,
+            secondNumber: null,
+          },
+        });
+        console.log(`Deseleccionando primer numero ${secondNumberClicked?.id} ${secondNumberClicked?.position} ${secondNumberClicked?.number}`)
+        return;
+      }
+
+
+      // Error, el id de ambos tableros debe ser el mismo, de lo contrario no se puede intercambiar
+      if (updatedState.firstNumber?.id !== updatedState.secondNumber?.id) {
+        console.log(updatedState.firstNumber?.id)
+        console.log(updatedState.secondNumber?.id)
+        console.log(`Error, el id de ambos tableros debe ser el mismo, de lo contrario no se puede intercambiar`)
+        return;
+      }
+
+      console.log(updatedState.firstNumber?.id)
+      console.log(updatedState.secondNumber?.id)
+
+      console.log(`Intercambiando numeros ${updatedState.firstNumber?.number} y ${updatedState.secondNumber?.number}`)
+
+      // Actualizar el tablero del jugador
+      const updatedBoard: Board = get().playerBoards.map((board) =>
+        board.id === updatedState.firstNumber?.id
+          ? {
+            ...board,
+            // Intercambia el primer numero
+            board: board.board.map((cell) => {
+              if (cell.number === updatedState.firstNumber?.number && updatedState.secondNumber?.number !== undefined) {
+                return { ...cell, number: updatedState.secondNumber.number };
+              }
+
+              // Intercambia el segundo numero
+              if (cell.number === updatedState.secondNumber?.number && updatedState.firstNumber?.number !== undefined) {
+                return { ...cell, number: updatedState.firstNumber.number };
+              }
+              return cell;
+            })
+          }
+          : board
+      )[0];
+
+      // Encontrar el tablero del jugador por id y actualizar las celdas
+      const findBoardById = get().playerBoards.find((board) => board.id === updatedState.firstNumber?.id)
+
+      console.log(findBoardById)
+      console.log(updatedBoard)
+
+      // Actualizar el tablero del jugador, sin agregar otros nuevos tableros
+      set({
+        playerBoards: [
+          // ...get().playerBoards,
+          updatedBoard
+        ]
+      });
+      // Opcional: reiniciar selección
+      set({
+        // Bloquear el powerup
+        swapNumbersBoard: {
+          ...get().swapNumbersBoard,
+          active: false,
+          hasActivated: true,
+          turnsRemaining: 0,
+        },
+
+        // Reiniciar seleccion
+        swapNumbersSelected: {
+          firstNumber: null,
+          secondNumber: null,
+        },
+      });
+    }
+
+    return; // Para evitar que se mezclen con otras lógicas de click
+
+  },
+
+
+
   // Esta acción es la encargada de establecer 2 numeros en el tablero
   // Debe recibir el id del tablero, el primer numero y el segundo numero
   swapNumberBoardOnNumbersClicks: (firstNumberClicked: SwapNumberSelected, secondNumberClicked: SwapNumberSelected) => {
@@ -530,6 +651,11 @@ export const powerUpSlice: StateCreator<
           hasActivated: false,
           active: false,
         },
+
+        swapNumbersSelected: {
+          firstNumber: null,
+          secondNumber: null,
+        },
       })
     }
 
@@ -602,6 +728,11 @@ export const powerUpSlice: StateCreator<
         hasActivated: false,
         active: false,
         turnsRemaining: 1,
+      },
+
+      swapNumbersSelected: {
+        firstNumber: null,
+        secondNumber: null,
       },
 
       forceNumberObjectiveCross: {

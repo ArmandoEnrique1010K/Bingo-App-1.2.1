@@ -56,19 +56,24 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
 
     const changeCurrentSelectPowerUp = useAppStore((state) => state.changeCurrentSelectPowerUp);
 
+    const cancelPowerUp = useAppStore((state) => state.cancelPowerUp);
+
     const handleClickButton = (id: number) => {
-        if (typeButton === 'round' && !powerUpsState.hasActivated) {
+        if (typeButton === 'round' && !powerUpsState.hasActivated && !powerUpsState.active) {
             playSound(CORRECT_SOUND)
             console.log('Ha activado el powerup ' + id)
             powerUpsAction()
             return
         }
 
-        if (typeButton === 'round' && powerUpsState.hasActivated) {
+        if (typeButton === 'round' && powerUpsState.active && powerUpsState.type === 'oneTime' && !powerUpsState.hasActivated) {
             playSound(WRONG_SOUND)
-            alert('No va a pasar nada')
+            // CANCELAR LA ACCIÓN QUE VA A REALIZAR EL BOTÓN
+            cancelPowerUp(id)
             return
         }
+
+        // ARREGLAR LA LOGICA PARA DESACTIVAR EL POWERUP SI YA HA SIDO ACTIVADO
 
         if (typeButton === 'modal') {
             tooglePowerUp(id)
@@ -81,13 +86,25 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
 
         if (isSelected) {
 
-            if (typeButton === 'round' && powerUpsState.active) {
+            if (typeButton === 'round' && powerUpsState.active && powerUpsState.type === 'continuous') {
                 return 'bg-gray-500'
-            } else if (typeButton === 'round' && powerUpsState.hasActivated) {
-                return 'bg-gray-700'
-            } else if (typeButton === 'round' && powerUpsState.type === 'oneTime') {
-                return 'bg-gray-500 transition-colors duration-50'
             }
+
+            // TODO: ES IMPOSIBLE APLICARLE UN HOVER HACIA EL BOTON DE TIPO oneTime ANTES DE SER ACTIVADO
+            if (typeButton === 'round' && powerUpsState.active && powerUpsState.type === 'oneTime') {
+                return `bg-${levelData.color}-500 bg-button-continuous`
+            }
+
+
+
+            if (typeButton === 'round' && powerUpsState.hasActivated && powerUpsState.type === 'continuous') {
+                return 'bg-gray-700'
+            }
+
+            if (typeButton === 'round' && powerUpsState.hasActivated && powerUpsState.type === 'oneTime') {
+                return 'bg-gray-700'
+            }
+
 
             return `bg-${levelData.color}-500`
 
@@ -118,14 +135,14 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
     return (
         <>
             <button className={`flex justify-center items-center md:size-16 sm:size-14 size-11 border-none rounded-lg
-             text-white cursor-pointer shadow-md shadow-black hover:bg-gray-900 ${applyStyle()}`}
+              cursor-pointer shadow-md shadow-black hover:bg-gray-900 text-${levelData.color}-500 ${applyStyle()}`}
                 onClick={() => handleClickButton(id)} onMouseEnter={() => changeCurrentSelectPowerUp(name, description || '')} onMouseLeave={() => changeCurrentSelectPowerUp('', '')}
             // disabled={powerUpsState.hasActivated}
             >
                 <img className={`size-6 sm:size-8 md:size-10 `} src={icon} alt={name} />
                 {
                     typeButton === 'round' &&
-                    <div className={`absolute top-11 left-11 bg-${levelData.color}-500 rounded-full size-6 flex items-center justify-center border-2 border-gray-700`}>{
+                    <div className={`absolute top-11 left-11 bg-${levelData.color}-500 text-white rounded-full size-6 flex items-center justify-center border-2 border-gray-700`}>{
                         textOnButton()
                     }</div>
                 }

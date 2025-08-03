@@ -68,7 +68,7 @@ export default function Layout() {
         )}
       </div>
 
-      <main className={`${location.pathname === "/" ? "bg-with-logo bg-gray-800" : "bg-gray-800"}  flex-grow`}>
+      <main className={`${location.pathname === "/" && !isStartScreenButtonVisible ? "bg-with-logo bg-gray-800" : "bg-gray-800"}  flex-grow`}>
         <Outlet />
       </main>
     </div>

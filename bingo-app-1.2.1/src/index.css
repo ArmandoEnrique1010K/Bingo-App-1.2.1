@@ -22,6 +22,26 @@
     background-position-y: top;
     background-repeat: no-repeat;
   }
+
+  /* Color dinamico, cambia de color cada 0.5 milisegundos*/
+  .bg-button-continuous {
+   transition: all 0.5s ease-in-out; 
+   animation: colorChange 1s infinite;
+  }
+
+  .bg-button-continuous:hover {
+    background-color: #43d120;
+  }
+
+  /* currentColor selecciona el color actual aplicado a la propiedad color del mismo elemento HTML en el cual se encuentra la clase*/
+  @keyframes colorChange {
+    0% {background-color: currentColor;}
+    50% {background-color: #6a7282;}
+    100% {background-color: currentColor;}
+   }
+
+
+
   @media screen and (max-width: 640px) {
     .bg-with-logo {
       background-image: none;

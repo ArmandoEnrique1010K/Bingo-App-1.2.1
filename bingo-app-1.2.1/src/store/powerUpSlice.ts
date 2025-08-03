@@ -115,6 +115,7 @@ export type PowerUpSliceType = {
   currentSelectPowerUpDescription: string;
   changeCurrentSelectPowerUp: (name: string, description: string) => void;
   togglePowerUp: (id: number) => void;
+  cancelPowerUp: (id: number) => void;
   resetDefaultPowerups: () => void;
 };
 
@@ -272,7 +273,6 @@ export const powerUpSlice: StateCreator<
     set((state) => ({
       unmarkNumberBot: {
         ...state.unmarkNumberBot,
-        hasActivated: true,
         active: true,
         turnsRemaining: 1,
       },
@@ -355,7 +355,7 @@ export const powerUpSlice: StateCreator<
     set((state) => ({
       swapNumbersBoard: {
         ...state.swapNumbersBoard,
-        hasActivated: true,
+        // hasActivated: true,
         active: true,
         turnsRemaining: 1,
       },
@@ -481,7 +481,73 @@ export const powerUpSlice: StateCreator<
   },
 
 
+  cancelPowerUp(id: number) {
+    // set({
 
+    // })
+    console.log('Se ha cancelado el powerup ' + id)
+
+    // TODO: AÑADIR MÁS POWERUPS
+    if (id === 3) {
+      set({
+        unmarkNumberBot: {
+          ...get().unmarkNumberBot,
+          hasActivated: false,
+          active: false,
+        },
+      })
+    }
+
+
+    if (id === 4) {
+      set({
+        swapNumbersBoard: {
+          ...get().swapNumbersBoard,
+          hasActivated: false,
+          active: false,
+        },
+      })
+    }
+
+    if (id === 5) {
+      set({
+        forceNumberObjectiveCross: {
+          ...get().forceNumberObjectiveCross,
+          hasActivated: false,
+          active: false,
+        },
+      })
+    }
+
+
+    if (id === 7) {
+      set({
+        markNeighborgNumbers: {
+          ...get().markNeighborgNumbers,
+          hasActivated: false,
+          active: false,
+        },
+      })
+    }
+    if (id === 9) {
+      set({
+        randomNumberObjective: {
+          ...get().randomNumberObjective,
+          hasActivated: false,
+          active: false,
+        },
+      })
+    }
+    if (id === 10) {
+      set({
+        killBot: {
+          ...get().killBot,
+          hasActivated: false,
+          active: false,
+        },
+      })
+    }
+  },
 
   resetDefaultPowerups() {
     set({

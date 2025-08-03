@@ -56,7 +56,7 @@ export default function TargetNumbers() {
     }`;
   // @min-[475px]:bg-yellow-200
   return (
-    <div className="bg-gray-700 rounded-xl p-2 shadow-lg md:h-44 h-40">
+    <div className="bg-gray-700 rounded-xl p-2 shadow-lg xsm:h-32 sm:h-40 md:h-44 h-40">
       <h2
         className={`text-base sm:text-lg md:text-xl font-semibold text-${levelData.color}-500`}
       >
@@ -65,7 +65,7 @@ export default function TargetNumbers() {
 
       {currentTargets.length > 0 && (
         <div className=" flex flex-wrap align-top  sm:gap-2 gap-1 md:py-3 sm:py-2 py-2  justify-center items-start
-         xsm:bg-red-500
+         
  ">
           {currentTargets.map((n, index) => (
             <div

@@ -35,11 +35,10 @@ export default function RotatingPatterns() {
           {column.map((position) => (
             <div
               key={position}
-              className={`sm:size-7 md:size-8 size-7 border-solid border-2 border-gray-700 flex items-center justify-center  ${
-                patterns[currentPatternIndex]?.includes(position)
-                  ? `bg-${color}-500`
-                  : "bg-gray-600"
-              }`}
+              className={`sm:size-7 md:size-8 size-6 border-solid border-2 border-gray-700 flex items-center justify-center  ${patterns[currentPatternIndex]?.includes(position)
+                ? `bg-${color}-500`
+                : "bg-gray-600"
+                }`}
             ></div>
           ))}
         </div>

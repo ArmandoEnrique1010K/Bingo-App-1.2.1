@@ -4,9 +4,7 @@ import PlayerBingoColumn from "./PlayerBingoColumn";
 // import PlayerBoardControls from "./PlayerBoardControls";
 
 export default function PlayerBingoBoard() {
-  const levelData = useAppStore((state) => state.levelData);
   const playerBoards = useAppStore((state) => state.playerBoards);
-  const currentBoard = useAppStore((state) => state.currentBoard);
 
   const swapNumbersBoard = useAppStore((state) => state.swapNumbersBoard);
 
@@ -21,32 +19,31 @@ export default function PlayerBingoBoard() {
 
   // TODO: EN LUGAR DE UTILIZAR UN PAGINADOR PARA CAMBIAR DE TABLERO, AHORA SE TIENE QUE MOSTRAR TODOS LOS TABLEROS (max: 2) EN LA VISTA DEL USUARIO
   return (
-    <div className="flex flex-col gap-4 sm:mx-0 mx-auto">
-      <div className="mx-auto border-4 border-gray-700 rounded-xl">
+    <div className="flex flex-col gap-4 sm:mx-0 mx-auto pr-1 pl-1 w-full border-4 bg-gray-700 border-gray-700 rounded-xl max-w-[71rem]">
 
-        {
-          playerBoards.map((board) => (
-            <div
-              key={board.id}
-              className="flex flex-row gap-2 sm:p-2 md:p-4 p-2 bg-gray-700 justify-center items-center"
-            >
-              {Array.from({ length: 5 }).map((_, i) => (
-                <PlayerBingoColumn
-                  key={i}
-                  numberBoard={
-                    board.board.filter(
-                      (p) =>
-                        p.position >= i * 5 + 1 && p.position <= (i + 1) * 5
-                    ) || []
-                  }
-                  boardId={board.id}
-                />
-              ))}
-            </div>
-          ))
-        }
+      {
+        playerBoards.map((board) => (
+          <div
+            key={board.id}
+            className="flex flex-row gap-2 sm:p-2 md:p-4 p-2 bg-gray-700 justify-center items-center"
+          >
+            {Array.from({ length: 5 }).map((_, i) => (
+              <PlayerBingoColumn
+                key={i}
+                numberBoard={
+                  board.board.filter(
+                    (p) =>
+                      p.position >= i * 5 + 1 && p.position <= (i + 1) * 5
+                  ) || []
+                }
+                boardId={board.id}
+              />
+            ))}
+          </div>
+        ))
+      }
 
-        {/* {Array.from({ length: levelData.boards }).map(
+      {/* {Array.from({ length: levelData.boards }).map(
           (_, index) =>
             currentBoard.id === index + 1 && (
               <div
@@ -70,7 +67,6 @@ export default function PlayerBingoBoard() {
               </div>
             )
         )} */}
-      </div>
       {/* <PlayerBoardControls /> */}
     </div>
   );

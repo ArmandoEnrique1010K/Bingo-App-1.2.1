@@ -126,62 +126,69 @@ export default function LevelView() {
 
   return (
     <>
-      <div className="text-white m-auto">
-        <div className="container py-4 flex sm:flex-row flex-col items-start sm:gap-3 md:gap-6 gap-3 justify-center mx-auto">
-          <div className="flex sm:flex-col flex-row  sm:w-96 w-full justify-center sm:m-0 sm:gap-0 gap-3 mx-auto pr-2 pl-2">
-            {/* El asterico (*) indica que los estilos se aplicaran a sus elementos hijos */}
-            <div className=" flex flex-col gap-3 min-w-20 sm:ml-0  sm:w-auto w-full *:p-2 ">
-              <div className="flex flex-col bg-gray-700 rounded-xl p-2 items-baseline *:mx-auto">
-                <h1
-                  className={`text-base sm:text-lg md:text-xl font-bold text-${levelData.color}-500`}
-                >
-                  Nivel {levelData.level}
-                </h1>
-                <p className="md:text-base sm:text-sm text-xs">
-                  Ronda:{" "}
-                  <span className={`font-semibold text-${levelData.color}-500`}>
-                    {currentRound}
-                  </span>{" "}
-                  / {MAX_TURNS}
-                </p>
+      <div className="text-white flex justify-center" >
+        <div className="container flex flex-col">
+          <div className="container py-4 flex sm:flex-row flex-col items-start sm:gap-3 md:gap-6 gap-3 justify-center mx-auto">
+            <div className="flex sm:flex-col flex-row  sm:w-96 w-full justify-center sm:m-0 sm:gap-0 gap-3 mx-auto ">
+              {/* El asterico (*) indica que los estilos se aplicaran a sus elementos hijos */}
+              <div className=" flex flex-col gap-3 min-w-20 sm:ml-0  sm:w-auto w-full *:p-2 ">
+                <div className="flex flex-col bg-gray-700 rounded-xl p-2 items-baseline *:mx-auto">
+                  <h1
+                    className={`text-base sm:text-lg md:text-xl font-bold text-${levelData.color}-500`}
+                  >
+                    Nivel {levelData.level}
+                  </h1>
+                  <p className="md:text-base sm:text-sm text-xs">
+                    Ronda:{" "}
+                    <span className={`font-semibold text-${levelData.color}-500`}>
+                      {currentRound}
+                    </span>{" "}
+                    / {MAX_TURNS}
+                  </p>
+                </div>
+
+                <TargetNumbers />
+                <SelectedPowerUps />
               </div>
 
-              <TargetNumbers />
-              <SelectedPowerUps />
+              <MarkedPositionsBoard />
             </div>
-
-            <MarkedPositionsBoard />
-          </div>
-          <div className="flex flex-col gap-4 ">
             <PlayerBoard />
+            {/* TODO: MOSTRAR LOS POWERUPS */}
+            {/* <ListPowerUps /> */}
+
+
           </div>
-          {/* TODO: MOSTRAR LOS POWERUPS */}
-          {/* <ListPowerUps /> */}
+          <div
+            className={`container grid gap-3 mb-4 mt-2 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mx-auto  ${true // viewPlayerBoard === false ? "grid" : "hidden"
+              } sm:grid 
+             `}
+          >
+            {
+              // Grupo de los bots
+              levelData.bots.map((bot, index) => (
+                <BotOpponent
+                  key={bot.name}
+                  // levelData={dataLevel.level}
+                  interval={bot.interval}
+                  name={bot.name}
+                  // patterns={winnerPatters}
+                  boards={bot.boards}
+                  // Obtiene los tableros del siguiente bot en la lista, o 0 si no hay más
+                  nextBoards={bot.boards ? levelData!.bots[index + 1]?.boards : 0}
+                  botIndex={index}
+                />
+              ))
+            }
+          </div>
+
         </div>
+
 
         {/* Contenedor dinámico para mostrar los tableros de los bots */}
+        {/* max-w-[86rem] */}
 
-        <div
-          className={`grid gap-3 mb-4 mt-2 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] mx-auto container ${true // viewPlayerBoard === false ? "grid" : "hidden"
-            } sm:grid`}
-        >
-          {
-            // Grupo de los bots
-            levelData.bots.map((bot, index) => (
-              <BotOpponent
-                key={bot.name}
-                // levelData={dataLevel.level}
-                interval={bot.interval}
-                name={bot.name}
-                // patterns={winnerPatters}
-                boards={bot.boards}
-                // Obtiene los tableros del siguiente bot en la lista, o 0 si no hay más
-                nextBoards={bot.boards ? levelData!.bots[index + 1]?.boards : 0}
-                botIndex={index}
-              />
-            ))
-          }
-        </div>
+
       </div>
 
       {/* Botón en la esquina inferior derecha de la pantalla, visible solo en pantallas pequeñas */}

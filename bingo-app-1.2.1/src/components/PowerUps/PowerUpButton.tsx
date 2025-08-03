@@ -132,15 +132,15 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
 
     return (
         <>
-            <button className={`flex justify-center items-center md:size-16 sm:size-14 size-11 border-none rounded-lg
-              cursor-pointer shadow-md shadow-black hover:bg-gray-900 text-${levelData.color}-500 ${applyStyle()}`}
+            <button className={`flex justify-center items-center md:size-16 sm:size-14 size-10 border-none rounded-lg
+              cursor-pointer shadow-md shadow-black hover:bg-gray-900 text-${levelData.color}-500 ${applyStyle()} `}
                 onClick={() => handleClickButton(id)} onMouseEnter={() => changeCurrentSelectPowerUp(name, description || '')} onMouseLeave={() => changeCurrentSelectPowerUp('', '')}
             // disabled={powerUpsState.hasActivated}
             >
                 <img className={`size-6 sm:size-8 md:size-10 `} src={icon} alt={name} />
                 {
                     typeButton === 'round' &&
-                    <div className={`absolute top-11 left-11 bg-${levelData.color}-500 text-white rounded-full size-6 flex items-center justify-center border-2 border-gray-700`}>{
+                    <div className={`absolute -bottom-3 -right-3 z-10 bg-${levelData.color}-500 text-white rounded-full size-6 flex items-center justify-center border-2 border-gray-700`}>{
                         textOnButton()
                     }</div>
                 }

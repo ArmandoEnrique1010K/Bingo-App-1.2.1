@@ -7,6 +7,7 @@ import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
 import { MAX_POWERUPS } from "../constants/defaultConfigs";
 import { AudioSliceType } from "./audioSlice";
 import { Boards, DetailsPowerUp, SwapNumberSelected } from "../types";
+import { AUTO_MARK_BOARD, CROSS_PATTERN, MARK_NEIGHBORING_NUMBERS, RANDOM_TARGET, REMOVE_BOT, SWAP_NUMBERS, UNMARK_NUMBER_BOT } from "../constants/powerupConstants";
 
 export type PowerUpSliceType = {
   // Definición de los powerups
@@ -76,6 +77,13 @@ export type PowerUpSliceType = {
   ) => void;
   selectedForcedNumberObjective: number;
   // // Automarcar un tablero por 5 turnos
+
+  // POWERUP DE MARCADO AUTOMATICO
+  activateAutomaticMarkBoard: () => void;
+  selectedBoardIdAutomaticMark: number;
+  selectBoardIdAutomaticMark: (boardId: number) => void;
+  decrementAutomaticMarkBoardTurnsRemaining: () => void;
+
   // toggleAutomaticMarkBoard: () => void;
   // activateAutomaticMarkBoardOnNumberClick: (
   //   boardId: number,
@@ -674,15 +682,120 @@ export const powerUpSlice: StateCreator<
     console.log('HAGA CLIC EN SIGUIENTE NUMERO')
 
   },
+  activateAutomaticMarkBoard: () => {
+    set((state) => ({
+      automaticMarkBoard: {
+        ...state.automaticMarkBoard,
+        // Esta propiedad indica que el powerup ya ha sido activado, por lo que ya no se podra volver a activar
+        type: 'oneTime',
+        active: true,
+        turnsRemaining: 1,
+      },
+    }));
+  },
+  selectedBoardIdAutomaticMark: 0,
+
+  selectBoardIdAutomaticMark: (boardId: number) => {
+    console.log('Selected board id: ' + boardId)
+    set({
+      selectedBoardIdAutomaticMark: boardId,
+      automaticMarkBoard: {
+        ...get().automaticMarkBoard,
+        type: 'continuous',
+        active: true,
+        turnsRemaining: 5,
+      },
+    });
+    const previousMarked = get().markedCells;
+
+    // Buscar si ya existe una entrada con ese boardId
+    const alreadyMarkedIndex = previousMarked.findIndex((item) => item.id === boardId);
+    const playerBoard = get().playerBoards.find((board) => board.id === boardId);
+    if (!playerBoard) {
+      // Handle the case where no board was found
+      console.error('No board found with id:', boardId);
+      return; // or handle this case appropriately
+    }
+    const currentTargets = get().currentTargets;
+
+    // Debe buscar los numeros objetivo en el tablero del jugador seleccionado
+    const matched = playerBoard.board.filter((cell) =>
+      currentTargets.includes(cell.number)
+    );
+
+    let updatedMarked: typeof previousMarked;
+    if (alreadyMarkedIndex !== -1) {
+      // Si existe, reemplazar el elemento
+      updatedMarked = [...previousMarked];
+      updatedMarked[alreadyMarkedIndex] = {
+        id: boardId,
+        board: matched,
+      };
+    } else {
+      // Si no existe, añadir nuevo elemento
+      updatedMarked = [
+        ...previousMarked,
+        {
+          id: boardId,
+          board: matched,
+        },
+      ];
+    }
+
+    // Guardar estado actualizado
+    set({ markedCells: updatedMarked });
+
+    // DEFINIR LA LOGICA PARA AUTOMARCAR LOS NUMEROS OBJETIVOS EN EL TABLERO SELECCIONADO POR 5 TURNOS
+    // const currentTargets = get().currentTargets;
+    // console.log(currentTargets)
+
+
+
+    // Actualizar markedCells para el tablero seleccionado
+    // set({
+    //   markedCells: [
+    //     ...get().markedCells,
+    //     {
+    //       id: boardId,
+    //       board: matched,
+    //     },
+    //   ]
+    // })
+  },
+
+
+  decrementAutomaticMarkBoardTurnsRemaining: () => {
+    const { automaticMarkBoard } = get();
+    if (automaticMarkBoard.active && automaticMarkBoard.turnsRemaining > 0) {
+      set({
+        automaticMarkBoard: {
+          ...automaticMarkBoard,
+          turnsRemaining: automaticMarkBoard.turnsRemaining - 1,
+        },
+      });
+    } else {
+      // Desactivar power-up si se acaba
+      set({
+        automaticMarkBoard: {
+          ...automaticMarkBoard,
+          active: false,
+          turnsRemaining: 0,
+          hasActivated: true,
+        },
+      });
+    }
+  },
+
+
 
   activateMarkNeighborgNumbers: () => {
     set((state) => ({
       markNeighborgNumbers: {
         ...state.markNeighborgNumbers,
         // Esta propiedad indica que el powerup ya ha sido activado, por lo que ya no se podra volver a activar
-        hasActivated: true,
-        active: !state.markNeighborgNumbers.active,
-        turnsRemaining: !state.markNeighborgNumbers.active ? 1 : 0,
+        // hasActivated: true,
+        active: true,
+        turnsRemaining: 1,
       },
     }));
   },
@@ -866,7 +979,7 @@ export const powerUpSlice: StateCreator<
     console.log('Se ha cancelado el powerup ' + id)
 
     // TODO: AÑADIR MÁS POWERUPS
-    if (id === 3) {
+    if (id === UNMARK_NUMBER_BOT) {
       set({
         unmarkNumberBot: {
           ...get().unmarkNumberBot,
@@ -877,7 +990,7 @@ export const powerUpSlice: StateCreator<
     }
 
 
-    if (id === 4) {
+    if (id === SWAP_NUMBERS) {
       set({
         swapNumbersBoard: {
           ...get().swapNumbersBoard,
@@ -892,7 +1005,17 @@ export const powerUpSlice: StateCreator<
       })
     }
 
-    if (id === 5) {
+    if (id === AUTO_MARK_BOARD) {
+      set({
+        automaticMarkBoard: {
+          ...get().automaticMarkBoard,
+          hasActivated: false,
+          active: false,
+        },
+      })
+    }
+
+    if (id === CROSS_PATTERN) {
       set({
         forceNumberObjectiveCross: {
           ...get().forceNumberObjectiveCross,
@@ -903,7 +1026,7 @@ export const powerUpSlice: StateCreator<
     }
 
 
-    if (id === 7) {
+    if (id === MARK_NEIGHBORING_NUMBERS) {
       set({
         markNeighborgNumbers: {
           ...get().markNeighborgNumbers,
@@ -912,7 +1035,7 @@ export const powerUpSlice: StateCreator<
         },
       })
     }
-    if (id === 9) {
+    if (id === RANDOM_TARGET) {
       set({
         randomNumberObjective: {
           ...get().randomNumberObjective,
@@ -921,7 +1044,7 @@ export const powerUpSlice: StateCreator<
         },
       })
     }
-    if (id === 10) {
+    if (id === REMOVE_BOT) {
       set({
         killBot: {
           ...get().killBot,

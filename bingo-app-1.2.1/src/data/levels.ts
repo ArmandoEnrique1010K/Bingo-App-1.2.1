@@ -1271,7 +1271,7 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: ANYMORE,
-    tip: "Pudistes derrotar a todos los bots del juego, nada mal eh!, nada mal..."
+    tip: "Solamente a un jugador se le ha ocurrido eliminar a su unico oponente en una partida con el powerup `Eliminar un bot` y ha terminado expulsado de la partida. ¡Espero que no hayas sido tu ese jugador!"
   },
   // {
   //   level: 31,

@@ -53,6 +53,7 @@ export default function StatusGameModal() {
         restartLevel();
         break;
       case "defeat":
+      case "ilegal":
         restartLevel();
         break;
       default:

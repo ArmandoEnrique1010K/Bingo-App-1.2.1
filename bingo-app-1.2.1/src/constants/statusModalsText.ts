@@ -86,3 +86,14 @@ export const NONE_MODAL: Modal = {
     right: ""
   }
 }
+
+export const ILEGAL_MODAL: Modal = {
+  type: "ilegal",
+  subType: "game_over",
+  title: "¡Hicistes trampa!✝️",
+  message: "Fuistes expulsado de la partida por haber eliminado a todos los bots",
+  textButton: {
+    left: "Reiniciar nivel",
+    right: "Salir al menú"
+  }
+}

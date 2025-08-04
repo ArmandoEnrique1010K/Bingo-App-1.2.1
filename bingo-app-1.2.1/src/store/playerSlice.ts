@@ -3,9 +3,9 @@ import { GameSliceType, } from './gameSlice';
 import { LevelSliceType } from "./levelSlice";
 import { Board, Boards, MarkedCells } from "../types";
 import { AudioSliceType } from "./audioSlice";
-import { FINAL_LEVEL_VICTORY_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
+import { FINAL_LEVEL_VICTORY_MODAL, ILEGAL_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
 import { FINAL_LEVEL } from "../constants/defaultConfigs";
-import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND } from "../constants/audioSettings";
+import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND, DEFEAT_SOUND, ANYMORE_ENDING } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
 
 export type PlayerSliceType = {
@@ -16,6 +16,7 @@ export type PlayerSliceType = {
   hasWinnerPattern: () => boolean,
   isCellMarked: (idBoard: number, position: number) => boolean,
   selectCell: (idBoard: number, number: number, position: number) => void
+  hasKillAllBot: () => void,
 }
 
 export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType & BotSliceType, [], [], PlayerSliceType> = (set, get) => ({
@@ -108,4 +109,18 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
       get().playSound(WRONG_SOUND)
     }
   },
+
+  // Si el jugador ha hecho trampa eliminando a todos los bots con el powerup con id 10 (remove bot)
+  hasKillAllBot: () => {
+    set({
+      currentTargets: [],
+      winner: 'end',
+      gameEnded: true,
+      modal: ILEGAL_MODAL,
+      isStatusModalOpen: true,
+    })
+
+    get().playSound(DEFEAT_SOUND)
+    get().changeMusic(ANYMORE_ENDING)
+  }
 });

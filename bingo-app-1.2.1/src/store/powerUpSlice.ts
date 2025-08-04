@@ -101,12 +101,11 @@ export type PowerUpSliceType = {
   // ) => void;
 
   // // Eliminar un bot del nivel permanentemente
-  // toggleKillBot: () => void;
-  // activateKillBotOnNumberClick: (
-  //   botName: string,
-  //   idBoard: string,
-  //   numberClicked: number
-  // ) => void;
+  activateKillBot: () => void;
+  killBotOnBotClick: (
+    botName: string,
+  ) => void;
+  killedBotName: string;
 
   // Reiniciar los valores predeterminados de los powerups
   currentSelectPowerUpName: string;
@@ -822,7 +821,43 @@ export const powerUpSlice: StateCreator<
     }
   },
 
+  activateKillBot: () => {
+    set({
+      killBot: {
+        ...get().killBot,
+        active: true,
+        turnsRemaining: 1,
+      },
+    });
+  },
+  killedBotName: '',
 
+  killBotOnBotClick: (botName: string) => {
+    const { killBot } = get();
+    if (!killBot.active) return;
+
+    // TODO: AQUI DEBE ESTAR EL POWERUP DE ELIMINAR UN BOT
+    console.log(`El bot ${botName} ha sido eliminado`);
+
+    // Logica de eliminación de bots
+    const bot = get().botBoards.filter((bot) => bot.name !== botName);
+    if (!bot) return;
+
+    set(() => ({
+      botBoards: bot,
+    }));
+
+    // Desactivar power-up
+    set({
+      killBot: {
+        ...killBot,
+        active: false,
+        hasActivated: true,
+        turnsRemaining: 0,
+      },
+      killedBotName: botName,
+    });
+  },
 
   cancelPowerUp(id: number) {
     // set({
@@ -975,6 +1010,8 @@ export const powerUpSlice: StateCreator<
         active: false,
         turnsRemaining: 1,
       },
+
+      killedBotName: ' '
     })
   },
 

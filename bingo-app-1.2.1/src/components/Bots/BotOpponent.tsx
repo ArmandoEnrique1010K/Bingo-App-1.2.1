@@ -23,6 +23,12 @@ export default function BotOpponent({
   const winner = useAppStore((state) => state.winner);
   const slowBots = useAppStore((state) => state.slowBots);
 
+  const killBotOnBotClick = useAppStore((state) => state.killBotOnBotClick)
+
+  // Powerup de eliminar un bot
+  const killBot = useAppStore((state) => state.killBot);
+
+
   // TODO: MEJORAR ESTO, ELIMINAR EL TIMEOUT
   useEffect(() => {
     if (currentTargets.length !== 0) {
@@ -36,9 +42,15 @@ export default function BotOpponent({
 
   return (
     <div
-      className={`flex flex-col items-center bg-gray-700 p-2 rounded-lg shadow-md  ${boards >= 2 ? "col-span-2" : ""
+      className={`${killBot.active ? `hover:bg-gray-500 cursor-pointer` : ""} flex flex-col items-center bg-gray-700 p-2 rounded-lg shadow-md  ${boards >= 2 ? "col-span-2" : ""
         } ${boards < 2 && (nextBoards !== 0 || nextBoards >= 2) ? "col-span-2" : ""
         }`}
+
+      onClick={() => {
+        if (killBot.active) {
+          killBotOnBotClick(name)
+        }
+      }}
     >
       <h2 className="text-lg font-semibold text-gray-200 mb-2">{name}</h2>
       <div className="flex flex-row gap-4">

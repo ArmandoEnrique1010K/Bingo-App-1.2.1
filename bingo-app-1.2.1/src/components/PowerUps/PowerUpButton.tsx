@@ -1,6 +1,6 @@
 import { useAppStore } from "../../store/useAppStore";
 import { CORRECT_SOUND, WRONG_SOUND } from "../../constants/audioSettings";
-import { CROSS_PATTERN, EXTRA_TARGETS, MARK_NEIGHBORING_NUMBERS, SLOW_BOTS, SWAP_NUMBERS, UNMARK_NUMBER_BOT, VIEW_BOARDS_BOT } from "../../constants/powerupConstants";
+import { CROSS_PATTERN, EXTRA_TARGETS, MARK_NEIGHBORING_NUMBERS, REMOVE_BOT, SLOW_BOTS, SWAP_NUMBERS, UNMARK_NUMBER_BOT, VIEW_BOARDS_BOT } from "../../constants/powerupConstants";
 
 type PowerUpButtonProps = {
     id: number;
@@ -30,7 +30,7 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
     const markNeighborgNumbers = useAppStore((state) => state.markNeighborgNumbers)
     const viewAllBotBoards = useAppStore((state) => state.viewAllBotBoards)
     // const randomNumberObjective = useAppStore((state) => state.randomNumberObjective)
-    // const killBot = useAppStore((state) => state.killBot)
+    const killBot = useAppStore((state) => state.killBot)
 
     // Asignar a cada powerup del arreglo la acción y el estado correspondiente
     const activateSlowBots = useAppStore((state) => state.activateSlowBots)
@@ -42,7 +42,7 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
     const activateMarkNeighborgNumbers = useAppStore((state) => state.activateMarkNeighborgNumbers)
     const activateViewAllBotBoards = useAppStore((state) => state.activateViewAllBotBoards)
     // const activateRandomNumberObjective = useAppStore((state) => state.activateRandomNumberObjective)
-    // const activateKillBot = useAppStore((state) => state.activateKillBot)
+    const activateKillBot = useAppStore((state) => state.activateKillBot)
 
     // Asignar la acción correspondiente a cada powerup
     const powerUpsAction =
@@ -53,7 +53,8 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
                         id === CROSS_PATTERN ? activateForceNumberObjectiveCross :
                             id === MARK_NEIGHBORING_NUMBERS ? activateMarkNeighborgNumbers :
                                 id === VIEW_BOARDS_BOT ? activateViewAllBotBoards :
-                                    () => { };
+                                    id === REMOVE_BOT ? activateKillBot :
+                                        () => { };
 
     // Asignar el estado correspondiente a cada powerup
     const powerUpsState =
@@ -64,7 +65,8 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
                         id === CROSS_PATTERN ? forceNumberObjectiveCross :
                             id === MARK_NEIGHBORING_NUMBERS ? markNeighborgNumbers :
                                 id === VIEW_BOARDS_BOT ? viewAllBotBoards :
-                                    { hasActivated: false, active: false, turnsRemaining: 0, type: 'oneTime' };
+                                    id === REMOVE_BOT ? killBot :
+                                        { hasActivated: false, active: false, turnsRemaining: 0, type: 'oneTime' };
 
     const tooglePowerUp = useAppStore((state) => state.togglePowerUp);
 

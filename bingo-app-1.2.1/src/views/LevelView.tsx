@@ -34,6 +34,13 @@ export default function LevelView() {
 
   const boardTimeoutsRef = useRef<{ [key: string]: number }>({}); // ✅ Almacena los timeouts activos
 
+  // Eliminación de bot
+  const killBot = useAppStore((state) => state.killBot);
+  const botBoards = useAppStore((state) => state.botBoards);
+  const killedBotName = useAppStore((state) => state.killedBotName);
+
+  const hasKillAllBot = useAppStore((state) => state.hasKillAllBot);
+
   useEffect(() => {
     if (gameEnded) {
       return;
@@ -124,6 +131,20 @@ export default function LevelView() {
     findNumbersOnBoards(currentTargets);
   }, [currentTargets]);
 
+  useEffect(() => {
+    if (killBot.hasActivated) {
+      console.log('Se ha eliminado un bot, renderizando nuevamente los bots')
+      // Renderizar nuevamente los bots si se ha eliminado uno de ellos
+      botBoards.filter(b => b.name !== killedBotName)
+
+      // SI NO HAY BOTS DISPONIBLES, SE ACABA LA PARTIDA POR TRAMPA
+      if (botBoards.length === 0) {
+        console.log('No hay bots disponibles, se acabo la partida por haber hecho trampa')
+        hasKillAllBot();
+      }
+    }
+  }, [killBot.hasActivated])
+
   return (
     <>
       <div className="text-white flex justify-center" >
@@ -165,17 +186,20 @@ export default function LevelView() {
             {
               // Grupo de los bots
               levelData.bots.map((bot, index) => (
-                <BotOpponent
-                  key={bot.name}
-                  // levelData={dataLevel.level}
-                  interval={bot.interval}
-                  name={bot.name}
-                  // patterns={winnerPatters}
-                  boards={bot.boards}
-                  // Obtiene los tableros del siguiente bot en la lista, o 0 si no hay más
-                  nextBoards={bot.boards ? levelData!.bots[index + 1]?.boards : 0}
-                  botIndex={index}
-                />
+                // No se va a renderizar el bot eliminado
+                bot.name !== killedBotName && (
+                  <BotOpponent
+                    key={bot.name}
+                    // levelData={dataLevel.level}
+                    interval={bot.interval}
+                    name={bot.name}
+                    // patterns={winnerPatters}
+                    boards={bot.boards}
+                    // Obtiene los tableros del siguiente bot en la lista, o 0 si no hay más
+                    nextBoards={bot.boards ? levelData!.bots[index + 1]?.boards : 0}
+                    botIndex={index}
+                  />
+                )
               ))
             }
           </div>

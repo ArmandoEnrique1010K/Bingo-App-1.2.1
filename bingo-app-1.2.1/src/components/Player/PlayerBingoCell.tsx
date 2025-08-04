@@ -31,6 +31,9 @@ export default function PlayerBingoCell({
   // );
   const swapNumbersBoard = useAppStore((state) => state.swapNumbersBoard);
 
+  const forceNumberObjectiveCross = useAppStore((state) => state.forceNumberObjectiveCross);
+  const activateForceNumberObjectiveCrossOnNumberClick = useAppStore((state) => state.activateForceNumberObjectiveCrossOnNumberClick);
+
   const [cellColor, setcellColor] = useState("gray");
 
 
@@ -48,6 +51,10 @@ export default function PlayerBingoCell({
     if (swapNumbersBoard.active) {
 
       selectNumbersFromSwapNumbersBoard({ id: boardId, number, position }, { id: boardId, number, position });
+    }
+
+    if (forceNumberObjectiveCross.active) {
+      activateForceNumberObjectiveCrossOnNumberClick(boardId, number);
     }
 
     selectCell(boardId, number, position);

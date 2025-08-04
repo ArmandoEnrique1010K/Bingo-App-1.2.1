@@ -95,22 +95,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
         newTimeouts.push(timeoutId);
 
       }
-      // for (const [idx, cell] of board.board.entries()) {
-      //   if (get().gameEnded || get().winner !== "none") return;
-
-      //   const dynamicTime = dynamicInterval();
-      //   const time = interval * dynamicTime * (idx + 1);
-      //   // TODO: AQUI PODRIA ESTAR EL PROBLEMA, SUCEDE QUE SI UN BOT TIENE MÁS DE 1 TABLERO, MARCA TODOS LOS NUMEROS OBJETIVOS EN TODOS SUS TABLEROS AL MISMO TIEMPO, DE OTRA FORMA, ENCUENTRA UN NUMERO "X", EVALUA TODOS SUS TABLEROS Y MARCA ESE MISMO NUMERO "X" EN TODOS SUS TABLEROS, LUEGO PASA AL SIGUIENTE NUMERO OBJETIVO ENCONTRADO "Z" Y REPITE EL MISMO PROCEDIMIENTO
-      //   const timeoutId = setTimeout(() => {
-      //     if (get().gameEnded || get().winner !== "none") return;
-
-      //     // ACCIÓN ENCARGADA DE MARCAR EL NUMERO EN LA CEDULA DEL TABLERO
-      //     get().updateBotMarkedCell(name, board.id, cell.number, cell.position);
-      //     get().playSound(CORRECT_BOT_SOUND);
-      //   }, time);
-
-      //   newTimeouts.push(timeoutId);
-      // }
     }
 
     set(state => ({
@@ -207,5 +191,4 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     set({ botTimeoutsMap: {} });
   },
 
-  // TODO: EL BOT SIGUE MARCANDO A PESAR DE QUE NO HAY NUMEROS OBJETIVOS...
 })

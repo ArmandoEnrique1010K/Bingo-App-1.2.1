@@ -1,5 +1,6 @@
 import { useAppStore } from "../../store/useAppStore";
 import { CORRECT_SOUND, WRONG_SOUND } from "../../constants/audioSettings";
+import { CROSS_PATTERN, EXTRA_TARGETS, MARK_NEIGHBORING_NUMBERS, SLOW_BOTS, SWAP_NUMBERS, UNMARK_NUMBER_BOT } from "../../constants/powerupConstants";
 
 type PowerUpButtonProps = {
     id: number;
@@ -24,7 +25,7 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
     const extraTargets = useAppStore((state) => state.extraTargets)
     const unmarkNumberBot = useAppStore((state) => state.unmarkNumberBot)
     const swapNumbersBoard = useAppStore((state) => state.swapNumbersBoard)
-    // const forceCrossPattern = useAppStore((state) => state.forceNumberObjectiveCross)
+    const forceNumberObjectiveCross = useAppStore((state) => state.forceNumberObjectiveCross)
     // const autoMarkBoard = useAppStore((state) => state.automaticMarkBoard)
     const markNeighborgNumbers = useAppStore((state) => state.markNeighborgNumbers)
     // const viewAllBotBoards = useAppStore((state) => state.viewAllBotBoards)
@@ -36,7 +37,7 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
     const activateExtraTargets = useAppStore((state) => state.activateExtraTargets)
     const activateUnmarkNumberBot = useAppStore((state) => state.activateUnmarkNumberBot)
     const activateSwapNumbersBoard = useAppStore((state) => state.activateSwapNumbersBoard)
-    // const activateForceCrossPattern = useAppStore((state) => state.activateForceCrossPattern)
+    const activateForceNumberObjectiveCross = useAppStore((state) => state.activateForceNumberObjectiveCross)
     // const activateAutoMarkBoard = useAppStore((state) => state.activateAutoMarkBoard)
     const activateMarkNeighborgNumbers = useAppStore((state) => state.activateMarkNeighborgNumbers)
     // const activateViewAllBotBoards = useAppStore((state) => state.activateViewAllBotBoards)
@@ -44,10 +45,23 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
     // const activateKillBot = useAppStore((state) => state.activateKillBot)
 
     // Asignar la acción correspondiente a cada powerup
-    const powerUpsAction = id === 1 ? activateSlowBots : id === 2 ? activateExtraTargets : id === 3 ? activateUnmarkNumberBot : id === 4 ? activateSwapNumbersBoard : id === 7 ? activateMarkNeighborgNumbers : () => { };
+    const powerUpsAction =
+        id === SLOW_BOTS ? activateSlowBots :
+            id === EXTRA_TARGETS ? activateExtraTargets :
+                id === UNMARK_NUMBER_BOT ? activateUnmarkNumberBot :
+                    id === SWAP_NUMBERS ? activateSwapNumbersBoard :
+                        id === CROSS_PATTERN ? activateForceNumberObjectiveCross :
+                            id === MARK_NEIGHBORING_NUMBERS ? activateMarkNeighborgNumbers : () => { };
 
     // Asignar el estado correspondiente a cada powerup
-    const powerUpsState = id === 1 ? slowBots : id === 2 ? extraTargets : id === 3 ? unmarkNumberBot : id === 4 ? swapNumbersBoard : id === 7 ? markNeighborgNumbers : { hasActivated: false, active: false, turnsRemaining: 0, type: 'oneTime' };
+    const powerUpsState =
+        id === SLOW_BOTS ? slowBots :
+            id === EXTRA_TARGETS ? extraTargets :
+                id === UNMARK_NUMBER_BOT ? unmarkNumberBot :
+                    id === SWAP_NUMBERS ? swapNumbersBoard :
+                        id === CROSS_PATTERN ? forceNumberObjectiveCross :
+                            id === MARK_NEIGHBORING_NUMBERS ? markNeighborgNumbers :
+                                { hasActivated: false, active: false, turnsRemaining: 0, type: 'oneTime' };
 
     const tooglePowerUp = useAppStore((state) => state.togglePowerUp);
 
@@ -132,12 +146,12 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
 
     return (
         <>
-            <button className={`flex justify-center items-center md:size-16 sm:size-14 size-10 border-none rounded-lg
+            <button className={`flex justify-center items-center xsm:size-12 md:size-16 sm:size-14 size-10 border-none rounded-lg
               cursor-pointer shadow-md shadow-black hover:bg-gray-900 text-${levelData.color}-500 ${applyStyle()} `}
                 onClick={() => handleClickButton(id)} onMouseEnter={() => changeCurrentSelectPowerUp(name, description || '')} onMouseLeave={() => changeCurrentSelectPowerUp('', '')}
             // disabled={powerUpsState.hasActivated}
             >
-                <img className={`size-6 sm:size-8 md:size-10 `} src={icon} alt={name} />
+                <img className={`size-6 xsm:size-8 sm:size-8 md:size-10 `} src={icon} alt={name} />
                 {
                     typeButton === 'round' &&
                     <div className={`absolute -bottom-3 -right-3 z-10 bg-${levelData.color}-500 text-white rounded-full size-6 flex items-center justify-center border-2 border-gray-700`}>{

@@ -154,8 +154,6 @@ export default function LevelView() {
               <MarkedPositionsBoard />
             </div>
             <PlayerBoard />
-            {/* TODO: MOSTRAR LOS POWERUPS */}
-            {/* <ListPowerUps /> */}
 
 
           </div>

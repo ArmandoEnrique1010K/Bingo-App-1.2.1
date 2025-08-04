@@ -1,6 +1,6 @@
 import { useAppStore } from "../../store/useAppStore";
 
-// TODO: MEJORAR ESTO, AÑADIR MÁS POWERUPS
+// TODO: ELIMINAR ESTE COMPONENTE
 export default function ListPowerUps() {
   const activateExtraTargets = useAppStore(
     (state) => state.activateExtraTargets

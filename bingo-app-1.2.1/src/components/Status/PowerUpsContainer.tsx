@@ -18,11 +18,6 @@ export default function PowerUpsContainer() {
     // Obtener los powerups desbloqueados
     const powerUps = powerups.filter((powerUp) => unlockedPowerUpsIds.includes(powerUp.id));
 
-    // const [currentSelectPowerUpName, setCurrentSelectPowerUpName] = useState('')
-    // const [currentSelectPowerUpDescription, setCurrentSelectPowerUpDescription] = useState('')
-    // TODO: INICIALMENTE SE DEBE VERIFICAR SI HAY 3 POWERUPS DESBLOQUEADOS, NO SE DEBE MOSTRAR EL COMPONENTE PARA SELECCIONAR 3 POWERUPS, DE LO CONTRARIO SIEMPRE SE MOSTRARA
-
-
     return (
         <>
             <h2>Seleccione {MAX_POWERUPS} powerups</h2>

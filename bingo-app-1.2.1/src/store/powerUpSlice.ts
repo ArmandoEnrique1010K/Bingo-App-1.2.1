@@ -90,11 +90,8 @@ export type PowerUpSliceType = {
   ) => void;
 
   // // Ver todos los tableros de los bots por 5 turnos
-  // toggleViewAllBotBoards: () => void;
-  // activateViewAllBotBoardsOnNumberClick: (
-  //   boardId: number,
-  //   numberClicked: number
-  // ) => void;
+  activateViewAllBotBoards: () => void;
+  decrementViewAllBotBoardsTurnsRemaining: () => void;
 
   // // Numero aleatorio objetivo
   // toggleRandomNumberObjective: () => void;
@@ -765,6 +762,38 @@ export const powerUpSlice: StateCreator<
     }));
   },
 
+  activateViewAllBotBoards: () => {
+    set({
+      viewAllBotBoards: {
+        ...get().viewAllBotBoards,
+        active: true,
+        turnsRemaining: 5,
+        hasActivated: true,
+      },
+    });
+  },
+
+  decrementViewAllBotBoardsTurnsRemaining: () => {
+    const { viewAllBotBoards } = get();
+    if (viewAllBotBoards.active && viewAllBotBoards.turnsRemaining > 0) {
+      set({
+        viewAllBotBoards: {
+          ...viewAllBotBoards,
+          turnsRemaining: viewAllBotBoards.turnsRemaining - 1,
+        },
+      });
+    } else {
+      // Desactivar power-up si se acaba
+      set({
+        viewAllBotBoards: {
+          ...viewAllBotBoards,
+          active: false,
+          turnsRemaining: 0,
+        },
+      });
+    }
+  },
+
   currentSelectPowerUpName: '',
   currentSelectPowerUpDescription: '',
   changeCurrentSelectPowerUp(name: string, description: string) {
@@ -792,6 +821,7 @@ export const powerUpSlice: StateCreator<
       get().playSound(CORRECT_SOUND)
     }
   },
+
 
 
   cancelPowerUp(id: number) {

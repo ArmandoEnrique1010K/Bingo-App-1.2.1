@@ -177,6 +177,10 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
     if (get().slowBots.active) {
       get().decrementSlowBotsTurnsRemaining();
     }
+
+    if (get().viewAllBotBoards.active) {
+      get().decrementViewAllBotBoardsTurnsRemaining();
+    }
   },
 
   defaultLevelState: () => {

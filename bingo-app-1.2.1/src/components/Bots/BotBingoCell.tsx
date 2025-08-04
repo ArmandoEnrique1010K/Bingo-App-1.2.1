@@ -14,6 +14,8 @@ export default function BotBingoCell({ idBoard, value, botName }: BotBingoCellPr
 
   const unmarkNumberBot = useAppStore((state) => state.unmarkNumberBot);
 
+  // El powerup para ver los numeros de los tableros de los bots
+  const viewAllBotBoards = useAppStore((state) => state.viewAllBotBoards);
 
   const { color } = levelData;
 
@@ -43,7 +45,7 @@ export default function BotBingoCell({ idBoard, value, botName }: BotBingoCellPr
           className={`text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${isMarked ? color : "gray"
             }-500 `}
         >
-          {position === 13 ? "F" : isMarked ? number : ""}
+          {position === 13 ? "F" : isMarked ? number : viewAllBotBoards.active ? number : ""}
         </div>
 
       )

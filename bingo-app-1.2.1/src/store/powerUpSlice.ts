@@ -700,79 +700,7 @@ export const powerUpSlice: StateCreator<
   },
   selectedBoardIdAutomaticMark: 0,
 
-  selectBoardIdAutomaticMark: (boardId: number) => {
-    console.log('Selected board id: ' + boardId)
-    set({
-      selectedBoardIdAutomaticMark: boardId,
-      automaticMarkBoard: {
-        ...get().automaticMarkBoard,
-        type: 'continuous',
-        active: true,
-        turnsRemaining: 5,
-      },
-    });
-    // const previousMarked = get().markedCells;
 
-    // // Buscar si ya existe una entrada con ese boardId
-    // const alreadyMarkedIndex = previousMarked.findIndex((item) => item.id === boardId);
-    const playerBoard = get().playerBoards.find((board) => board.id === boardId);
-    if (!playerBoard) {
-      // Handle the case where no board was found
-      console.error('No board found with id:', boardId);
-      return; // or handle this case appropriately
-    }
-
-
-    get().findAllNumbersObjectiveInBoard(boardId)
-    // // Debe obtener los numeros objetivo actuales
-    // const currentTargets = get().currentTargets;
-
-    // // Debe buscar los numeros objetivo en el tablero del jugador seleccionado, manteniendo los numeros marcados previamente en markedCells
-    // const matched = playerBoard.board.filter((cell) =>
-    //   currentTargets.includes(cell.number)
-    // );
-
-    // console.log(matched)
-
-    // let updatedMarked: typeof previousMarked;
-    // if (alreadyMarkedIndex !== -1) {
-    //   // Si existe, reemplazar el elemento
-    //   updatedMarked = [...previousMarked];
-    //   updatedMarked[alreadyMarkedIndex] = {
-    //     id: boardId,
-    //     board: matched,
-    //   };
-    // } else {
-    //   // Si no existe, añadir nuevo elemento
-    //   updatedMarked = [
-    //     ...previousMarked,
-    //     {
-    //       id: boardId,
-    //       board: matched,
-    //     },
-    //   ];
-    // }
-
-    // // Guardar estado actualizado
-    // set({ markedCells: updatedMarked });
-
-    // DEFINIR LA LOGICA PARA AUTOMARCAR LOS NUMEROS OBJETIVOS EN EL TABLERO SELECCIONADO POR 5 TURNOS
-    // const currentTargets = get().currentTargets;
-    // console.log(currentTargets)
-
-
-
-    // Actualizar markedCells para el tablero seleccionado
-    // set({
-    //   markedCells: [
-    //     ...get().markedCells,
-    //     {
-    //       id: boardId,
-    //       board: matched,
-    //     },
-    //   ]
-    // })
-  },
 
   // Acción para encontrar todos los numeros objetivo en un tablero
   // Debe buscar los numeros objetivo en el tablero del jugador seleccionado, manteniendo los numeros marcados previamente en markedCells
@@ -804,6 +732,31 @@ export const powerUpSlice: StateCreator<
     // Guardar estado actualizado
     // set({ markedCells: updatedMarked });
 
+  },
+  selectBoardIdAutomaticMark: (boardId: number) => {
+    console.log('Selected board id: ' + boardId)
+    set({
+      selectedBoardIdAutomaticMark: boardId,
+      automaticMarkBoard: {
+        ...get().automaticMarkBoard,
+        type: 'continuous',
+        active: true,
+        turnsRemaining: 5,
+      },
+    });
+    // const previousMarked = get().markedCells;
+
+    // // Buscar si ya existe una entrada con ese boardId
+    // const alreadyMarkedIndex = previousMarked.findIndex((item) => item.id === boardId);
+    const playerBoard = get().playerBoards.find((board) => board.id === boardId);
+    if (!playerBoard) {
+      // Handle the case where no board was found
+      console.error('No board found with id:', boardId);
+      return; // or handle this case appropriately
+    }
+
+
+    get().findAllNumbersObjectiveInBoard(boardId)
   },
 
   decrementAutomaticMarkBoardTurnsRemaining: () => {

@@ -10,6 +10,7 @@ export default function PlayerBingoBoard() {
 
   const automaticMarkBoard = useAppStore((state) => state.automaticMarkBoard);
   const selectBoardIdAutomaticMark = useAppStore((state) => state.selectBoardIdAutomaticMark);
+  const selectedBoardIdAutomaticMark = useAppStore((state) => state.selectedBoardIdAutomaticMark);
   // Si el jugador ha intercambiado numeros, debe mostrarse el cambio en la vista del usuario
   useEffect(() => {
     if (swapNumbersBoard.turnsRemaining === 0) {
@@ -28,7 +29,7 @@ export default function PlayerBingoBoard() {
             key={board.id}
             className={`flex flex-row gap-2 sm:p-2 md:p-4 p-2 justify-center items-center ${automaticMarkBoard.active && automaticMarkBoard.type === 'oneTime' ? `hover:bg-gray-500 hover:rounded-xl hover:-mx-1 cursor-pointer` : ''}`}
             onClick={() => {
-              if (automaticMarkBoard.active) {
+              if (automaticMarkBoard.active && selectedBoardIdAutomaticMark === 0) {
                 // console.log('Automatic mark board is active' + board.id)
                 selectBoardIdAutomaticMark(board.id)
               }

@@ -1,7 +1,7 @@
 import { SLOW_BOTS, EXTRA_TARGETS, AUTO_MARK_BOARD, CROSS_PATTERN, MARK_NEIGHBORING_NUMBERS, VIEW_BOARDS_BOT, RANDOM_TARGET, REMOVE_BOT, UNMARK_NUMBER_BOT, SWAP_NUMBERS } from "../constants/powerupConstants";
 
 export const powerups = [
-
+    // TODO: Para cambiar el orden de los powerups, modifica el orden de los elementos
     {
         id: EXTRA_TARGETS,
         name: "Números objetivos extra",

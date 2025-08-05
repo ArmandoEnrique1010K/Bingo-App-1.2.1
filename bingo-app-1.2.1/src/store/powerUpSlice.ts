@@ -82,6 +82,7 @@ export type PowerUpSliceType = {
   activateAutomaticMarkBoard: () => void;
   selectedBoardIdAutomaticMark: number;
   selectBoardIdAutomaticMark: (boardId: number) => void;
+  findAllNumbersObjectiveInBoard: (boardId: number) => void;
   decrementAutomaticMarkBoardTurnsRemaining: () => void;
 
   // toggleAutomaticMarkBoard: () => void;
@@ -706,44 +707,50 @@ export const powerUpSlice: StateCreator<
         turnsRemaining: 5,
       },
     });
-    const previousMarked = get().markedCells;
+    // const previousMarked = get().markedCells;
 
-    // Buscar si ya existe una entrada con ese boardId
-    const alreadyMarkedIndex = previousMarked.findIndex((item) => item.id === boardId);
+    // // Buscar si ya existe una entrada con ese boardId
+    // const alreadyMarkedIndex = previousMarked.findIndex((item) => item.id === boardId);
     const playerBoard = get().playerBoards.find((board) => board.id === boardId);
     if (!playerBoard) {
       // Handle the case where no board was found
       console.error('No board found with id:', boardId);
       return; // or handle this case appropriately
     }
-    const currentTargets = get().currentTargets;
 
-    // Debe buscar los numeros objetivo en el tablero del jugador seleccionado
-    const matched = playerBoard.board.filter((cell) =>
-      currentTargets.includes(cell.number)
-    );
 
-    let updatedMarked: typeof previousMarked;
-    if (alreadyMarkedIndex !== -1) {
-      // Si existe, reemplazar el elemento
-      updatedMarked = [...previousMarked];
-      updatedMarked[alreadyMarkedIndex] = {
-        id: boardId,
-        board: matched,
-      };
-    } else {
-      // Si no existe, añadir nuevo elemento
-      updatedMarked = [
-        ...previousMarked,
-        {
-          id: boardId,
-          board: matched,
-        },
-      ];
-    }
+    get().findAllNumbersObjectiveInBoard(boardId)
+    // // Debe obtener los numeros objetivo actuales
+    // const currentTargets = get().currentTargets;
 
-    // Guardar estado actualizado
-    set({ markedCells: updatedMarked });
+    // // Debe buscar los numeros objetivo en el tablero del jugador seleccionado, manteniendo los numeros marcados previamente en markedCells
+    // const matched = playerBoard.board.filter((cell) =>
+    //   currentTargets.includes(cell.number)
+    // );
+
+    // console.log(matched)
+
+    // let updatedMarked: typeof previousMarked;
+    // if (alreadyMarkedIndex !== -1) {
+    //   // Si existe, reemplazar el elemento
+    //   updatedMarked = [...previousMarked];
+    //   updatedMarked[alreadyMarkedIndex] = {
+    //     id: boardId,
+    //     board: matched,
+    //   };
+    // } else {
+    //   // Si no existe, añadir nuevo elemento
+    //   updatedMarked = [
+    //     ...previousMarked,
+    //     {
+    //       id: boardId,
+    //       board: matched,
+    //     },
+    //   ];
+    // }
+
+    // // Guardar estado actualizado
+    // set({ markedCells: updatedMarked });
 
     // DEFINIR LA LOGICA PARA AUTOMARCAR LOS NUMEROS OBJETIVOS EN EL TABLERO SELECCIONADO POR 5 TURNOS
     // const currentTargets = get().currentTargets;
@@ -763,6 +770,37 @@ export const powerUpSlice: StateCreator<
     // })
   },
 
+  // Acción para encontrar todos los numeros objetivo en un tablero
+  // Debe buscar los numeros objetivo en el tablero del jugador seleccionado, manteniendo los numeros marcados previamente en markedCells
+  // Nota: esta acción sera llamada luego de que se generen los numeros objetivos
+  findAllNumbersObjectiveInBoard: (boardId: number) => {
+    const { playerBoards } = get();
+    const board = playerBoards.find((board) => board.id === boardId);
+    if (!board) {
+      console.error('No board found with id:', boardId);
+      return;
+    }
+    const currentTargets = get().currentTargets;
+    const matched = board.board.filter((cell) =>
+      currentTargets.includes(cell.number)
+    );
+    console.log(matched)
+
+    // let updatedMarked: [] = [];
+
+    // Obtener las celdas marcadas (markedCells), buscar el tablero por el id y solamente modificar ese tablero
+    set({
+      markedCells: get().markedCells.map((board) =>
+        // Solamente debe añadir los numeros objetivos encontrados al tablero seleccionado
+        board.id === boardId ? { ...board, board: [...board.board, ...matched] } : board
+      ),
+    })
+    // const boardMarked = get().markedCells.find((board) => board.id === boardId)?.board
+
+    // Guardar estado actualizado
+    // set({ markedCells: updatedMarked });
+
+  },
 
   decrementAutomaticMarkBoardTurnsRemaining: () => {
     const { automaticMarkBoard } = get();
@@ -869,6 +907,7 @@ export const powerUpSlice: StateCreator<
       markNeighborgNumbers: {
         ...markNeighborgNumbers,
         active: false,
+        hasActivated: true,
         turnsRemaining: 0,
       },
     }));

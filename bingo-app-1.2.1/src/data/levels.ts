@@ -37,7 +37,7 @@ export const levels: Level[] = [
     ],
     color: 'blue',
     music: SLOW,
-    tip: "Felicidades, has completado el nivel 1"
+    tip: "Completa los niveles 2, 5, 8 y asi sucesivamente para desbloquear un nuevo PowerUp."
   },
   {
     level: 2,

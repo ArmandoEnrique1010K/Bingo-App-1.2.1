@@ -166,6 +166,11 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
           // Debe ser reiniciado el numero forzado
           selectedForcedNumberObjective: 0,
         })
+
+        // TODO: ZONA DEL POWERUP DE MARCADO AUTOMATICO
+        if (get().automaticMarkBoard.active) {
+          get().findAllNumbersObjectiveInBoard(get().selectedBoardIdAutomaticMark);
+        }
       }, TARGET_GENERATION_DELAY);
     }
 
@@ -180,6 +185,10 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
 
     if (get().viewAllBotBoards.active) {
       get().decrementViewAllBotBoardsTurnsRemaining();
+    }
+
+    if (get().automaticMarkBoard.active) {
+      get().decrementAutomaticMarkBoardTurnsRemaining();
     }
   },
 

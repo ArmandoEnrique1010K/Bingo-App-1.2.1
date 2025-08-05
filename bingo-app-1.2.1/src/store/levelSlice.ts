@@ -120,12 +120,28 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
         const excluded = get().excludedTargets;
 
 
+        // AÑADIR LA LOGICA PARA EL POWERUP DE NUMERO ALEATORIO OBJETIVO
+        // FORZAR GENERAR EL NUMERO '100'
+
+
+        // ERROR ENCONTRADO: Si ambos powerups estan activos, genera 4 numeros objetivos, deberia generar 3
+        // SOLUCION: 
+        // 
 
         // TODO: AQUI DEBE ESTAR EL POWERUP DEL PATRON DE CRUZ
         // Si hay un número forzado, genera 1 menos
-        const count = forced !== 0
+        // Si hay un numero aleatorio objetivo, genera 1 menos
+        // Si ambos, genera 2 menos
+        let count = forced !== 0 || get().randomNumberObjective.active
           ? (extra ? baseCount + 1 : baseCount - 1)
           : (extra ? baseCount + 2 : baseCount);
+
+        // ERROR ENCONTRADO: Si ambos powerups estan activos, genera 4 numeros objetivos, deberia generar 3
+        // SOLUCION: 
+        // 
+        if (forced !== 0 && get().randomNumberObjective.active) {
+          count -= 1;
+        }
 
         // Si el numero forzado es diferente de 0 (significa que se activo el powerup del patron de cruz y hay un numero forzado)
         // if (get().selectedForcedNumberObjective !== 0) {
@@ -153,7 +169,9 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
           newTargets.push(forced);
         }
 
-
+        if (get().randomNumberObjective.active) {
+          newTargets.push(100);
+        }
         // set({
         //   currentTargets: newTargets,
         //   excludedTargets: [...get().excludedTargets, ...newTargets]
@@ -189,6 +207,10 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
 
     if (get().automaticMarkBoard.active) {
       get().decrementAutomaticMarkBoardTurnsRemaining();
+    }
+
+    if (get().randomNumberObjective.active) {
+      get().decrementRandomNumberObjectiveTurnsRemaining();
     }
   },
 

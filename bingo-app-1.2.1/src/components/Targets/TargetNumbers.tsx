@@ -13,6 +13,8 @@ export default function TargetNumbers() {
 
   const timeoutRef = useRef<number>(1);
 
+  const randomNumberObjective = useAppStore((state) => state.randomNumberObjective)
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function TargetNumbers() {
               key={index}
               className=" sm:w-11 sm:h-11 w-7 h-7 flex items-center justify-center border-2 border-none bg-white text-black font-semibold rounded-full sm:text-lg text-sm shadow-md shadow-black"
             >
-              {n}
+              {randomNumberObjective.hasActivated && n === 100 ? '⭐' : n}
             </div>
           ))}
         </div>

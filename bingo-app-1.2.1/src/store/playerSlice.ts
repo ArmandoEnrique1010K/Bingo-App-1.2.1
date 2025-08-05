@@ -7,6 +7,7 @@ import { FINAL_LEVEL_VICTORY_MODAL, ILEGAL_MODAL, VICTORY_MODAL } from "../const
 import { FINAL_LEVEL } from "../constants/defaultConfigs";
 import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND, DEFEAT_SOUND, ANYMORE_ENDING } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
+import { PowerUpSliceType } from "./powerUpSlice";
 
 export type PlayerSliceType = {
   playerBoards: Boards,
@@ -19,7 +20,7 @@ export type PlayerSliceType = {
   hasKillAllBot: () => void,
 }
 
-export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType & BotSliceType, [], [], PlayerSliceType> = (set, get) => ({
+export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType & BotSliceType & PowerUpSliceType, [], [], PlayerSliceType> = (set, get) => ({
   playerBoards: [],
   markedCells: [],
   currentBoard: { id: 0, board: [] },
@@ -105,8 +106,21 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
       });
 
       get().playSound(CORRECT_SOUND)
+
+      // TODO: ZONA DEL POWERUP NUMERO ALEATORIO
+
+      // Si ninguno de los numeros objetivos encontrados coincide con el numero con el que el usuario hizo clic, se considera
+      // como un numero aleatorio objetivo y se marca
+
     } else {
       get().playSound(WRONG_SOUND)
+
+      // El numero 100 indica que el numero aleatorio (el icono de una estrella)
+      if (get().currentTargets.includes(100)) {
+        // console.log(get().currentTargets)
+        get().selectRandomNumberObjectiveOnBoard(idBoard, number, position)
+      }
+
     }
   },
 

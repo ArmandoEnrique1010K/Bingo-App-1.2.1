@@ -1,18 +1,19 @@
 import { SLOW_BOTS, EXTRA_TARGETS, AUTO_MARK_BOARD, CROSS_PATTERN, MARK_NEIGHBORING_NUMBERS, VIEW_BOARDS_BOT, RANDOM_TARGET, REMOVE_BOT, UNMARK_NUMBER_BOT, SWAP_NUMBERS } from "../constants/powerupConstants";
 
 export const powerups = [
-    {
-        id: SLOW_BOTS,
-        name: "Ralentizar bots",
-        description: "Ralentiza a todos los bots durante 5 turnos",
-        icon: "/images/powerups/slow.svg",
-        details: {}
-    },
+
     {
         id: EXTRA_TARGETS,
         name: "Números objetivos extra",
         description: "Aumenta en 2 los números objetivos generados durante 3 turnos",
         icon: "/images/powerups/two.svg",
+        details: {}
+    },
+    {
+        id: SLOW_BOTS,
+        name: "Ralentizar bots",
+        description: "Ralentiza a todos los bots durante 5 turnos",
+        icon: "/images/powerups/slow.svg",
         details: {}
     },
     {
@@ -60,7 +61,7 @@ export const powerups = [
     {
         id: RANDOM_TARGET,
         name: "Número aleatorio objetivo",
-        description: "Haz clic sobre un número objetivo de tu tablero para que el siguiente numero objetivo sea un numero aleatorio",
+        description: "Puedes marcar 1 número aleatorio de cada uno de tus tableros",
         icon: "/images/powerups/random.svg",
         details: {}
     },

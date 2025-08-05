@@ -7,7 +7,7 @@ import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
 import { MAX_POWERUPS } from "../constants/defaultConfigs";
 import { AudioSliceType } from "./audioSlice";
 import { Boards, DetailsPowerUp, SwapNumberSelected } from "../types";
-import { AUTO_MARK_BOARD, CROSS_PATTERN, MARK_NEIGHBORING_NUMBERS, RANDOM_TARGET, REMOVE_BOT, SWAP_NUMBERS, UNMARK_NUMBER_BOT } from "../constants/powerupConstants";
+import { AUTO_MARK_BOARD, CROSS_PATTERN, MARK_NEIGHBORING_NUMBERS, REMOVE_BOT, SWAP_NUMBERS, UNMARK_NUMBER_BOT } from "../constants/powerupConstants";
 
 export type PowerUpSliceType = {
   // Definición de los powerups
@@ -109,6 +109,10 @@ export type PowerUpSliceType = {
   //   numberClicked: number
   // ) => void;
 
+  activateRandomNumberObjetive: () => void;
+  decrementRandomNumberObjectiveTurnsRemaining: () => void;
+  selectRandomNumberObjectiveOnBoard: (idBoard: number, numberClicked: number, position: number) => void;
+
   // // Eliminar un bot del nivel permanentemente
   activateKillBot: () => void;
   killBotOnBotClick: (
@@ -193,7 +197,7 @@ export const powerUpSlice: StateCreator<
   },
 
   randomNumberObjective: {
-    type: 'oneTime',
+    type: 'continuous',
     hasActivated: false,
     active: false,
     turnsRemaining: 0,
@@ -955,6 +959,14 @@ export const powerUpSlice: StateCreator<
   },
 
 
+  // FUNCIONES RELACIONADAS AL POWERUP #9: Numero aleatorio objetivo
+  // Si el jugador ha pulsado ese botón, en el siguiente turno se generara el número objetivo '100', el cual tiene la funcionalidad de ser forzado a salir en los numeros objetivos
+  // Y si sale ese numero 100, el jugador podra marcar un numero aleatorio de su tablero y contara como si estuviera marcado rompiendo las reglas
+  // Por lo tanto, el jugador podra marcar un numero aleatorio de su tablero y contara como si estuviera marcado rompiendo las reglas
+
+
+
+
   // Función para agregar o quitar powerups
   togglePowerUp(id: number) {
 
@@ -972,6 +984,85 @@ export const powerUpSlice: StateCreator<
       get().playSound(CORRECT_SOUND)
     }
   },
+
+  /// FUNCIONES RELACIONADAS AL POWERUP #9: Numero aleatorio objetivo
+  activateRandomNumberObjetive: () => {
+    set({
+      randomNumberObjective: {
+        ...get().randomNumberObjective,
+        hasActivated: true,
+        active: true,
+        turnsRemaining: 1,
+      },
+    });
+  },
+
+  decrementRandomNumberObjectiveTurnsRemaining: () => {
+    const { randomNumberObjective } = get();
+    if (randomNumberObjective.active && randomNumberObjective.turnsRemaining > 0) {
+      set({
+        randomNumberObjective: {
+          ...randomNumberObjective,
+          turnsRemaining: randomNumberObjective.turnsRemaining - 1,
+        },
+      });
+    } else {
+      // Desactivar power-up si se acaba
+      set({
+        randomNumberObjective: {
+          ...randomNumberObjective,
+          active: false,
+          turnsRemaining: 0,
+        },
+      });
+    }
+  },
+
+  // Función para marcar el numero aleatorio objetivo, el numero 100 equivale a cualquier numero
+  selectRandomNumberObjectiveOnBoard: (idBoard: number, numberClicked: number, position: number) => {
+    console.log('Ha hecho clic en el numero ' + numberClicked + ' del tablero ' + idBoard + ' en la posicion ' + position)
+
+    // AÑADIR ESE NUMERO EN LOS NUMEROS MARCADOS DEL JUGADOR
+    set({
+      markedCells: get().markedCells.map(b => {
+        if (b.id === idBoard) {
+          return {
+            ...b,
+            board: [
+              ...b.board,
+              {
+                position: position,
+                number: numberClicked,
+              }
+            ]
+          }
+        }
+        return b
+      }),
+      currentTargets: get().currentTargets.filter(t => t !== 100),
+    })
+
+    // Nota: Solamente se puede marcar un numero aleatorio una sola vez en un tablero
+
+
+    // Luego de haber hecho clic en cualquier numero
+
+    // Al seleccionar un numero del tablero, que no sea el numero objetivo, se considera como el numero aletorio
+
+    const { randomNumberObjective } = get();
+    if (!randomNumberObjective.active) return;
+
+    // Desactivar el powerup al final
+    set({
+      randomNumberObjective: {
+        ...randomNumberObjective,
+        active: false,
+        hasActivated: true,
+        turnsRemaining: 0,
+      },
+    });
+  },
+
 
   activateKillBot: () => {
     set({
@@ -1074,15 +1165,15 @@ export const powerUpSlice: StateCreator<
         },
       })
     }
-    if (id === RANDOM_TARGET) {
-      set({
-        randomNumberObjective: {
-          ...get().randomNumberObjective,
-          hasActivated: false,
-          active: false,
-        },
-      })
-    }
+    // if (id === RANDOM_TARGET) {
+    //   set({
+    //     randomNumberObjective: {
+    //       ...get().randomNumberObjective,
+    //       hasActivated: false,
+    //       active: false,
+    //     },
+    //   })
+    // }
     if (id === REMOVE_BOT) {
       set({
         killBot: {
@@ -1160,7 +1251,7 @@ export const powerUpSlice: StateCreator<
       },
 
       randomNumberObjective: {
-        type: 'oneTime',
+        type: 'continuous',
         hasActivated: false,
         active: false,
         turnsRemaining: 1,

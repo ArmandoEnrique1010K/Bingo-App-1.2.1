@@ -1039,6 +1039,8 @@ export const powerUpSlice: StateCreator<
         }
         return b
       }),
+
+      // Podria ser una buena opción, eliminar el numero 100 de la lista de numeros objetivo
       currentTargets: get().currentTargets.filter(t => t !== 100),
     })
 

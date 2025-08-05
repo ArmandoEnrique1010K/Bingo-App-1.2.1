@@ -116,7 +116,7 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
       get().playSound(WRONG_SOUND)
 
       // El numero 100 indica que el numero aleatorio (el icono de una estrella)
-      if (get().currentTargets.includes(100)) {
+      if (get().currentTargets.includes(100) && get().currentTargets.map(t => t === 100).includes(true)) {
         // console.log(get().currentTargets)
         get().selectRandomNumberObjectiveOnBoard(idBoard, number, position)
       }

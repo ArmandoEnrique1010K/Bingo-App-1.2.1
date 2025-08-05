@@ -61,7 +61,7 @@ export const powerups = [
     {
         id: RANDOM_TARGET,
         name: "Número aleatorio objetivo",
-        description: "Puedes marcar 1 número aleatorio de cada uno de tus tableros",
+        description: "Luego de activar este powerup, puedes marcar solamente 1 numero aleatorio de tu tablero que no sea un numero objetivo",
         icon: "/images/powerups/random.svg",
         details: {}
     },

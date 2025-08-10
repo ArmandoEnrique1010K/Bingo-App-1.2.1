@@ -38,7 +38,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     set({
       showHelpModal: false,
       showCreditsModal: false,
-      winner: get().listOfBotsWinners.length > 0 ? 'bot' : '',
+      // winner: get().listOfBotsWinners.length > 0 ? 'bot' : '',
+      winner: 'bot',
       modal: DEFEAT_MODAL,
       isStatusModalOpen: true,
       foundCells: [],

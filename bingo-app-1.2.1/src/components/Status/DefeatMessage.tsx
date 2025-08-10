@@ -14,8 +14,8 @@ export default function DefeatMessage({ message }: DefeatMessageProps) {
   const currentRound = useAppStore((state) => state.currentRound);
 
   const firstWinnerBotData = listOfBotsWinners[0] || [];
-  const botName = firstWinnerBotData?.botName || "Desconocido";
-  const boardId = firstWinnerBotData?.boardId || "N/A";
+  const botName = firstWinnerBotData?.botName || "bot_name";
+  const boardId = firstWinnerBotData?.boardId || "board_id";
 
   const winningBoard =
     botBoards

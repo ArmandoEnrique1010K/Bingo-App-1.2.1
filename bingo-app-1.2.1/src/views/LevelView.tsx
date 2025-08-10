@@ -18,6 +18,8 @@ export default function LevelView() {
   const findNumbersOnBoards = useAppStore((state) => state.findNumbersOnBoards);
   const currentTargets = useAppStore((state) => state.currentTargets);
 
+  const botMarkedCells = useAppStore((state) => state.botMarkedCells);
+
   const location = useLocation();
   const checkWinnerPatternBot = useAppStore(
     (state) => state.checkWinnerPatternBot
@@ -25,135 +27,80 @@ export default function LevelView() {
   const declareBotWinnerGame = useAppStore((state) => state.declareBotWinnerGame);
   const winner = useAppStore((state) => state.winner);
 
-  const botMarkedCells = useAppStore((state) => state.botMarkedCells);
 
-  const confirmedWinners = useAppStore((state) => state.confirmedWinners);
+  // const confirmedWinners = useAppStore((state) => state.confirmedWinners);
   const gameEnded = useAppStore((state) => state.gameEnded);
-  const setConfirmedWinner = useAppStore((state) => state.setConfirmedWinner);
+  // const setConfirmedWinner = useAppStore((state) => state.setConfirmedWinner);
   // const declareBotWinner = useAppStore((state) => state.declareBotWinner);
 
-  const boardTimeoutsRef = useRef<{ [key: string]: number }>({}); // ✅ Almacena los timeouts activos
+
 
   // Eliminación de bot
   const killBot = useAppStore((state) => state.killBot);
   const botBoards = useAppStore((state) => state.botBoards);
   const killedBotName = useAppStore((state) => state.killedBotName);
-  // const unmarkNumberBot= useAppStore((state) => state.unmarkNumberBot);
+  const unmarkNumberBot = useAppStore((state) => state.unmarkNumberBot);
   const hasKillAllBot = useAppStore((state) => state.hasKillAllBot);
 
   const listOfBotsWinners = useAppStore((state) => state.listOfBotsWinners);
 
+  const boardTimeoutsRef = useRef<{ [key: string]: number }>({}); // ✅ Almacena los timeouts activos
+
+  // Verifica patrón en cada cambio de celdas marcadas
   useEffect(() => {
-    // Si el juego ha terminado, no es necesario verificar patrones ganadores
-    if (gameEnded) {
-      console.log('El juego ha terminado, no se seguirá evaluando si el bot tiene el patrón ganador')
-      return;
-    }
-
     checkWinnerPatternBot();
+  }, [botMarkedCells]);
 
-    // Verifica si algún bot ha completado un patrón ganador
-    // Retorna un array con información de los bots ganadores o un array vacío si no hay ganadores
-    const winnerInfos = listOfBotsWinners || [];
 
-    // Si no hay bots ganadores, salir de la función
-    if (!winnerInfos.length) return;
+  // Manejo de ganadores bots
+  useEffect(() => {
+    if (gameEnded || !listOfBotsWinners?.length) return;
 
-    // Para cada bot ganador encontrado
-    winnerInfos.forEach((info) => {
-      // Crear una clave única para identificar al bot y su tablero
+    listOfBotsWinners.forEach(info => {
       const key = `${info.botName}-${info.boardId}`;
-      // Tiempo de reacción del bot (cada bot puede tener un tiempo distinto)
       const reactionTime = info.reactionTime;
 
-      // Solo procesar si este bot específico no ha sido declarado ganador antes
-      if (!confirmedWinners[key]) {
-
-        // Marcar este bot como ganador para evitar procesamientos duplicados
-        setConfirmedWinner(info.botName, info.boardId);
-
-        // Configurar un temporizador para la declaración de victoria del bot
-        const timeoutId = setTimeout(() => {
-          // Verificar nuevamente si el juego ha terminado (doble verificación de seguridad)
-          if (gameEnded) {
-            clearTimeout(timeoutId);
-            return;
+      if (!boardTimeoutsRef.current[key]) {
+        const timeoutId = window.setTimeout(() => {
+          if (!gameEnded) {
+            console.log(`🏆 Bot ${info.botName} gana en tablero ${info.boardId}`);
+            declareBotWinnerGame();
+            useAppStore.setState({ gameEnded: true, winner: "bot" });
           }
-
-          // TODO: AQUI DEBERIA EVALUAR SI EL BOT TIENE EL PATRON GANADOR
-          // SI NO LO TIENE, DETENER EL TIMEOUT
-          // if (!listOfBotsWinners.length) {
-          //   clearTimeout(timeoutId);
-          //   return;
-          // }
-
-          console.log(`El bot ${info.botName} grita victoria en el tablero ${info.boardId}`);
-
-          // 1. Marcar el juego como terminado
-          useAppStore.setState({
-            gameEnded: true,
-            winner: "bot"
-          });
-
-          // 2. Ejecutar acciones de victoria del bot
-          console.log(`🏆 ¡El bot ${info.botName} ha ganado! Fin del juego.`);
-          declareBotWinnerGame();
-          // declareBotWinner(info.botName);
-
-          // Limpiar todos los demás timeouts para evitar ejecuciones múltiples
-          Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
-            if (boardTimeoutsRef.current[botKey] !== timeoutId) {
-              clearTimeout(boardTimeoutsRef.current[botKey]);
-            }
-            delete boardTimeoutsRef.current[botKey];
-          });
+          clearTimeout(timeoutId);
         }, reactionTime);
 
-        // Guardar la referencia del timeout para poder cancelarlo si es necesario
         boardTimeoutsRef.current[key] = timeoutId;
       }
     });
-  }, [botMarkedCells, gameEnded]); // Se ejecuta cuando cambian las celdas marcadas por los bots o el estado del juego
+  }, [listOfBotsWinners, gameEnded, unmarkNumberBot.hasActivated]);
 
-  // ✅ Cancela todos los `setTimeout` si el jugador gana
   useEffect(() => {
-    if (winner === "player") {
-      // console.log(
-      //   "🏆 ¡El jugador ha ganado! Cancelando todos los tiempos de espera..."
-      // );
-      Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
-        clearTimeout(boardTimeoutsRef.current[botKey]);
-        delete boardTimeoutsRef.current[botKey];
+    if (unmarkNumberBot.hasActivated) {
+      checkWinnerPatternBot();
+
+      // Cancelar timeouts de bots que ya no estén en la lista de ganadores
+      Object.keys(boardTimeoutsRef.current).forEach(key => {
+        const [botName, boardId] = key.split("-");
+        const sigueGanando = listOfBotsWinners.some(
+          w => w.botName === botName && w.boardId === boardId
+        );
+        if (!sigueGanando) {
+          clearTimeout(boardTimeoutsRef.current[key]);
+          delete boardTimeoutsRef.current[key];
+          console.log(`⏹ Timeout cancelado para bot ${botName} tablero ${boardId}`);
+        }
       });
-
-      useAppStore.setState({ gameEnded: true }); // 🚫 Bloquea futuras evaluaciones
     }
+  }, [unmarkNumberBot.hasActivated]);
 
-    if (winner === "bot" || winner === "end") {
-      // console.log(
-      //   "🏆 ¡El bot ha ganado! Cancelando todos los tiempos de espera..."
-      // );
-      Object.keys(boardTimeoutsRef.current).forEach((botKey) => {
-        clearTimeout(boardTimeoutsRef.current[botKey]);
-        delete boardTimeoutsRef.current[botKey];
-      });
-
-
-      // Solamente si el jugador ha activado el powerup 'desmarcar un numero del tablero del bot'
-      // El bot debera volver a evaluar si tiene el patron ganador
-
-      useAppStore.setState({ gameEnded: true }); // 🚫 Bloquea futuras evaluaciones
+  // Cancelar timers si gana el jugador o finaliza el juego
+  useEffect(() => {
+    if (winner) {
+      Object.values(boardTimeoutsRef.current).forEach(clearTimeout);
+      boardTimeoutsRef.current = {};
     }
-
-    // TODO: EVALUAR ESTO
-    // if (unmarkNumberBot.hasActivated) {
-    //   console.log('El jugador ha desmarcado un numero del tablero del bot')
-    //   console.log('Reevaluando si el bot tiene el patron ganador')
-    //   checkWinnerPatternBot();
-    // }
-
-
-  }, [winner, location.pathname, /*unmarkNumberBot*/]);
+  }, [winner]);
 
   useEffect(() => {
     changeStatusModal(START_LEVEL_MODAL);
@@ -171,17 +118,13 @@ export default function LevelView() {
 
   useEffect(() => {
     if (killBot.hasActivated) {
-      console.log('Se ha eliminado un bot, renderizando nuevamente los bots')
-      // Renderizar nuevamente los bots si se ha eliminado uno de ellos
-      botBoards.filter(b => b.name !== killedBotName)
-
-      // SI NO HAY BOTS DISPONIBLES, SE ACABA LA PARTIDA POR TRAMPA
+      console.log("Se ha eliminado un bot");
       if (botBoards.length === 0) {
-        console.log('No hay bots disponibles, se acabo la partida por haber hecho trampa')
+        console.log("No quedan bots → fin de partida por trampa");
         hasKillAllBot();
       }
     }
-  }, [killBot.hasActivated])
+  }, [killBot.hasActivated]);
 
   return (
     <>

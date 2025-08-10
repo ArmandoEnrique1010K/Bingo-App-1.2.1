@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAppStore } from "../../store/useAppStore";
 import PlayerBingoColumn from "./PlayerBingoColumn";
 // import PlayerBoardControls from "./PlayerBoardControls";
@@ -6,18 +5,18 @@ import PlayerBingoColumn from "./PlayerBingoColumn";
 export default function PlayerBingoBoard() {
   const playerBoards = useAppStore((state) => state.playerBoards);
 
-  const swapNumbersBoard = useAppStore((state) => state.swapNumbersBoard);
+  // const swapNumbersBoard = useAppStore((state) => state.swapNumbersBoard);
 
   const automaticMarkBoard = useAppStore((state) => state.automaticMarkBoard);
   const selectBoardIdAutomaticMark = useAppStore((state) => state.selectBoardIdAutomaticMark);
   const selectedBoardIdAutomaticMark = useAppStore((state) => state.selectedBoardIdAutomaticMark);
   // Si el jugador ha intercambiado numeros, debe mostrarse el cambio en la vista del usuario
-  useEffect(() => {
-    if (swapNumbersBoard.turnsRemaining === 0) {
-      // Actualizar todos los tableros del jugador
-      console.log(playerBoards)
-    }
-  }, [swapNumbersBoard.turnsRemaining])
+  // useEffect(() => {
+  //   if (swapNumbersBoard.turnsRemaining === 0) {
+  //     // Actualizar todos los tableros del jugador
+  //     console.log(playerBoards)
+  //   }
+  // }, [swapNumbersBoard.turnsRemaining])
 
   return (
     <div className="flex flex-col xl:flex-row justify-center gap-4 sm:mx-0 mx-auto pr-1 pl-1 w-full bg-gray-700 rounded-xl max-w-[71rem]"

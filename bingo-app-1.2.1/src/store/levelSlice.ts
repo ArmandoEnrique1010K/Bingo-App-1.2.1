@@ -40,7 +40,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
   currentRound: 0,
   currentTargets: [],
   excludedTargets: [],
-  gameEnded: true,
+  gameEnded: false,
   winner: "",
   unlockedPowerUpsIds: [],
   // Si el numero de powerups desbloqueados es menor que 3, se seleccionan todos los powerups desbloqueados, de lo contrario no se seleccionan ninguno, el jugador debera seleccionar los powerups
@@ -229,6 +229,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       currentBoard: { id: 0, board: [] },
       confirmedWinners: {},
       gameEnded: true,
+      listOfBotsWinners: [],
       foundCells: [],
       botMarkedCells: [],
       selectedPowerUpsIds: [],
@@ -293,6 +294,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       isStatusModalOpen: true,
       modal: START_LEVEL_MODAL,
       confirmedWinners: {},
+      listOfBotsWinners: [],
       // Al resetear el nivel, se debe establecer en false el estado de fin del juego
       gameEnded: false,
       foundCells: [],

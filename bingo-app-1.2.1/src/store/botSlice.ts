@@ -15,13 +15,14 @@ export type BotSliceType = {
   botTimeoutsMap: Record<string, number[]>,
   confirmedWinners: { [key: string]: boolean };
 
-  botWinner: () => void,
+  listOfBotsWinners: BotsWinners,
+  declareBotWinnerGame: () => void,
   selectBotCell: (name: string, interval: number) => void
-  checkWinnerPatternBot: () => BotsWinners
+  checkWinnerPatternBot: () => void
   updateBotMarkedCell: (name: string, id: string, number: number, position: number) => void
   findNumbersOnBoards: (numbers: number[]) => void
   setConfirmedWinner: (botId: string, boardId: string) => void;
-  declareBotWinner: (botId: string) => void;
+  // declareBotWinner: (botId: string) => void;
   resetBotTimeouts: () => void
 };
 
@@ -32,11 +33,12 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
   botTimeoutsMap: {} as Record<string, number[]>,
   confirmedWinners: {},
 
-  botWinner: () => {
+  listOfBotsWinners: [],
+  declareBotWinnerGame: () => {
     set({
       showHelpModal: false,
       showCreditsModal: false,
-      winner: get().checkWinnerPatternBot() !== null ? 'bot' : '',
+      winner: get().listOfBotsWinners.length > 0 ? 'bot' : '',
       modal: DEFEAT_MODAL,
       isStatusModalOpen: true,
       foundCells: [],
@@ -105,30 +107,58 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     }));
   },
 
+  // Acción para verificar si el bot ha encontrado un patrón,
+  // Si ha encontrado, debe agregarlo a la lista de ganadores
   checkWinnerPatternBot: () => {
     const levelData = get().levelData;
     const patterns = levelData.patterns;
     const botSelected = get().botMarkedCells;
-    const winners = [];
+    const currentWinners = get().listOfBotsWinners;
 
+    // Primero, verificamos los ganadores actuales
+    const validWinners = currentWinners.filter(winner => {
+      const bot = botSelected.find(b => b.name === winner.botName);
+      if (!bot) return false;
+
+      const board = bot.boards.find(b => b.id === winner.boardId);
+      if (!board) return false;
+
+      const markedPositions = board.board.map(cell => cell.position);
+      return patterns.some(pattern =>
+        pattern.every(pos => markedPositions.includes(pos))
+      );
+    });
+
+    // Luego, buscamos nuevos ganadores
+    const newWinners: BotsWinners = [];
     for (const bot of botSelected) {
       for (const board of bot.boards) {
         const markedPositions = board.board.map(cell => cell.position);
-        for (const pattern of patterns) {
-          if (pattern.every(pos => markedPositions.includes(pos))) {
-            winners.push({
+        const hasWinningPattern = patterns.some(pattern =>
+          pattern.every(pos => markedPositions.includes(pos))
+        );
+
+        if (hasWinningPattern) {
+          const alreadyWinner = validWinners.some(
+            w => w.botName === bot.name && w.boardId === board.id
+          );
+
+          if (!alreadyWinner) {
+            newWinners.push({
               botName: bot.name,
               boardId: board.id,
               markedCells: board.board,
               reactionTime: levelData.bots.find(b => b.name === bot.name)?.reactionTime || 0
             });
           }
-
         }
       }
     }
 
-    return winners;
+    // Actualizamos el estado una sola vez con todos los cambios
+    if (newWinners.length > 0 || validWinners.length !== currentWinners.length) {
+      set({ listOfBotsWinners: [...validWinners, ...newWinners] });
+    }
   },
 
   updateBotMarkedCell: (name, id, number, position) => {
@@ -169,6 +199,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
 
   setConfirmedWinner: (botId, boardId) => {
+
+    console.log(`Estableciendo ganador del bot ${botId} porque tiene el patrón objetivo en el tablero ${boardId}`)
     set((state) => {
       const key = `${botId}-${boardId}`;
       if (!state.confirmedWinners[key] && !state.gameEnded) {
@@ -178,12 +210,11 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     });
   },
 
-  declareBotWinner: (botId) => {
-    set(() => ({
-      gameEnded: true,
-    }));
-    console.log(`🏆 ¡El bot ${botId} ha ganado! Fin del juego.`);
-  },
+  // declareBotWinner: (botId) => {
+  //   set(() => ({
+  //     gameEnded: true,
+  //   }));
+  // },
 
   resetBotTimeouts: () => {
     const all = get().botTimeoutsMap;

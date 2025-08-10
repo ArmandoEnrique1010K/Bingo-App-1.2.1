@@ -8,13 +8,12 @@ type DefeatMessageProps = {
 
 export default function DefeatMessage({ message }: DefeatMessageProps) {
   const levelData = useAppStore((state) => state.levelData);
-  const checkWinnerPatternBot = useAppStore(
-    (state) => state.checkWinnerPatternBot
-  );
+  const listOfBotsWinners = useAppStore((state) => state.listOfBotsWinners);
+
   const botBoards = useAppStore((state) => state.botBoards);
   const currentRound = useAppStore((state) => state.currentRound);
 
-  const firstWinnerBotData = checkWinnerPatternBot()[0] || [];
+  const firstWinnerBotData = listOfBotsWinners[0] || [];
   const botName = firstWinnerBotData?.botName || "Desconocido";
   const boardId = firstWinnerBotData?.boardId || "N/A";
 

@@ -73,26 +73,71 @@ export default function LevelView() {
         boardTimeoutsRef.current[key] = timeoutId;
       }
     });
-  }, [listOfBotsWinners, gameEnded, unmarkNumberBot.hasActivated]);
+  }, [listOfBotsWinners, gameEnded]);
 
   useEffect(() => {
-    if (unmarkNumberBot.hasActivated) {
+    if (unmarkNumberBot.hasActivated === true) {
       checkWinnerPatternBot();
+      console.log('El jugador ha desmarcado un numero del tablero del bot, volviendo a evaluar si el bot tiene el patron ganador')
 
       // Cancelar timeouts de bots que ya no estén en la lista de ganadores
       Object.keys(boardTimeoutsRef.current).forEach(key => {
-        const [botName, boardId] = key.split("-");
+        // console.log(key)
+        // Ejemplo: "Strategic-Bot-1-Board-1-1";
+        const parts = key.split("-");
+
+        // botName: Strategic-Bot-1 (primeros 3 elementos)
+        const botName = parts.slice(0, 3).join("-");
+
+        // boardId: Board-1-1 (últimos 3 elementos)
+        const boardId = parts.slice(3).join("-");
+
         const sigueGanando = listOfBotsWinners.some(
           w => w.botName === botName && w.boardId === boardId
         );
         if (!sigueGanando) {
+          console.log(`El bot ${botName} ya no tiene el patron ganador, cancelando timeout`)
           clearTimeout(boardTimeoutsRef.current[key]);
           delete boardTimeoutsRef.current[key];
           console.log(`⏹ Timeout cancelado para bot ${botName} tablero ${boardId}`);
         }
       });
     }
-  }, [unmarkNumberBot.hasActivated]);
+  }, [unmarkNumberBot.hasActivated, listOfBotsWinners]);
+
+  useEffect(() => {
+    if (killBot.hasActivated === true) {
+      checkWinnerPatternBot();
+      console.log('El jugador ha eliminado un bot, volviendo a evaluar si el bot tiene el patron ganador')
+
+      // Cancelar timeouts de bots que ya no estén en la lista de ganadores
+      Object.keys(boardTimeoutsRef.current).forEach(key => {
+        // console.log(key)
+        // Ejemplo: "Strategic-Bot-1-Board-1-1";
+        const parts = key.split("-");
+
+        // botName: Strategic-Bot-1 (primeros 3 elementos)
+        const botName = parts.slice(0, 3).join("-");
+
+        // boardId: Board-1-1 (últimos 3 elementos)
+        const boardId = parts.slice(3).join("-");
+
+        const sigueGanando = listOfBotsWinners.some(
+          w => w.botName === botName && w.boardId === boardId
+        );
+        if (!sigueGanando) {
+          console.log(`El bot ${botName} se ha eliminado, cancelando timeout`)
+          clearTimeout(boardTimeoutsRef.current[key]);
+          delete boardTimeoutsRef.current[key];
+          console.log(`⏹ Timeout cancelado para bot ${botName} tablero ${boardId}`);
+        }
+      });
+    }
+
+  }, [killBot.hasActivated, listOfBotsWinners])
+
+
+
 
   // Cancelar timers si gana el jugador o finaliza el juego
   useEffect(() => {

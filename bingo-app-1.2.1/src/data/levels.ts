@@ -40,19 +40,6 @@ export const levels: Level[] = [
         boards: 1,
         reactionTime: 6000
       },
-      {
-        name: generateBotName(2200, 3),
-        interval: 100,
-        boards: 1,
-        reactionTime: 6000
-      },
-      {
-        name: generateBotName(2200, 4),
-        interval: 100,
-        boards: 1,
-        reactionTime: 6000
-      },
-
     ],
     color: 'blue',
     music: SLOW,

@@ -2,7 +2,7 @@ import { StateCreator } from "zustand";
 import { LevelSliceType } from "./levelSlice";
 import { AudioSliceType } from "./audioSlice";
 import { GameSliceType } from "./gameSlice";
-import { BotBoards, BotsWinners, } from "../types";
+import { BotBoard, BotBoards, BotsWinners, } from "../types";
 import { CORRECT_BOT_SOUND, DEFEAT_SOUND, ANYMORE_ENDING, } from "../constants/audioSettings";
 import { dynamicInterval } from "../utils/dynamicInterval";
 import { DEFEAT_MODAL } from '../constants/statusModalsText';
@@ -111,54 +111,61 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
   // Acción para verificar si el bot ha encontrado un patrón,
   // Si ha encontrado, debe agregarlo a la lista de ganadores
   checkWinnerPatternBot: () => {
-    const levelData = get().levelData;
-    const patterns = levelData.patterns;
-    const botSelected = get().botMarkedCells;
-    const currentWinners = get().listOfBotsWinners;
+    const { levelData, botMarkedCells, listOfBotsWinners, killedBotName } = get();
+    const { patterns, bots: levelBots } = levelData;
 
-    // Primero, verificamos los ganadores actuales
-    const validWinners = currentWinners.filter(winner => {
-      const bot = botSelected.find(b => b.name === winner.botName);
+    const hasWinningPattern = (board: BotBoard) => {
+      const markedPositions = board.board.map(cell => cell.position);
+      return patterns.some(pattern =>
+        pattern.every(pos => markedPositions.includes(pos))
+      );
+    };
+
+    // 1️⃣ Filtrar ganadores actuales válidos
+    let finalWinners = listOfBotsWinners.filter(winner => {
+      const bot = botMarkedCells.find(b => b.name === winner.botName);
       if (!bot) return false;
 
       const board = bot.boards.find(b => b.id === winner.boardId);
       if (!board) return false;
 
-      const markedPositions = board.board.map(cell => cell.position);
-      return patterns.some(pattern =>
-        pattern.every(pos => markedPositions.includes(pos))
-      );
+      const botStillExists = levelBots.some(b => b.name === bot.name);
+      return botStillExists && hasWinningPattern(board);
     });
 
-    // Luego, buscamos nuevos ganadores
-    const newWinners: BotsWinners = [];
-    for (const bot of botSelected) {
+    // 2️⃣ Agregar nuevos ganadores que no estén ya en la lista
+    for (const bot of botMarkedCells) {
       for (const board of bot.boards) {
-        const markedPositions = board.board.map(cell => cell.position);
-        const hasWinningPattern = patterns.some(pattern =>
-          pattern.every(pos => markedPositions.includes(pos))
-        );
-
-        if (hasWinningPattern) {
-          const alreadyWinner = validWinners.some(
+        if (hasWinningPattern(board)) {
+          const alreadyWinner = finalWinners.some(
             w => w.botName === bot.name && w.boardId === board.id
           );
 
           if (!alreadyWinner) {
-            newWinners.push({
+            finalWinners.push({
               botName: bot.name,
               boardId: board.id,
               markedCells: board.board,
-              reactionTime: levelData.bots.find(b => b.name === bot.name)?.reactionTime || 0
+              reactionTime:
+                levelBots.find(b => b.name === bot.name)?.reactionTime || 0
             });
           }
         }
       }
     }
 
-    // Actualizamos el estado una sola vez con todos los cambios
-    if (newWinners.length > 0 || validWinners.length !== currentWinners.length) {
-      set({ listOfBotsWinners: [...validWinners, ...newWinners] });
+    // 3️⃣ Si hay un bot eliminado, quitarlo
+    if (killedBotName && killedBotName.length > 0) {
+      finalWinners = finalWinners.filter(w => !killedBotName.includes(w.botName));
+    }
+
+    // 4️⃣ Hacer un único set si hay cambios reales
+    const hasChanged =
+      finalWinners.length !== listOfBotsWinners.length ||
+      finalWinners.some((w, i) => w.botName !== listOfBotsWinners[i]?.botName);
+
+    if (hasChanged) {
+      set({ listOfBotsWinners: finalWinners });
     }
   },
 

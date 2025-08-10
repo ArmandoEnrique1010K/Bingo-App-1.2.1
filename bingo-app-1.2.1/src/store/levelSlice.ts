@@ -93,6 +93,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
     get().playSound(CLICK_SOUND)
   },
 
+  // El juego se termina si no hay más turnos
   noMoreRoundModal: () => {
     set({
       gameEnded: true,
@@ -292,6 +293,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       isStatusModalOpen: true,
       modal: START_LEVEL_MODAL,
       confirmedWinners: {},
+      // Al resetear el nivel, se debe establecer en false el estado de fin del juego
       gameEnded: false,
       foundCells: [],
       markedCells: initialSelectedNumbersAndPositions,

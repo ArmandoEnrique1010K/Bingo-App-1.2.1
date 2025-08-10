@@ -38,15 +38,17 @@ export default function LevelView() {
   const killBot = useAppStore((state) => state.killBot);
   const botBoards = useAppStore((state) => state.botBoards);
   const killedBotName = useAppStore((state) => state.killedBotName);
-
+  // const unmarkNumberBot= useAppStore((state) => state.unmarkNumberBot);
   const hasKillAllBot = useAppStore((state) => state.hasKillAllBot);
 
   useEffect(() => {
     if (gameEnded) {
+      // Si el juego ha terminado, debe salir de aqui
+      console.log('El juego ha terminado, no se seguira evaluando si el bot tiene el patron ganador')
       return;
     }
 
-    const winnerInfos = checkWinnerPatternBot() || [];
+    let winnerInfos = checkWinnerPatternBot() || [];
     if (!winnerInfos.length) return;
 
     winnerInfos.forEach((info) => {
@@ -62,13 +64,37 @@ export default function LevelView() {
         // );
 
         setConfirmedWinner(info.botName, info.boardId);
-        // confirmedWinners[key] = reactionTime;
 
         const timeoutId = setTimeout(() => {
           // if (winner === "bot" || winner === "end" || winner === "player")
           //   return;
           if (gameEnded) return;
 
+          // TODO: DEBE VOLVER A EVALUAR SI EL BOT TIENE EL PATRON GANADOR
+          // if (!checkWinnerPatternBot()) {
+          //   console.log('EL BOT ESTA ANULADO')
+          //   return;
+          // }
+
+          // if (checkWinnerPatternBot()) {
+          //   console.log('EL BOT NO ESTA ANULADO')
+          // }
+
+          // MEJORAR LA LOGICA DE VICTORIA, SI NO HAY UN GANADOR, DEBERIA VOLVER A EVALUAR
+          if (winner !== "bot") {
+            checkWinnerPatternBot();
+            console.log('CANCELANDO VICTORIA DEL BOT')
+            winnerInfos = [];
+            return;
+          };
+
+          // if (winnerInfos.length !== 0) {
+          //   console.log('CANCELANDO VICTORIA DEL BOT')
+          //   winnerInfos = [];
+          // }
+
+
+          console.log('El bot grita victoria')
           botWinner(); // 🚀 Declara ganador
           declareBotWinner(info.botName); // 🚫 Bloquea evaluaciones futuras
 
@@ -113,9 +139,22 @@ export default function LevelView() {
         delete boardTimeoutsRef.current[botKey];
       });
 
+
+      // Solamente si el jugador ha activado el powerup 'desmarcar un numero del tablero del bot'
+      // El bot debera volver a evaluar si tiene el patron ganador
+
       useAppStore.setState({ gameEnded: true }); // 🚫 Bloquea futuras evaluaciones
     }
-  }, [winner, location.pathname]);
+
+    // TODO: EVALUAR ESTO
+    // if (unmarkNumberBot.hasActivated) {
+    //   console.log('El jugador ha desmarcado un numero del tablero del bot')
+    //   console.log('Reevaluando si el bot tiene el patron ganador')
+    //   checkWinnerPatternBot();
+    // }
+
+
+  }, [winner, location.pathname, /*unmarkNumberBot*/]);
 
   useEffect(() => {
     changeStatusModal(START_LEVEL_MODAL);

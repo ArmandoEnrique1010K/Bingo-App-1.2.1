@@ -112,6 +112,7 @@ export type PowerUpSliceType = {
   activateRandomNumberObjetive: () => void;
   decrementRandomNumberObjectiveTurnsRemaining: () => void;
   selectRandomNumberObjectiveOnBoard: (idBoard: number, numberClicked: number, position: number) => void;
+  playerHasMarkedRandomNumberObjective: boolean;
 
   // // Eliminar un bot del nivel permanentemente
   activateKillBot: () => void;
@@ -971,6 +972,8 @@ export const powerUpSlice: StateCreator<
     }
   },
 
+  playerHasMarkedRandomNumberObjective: false,
+
   // Función para marcar el numero aleatorio objetivo, el numero 100 equivale a cualquier numero
   selectRandomNumberObjectiveOnBoard: (idBoard: number, numberClicked: number, position: number) => {
     console.log('Ha hecho clic en el numero ' + numberClicked + ' del tablero ' + idBoard + ' en la posicion ' + position)
@@ -994,7 +997,8 @@ export const powerUpSlice: StateCreator<
       }),
 
       // Podria ser una buena opción, eliminar el numero 100 de la lista de numeros objetivo
-      currentTargets: get().currentTargets.filter(t => t !== 100),
+      playerHasMarkedRandomNumberObjective: true,
+      // currentTargets: get().currentTargets.filter(t => t !== 100),
     })
 
     // Nota: Solamente se puede marcar un numero aleatorio una sola vez en un tablero

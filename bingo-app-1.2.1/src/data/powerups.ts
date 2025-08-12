@@ -10,10 +10,10 @@ export const powerups = [
         details: {}
     },
     {
-        id: SLOW_BOTS,
-        name: "Ralentizar bots",
-        description: "Ralentiza a todos los bots durante 5 turnos",
-        icon: "/images/powerups/slow.svg",
+        id: CROSS_PATTERN,
+        name: "Forzar un patrón de cruz",
+        description: "Haz clic sobre un número de tu tablero para que el siguiente numero objetivo sea uno de los numeros que aparecen tanto en la misma fila como en la misma columna",
+        icon: "/images/powerups/cross.svg",
         details: {}
     },
     {
@@ -24,24 +24,17 @@ export const powerups = [
         details: {}
     },
     {
+        id: SLOW_BOTS,
+        name: "Ralentizar bots",
+        description: "Ralentiza a todos los bots durante 5 turnos",
+        icon: "/images/powerups/slow.svg",
+        details: {}
+    },
+    {
         id: SWAP_NUMBERS,
         name: "Intercambiar posiciones",
         description: "Haz clic sobre dos números de tu tablero para intercambiar las posiciones",
         icon: "/images/powerups/swap.svg",
-        details: {}
-    },
-    {
-        id: CROSS_PATTERN,
-        name: "Forzar un patrón de cruz",
-        description: "Haz clic sobre un número de tu tablero para que el siguiente numero objetivo sea uno de los numeros que aparecen tanto en la misma fila como en la misma columna",
-        icon: "/images/powerups/cross.svg",
-        details: {}
-    },
-    {
-        id: AUTO_MARK_BOARD,
-        name: "Automarcar un tablero",
-        description: "Haz clic sobre uno de tus tableros para automarcarlo por 5 turnos",
-        icon: "/images/powerups/gear.svg",
         details: {}
     },
     {
@@ -52,8 +45,15 @@ export const powerups = [
         details: {}
     },
     {
+        id: AUTO_MARK_BOARD,
+        name: "Automarcar un tablero",
+        description: "Haz clic sobre uno de tus tableros para automarcarlo por 5 turnos",
+        icon: "/images/powerups/gear.svg",
+        details: {}
+    },
+    {
         id: VIEW_BOARDS_BOT,
-        name: "Ver todos los tableros de los bots",
+        name: "Clarividencia",
         description: "Durante 5 turnos tu podras ver los números ocultos de los tableros de los bots",
         icon: "/images/powerups/eye.svg",
         details: {}

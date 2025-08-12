@@ -66,7 +66,7 @@ export const levels: Level[] = [
     ],
     color: 'blue',
     music: TAP,
-    tip: "Completa los niveles 2, 5, 8 y asi sucesivamente para desbloquear un nuevo PowerUp."
+    tip: "Puedes aumentar los números objetivo generados a 5 durante 3 turnos con el PowerUp `Números objetivo extra`"
   },
   {
     level: 3,
@@ -135,6 +135,39 @@ export const levels: Level[] = [
   },
   {
     level: 5,
+    targetText: "Rectangulo de 2 x 4 números",
+    boards: 1,
+    patterns: [
+      [1, 2, 3, 4, 6, 7, 8, 9],
+      [6, 7, 8, 9, 11, 12, 13, 14],
+      [11, 12, 13, 14, 16, 17, 18, 19],
+      [16, 17, 18, 19, 21, 22, 23, 24],
+      [2, 3, 4, 5, 7, 8, 9, 10],
+      [7, 8, 9, 10, 12, 13, 14, 15],
+      [12, 13, 14, 15, 17, 18, 19, 20],
+      [17, 18, 19, 20, 22, 23, 24, 25],
+    ],
+    bots: [
+      {
+        name: generateBotName(1900, 1),
+        interval: 1900,
+        boards: 1,
+        reactionTime: 6000
+      },
+      {
+        name: generateBotName(2200, 2),
+        interval: 2200,
+        boards: 1,
+        reactionTime: 6000
+      }
+    ],
+    color: 'blue',
+    music: TAP,
+    // tip: "Si te hace falta marcar un número del tablero, puedes intercambiar 2 números de tu tablero con el PowerUp `Intercambiar posiciones`"
+    tip: "Al activar el powerup `Forzar un patrón de cruz`, selecciona un número no marcado de tu tablero para que el siguiente número objetivo sea uno de los números que aparecen tanto en la misma fila como en la misma columna"
+  },
+  {
+    level: 6,
     targetText: "Simbolo de potencia",
     boards: 1,
     patterns: [
@@ -147,42 +180,42 @@ export const levels: Level[] = [
         name: generateBotName(1600, 1),
         interval: 1600,
         boards: 1,
-        reactionTime: 6000
-      },
-    ],
-    color: 'blue',
-    music: TAP,
-    tip: "Ten en cuenta que si aumentas los numeros objetivos generados, los bots tambien tendrán más números que marcar"
-  },
-
-  {
-    level: 6,
-    targetText: "Simbolo de exclamación",
-    boards: 1,
-    patterns: [
-      [1, 2, 3, 5],
-      [6, 7, 8, 10],
-      [11, 12, 13, 15],
-      [16, 17, 18, 20],
-      [21, 22, 23, 25],
-      [1, 3, 4, 5],
-      [6, 8, 9, 10],
-      [11, 13, 14, 15],
-      [16, 18, 19, 20],
-      [21, 23, 24, 25],
-    ],
-    bots: [
-      {
-        name: generateBotName(1300, 1),
-        interval: 1300,
-        boards: 1,
         reactionTime: 5500
       },
     ],
     color: 'cyan',
     music: SELFLESS,
-    tip: "En algunos niveles tu tienes 2 tableros para jugar, solamente debes formar el patrón objetivo en uno de los tableros"
+    tip: "En algunos niveles se te puede asignar 2 tableros de Bingo, el objetivo es formar el patrón objetivo en uno de los tableros"
+    // tip: "Algunos niveles pueden tener un número reducido de las posibles combinaciones del patrón objetivo, asimismo puede tener 1 solo patrón objetivo"
+    // tip: "Ten en cuenta que si aumentas los numeros objetivos generados, los bots tambien tendrán más números que marcar"
   },
+  // {
+  //   level: 6,
+  //   targetText: "Simbolo de exclamación",
+  //   boards: 1,
+  //   patterns: [
+  //     [1, 2, 3, 5],
+  //     [6, 7, 8, 10],
+  //     [11, 12, 13, 15],
+  //     [16, 17, 18, 20],
+  //     [21, 22, 23, 25],
+  //     [1, 3, 4, 5],
+  //     [6, 8, 9, 10],
+  //     [11, 13, 14, 15],
+  //     [16, 18, 19, 20],
+  //     [21, 23, 24, 25],
+  //   ],
+  //   bots: [
+  //     {
+  //       name: generateBotName(1300, 1),
+  //       interval: 1300,
+  //       boards: 1,
+  //       reactionTime: 5500
+  //     },
+  //   ],
+  //   color: 'cyan',
+  //   music: SELFLESS,
+  // },
 
   {
     level: 7,
@@ -213,7 +246,7 @@ export const levels: Level[] = [
     ],
     color: 'cyan',
     music: SLOW,
-    tip: ""
+    tip: "Un bot también puede tener 2 tableros, recuerda que el ganador es el primero en formar el patrón objetivo en uno de sus tableros"
   },
   {
     level: 8,
@@ -237,7 +270,8 @@ export const levels: Level[] = [
     ],
     color: 'cyan',
     music: MOONLIGHT,
-    tip: "Por alguna extraña razón, al comparar los números de los 2 tableros, ¡pueden haber números en la misma posición!"
+    // tip: "Por alguna extraña razón, al comparar los números de los 2 tableros, ¡pueden haber números en la misma posición!"
+    tip: "Para evitar que un bot se declare ganador, puedes desmarcar un número marcado de su tablero activando el powerup `Desmarcar un número de un bot`"
   },
   {
     level: 9,
@@ -344,7 +378,7 @@ export const levels: Level[] = [
     ],
     color: 'emerald',
     music: MOUNTAIN,
-    tip: "Elige tus powerups antes de empezar un nivel, ¿podras desbloquear todos los powerups?"
+    tip: "A partir de ahora, tu podras elegir tus powerups antes de empezar un nivel, ¿lograras desbloquear todos los powerups del juego como el powerup `Ralentizar bots`?"
   },
   {
     level: 12,
@@ -459,7 +493,7 @@ export const levels: Level[] = [
     ],
     color: 'emerald',
     music: MOUNTAIN,
-    tip: ""
+    tip: "Si te hace falta marcar un número del tablero, puedes intercambiar 2 números (uno marcado y otro no marcado) de tu tablero con el PowerUp `Intercambiar posiciones`"
   },
   {
     level: 15,
@@ -639,7 +673,7 @@ export const levels: Level[] = [
     ],
     color: 'lime',
     music: SELFLESS,
-    tip: ""
+    tip: "Si 'X' es un número objetivo que se encuentra en tu tablero, puedes utilizar el powerup `Marcar numeros vecinos` para marcar los números de la forma 'X-2', 'X-1', 'X+1' y 'X+2'"
   },
   {
     level: 18,
@@ -774,7 +808,7 @@ export const levels: Level[] = [
     ],
     color: 'lime',
     music: LIVE,
-    tip: "¿Qué estrategia utilizarias si tu pudieras ver los números de los tableros de los bots?"
+    tip: "Automatiza el marcado de números de tu tablero durante 5 turnos con el powerup `Automarcar un tablero`"
   },
   {
     level: 21,
@@ -865,7 +899,8 @@ export const levels: Level[] = [
     ],
     color: 'amber',
     music: TAP,
-    tip: "Una varita magica es el objeto más poderoso que hay en el juego, podrias usarla para marcar los números vecinos"
+    // tip: "Una varita magica es el objeto más poderoso que hay en el juego, podrias usarla para marcar los números vecinos"
+    tip: ""
   },
 
   {
@@ -907,7 +942,9 @@ export const levels: Level[] = [
     ],
     color: 'amber',
     music: FRIENDS,
-    tip: "Puedes automatizar el marcado de los números de uno de tus tableros con un simple powerup"
+    // tip: "Puedes automatizar el marcado de los números de uno de tus tableros con un simple powerup"
+    // tip: "Una varita magica es el objeto más poderoso que hay en el juego, podrias usarla para marcar los números vecinos"
+    tip: "¿Qué estrategia utilizarias si tu pudieras ver los números de los tableros de los bots durante 5 turnos con el powerup `Clarividencia`?"
   },
 
   {
@@ -1031,7 +1068,7 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: ANYMORE,
-    tip: ""
+    tip: "Invoca el número objetivo estrella con el powerup `Número aleatorio objetivo`, ¡todos podrán marcar inmediatamente un único número que no sea un número objetivo de su tablero!"
   },
   {
     level: 27,
@@ -1134,7 +1171,7 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: DARKNESS,
-    tip: ""
+    tip: "El último powerup es aquel que permite retirar permanentemente a un bot de la partida, se llama `Eliminar un bot`, completa el nivel 29 para desbloquear ese powerup"
   },
   {
     level: 29,
@@ -1198,7 +1235,7 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: SELFLESS,
-    tip: "Ok, todavia los bots no se han rendido, en el siguiente nivel te enfrentaras a 8 bots al mismo tiempo, piensa bien al elegir tus powerups, muchos jugadores no han podido formar el patrón objetivo"
+    tip: "Ok, todavia los bots no se han rendido, en el siguiente nivel te enfrentaras a 8..., digo a 9 bots al mismo tiempo, piensa bien al elegir tus powerups, muchos jugadores no han podido formar el patrón objetivo"
   },
   {
     level: 30, // ULTIMO NIVEL

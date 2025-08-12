@@ -3,7 +3,7 @@ import { LevelSliceType } from "./levelSlice";
 import { PlayerSliceType } from "./playerSlice";
 import { GameSliceType } from "./gameSlice";
 import { BotSliceType } from "./botSlice";
-import { CORRECT_SOUND, WRONG_SOUND } from "../constants/audioSettings";
+import { POWERUP_SOUND, WRONG_SOUND } from "../constants/audioSettings";
 import { MAX_POWERUPS } from "../constants/defaultConfigs";
 import { AudioSliceType } from "./audioSlice";
 import { Boards, DetailsPowerUp, SwapNumberSelected } from "../types";
@@ -360,6 +360,8 @@ export const powerUpSlice: StateCreator<
         turnsRemaining: 0,
       },
     }));
+
+    get().playSound(POWERUP_SOUND)
   },
 
   activateSwapNumbersBoard: () => {
@@ -382,6 +384,7 @@ export const powerUpSlice: StateCreator<
 
     // Si no se ha seleccionado ningun numero
     if (!get().swapNumbersSelected.firstNumber) {
+      get().playSound(POWERUP_SOUND)
       set({
         swapNumbersSelected: {
           firstNumber: {
@@ -404,6 +407,8 @@ export const powerUpSlice: StateCreator<
         },
       };
 
+      get().playSound(POWERUP_SOUND)
+
       console.log(`Seleccionando segundo numero ${secondNumberClicked!.id} ${secondNumberClicked!.position} ${secondNumberClicked!.number}`)
 
       // Si ha seleccionado el primer numero y luego vuelve hacer clic en el mismo numero, se debe deseleccionar
@@ -416,16 +421,44 @@ export const powerUpSlice: StateCreator<
             secondNumber: null,
           },
         });
+
+        // Desactivar powerup
+        set({
+          swapNumbersBoard: {
+            ...get().swapNumbersBoard,
+            active: false,
+            hasActivated: false,
+            turnsRemaining: 0,
+          },
+        })
+
         console.log(`Deseleccionando primer numero ${secondNumberClicked?.id} ${secondNumberClicked?.position} ${secondNumberClicked?.number}`)
         return;
       }
 
 
-      // Error, el id de ambos tableros debe ser el mismo, de lo contrario no se puede intercambiar
       if (updatedState.firstNumber?.id !== updatedState.secondNumber?.id) {
         console.log(updatedState.firstNumber?.id)
         console.log(updatedState.secondNumber?.id)
         console.log(`Error, el id de ambos tableros debe ser el mismo, de lo contrario no se puede intercambiar`)
+
+        // Limpiar el primer numero seleccionado
+        set({
+          swapNumbersSelected: {
+            firstNumber: null,
+            secondNumber: null,
+          },
+        })
+
+        // Desactivar powerup
+        set({
+          swapNumbersBoard: {
+            ...get().swapNumbersBoard,
+            active: false,
+            hasActivated: false,
+            turnsRemaining: 0,
+          },
+        })
         return;
       }
 
@@ -681,6 +714,7 @@ export const powerUpSlice: StateCreator<
         turnsRemaining: 0,
       },
       selectedForcedNumberObjective: randomNumber,
+      excludedTargets: [...get().excludedTargets, (randomNumber || 0)],
     }))
 
     // Aqui deberia almacenar el numero seleccionado para que a la siguiente ronda sea forzado
@@ -935,7 +969,7 @@ export const powerUpSlice: StateCreator<
         return;
       }
       get().selectPowerUp(id)
-      get().playSound(CORRECT_SOUND)
+      get().playSound(POWERUP_SOUND)
     }
   },
 
@@ -1194,7 +1228,7 @@ export const powerUpSlice: StateCreator<
         active: false,
         turnsRemaining: 5,
       },
-
+      selectedBoardIdAutomaticMark: 0,
       markNeighborgNumbers: {
         type: 'oneTime',
         hasActivated: false,

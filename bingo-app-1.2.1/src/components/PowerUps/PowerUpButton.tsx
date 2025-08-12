@@ -1,5 +1,5 @@
 import { useAppStore } from "../../store/useAppStore";
-import { CORRECT_SOUND, WRONG_SOUND } from "../../constants/audioSettings";
+import { POWERUP_SOUND, WRONG_SOUND } from "../../constants/audioSettings";
 import { AUTO_MARK_BOARD, CROSS_PATTERN, EXTRA_TARGETS, MARK_NEIGHBORING_NUMBERS, RANDOM_TARGET, REMOVE_BOT, SLOW_BOTS, SWAP_NUMBERS, UNMARK_NUMBER_BOT, VIEW_BOARDS_BOT } from "../../constants/powerupConstants";
 
 type PowerUpButtonProps = {
@@ -82,7 +82,7 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
 
     const handleClickButton = (id: number) => {
         if (typeButton === 'round' && !powerUpsState.hasActivated && !powerUpsState.active) {
-            playSound(CORRECT_SOUND)
+            playSound(POWERUP_SOUND)
             console.log('Ha activado el powerup ' + id)
             powerUpsAction()
             return
@@ -163,9 +163,10 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
                 <img className={`size-6 xsm:size-8 sm:size-8 md:size-10 `} src={icon} alt={name} />
                 {
                     typeButton === 'round' &&
-                    <div className={`absolute -bottom-3 -right-3 z-10 bg-${levelData.color}-500 text-white rounded-full size-6 flex items-center justify-center border-2 border-gray-700`}>{
-                        textOnButton()
-                    }</div>
+                    <div className={`absolute -bottom-3 -right-3 z-10  bg-${textOnButton() === 'X' ? 'gray-700' : levelData.color + "-500"} text-white rounded-full size-6 
+                    flex items-center justify-center border-2 border-gray-900`}>{
+                            textOnButton()
+                        }</div>
                 }
             </button>
         </>

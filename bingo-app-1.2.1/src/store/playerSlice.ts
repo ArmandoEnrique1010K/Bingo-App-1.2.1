@@ -5,7 +5,7 @@ import { Board, Boards, MarkedCells } from "../types";
 import { AudioSliceType } from "./audioSlice";
 import { FINAL_LEVEL_VICTORY_MODAL, ILEGAL_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
 import { FINAL_LEVEL } from "../constants/defaultConfigs";
-import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND, DEFEAT_SOUND, ANYMORE_ENDING } from "../constants/audioSettings";
+import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND, DEFEAT_SOUND, ANYMORE_ENDING, POWERUP_SOUND } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
 import { PowerUpSliceType } from "./powerUpSlice";
 
@@ -113,14 +113,28 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
       // como un numero aleatorio objetivo y se marca
 
     } else {
-      get().playSound(WRONG_SOUND)
+
+      // SI ESTA ACTIVADO EL POWERUP DE INTERCAMBIAR NUMEROS
+      // SI ESTA ACTIVADO EL POWERUP DE NUMERO ALEATORIO
+      // NO DEBE REPRODUCIR SONIDO
+      if (get().swapNumbersBoard.active) {
+        return;
+      }
+
 
       // El numero 100 indica que el numero aleatorio (el icono de una estrella)
-      if (get().currentTargets.includes(100) && get().currentTargets.map(t => t === 100).includes(true) &&
-        !get().playerHasMarkedRandomNumberObjective && !get().isCellMarked(idBoard, position)) {
+      if (get().currentTargets.includes(100) && get().randomNumberObjective.turnsRemaining === 0 &&
+        get().randomNumberObjective.active &&
+        // get().currentTargets.map(t => t === 100).includes(true) &&
+        //!get().playerHasMarkedRandomNumberObjective && 
+        !get().isCellMarked(idBoard, position)) {
         // console.log(get().currentTargets)
         get().selectRandomNumberObjectiveOnBoard(idBoard, number, position)
+        get().playSound(POWERUP_SOUND)
+        console.log("Ha seleccionado el numero aleatorio")
       }
+
+      get().playSound(WRONG_SOUND)
 
     }
   },

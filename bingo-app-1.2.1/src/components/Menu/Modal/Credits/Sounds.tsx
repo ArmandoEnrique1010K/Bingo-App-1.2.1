@@ -26,11 +26,11 @@ export default function Sounds() {
         </li>
         <li>
           <a
-            href="https://pixabay.com/sound-effects/BALLS_SOUND4-39967/"
+            href="https://pixabay.com/es/sound-effects/dice-roll-201898/"
             target="_blank"
             className="text-blue-500 hover:underline"
           >
-            balls4 - amiga-mark (Freesound)
+            Dice Roll - u_ngsgp0r6zb
           </a>
         </li>
         <li>
@@ -69,6 +69,26 @@ export default function Sounds() {
             Retro coin 4 - Driken5482
           </a>
         </li>
+        <li>
+          <a
+            href="https://pixabay.com/es/sound-effects/applause-cheer-236786/"
+            target="_blank"
+            className="text-blue-500 hover:underline"
+          >
+            Experimental 8-Bit Sound
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="https://pixabay.com/es/sound-effects/applause-cheer-236786/"
+            target="_blank"
+            className="text-blue-500 hover:underline"
+          >
+            Applause cheer - Driken5482
+          </a>
+        </li>
+
       </ul>
     </>
   );

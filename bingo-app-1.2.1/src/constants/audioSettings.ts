@@ -71,9 +71,9 @@ export const CORRECT_SOUND = {
   name: 'correct',
   volume: -2
 }
-export const BALLS_SOUND = {
-  name: 'balls',
-  volume: 1
+export const ROLL_SOUND = {
+  name: 'roll',
+  volume: -7
 }
 
 export const CLICK_SOUND = {
@@ -83,7 +83,7 @@ export const CLICK_SOUND = {
 
 export const VICTORY_SOUND = {
   name: 'victory',
-  volume: 4
+  volume: -4
 }
 
 export const DEFEAT_SOUND = {
@@ -94,4 +94,9 @@ export const DEFEAT_SOUND = {
 export const CORRECT_BOT_SOUND = {
   name: "correct_bot",
   volume: -10,
+}
+
+export const POWERUP_SOUND = {
+  name: "power_up",
+  volume: -8,
 }

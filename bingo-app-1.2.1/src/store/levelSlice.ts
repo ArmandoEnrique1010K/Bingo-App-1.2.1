@@ -1,7 +1,7 @@
 import { StateCreator } from "zustand";
 import { Modal } from "../types";
 import { AudioSliceType } from "./audioSlice";
-import { ANYMORE_ENDING, BALLS_SOUND, CLICK_SOUND, DEFEAT_SOUND, } from "../constants/audioSettings";
+import { ANYMORE_ENDING, ROLL_SOUND, CLICK_SOUND, DEFEAT_SOUND, } from "../constants/audioSettings";
 import { EXIT_MODAL, NO_MORE_ROUNDS_MODAL, NONE_MODAL, RESET_LEVEL_MODAL, START_LEVEL_MODAL } from "../constants/statusModalsText";
 import { DEFAULT_TARGETS, MAX_POWERUPS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
 import { generateTargets } from "../utils/generateTargets";
@@ -111,7 +111,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
       get().noMoreRoundModal()
     } else {
       set({ currentRound: get().currentRound + 1, currentTargets: [] });
-      get().playSound(BALLS_SOUND)
+      get().playSound(ROLL_SOUND)
       setTimeout(() => {
 
         let newTargets: number[] = [];
@@ -181,7 +181,7 @@ export const levelSlice: StateCreator<LevelSliceType & AudioSliceType & PowerUpS
         // Actualizar estado
         set({
           currentTargets: newTargets,
-          excludedTargets: [...excluded, ...newTargets],
+          excludedTargets: [...get().excludedTargets, ...newTargets],
           // Debe ser reiniciado el numero forzado
           selectedForcedNumberObjective: 0,
         })

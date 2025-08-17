@@ -230,7 +230,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
           // TODO: CONFIGURACION DEL POWERUP DE RALENTIZAR BOTS
 
-          console.log(`El bot ${name}, se ha demorado ${time * randomInterval}ms para marcar el numero ${cell.number}`)
+          // console.log(`El bot ${name}, se ha demorado ${time * randomInterval}ms para marcar el numero ${cell.number}`)
 
         }, time * randomInterval);
 

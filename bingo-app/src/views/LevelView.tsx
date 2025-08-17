@@ -60,7 +60,7 @@ export default function LevelView() {
       if (!boardTimeoutsRef.current[key]) {
         const timeoutId = window.setTimeout(() => {
           if (!gameEnded) {
-            console.log(`🏆 Bot ${info.botName} gana en tablero ${info.boardId}`);
+            // console.log(`🏆 Bot ${info.botName} gana en tablero ${info.boardId}`);
             declareBotWinnerGame();
             useAppStore.setState({ gameEnded: true, winner: "bot" });
           }
@@ -75,7 +75,7 @@ export default function LevelView() {
   useEffect(() => {
     if (unmarkNumberBot.hasActivated === true) {
       checkWinnerPatternBot();
-      console.log('El jugador ha desmarcado un numero del tablero del bot, volviendo a evaluar si el bot tiene el patron ganador')
+      // console.log('El jugador ha desmarcado un numero del tablero del bot, volviendo a evaluar si el bot tiene el patron ganador')
 
       // Cancelar timeouts de bots que ya no estén en la lista de ganadores
       Object.keys(boardTimeoutsRef.current).forEach(key => {
@@ -93,10 +93,10 @@ export default function LevelView() {
           w => w.botName === botName && w.boardId === boardId
         );
         if (!sigueGanando) {
-          console.log(`El bot ${botName} ya no tiene el patron ganador, cancelando timeout`)
+          // console.log(`El bot ${botName} ya no tiene el patron ganador, cancelando timeout`)
           clearTimeout(boardTimeoutsRef.current[key]);
           delete boardTimeoutsRef.current[key];
-          console.log(`⏹ Timeout cancelado para bot ${botName} tablero ${boardId}`);
+          // console.log(`⏹ Timeout cancelado para bot ${botName} tablero ${boardId}`);
         }
       });
     }
@@ -105,7 +105,7 @@ export default function LevelView() {
   useEffect(() => {
     if (killBot.hasActivated === true) {
       checkWinnerPatternBot();
-      console.log('El jugador ha eliminado un bot, volviendo a evaluar si el bot tiene el patron ganador')
+      // console.log('El jugador ha eliminado un bot, volviendo a evaluar si el bot tiene el patron ganador')
 
       // Cancelar timeouts de bots que ya no estén en la lista de ganadores
       Object.keys(boardTimeoutsRef.current).forEach(key => {
@@ -123,10 +123,10 @@ export default function LevelView() {
           w => w.botName === botName && w.boardId === boardId
         );
         if (!sigueGanando) {
-          console.log(`El bot ${botName} se ha eliminado, cancelando timeout`)
+          // console.log(`El bot ${botName} se ha eliminado, cancelando timeout`)
           clearTimeout(boardTimeoutsRef.current[key]);
           delete boardTimeoutsRef.current[key];
-          console.log(`⏹ Timeout cancelado para bot ${botName} tablero ${boardId}`);
+          // console.log(`⏹ Timeout cancelado para bot ${botName} tablero ${boardId}`);
         }
       });
     }
@@ -160,9 +160,9 @@ export default function LevelView() {
 
   useEffect(() => {
     if (killBot.hasActivated) {
-      console.log("Se ha eliminado un bot");
+      // console.log("Se ha eliminado un bot");
       if (botBoards.length === 0) {
-        console.log("No quedan bots → fin de partida por trampa");
+        // console.log("No quedan bots → fin de partida por trampa");
         hasKillAllBot();
       }
     }

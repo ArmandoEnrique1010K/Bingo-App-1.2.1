@@ -59,7 +59,7 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
 
         if (completedLevel % 3 === 2) {
           get().unlockPowerUp(powerUpId)
-          console.log("Se ha desbloqueado el powerup con el id: ", powerUpId)
+          // console.log("Se ha desbloqueado el powerup con el id: ", powerUpId)
         }
 
         get().resetBotTimeouts()
@@ -137,7 +137,7 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
     if (isRandomObjectiveActive) {
       selectRandomNumberObjectiveOnBoard(idBoard, number, position);
       playSound(POWERUP_SOUND);
-      console.log("Ha seleccionado el numero aleatorio");
+      // console.log("Ha seleccionado el numero aleatorio");
       return;
     }
 

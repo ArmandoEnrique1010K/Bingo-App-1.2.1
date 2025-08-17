@@ -64,10 +64,10 @@ export type PowerUpSliceType = {
   swapNumbersSelected: { firstNumber: SwapNumberSelected | null, secondNumber: SwapNumberSelected | null };
   activateSwapNumbersBoard: () => void;
   selectNumbersFromSwapNumbersBoard: (firstNumberClicked: SwapNumberSelected, secondNumberClicked: SwapNumberSelected) => void;
-  swapNumberBoardOnNumbersClicks: (
-    firstNumberClicked: SwapNumberSelected,
-    secondNumberClicked: SwapNumberSelected,
-  ) => void;
+  // swapNumberBoardOnNumbersClicks: (
+  //   firstNumberClicked: SwapNumberSelected,
+  //   secondNumberClicked: SwapNumberSelected,
+  // ) => void;
 
   // Forzar un numero objetivo de un patron de cruz
   activateForceNumberObjectiveCross: () => void;
@@ -316,14 +316,14 @@ export const powerUpSlice: StateCreator<
       .find((board) => board.id === idBoard)
       ?.cells.find((cell) => cell.number === numberClicked);
     if (!findedNumber) return;
-    console.log(findedNumber);
+    // console.log(findedNumber);
 
 
     // Imprimir los numeros marcados del tablero del bot seleccionado
     const markedNumbers = botMarkedCells
       .find((bot) => bot.name === botName)
       ?.boards.find((board) => board.id === idBoard)?.cells;
-    console.log(markedNumbers);
+    // console.log(markedNumbers);
 
     // Verificar si el numero seleccionado no ha sido marcado
     const hasAlreadyMarked = markedNumbers?.some(
@@ -332,10 +332,10 @@ export const powerUpSlice: StateCreator<
     if (!hasAlreadyMarked) return;
 
     // Eliminar del tablero del bot el numero marcado
-    const updatedMarkedNumbers = markedNumbers?.filter(
-      (cell) => cell.number !== numberClicked
-    );
-    console.log(updatedMarkedNumbers);
+    // const updatedMarkedNumbers = markedNumbers?.filter(
+    //   (cell) => cell.number !== numberClicked
+    // );
+    // console.log(updatedMarkedNumbers);
 
     // Actualizar el tablero del bot
     const updatedBotMarkedCells = botMarkedCells.map((bot) =>
@@ -355,7 +355,7 @@ export const powerUpSlice: StateCreator<
         }
         : bot
     );
-    console.log(updatedBotMarkedCells);
+    // console.log(updatedBotMarkedCells);
 
     set(() => ({
       botMarkedCells: updatedBotMarkedCells,
@@ -401,7 +401,7 @@ export const powerUpSlice: StateCreator<
           secondNumber: null,
         },
       })
-      console.log(`Seleccionando primer numero ${firstNumberClicked?.id} ${firstNumberClicked?.position} ${firstNumberClicked?.number}`)
+      // console.log(`Seleccionando primer numero ${firstNumberClicked?.id} ${firstNumberClicked?.position} ${firstNumberClicked?.number}`)
 
     } else if (!get().swapNumbersSelected.secondNumber) {
       const updatedState = {
@@ -415,7 +415,7 @@ export const powerUpSlice: StateCreator<
 
       get().playSound(POWERUP_SOUND)
 
-      console.log(`Seleccionando segundo numero ${secondNumberClicked!.id} ${secondNumberClicked!.position} ${secondNumberClicked!.number}`)
+      // console.log(`Seleccionando segundo numero ${secondNumberClicked!.id} ${secondNumberClicked!.position} ${secondNumberClicked!.number}`)
 
       // Si ha seleccionado el primer numero y luego vuelve hacer clic en el mismo numero, se debe deseleccionar
       if (get().swapNumbersSelected.firstNumber?.id === secondNumberClicked?.id &&
@@ -438,15 +438,15 @@ export const powerUpSlice: StateCreator<
           },
         })
 
-        console.log(`Deseleccionando primer numero ${secondNumberClicked?.id} ${secondNumberClicked?.position} ${secondNumberClicked?.number}`)
+        // console.log(`Deseleccionando primer numero ${secondNumberClicked?.id} ${secondNumberClicked?.position} ${secondNumberClicked?.number}`)
         return;
       }
 
 
       if (updatedState.firstNumber?.id !== updatedState.secondNumber?.id) {
-        console.log(updatedState.firstNumber?.id)
-        console.log(updatedState.secondNumber?.id)
-        console.log(`Error, el id de ambos tableros debe ser el mismo, de lo contrario no se puede intercambiar`)
+        // console.log(updatedState.firstNumber?.id)
+        // console.log(updatedState.secondNumber?.id)
+        // console.log(`Error, el id de ambos tableros debe ser el mismo, de lo contrario no se puede intercambiar`)
 
         // Limpiar el primer numero seleccionado
         set({
@@ -468,10 +468,10 @@ export const powerUpSlice: StateCreator<
         return;
       }
 
-      console.log(updatedState.firstNumber?.id)
-      console.log(updatedState.secondNumber?.id)
+      // console.log(updatedState.firstNumber?.id)
+      // console.log(updatedState.secondNumber?.id)
 
-      console.log(`Intercambiando numeros ${updatedState.firstNumber?.number} y ${updatedState.secondNumber?.number}`)
+      // console.log(`Intercambiando numeros ${updatedState.firstNumber?.number} y ${updatedState.secondNumber?.number}`)
 
       // Actualizar el tablero del jugador
       const updatedBoards: Boards = get().playerBoards.map((board) =>
@@ -530,7 +530,7 @@ export const powerUpSlice: StateCreator<
           : board
       );
 
-      console.log(updateMarkedCells)
+      // console.log(updateMarkedCells)
 
       set({
         markedCells: updateMarkedCells
@@ -562,32 +562,32 @@ export const powerUpSlice: StateCreator<
 
   // Esta acción es la encargada de establecer 2 numeros en el tablero
   // Debe recibir el id del tablero, el primer numero y el segundo numero
-  swapNumberBoardOnNumbersClicks: (firstNumberClicked: SwapNumberSelected, secondNumberClicked: SwapNumberSelected) => {
+  // swapNumberBoardOnNumbersClicks: (firstNumberClicked: SwapNumberSelected, secondNumberClicked: SwapNumberSelected) => {
 
-    const firstNumberData = firstNumberClicked
-    const secondNumberData = secondNumberClicked
+  // const firstNumberData = firstNumberClicked
+  // const secondNumberData = secondNumberClicked
 
-    // Actualizar el tablero del jugador, intercambiando los numeros
-    const updatedPlayerBoards = get().playerBoards.map((board) =>
-      board.id === firstNumberData?.id
-        ? {
-          ...board,
-          // TODO: En cada celda, si la posicion es la misma que la del primer numero, se debe intercambiar
-          cells: board.cells.map((cell) =>
-            cell.number === firstNumberData?.number
-              ? { ...cell, number: secondNumberData?.number }
-              : cell
-          ),
-        }
-        : board
-    );
+  // // Actualizar el tablero del jugador, intercambiando los numeros
+  // const updatedPlayerBoards = get().playerBoards.map((board) =>
+  //   board.id === firstNumberData?.id
+  //     ? {
+  //       ...board,
+  //       // TODO: En cada celda, si la posicion es la misma que la del primer numero, se debe intercambiar
+  //       cells: board.cells.map((cell) =>
+  //         cell.number === firstNumberData?.number
+  //           ? { ...cell, number: secondNumberData?.number }
+  //           : cell
+  //       ),
+  //     }
+  //     : board
+  // );
 
-    console.log(updatedPlayerBoards)
+  // console.log(updatedPlayerBoards)
 
-    // set(() => ({
-    //   playerBoards: get().updatedPlayerBoards,
-    // }))
-  },
+  // set(() => ({
+  //   playerBoards: get().updatedPlayerBoards,
+  // }))
+  // },
 
   // PATRON DE CRUZ
   /****************** */
@@ -605,7 +605,7 @@ export const powerUpSlice: StateCreator<
   selectedForcedNumberObjective: 0,
 
   activateForceNumberObjectiveCrossOnNumberClick: (boardId: number, numberClicked: number) => {
-    console.log(boardId, numberClicked)
+    // console.log(boardId, numberClicked)
 
     // Si el numero seleccionado ya se encuentra en la lista de numeros marcados por tablero, no debe seguir
     const isNumberMarked = get().markedCells.some(
@@ -614,7 +614,7 @@ export const powerUpSlice: StateCreator<
 
 
     if (isNumberMarked) {
-      console.log('El numero ya se encuentra marcado')
+      // console.log('El numero ya se encuentra marcado')
       return;
     }
 
@@ -680,7 +680,7 @@ export const powerUpSlice: StateCreator<
     const result = Array.from(allPositions);
 
     // Resultado: Un arreglo de posiciones
-    console.log(result)
+    // console.log(result)
 
     // Ahora debera hacer una comparación
     // De markedCells (las cedulas marcadas por el jugador de un tablero por el mismo id)
@@ -696,11 +696,11 @@ export const powerUpSlice: StateCreator<
     const unmarkedNumbers = resultNumbers.filter((num) => !markedNumbers?.includes(num!));
 
     // Debe imprimir los numeros que aun no se han marcado
-    console.log(unmarkedNumbers)
+    // console.log(unmarkedNumbers)
 
     // Debe seleccionar un numero aleatorio de los numeros que aun no se han marcado
     const randomNumber = unmarkedNumbers[Math.floor(Math.random() * unmarkedNumbers.length)];
-    console.log(randomNumber)
+    // console.log(randomNumber)
 
 
     // console.log(playerBoard)
@@ -725,7 +725,7 @@ export const powerUpSlice: StateCreator<
 
     // Aqui deberia almacenar el numero seleccionado para que a la siguiente ronda sea forzado
 
-    console.log('HAGA CLIC EN SIGUIENTE NUMERO')
+    // console.log('HAGA CLIC EN SIGUIENTE NUMERO')
 
   },
   activateAutomaticMarkBoard: () => {
@@ -757,7 +757,7 @@ export const powerUpSlice: StateCreator<
     const matched = board.cells.filter((cell) =>
       currentTargets.includes(cell.number)
     );
-    console.log(matched)
+    // console.log(matched)
 
     // let updatedMarked: [] = [];
 
@@ -775,7 +775,7 @@ export const powerUpSlice: StateCreator<
 
   },
   selectBoardIdAutomaticMark: (boardId: number) => {
-    console.log('Selected board id: ' + boardId)
+    // console.log('Selected board id: ' + boardId)
     set({
       selectedBoardIdAutomaticMark: boardId,
       automaticMarkBoard: {
@@ -1016,7 +1016,7 @@ export const powerUpSlice: StateCreator<
 
   // Función para marcar el numero aleatorio objetivo, el numero 100 equivale a cualquier numero
   selectRandomNumberObjectiveOnBoard: (idBoard: number, numberClicked: number, position: number) => {
-    console.log('Ha hecho clic en el numero ' + numberClicked + ' del tablero ' + idBoard + ' en la posicion ' + position)
+    // console.log('Ha hecho clic en el numero ' + numberClicked + ' del tablero ' + idBoard + ' en la posicion ' + position)
 
     // AÑADIR ESE NUMERO EN LOS NUMEROS MARCADOS DEL JUGADOR
     set({
@@ -1079,7 +1079,7 @@ export const powerUpSlice: StateCreator<
     if (!killBot.active) return;
 
     // TODO: AQUI DEBE ESTAR EL POWERUP DE ELIMINAR UN BOT
-    console.log(`El bot ${botName} ha sido eliminado`);
+    // console.log(`El bot ${botName} ha sido eliminado`);
 
     // Logica de eliminación de bots
     const bot = get().botBoards.filter((bot) => bot.name !== botName);
@@ -1105,7 +1105,7 @@ export const powerUpSlice: StateCreator<
     // set({
 
     // })
-    console.log('Se ha cancelado el powerup ' + id)
+    // console.log('Se ha cancelado el powerup ' + id)
 
     // TODO: AÑADIR MÁS POWERUPS
     if (id === UNMARK_NUMBER_BOT) {

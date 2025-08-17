@@ -83,7 +83,7 @@ export default function PowerUpButton({ id, name, icon, description, typeButton 
     const handleClickButton = (id: number) => {
         if (typeButton === 'round' && !powerUpsState.hasActivated && !powerUpsState.active) {
             playSound(POWERUP_SOUND)
-            console.log('Ha activado el powerup ' + id)
+            // console.log('Ha activado el powerup ' + id)
             powerUpsAction()
             return
         }

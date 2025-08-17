@@ -1,5 +1,5 @@
 // DEMORA DE CARGA AL ACCEDER AL JUEGO 
-export const LOADING_TIME = 2000;
+export const LOADING_TIME = 3000;
 
 // Numero de numeros objetivos por turno por defecto
 export const DEFAULT_TARGETS = 3 // 3

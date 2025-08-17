@@ -89,8 +89,6 @@ export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSl
       isCellMarked,
       markedCells,
       playSound,
-      selectedForcedNumberObjective,
-      forceNumberObjectiveCross,
       swapNumbersBoard,
       randomNumberObjective,
       selectRandomNumberObjectiveOnBoard

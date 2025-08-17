@@ -6,7 +6,7 @@ export const preloadedMusicPlayers = new Map<string, Tone.Player>();
 export const preloadMusicFiles = async () => {
   try {
     const tracks = [
-      SOMEDAY, TAP, MOONLIGHT, DARKNESS, FRIENDS, LIVE, MOUNTAIN, SLOW, ANYMORE_ENDING, DARKNESS_SOLO, ANYMORE, SELFLESS
+      SOMEDAY, SLOW, TAP, MOONLIGHT, SELFLESS, FRIENDS, LIVE, MOUNTAIN, DARKNESS, ANYMORE, ANYMORE_ENDING, DARKNESS_SOLO,
     ];
 
     for (const track of tracks) {

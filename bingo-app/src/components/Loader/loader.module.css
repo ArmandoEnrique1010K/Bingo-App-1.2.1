@@ -13,7 +13,7 @@
   background:
    linear-gradient(#2b7fff 0 0) 0/0% no-repeat
    #fff;
-  animation: l4 2s infinite steps(6);
+  animation: l4 3s infinite steps(6);
 }
 @keyframes l4 {
     100% {background-size:120%}

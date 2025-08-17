@@ -14,7 +14,6 @@ export type BotSliceType = {
   foundCells: BotBoards,
   botTimeoutsMap: Record<string, number[]>,
   confirmedWinners: { [key: string]: boolean };
-
   listOfBotsWinners: BotsWinners,
   declareBotWinnerGame: () => void,
   selectBotCell: (name: string, interval: number) => void
@@ -77,22 +76,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     // let randomNumber = 0;
 
     if (get().randomNumberObjective.turnsRemaining === 0 && get().randomNumberObjective.active) {
-      // Numeros de los tableros del bot que aun no han sido marcados
-      // const numbersNotMarked = get().botBoards
-      //   .find(bot => bot.name === name)
-      //   ?.boards.map(board => ({
-      //     boardId: board.id,
-      //     // Excluir aquellos que ya han sido marcados y tambien deberia excluir aquellos que esten en los numeros objetivo
-      //     numbersNotMarked: board.board.filter(cell =>
-      //       !get().botMarkedCells
-      //         .find(bot => bot.name === name)
-      //         ?.boards.find(b => b.id === board.id)
-      //         ?.board.some(markedCell =>
-      //           markedCell.number === cell.number &&
-      //           markedCell.position === cell.position
-      //         )
-      //     )
-      //   }));
 
       // De los numeros no marcados, excluir aquellos que esten en los numeros objetivo
       const tableroFiltrado = get().botBoards
@@ -131,45 +114,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
       // Añadir en el estado de foundCells el numero aleatorio seleccionado, 
       // para que el bot marque el numero seleccionado
       // Debe buscarlo segun el valor de randomCell?.boardId
-
-
-      // EJEMPLO DEL ESTADO DE foundCells (contiene las celdas de los numeros que han sido encontradas en cada uno de los tableros de cada bot)
-      // {
-      //   foundCells: [
-      //     {
-      //       name: 'Strategic-Bot-1',
-      //       boards: [
-      //         {
-      //           id: 'Board-1-1',
-      //           board: [
-      //             {
-      //               position: 1,
-      //               number: 12
-      //             }
-      //           ]
-      //         },
-      //         {
-      //           id: 'Board-1-2',
-      //           board: [
-      //             {
-      //               position: 1,
-      //               number: 12
-      //             }
-      //           ]
-      //         }
-      //       ]
-      //     },
-      //     {
-      //       name: 'Strategic-Bot-2',
-      //       boards: [
-      //         {
-      //           id: 'Board-2-1',
-      //           board: []
-      //         }
-      //       ]
-      //     }
-      //   ]
-      // }
 
       // Después de obtener randomCell
       if (randomCell) {

@@ -13,7 +13,7 @@ export type GameSliceType = {
   isStartScreenButtonVisible: boolean
   showCreditsModal: boolean,
   showHelpModal: boolean,
-  unlockedLevels: number[];
+  unlockedLevelsList: number[];
   levelData: Level,
   unlockedPowerUpsIds: number[];
   toogleStartScreenLoading: () => void
@@ -46,7 +46,7 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
   isStartScreenButtonVisible: true,
   showCreditsModal: false,
   showHelpModal: false,
-  unlockedLevels: [],
+  unlockedLevelsList: [],
   levelData: initialLevelData,
   unlockedPowerUpsIds: [],
 
@@ -87,11 +87,11 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
   unlockLevel: (level: number) => {
     set((state) => {
-      if (!state.unlockedLevels.includes(level)) {
-        const updatedLevels = [...state.unlockedLevels, level];
+      if (!state.unlockedLevelsList.includes(level)) {
+        const updatedLevels = [...state.unlockedLevelsList, level];
         localStorage.setItem("unlockedLevels", JSON.stringify(updatedLevels));
 
-        return { unlockedLevels: updatedLevels };
+        return { unlockedLevelsList: updatedLevels };
       }
       return state;
 
@@ -104,11 +104,11 @@ export const gameSlice: StateCreator<GameSliceType & PlayerSliceType & LevelSlic
 
     if (!storedLevels) {
       localStorage.setItem('unlockedLevels', JSON.stringify([1]));
-      set({ unlockedLevels: [1] });
+      set({ unlockedLevelsList: [1] });
       return;
     }
 
-    set({ unlockedLevels: JSON.parse(storedLevels) });
+    set({ unlockedLevelsList: JSON.parse(storedLevels) });
   },
 
 

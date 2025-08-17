@@ -2,14 +2,8 @@ import { FRIENDS, LIVE, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE, SELFL
 import { Level } from "../types";
 import { generateBotName } from "../utils/Bot/generateBotName";
 
-/*
-1  6  11  16  21
-2  7  12  17  22
-3  8  13  18  23
-4  9  14  19  24
-5  10 15  20  25
-*/
 
+// Lista de niveles, cada nivel tiene un objetivo, un tablero, un patron objetivo y una lista de bots
 export const levels: Level[] = [
   {
     level: 1,
@@ -47,11 +41,9 @@ export const levels: Level[] = [
       [6, 2, 7, 12, 8],
       [11, 7, 12, 17, 13],
       [16, 12, 17, 22, 18],
-
       [7, 3, 8, 13, 9],
       [12, 8, 13, 18, 14],
       [17, 13, 18, 23, 19],
-
       [8, 4, 9, 14, 10],
       [13, 9, 14, 19, 15],
       [18, 14, 19, 24, 20],
@@ -77,12 +69,10 @@ export const levels: Level[] = [
       [2, 3, 7, 8, 12, 13],
       [3, 4, 8, 9, 13, 14],
       [4, 5, 9, 10, 14, 15],
-
       [6, 7, 11, 12, 16, 17],
       [7, 8, 12, 13, 17, 18],
       [8, 9, 13, 14, 18, 19],
       [9, 10, 14, 15, 19, 20],
-
       [11, 12, 16, 17, 21, 22],
       [12, 13, 17, 18, 22, 23],
       [13, 14, 18, 19, 23, 24],

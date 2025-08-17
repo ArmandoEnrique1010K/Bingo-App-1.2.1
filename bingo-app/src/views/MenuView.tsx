@@ -6,7 +6,7 @@ import { CLICK_SOUND } from "../constants/audioSettings";
 import { APP_VERSION } from "../constants/defaultConfigs";
 
 export default function MenuView() {
-  const unlockedLevels = useAppStore((state) => state.unlockedLevels);
+  const unlockedLevelsList = useAppStore((state) => state.unlockedLevelsList);
   const levelData = useAppStore((state) => state.levelData);
   const getColorLevel = useAppStore((state) => state.getColorLevel);
   const isLoadingStartScreen = useAppStore(
@@ -54,7 +54,7 @@ export default function MenuView() {
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {unlockedLevels.map((level: number) => (
+              {unlockedLevelsList.map((level: number) => (
                 <Link
                   key={level}
                   to={`/level_${level}`}

@@ -1,35 +1,26 @@
-// DEMORA DE CARGA AL ACCEDER AL JUEGO 
+// Tiempo de carga inicial del videojuego en milisegundos 
 export const LOADING_TIME = 3000;
 
-// Numero de numeros objetivos por turno por defecto
-export const DEFAULT_TARGETS = 3 // 3
+// Número de numeros objetivos generados por cada turno o ronda 
+export const DEFAULT_TARGETS = 3;
 
-// Tiempo de demora para generar numeros objetivos
+// Tiempo de demora para generar nuevos numeros objetivos
 export const TARGET_GENERATION_DELAY = 1000;
 
-// Turnos maximos por nivel
-export const MAX_TURNS = 20 // 20
+// Cantidad de turnos máximos por nivel
+export const MAX_TURNS = 20
 
-// Nivel final (DEBE SER EL ULTIMO NIVEL)
+// El nivel final
 export const FINAL_LEVEL = 30;
-
-// Tiempo de respuesta de reacción del bot si ha ganado (milisegundos) (/1000) (Era muy estatico, no valia la pena)
-// export const BOT_REACTION_DELAY = 3000
 
 // Tiempo de demora de cambio de patrones del nivel
 export const CHANGE_PATTERN_DELAY = 3000
 
-// Numero máximo de potenciadores
-// export const MAX_POWERUPS = 3;
-// https://github.com/tailwindlabs/tailwindcss/discussions/13881
-
-// Tiempo de demora para que el bot se declare ganador (No sive, ahora es dinamico por cada uno de los bots en un nivel)
-// export const BOT_WINNER_DELAY = 10000
-
-// Tiempo de demora de habilitado del boton de generar objetivo
+// Tiempo de demora para habilitar el botón de "Siguiente ronda"
 export const UNLOCK_BUTTON_GENERATE_TARGETS_DELAY = 1500
 
 // Numero maximo de powerups seleccionados por un nivel
 export const MAX_POWERUPS = 3;
 
+// Versión actual de la aplicación
 export const APP_VERSION = "1.3"

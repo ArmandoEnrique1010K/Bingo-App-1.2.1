@@ -1,39 +1,46 @@
 import { Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import MenuView from "../views/MenuView";
 import LevelView from "../views/LevelView";
 import Loader from "../components/Loader/Loader";
 import Layout from "../layouts/Layout";
 import { useAppStore } from "../store/useAppStore";
 
+// El componente Router es el que se encarga de renderizar las rutas
 export default function Router() {
-  const unlockedLevels = useAppStore((state) => state.unlockedLevels);
+  const unlockedLevelsList = useAppStore((state) => state.unlockedLevelsList);
 
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route
-          path="/"
-          index
-          element={
-            <Suspense fallback={<Loader />}>
-              <MenuView />
-            </Suspense>
-          }
-        />
-        {unlockedLevels.map((level) => (
+    <BrowserRouter>
+      <Routes>
+        {/* Agrupa una ruta para mostrar un Layout, un componente que se mostrara en todas las rutas hijas */}
+        <Route element={<Layout />}>
+          {/* Pagina de inicio */}
           <Route
-            key={level}
-            path={`/level_${level}`}
+            path="/"
+            index
             element={
               <Suspense fallback={<Loader />}>
-                <LevelView />
+                <MenuView />
               </Suspense>
             }
           />
-        ))}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Route>
-    </Routes>
+          {/* Por cada nivel desbloqueado se renderiza una ruta */}
+          {unlockedLevelsList.map((level) => (
+            <Route
+              key={level}
+              path={`/level_${level}`}
+              element={
+                <Suspense fallback={<Loader />}>
+                  <LevelView />
+                </Suspense>
+              }
+            />
+          ))}
+          {/* Si la ruta no existe se redirige a la ruta "/"" */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

@@ -7,7 +7,7 @@ import { gameSlice, GameSliceType } from "./gameSlice";
 import { botSlice, BotSliceType } from "./botSlice";
 import { powerUpSlice, PowerUpSliceType } from "./powerUpSlice";
 
-// Creación del store global de la aplicación, que combina todos los slices
+// Creación del store global de la aplicación, combina todos los slices definidos
 export const useAppStore = create<LevelSliceType & PlayerSliceType & AudioSliceType & GameSliceType & BotSliceType & PowerUpSliceType>()(devtools((...a) => ({
   ...levelSlice(...a),
   ...playerSlice(...a),

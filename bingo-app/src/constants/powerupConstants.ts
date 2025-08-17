@@ -1,3 +1,4 @@
+// Definición de los IDs de cada powerup
 export const SLOW_BOTS = 1
 export const EXTRA_TARGETS = 2
 export const UNMARK_NUMBER_BOT = 3

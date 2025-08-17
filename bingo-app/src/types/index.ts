@@ -31,7 +31,7 @@ export type Pattern = number[]
 export type Level = {
   level: number
   color: string
-  music: Music
+  music: Audio
   boards: number
   targetText: string
   patterns: Pattern[]
@@ -47,7 +47,7 @@ export type Bot = {
   victoryDelay: number
 }
 
-export type Music = {
+export type Audio = {
   name: string
   volume: number
 }

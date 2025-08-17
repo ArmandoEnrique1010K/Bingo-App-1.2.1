@@ -1,5 +1,11 @@
 import { Modal } from "../types"
 
+// Definición de los valores que contiene cada una de las ventanas modales
+// type: tipo de modal
+// subType: subtipo de modal
+// title: titulo del modal
+// message: mensaje del modal
+// textButton: botones de la izquierda (principal) y derecha del modal
 export const VICTORY_MODAL: Modal = {
   type: "victory",
   subType: "level_completed",
@@ -53,7 +59,6 @@ export const RESET_LEVEL_MODAL: Modal = {
   }
 }
 
-
 export const EXIT_MODAL: Modal = {
   type: "exit",
   subType: "exit_level",
@@ -76,17 +81,6 @@ export const START_LEVEL_MODAL: Modal = {
   }
 }
 
-export const NONE_MODAL: Modal = {
-  type: "undefined",
-  subType: "undefined",
-  title: "",
-  message: "",
-  textButton: {
-    left: "",
-    right: ""
-  }
-}
-
 export const ILEGAL_MODAL: Modal = {
   type: "ilegal",
   subType: "game_over",
@@ -95,5 +89,16 @@ export const ILEGAL_MODAL: Modal = {
   textButton: {
     left: "Reiniciar nivel",
     right: "Salir al menú"
+  }
+}
+
+export const NONE_MODAL: Modal = {
+  type: "undefined",
+  subType: "undefined",
+  title: "",
+  message: "",
+  textButton: {
+    left: "",
+    right: ""
   }
 }

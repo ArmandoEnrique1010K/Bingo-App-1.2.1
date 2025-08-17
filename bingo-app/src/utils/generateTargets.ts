@@ -1,4 +1,4 @@
-// Función para generar números aleatorios sin repetir
+// Función para generar números aleatorios sin repetir los números que ya fuerón generados
 export function generateTargets(quantity: number, excludedNumbers: number[]) {
   const availableNumbers = Array.from({ length: 75 }, (_, i) => i + 1)
     .filter(n => !excludedNumbers.includes(n));

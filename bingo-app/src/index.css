@@ -1,25 +1,13 @@
-
-
-
 @import "tailwindcss";
 
-
-/* Nuevo limite de ancho de pantalla, extra pequeño, normalmente tailwind lo define como "sm" que se aplica a 640px o 40rem */
+/* Tailwind tiene un punto de quiebre "sm" que se aplica si el ancho de pantalla es menor que 640px o 40rem */ 
+/* Define un nuevo punto de quiebre "xsm" para el ancho de pantalla, en este caso si es menor que 400px */
 @theme{
   --breakpoint-xsm: 400px
 }
 
-/* https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities */
 @layer components {
-  
-  /*
-  .bg-with-logo {
-    Sets the background image to the big logo,
-    resizes it to fit the container,
-    positions it to the right and bottom of the container,|
-    and does not repeat the image.
-  }
-  */
+  /* Imagen de fondo alineado a la derecha y arriba */
   .bg-with-logo {
     background-image: url('./images/bigLogo.svg');
     background-size: contain;
@@ -28,45 +16,25 @@
     background-repeat: no-repeat;
   }
 
-  /* Color dinamico, cambia de color cada 0.5 milisegundos*/
+  /* Color de fondo con animación de cambio de color */
   .bg-button-continuous {
    transition: all 0.5s ease-in-out; 
    animation: colorChange 1s infinite;
   }
 
-  .bg-button-continuous:hover {
-    background-color: #43d120;
-  }
-
-  /* currentColor selecciona el color actual aplicado a la propiedad color del mismo elemento HTML en el cual se encuentra la clase*/
+  /* Se define una animación que cambia el color del elemento */
+  /* El termino "currentColor" sirve para selecciona el color actual aplicado a la propiedad color 
+  del mismo elemento HTML en el cual se encuentra la clase */
   @keyframes colorChange {
     0% {background-color: currentColor;}
     50% {background-color: #6a7282;}
     100% {background-color: currentColor;}
    }
 
-
-
+   /* Media query para cuando la pantalla es de 640px o menos */
   @media screen and (max-width: 640px) {
     .bg-with-logo {
       background-image: none;
     }
    }
-
 }
-
-
-/* @theme {
-  --bg-with-logo: url('./assets/bigLogo.png') bg-cover bg-center bg-no-repeat bg-color: blue;
-} */
-
-
-/* @config
-@layer utilities {
-  .bg-red-500 {@apply bg-red-500;}
-  .bg-blue-500 {@apply bg-blue-500;}
-  .bg-cyan-500 {@apply bg-cyan-500;}
-  .bg-emerald-500 {@apply bg-emerald-500;}
-  .bg-amber-500 {@apply bg-amber-500;}
-  .bg-lime-500 {@apply bg-lime-500;}
-} */

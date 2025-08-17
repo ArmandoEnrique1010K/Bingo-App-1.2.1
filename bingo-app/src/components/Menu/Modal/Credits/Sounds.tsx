@@ -35,15 +35,6 @@ export default function Sounds() {
         </li>
         <li>
           <a
-            href="https://pixabay.com/sound-effects/coin-upaif-14631/"
-            target="_blank"
-            className="text-blue-500 hover:underline"
-          >
-            coin-up.aif - mattwasser (Freesound)
-          </a>
-        </li>
-        <li>
-          <a
             href="https://pixabay.com/sound-effects/light-switch-156813/"
             target="_blank"
             className="text-blue-500 hover:underline"
@@ -71,7 +62,7 @@ export default function Sounds() {
         </li>
         <li>
           <a
-            href="https://pixabay.com/es/sound-effects/applause-cheer-236786/"
+            href="https://pixabay.com/es/sound-effects/experimental-8-bit-sound-270302/"
             target="_blank"
             className="text-blue-500 hover:underline"
           >

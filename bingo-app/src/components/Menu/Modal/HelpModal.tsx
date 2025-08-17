@@ -4,6 +4,7 @@ import Intro from "./Help/Intro";
 import Menu from "./Help/Menu";
 import Game from "./Help/Game";
 import Victory from "./Help/Victory";
+import PowerUp from "./Help/PowerUp";
 
 export default function HelpModal() {
   const closeHelpModal = useAppStore((state) => state.closeHelpModal);
@@ -34,6 +35,7 @@ export default function HelpModal() {
                 <Menu />
                 <Game />
                 <Victory />
+                <PowerUp />
               </div>
               <div className="mt-10">
                 <Button

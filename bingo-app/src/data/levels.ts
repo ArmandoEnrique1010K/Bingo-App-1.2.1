@@ -932,8 +932,6 @@ export const levels: Level[] = [
     ],
     color: 'amber',
     music: FRIENDS,
-    // tip: "Puedes automatizar el marcado de los números de uno de tus tableros con un simple powerup"
-    // tip: "Una varita magica es el objeto más poderoso que hay en el juego, podrias usarla para marcar los números vecinos"
     tip: "¿Qué estrategia utilizarias si tu pudieras ver los números de los tableros de los bots durante 5 turnos con el powerup `Clarividencia`?"
   },
 
@@ -1102,7 +1100,7 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: MOONLIGHT,
-    tip: ""
+    tip: "¿Recuerdas el simbolo del yin y el yang? ¿Puedes intentar replicar ese patrón en el tablero?"
   },
 
   {
@@ -1161,7 +1159,7 @@ export const levels: Level[] = [
     ],
     color: 'red',
     music: DARKNESS,
-    tip: "El último powerup es aquel que permite retirar permanentemente a un bot de la partida, se llama `Eliminar un bot`, completa el nivel 29 para desbloquear ese powerup"
+    tip: "El último powerup es el powerup más poderoso, permite retirar permanentemente a un bot de la partida, se llama `Eliminar un bot`, completa el nivel 29 para desbloquear ese powerup"
   },
   {
     level: 29,
@@ -1300,120 +1298,6 @@ export const levels: Level[] = [
     music: ANYMORE,
     tip: "Solamente a un jugador se le ha ocurrido eliminar a su unico oponente en una partida con el powerup `Eliminar un bot` y ha terminado expulsado de la partida. ¡Espero que no hayas sido tu ese jugador!"
   },
-  {
-    level: 31,
-    targetText: "Columna o una fila de 5 números",
-    boards: 1,
-    patterns: [
-      [1, 2, 3, 4, 5],
-      [6, 7, 8, 9, 10],
-      [11, 12, 13, 14, 15],
-      [16, 17, 18, 19, 20],
-      [21, 22, 23, 24, 25],
-      [1, 6, 11, 16, 21],
-      [2, 7, 12, 17, 22],
-      [3, 8, 13, 18, 23],
-      [4, 9, 14, 19, 24],
-      [5, 10, 15, 20, 25],
-    ],
-    bots: [
-      {
-        name: generateBotName(1000, 1),
-        numberMarkDelay: 1000,
-        boards: 3,
-        victoryDelay: 6000
-      },
-    ],
-    color: 'blue',
-    music: SLOW,
-    tip: "Completa los niveles 2, 5, 8 y asi sucesivamente para desbloquear un nuevo PowerUp."
-  },
-  {
-    level: 32,
-    targetText: "Cruz de 5 números",
-    boards: 1,
-    patterns: [
-      [6, 2, 7, 12, 8],
-      [11, 7, 12, 17, 13],
-      [16, 12, 17, 22, 18],
-
-      [7, 3, 8, 13, 9],
-      [12, 8, 13, 18, 14],
-      [17, 13, 18, 23, 19],
-
-      [8, 4, 9, 14, 10],
-      [13, 9, 14, 19, 15],
-      [18, 14, 19, 24, 20],
-    ],
-    bots: [
-      {
-        name: generateBotName(1000, 1),
-        numberMarkDelay: 1000,
-        boards: 1,
-        victoryDelay: 6000
-      },
-      {
-        name: generateBotName(1200, 2),
-        numberMarkDelay: 1200,
-        boards: 1,
-        victoryDelay: 6000
-      },
-      {
-        name: generateBotName(1400, 3),
-        numberMarkDelay: 1400,
-        boards: 1,
-        victoryDelay: 6000
-      },
-      {
-        name: generateBotName(1200, 4),
-        numberMarkDelay: 1200,
-        boards: 1,
-        victoryDelay: 6000
-      },
-    ],
-    color: 'blue',
-    music: TAP,
-    tip: "Puedes aumentar los números objetivo generados a 5 durante 3 turnos con el PowerUp `Números objetivo extra`"
-  },
-  // {
-  //   level: 31,
-  //   targetText: "Columna o una fila de 5 números",
-  //   boards: 1,
-  //   patterns: [
-  //     [1, 2, 3, 4, 5],
-  //     [6, 7, 8, 9, 10],
-  //     [11, 12, 13, 14, 15],
-  //     [16, 17, 18, 19, 20],
-  //     [21, 22, 23, 24, 25],
-  //     [1, 6, 11, 16, 21],
-  //     [2, 7, 12, 17, 22],
-  //     [3, 8, 13, 18, 23],
-  //     [4, 9, 14, 19, 24],
-  //     [5, 10, 15, 20, 25],
-  //   ],
-  //   bots: [
-  //     {
-  //       name: "S-Bot",
-  //       numberMarkDelay: 100,
-  //       boards: 3,
-  //       victoryDelay: 5000
-  //     },
-  //     {
-  //       name: "S-Bot-2",
-  //       numberMarkDelay: 100,
-  //       boards: 2,
-  //       victoryDelay: 5000
-  //     },
-  //     {
-  //       name: "S-Bot-3",
-  //       numberMarkDelay: 1000,
-  //       boards: 2,
-  //       victoryDelay: 100
-  //     },
-  //   ],
-  //   color: 'stone',
-  //   music: ANYMORE
-  // },
 ]
 
 

@@ -32,6 +32,7 @@ export default function BotOpponent({
   useEffect(() => {
     if (currentTargets.length !== 0) {
       if (winner !== "bot" && winner !== "player") {
+        // console.log('MARCANDO NUMEROS DEL BOT')
         setTimeout(() => {
           selectBotCell(name, interval);
         }, 0);

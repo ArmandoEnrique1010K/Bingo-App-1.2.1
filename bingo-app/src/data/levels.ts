@@ -2,8 +2,8 @@ import { FRIENDS, LIVE, MOUNTAIN, TAP, DARKNESS, MOONLIGHT, SLOW, ANYMORE, SELFL
 import { Level } from "../types";
 import { generateBotName } from "../utils/Bot/generateBotName";
 
-
-// Lista de niveles, cada nivel tiene un objetivo, un tablero, un patron objetivo y una lista de bots
+// Lista de niveles, cada nivel tiene un objetivo, un tablero, un patron objetivo, 
+// una lista de bots, un color y unos datos sobre la canción y un tip
 export const levels: Level[] = [
   {
     level: 1,

@@ -52,7 +52,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
   selectBotCell: (name: string, interval: number) => {
     // Bot encontrado
     const botFinded = get().foundCells.find(bot => bot.name === name);
-    console.log(botFinded);
+    // console.log(botFinded);
 
     if (!botFinded || get().winner !== "none" || get().gameEnded || get().currentTargets.length === 0) return;
 
@@ -347,7 +347,7 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
   setConfirmedWinner: (botId, boardId) => {
 
-    console.log(`Estableciendo ganador del bot ${botId} porque tiene el patrón objetivo en el tablero ${boardId}`)
+    // console.log(`Estableciendo ganador del bot ${botId} porque tiene el patrón objetivo en el tablero ${boardId}`)
     set((state) => {
       const key = `${botId}-${boardId}`;
       if (!state.confirmedWinners[key] && !state.gameEnded) {

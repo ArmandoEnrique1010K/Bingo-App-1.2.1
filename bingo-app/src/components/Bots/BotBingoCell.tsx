@@ -38,7 +38,7 @@ export default function BotBingoCell({ idBoard, cell, botName }: BotBingoCellPro
             unmarkNumberBotOnNumberClick(botName, idBoard, number)
           }}
         >
-          {position === 13 ? "F" : isMarked ? number : ""}
+          {position === 13 ? "X" : isMarked ? number : ""}
         </button>
 
       ) : (
@@ -46,7 +46,7 @@ export default function BotBingoCell({ idBoard, cell, botName }: BotBingoCellPro
           className={`text-xs sm:text-sm sm:size-6 size-5 text-center sm:border-2 border-1 border-gray-600 text-white bg-${isMarked ? color : "gray"
             }-500 `}
         >
-          {position === 13 ? "F" : isMarked ? number : viewAllBotBoards.active ? number : ""}
+          {position === 13 ? "X" : isMarked ? number : viewAllBotBoards.active ? number : ""}
         </div>
 
       )

@@ -88,7 +88,7 @@ export const levels: Level[] = [
     ],
     color: 'blue',
     music: SLOW,
-    tip: "Si pudistes derrotar a un Bot, ¿Podras derrotar a 2 Bots?"
+    tip: "Si pudistes derrotar a un Bot, ¿Podras derrotar a 2 Bots al mismo tiempo?."
   },
   {
     level: 4,
@@ -153,7 +153,6 @@ export const levels: Level[] = [
     ],
     color: 'blue',
     music: TAP,
-    // tip: "Si te hace falta marcar un número del tablero, puedes intercambiar 2 números de tu tablero con el PowerUp `Intercambiar posiciones`"
     tip: "Al activar el powerup `Forzar un patrón de cruz`, selecciona un número no marcado de tu tablero para que el siguiente número objetivo sea uno de los números que aparecen tanto en la misma fila como en la misma columna"
   },
   {
@@ -176,70 +175,9 @@ export const levels: Level[] = [
     color: 'cyan',
     music: SELFLESS,
     tip: "En algunos niveles se te puede asignar 2 tableros de Bingo, el objetivo es formar el patrón objetivo en uno de los tableros"
-    // tip: "Algunos niveles pueden tener un número reducido de las posibles combinaciones del patrón objetivo, asimismo puede tener 1 solo patrón objetivo"
-    // tip: "Ten en cuenta que si aumentas los numeros objetivos generados, los bots tambien tendrán más números que marcar"
   },
-  // {
-  //   level: 6,
-  //   targetText: "Simbolo de exclamación",
-  //   boards: 1,
-  //   patterns: [
-  //     [1, 2, 3, 5],
-  //     [6, 7, 8, 10],
-  //     [11, 12, 13, 15],
-  //     [16, 17, 18, 20],
-  //     [21, 22, 23, 25],
-  //     [1, 3, 4, 5],
-  //     [6, 8, 9, 10],
-  //     [11, 13, 14, 15],
-  //     [16, 18, 19, 20],
-  //     [21, 23, 24, 25],
-  //   ],
-  //   bots: [
-  //     {
-  //       name: generateBotName(1300, 1),
-  //       numberMarkDelay: 1300,
-  //       boards: 1,
-  //       victoryDelay: 5500
-  //     },
-  //   ],
-  //   color: 'cyan',
-  //   music: SELFLESS,
-  // },
-
   {
     level: 7,
-    targetText: "Los bordes sin esquinas",
-    boards: 2,
-    patterns: [
-      [
-        6, 11, 16,
-        2, 22,
-        3, 23,
-        4, 24,
-        10, 15, 20,
-      ]
-    ],
-    bots: [
-      {
-        name: generateBotName(2200, 1),
-        numberMarkDelay: 2200,
-        boards: 1,
-        victoryDelay: 5500
-      },
-      {
-        name: generateBotName(1900, 2),
-        numberMarkDelay: 1900,
-        boards: 1,
-        victoryDelay: 5500
-      }
-    ],
-    color: 'cyan',
-    music: SLOW,
-    tip: "Un bot también puede tener 2 tableros, recuerda que el ganador es el primero en formar el patrón objetivo en uno de sus tableros"
-  },
-  {
-    level: 8,
     targetText: "2 cuadrados en 2 esquinas",
     boards: 2,
     patterns: [
@@ -260,13 +198,43 @@ export const levels: Level[] = [
     ],
     color: 'cyan',
     music: MOONLIGHT,
-    // tip: "Por alguna extraña razón, al comparar los números de los 2 tableros, ¡pueden haber números en la misma posición!"
+    tip: "Hay algunos niveles que solamente tienen una sola combinación del patrón objetivo; formar ese patrón objetivo puede ser dificil"
+  },
+  {
+    level: 8,
+    targetText: "Los bordes sin esquinas",
+    boards: 1,
+    patterns: [
+      [
+        6, 11, 16,
+        2, 22,
+        3, 23,
+        4, 24,
+        10, 15, 20,
+      ]
+    ],
+    bots: [
+      {
+        name: generateBotName(1900, 1),
+        numberMarkDelay: 1900,
+        boards: 1,
+        victoryDelay: 5500
+      },
+      {
+        name: generateBotName(1900, 2),
+        numberMarkDelay: 1900,
+        boards: 1,
+        victoryDelay: 5500
+      }
+    ],
+    color: 'cyan',
+    music: SLOW,
     tip: "Para evitar que un bot se declare ganador, puedes desmarcar un número marcado de su tablero activando el powerup `Desmarcar un número de un bot`"
   },
   {
     level: 9,
     targetText: "Matriz de 9 números",
-    boards: 2,
+    boards: 1,
     patterns: [
       [
         1, 11, 21,
@@ -282,32 +250,32 @@ export const levels: Level[] = [
         victoryDelay: 5500
       },
       {
-        name: generateBotName(2500, 2),
-        numberMarkDelay: 2500,
+        name: generateBotName(2400, 2),
+        numberMarkDelay: 2400,
         boards: 1,
         victoryDelay: 5500
       },
       {
-        name: generateBotName(1900, 3),
-        numberMarkDelay: 1900,
+        name: generateBotName(1800, 3),
+        numberMarkDelay: 1800,
         boards: 1,
         victoryDelay: 5500
       },
       {
-        name: generateBotName(2500, 4),
-        numberMarkDelay: 2500,
+        name: generateBotName(2000, 4),
+        numberMarkDelay: 2000,
         boards: 1,
         victoryDelay: 5500
       },
     ],
     color: 'cyan',
     music: TAP,
-    tip: ""
+    // tip: "Un bot también puede tener 2 tableros, recuerda que el ganador es el primero en formar el patrón objetivo en uno de sus tableros"
+    tip: "En algunos niveles, los bots tienen mayor ventaja sobre ti porque pueden haber más de 2 bots, un bot tiene más de 1 tablero o ambas cosas"
   },
-
   {
     level: 10,
-    targetText: "Dos filas de 10 números",
+    targetText: "Dos filas de 5 números",
     boards: 1,
     patterns: [
       [1, 6, 11, 16, 21, 2, 7, 12, 17, 22],
@@ -337,11 +305,17 @@ export const levels: Level[] = [
         numberMarkDelay: 1900,
         boards: 1,
         victoryDelay: 5500
+      },
+      {
+        name: generateBotName(2200, 3),
+        numberMarkDelay: 2200,
+        boards: 1,
+        victoryDelay: 5500
       }
     ],
     color: 'cyan',
     music: SELFLESS,
-    tip: ""
+    tip: "¿Podras ganarle a los bots de alta velocidad?, recuerda que los bots tienen un tiempo de marcación variable"
   },
   {
     level: 11,
@@ -354,14 +328,14 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1000, 1),
-        numberMarkDelay: 1000,
+        name: generateBotName(1200, 1),
+        numberMarkDelay: 1200,
         boards: 1,
         victoryDelay: 5000
       },
       {
-        name: generateBotName(1600, 2),
-        numberMarkDelay: 1600,
+        name: generateBotName(1000, 2),
+        numberMarkDelay: 1000,
         boards: 1,
         victoryDelay: 5000
       },
@@ -386,21 +360,21 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1600, 1),
-        numberMarkDelay: 1600,
+        name: generateBotName(1500, 1),
+        numberMarkDelay: 1500,
         boards: 2,
         victoryDelay: 5000
       },
       {
-        name: generateBotName(1900, 2),
-        numberMarkDelay: 1900,
+        name: generateBotName(1500, 2),
+        numberMarkDelay: 1500,
         boards: 2,
         victoryDelay: 5000
       }
     ],
     color: 'emerald',
     music: MOONLIGHT,
-    tip: ""
+    tip: "Antes de utilizar el powerup `Forzar un patrón de cruz`, considera que al seleccionar un número del tablero, no se toman los números que ya han sido marcados y que a su vez se encuentran en la misma fila o columna"
   },
   {
     level: 13,
@@ -423,21 +397,21 @@ export const levels: Level[] = [
         victoryDelay: 5000
       },
       {
-        name: generateBotName(1900, 2),
-        numberMarkDelay: 1900,
+        name: generateBotName(1700, 2),
+        numberMarkDelay: 1700,
         boards: 2,
         victoryDelay: 5000
       },
       {
-        name: generateBotName(2500, 3),
-        numberMarkDelay: 2500,
+        name: generateBotName(2000, 3),
+        numberMarkDelay: 2000,
         boards: 1,
         victoryDelay: 5000
       },
     ],
     color: 'emerald',
     music: SLOW,
-    tip: ""
+    tip: "Recuerda que si aumentas el número de objetivos en un nivel, los bots también tendran ventaja porque podran marcar esos números objetivos ¡Sobretodo si te enfrentas con bots de alta velocidad!"
   },
 
   {
@@ -480,6 +454,13 @@ export const levels: Level[] = [
         boards: 1,
         victoryDelay: 5000
       },
+      {
+        name: generateBotName(2200, 5),
+        numberMarkDelay: 2200,
+        boards: 1,
+        victoryDelay: 5000
+      },
+
     ],
     color: 'emerald',
     music: MOUNTAIN,
@@ -501,21 +482,21 @@ export const levels: Level[] = [
 
     bots: [
       {
-        name: generateBotName(2200, 1),
-        numberMarkDelay: 2200,
+        name: generateBotName(1400, 1),
+        numberMarkDelay: 1400,
         boards: 1,
         victoryDelay: 5000
       },
       {
-        name: generateBotName(1300, 2),
-        numberMarkDelay: 1300,
+        name: generateBotName(1000, 2),
+        numberMarkDelay: 1000,
         boards: 1,
         victoryDelay: 5000
       },
       {
-        name: generateBotName(2500, 3),
-        numberMarkDelay: 2500,
-        boards: 1,
+        name: generateBotName(2000, 3),
+        numberMarkDelay: 2000,
+        boards: 2,
         victoryDelay: 5000
       },
       {
@@ -527,13 +508,11 @@ export const levels: Level[] = [
     ],
     color: 'emerald',
     music: FRIENDS,
-    tip: ""
+    tip: "Utiliza el powerup `Desmarcar un número de un bot` para evitar que un bot se declare ganador cuando tenga el patrón objetivo en uno de sus tableros"
   },
-
-
   {
     level: 16,
-    targetText: "Flecha undireccional",
+    targetText: "La silueta de una casa",
     boards: 2,
     patterns: [
       [
@@ -569,12 +548,18 @@ export const levels: Level[] = [
     bots: [
       {
         name: generateBotName(1600, 1),
-        numberMarkDelay: 1300,
+        numberMarkDelay: 1600,
         boards: 2,
         victoryDelay: 4500
       },
       {
-        name: generateBotName(1300, 2),
+        name: generateBotName(1800, 2),
+        numberMarkDelay: 1800,
+        boards: 1,
+        victoryDelay: 4500
+      },
+      {
+        name: generateBotName(1300, 3),
         numberMarkDelay: 1300,
         boards: 2,
         victoryDelay: 4500
@@ -582,7 +567,7 @@ export const levels: Level[] = [
     ],
     color: 'lime',
     music: LIVE,
-    tip: ""
+    tip: "Hay algunos niveles cuyo patrón objetivo tiene varias combinaciones diferentes, recuerda que si el patrón no incluye el número del centro del tablero, puedes intercambiarlo"
   },
   {
     level: 17,
@@ -645,18 +630,24 @@ export const levels: Level[] = [
       {
         name: generateBotName(1600, 2),
         numberMarkDelay: 1600,
-        boards: 2,
+        boards: 1,
         victoryDelay: 4500
       },
       {
         name: generateBotName(1900, 3),
         numberMarkDelay: 1900,
+        boards: 2,
+        victoryDelay: 4500
+      },
+      {
+        name: generateBotName(1600, 4),
+        numberMarkDelay: 1600,
         boards: 1,
         victoryDelay: 4500
       },
       {
-        name: generateBotName(1000, 4),
-        numberMarkDelay: 1000,
+        name: generateBotName(1300, 5),
+        numberMarkDelay: 1300,
         boards: 1,
         victoryDelay: 4500
       },
@@ -697,8 +688,8 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1300, 1),
-        numberMarkDelay: 1300,
+        name: generateBotName(1400, 1),
+        numberMarkDelay: 1400,
         boards: 2,
         victoryDelay: 4500
       },
@@ -709,8 +700,14 @@ export const levels: Level[] = [
         victoryDelay: 4500
       },
       {
-        name: generateBotName(1300, 3),
-        numberMarkDelay: 1300,
+        name: generateBotName(1000, 3),
+        numberMarkDelay: 1000,
+        boards: 1,
+        victoryDelay: 4500
+      },
+      {
+        name: generateBotName(1200, 4),
+        numberMarkDelay: 1200,
         boards: 2,
         victoryDelay: 4500
       },
@@ -735,8 +732,8 @@ export const levels: Level[] = [
         victoryDelay: 4500
       },
       {
-        name: generateBotName(1000, 2),
-        numberMarkDelay: 1000,
+        name: generateBotName(1500, 2),
+        numberMarkDelay: 1500,
         boards: 2,
         victoryDelay: 4500
       },
@@ -749,7 +746,7 @@ export const levels: Level[] = [
     ],
     color: 'lime',
     music: FRIENDS,
-    tip: ""
+    tip: "Si pudistes derrotar a 5 bots a la vez, ¿Podras derrotar a 6 bots a la vez o a unos bots de alta velocidad con 2 tableros?"
   },
   {
     level: 20,
@@ -766,8 +763,8 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1900, 1),
-        numberMarkDelay: 1900,
+        name: generateBotName(2000, 1),
+        numberMarkDelay: 2000,
         boards: 1,
         victoryDelay: 4500
       },
@@ -778,21 +775,27 @@ export const levels: Level[] = [
         victoryDelay: 4500
       },
       {
-        name: generateBotName(1300, 3),
-        numberMarkDelay: 1300,
-        boards: 2,
+        name: generateBotName(1400, 3),
+        numberMarkDelay: 1400,
+        boards: 1,
         victoryDelay: 4500
       },
       {
         name: generateBotName(1000, 4),
         numberMarkDelay: 1000,
-        boards: 1,
+        boards: 2,
         victoryDelay: 4500
       },
       {
-        name: generateBotName(1000, 5),
-        numberMarkDelay: 1000,
-        boards: 1,
+        name: generateBotName(1200, 5),
+        numberMarkDelay: 1200,
+        boards: 2,
+        victoryDelay: 4500
+      },
+      {
+        name: generateBotName(1800, 6),
+        numberMarkDelay: 1800,
+        boards: 2,
         victoryDelay: 4500
       },
     ],
@@ -826,8 +829,8 @@ export const levels: Level[] = [
         victoryDelay: 4000
       },
       {
-        name: generateBotName(1300, 2),
-        numberMarkDelay: 1300,
+        name: generateBotName(1400, 2),
+        numberMarkDelay: 1400,
         boards: 3,
         victoryDelay: 4000
       },
@@ -851,26 +854,26 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1300, 1),
+        name: generateBotName(1400, 1),
+        numberMarkDelay: 1400,
+        boards: 1,
+        victoryDelay: 3500
+      },
+      {
+        name: generateBotName(1300, 2),
         numberMarkDelay: 1300,
         boards: 1,
         victoryDelay: 3500
       },
       {
-        name: generateBotName(1900, 2),
-        numberMarkDelay: 1900,
+        name: generateBotName(1500, 3),
+        numberMarkDelay: 1500,
         boards: 1,
         victoryDelay: 3500
       },
       {
-        name: generateBotName(1600, 3),
-        numberMarkDelay: 1600,
-        boards: 1,
-        victoryDelay: 3500
-      },
-      {
-        name: generateBotName(1300, 4),
-        numberMarkDelay: 1300,
+        name: generateBotName(1200, 4),
+        numberMarkDelay: 1200,
         boards: 1,
         victoryDelay: 3500
       },
@@ -881,16 +884,15 @@ export const levels: Level[] = [
         victoryDelay: 3500
       },
       {
-        name: generateBotName(2100, 6),
-        numberMarkDelay: 2100,
+        name: generateBotName(1100, 6),
+        numberMarkDelay: 1100,
         boards: 1,
         victoryDelay: 3500
       },
     ],
     color: 'amber',
     music: TAP,
-    // tip: "Una varita magica es el objeto más poderoso que hay en el juego, podrias usarla para marcar los números vecinos"
-    tip: ""
+    tip: "Se precavido con los bots agresivos, ¡Son los primeros en gritar victoria si logran ganar y son casi imposible de detenerlos!"
   },
 
   {
@@ -905,28 +907,23 @@ export const levels: Level[] = [
       ]
     ],
     bots: [
+
       {
-        name: generateBotName(1300, 1),
-        numberMarkDelay: 1300,
-        boards: 1,
+        name: generateBotName(1600, 1),
+        numberMarkDelay: 1600,
+        boards: 2,
         victoryDelay: 3500
       },
       {
-        name: generateBotName(1300, 2),
-        numberMarkDelay: 1300,
-        boards: 3,
-        victoryDelay: 3500
+        name: generateBotName(800, 2),
+        numberMarkDelay: 800,
+        boards: 1,
+        victoryDelay: 1000
       },
       {
-        name: generateBotName(1300, 3),
-        numberMarkDelay: 1300,
-        boards: 1,
-        victoryDelay: 3500
-      },
-      {
-        name: generateBotName(1300, 4),
-        numberMarkDelay: 1300,
-        boards: 1,
+        name: generateBotName(1400, 3),
+        numberMarkDelay: 1400,
+        boards: 2,
         victoryDelay: 3500
       },
     ],
@@ -952,8 +949,8 @@ export const levels: Level[] = [
       {
         name: generateBotName(700, 1),
         numberMarkDelay: 700,
-        boards: 2,
-        victoryDelay: 3500
+        boards: 1,
+        victoryDelay: 1000
       },
       {
         name: generateBotName(1000, 2),
@@ -962,15 +959,21 @@ export const levels: Level[] = [
         victoryDelay: 3500
       },
       {
-        name: generateBotName(700, 3),
-        numberMarkDelay: 700,
+        name: generateBotName(1200, 3),
+        numberMarkDelay: 1200,
         boards: 2,
         victoryDelay: 3500
+      },
+      {
+        name: generateBotName(700, 4),
+        numberMarkDelay: 700,
+        boards: 1,
+        victoryDelay: 1000
       },
     ],
     color: 'amber',
     music: LIVE,
-    tip: ""
+    tip: "Recuerda que los bots pueden tener como máximo 3 tableros a la vez, recuerda que los bots agresivos son los más rapidos del juego y ellos tambien pueden tener varios tableros"
   },
   {
     level: 25,
@@ -987,33 +990,39 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(700, 1),
-        numberMarkDelay: 700,
+        name: generateBotName(1200, 1),
+        numberMarkDelay: 1200,
         boards: 2,
         victoryDelay: 3500
       },
       {
-        name: generateBotName(1300, 2),
-        numberMarkDelay: 1300,
+        name: generateBotName(1500, 2),
+        numberMarkDelay: 1500,
         boards: 3,
         victoryDelay: 3500
       },
       {
-        name: generateBotName(1600, 3),
-        numberMarkDelay: 1600,
+        name: generateBotName(800, 3),
+        numberMarkDelay: 800,
+        boards: 2,
+        victoryDelay: 1000
+      },
+      {
+        name: generateBotName(1000, 4),
+        numberMarkDelay: 1000,
         boards: 1,
         victoryDelay: 3500
       },
       {
-        name: generateBotName(700, 4),
-        numberMarkDelay: 700,
+        name: generateBotName(1600, 5),
+        numberMarkDelay: 1600,
         boards: 1,
         victoryDelay: 3500
       },
     ],
     color: 'amber',
     music: DARKNESS,
-    tip: "Tu nunca podras llegar al final, a partir de ahora dispones de 2 tableros y los bots tienen más posibilidades de ganar"
+    tip: "Casi llegas al final del juego, no puedes utilizar el powerups `Marcar números vecinos` y `Automarcar un tablero` al mismo tiempo porque el powerup `Marcar números vecinos` no se activa al marcar un número que ya se encuentra marcado"
   },
   {
     level: 26,
@@ -1030,14 +1039,14 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1900, 1),
-        numberMarkDelay: 1900,
+        name: generateBotName(1300, 1),
+        numberMarkDelay: 1300,
         boards: 2,
         victoryDelay: 3000
       },
       {
-        name: generateBotName(1600, 2),
-        numberMarkDelay: 1600,
+        name: generateBotName(1200, 2),
+        numberMarkDelay: 1200,
         boards: 2,
         victoryDelay: 3000
       },
@@ -1080,8 +1089,8 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1000, 1),
-        numberMarkDelay: 1000,
+        name: generateBotName(1200, 1),
+        numberMarkDelay: 1200,
         boards: 3,
         victoryDelay: 3000
       },
@@ -1092,8 +1101,8 @@ export const levels: Level[] = [
         victoryDelay: 3000
       },
       {
-        name: generateBotName(1000, 3),
-        numberMarkDelay: 1000,
+        name: generateBotName(1200, 3),
+        numberMarkDelay: 1200,
         boards: 3,
         victoryDelay: 3000
       },
@@ -1127,8 +1136,8 @@ export const levels: Level[] = [
     ],
     bots: [
       {
-        name: generateBotName(1600, 1),
-        numberMarkDelay: 1600,
+        name: generateBotName(1400, 1),
+        numberMarkDelay: 1400,
         boards: 2,
         victoryDelay: 3000
       },
@@ -1139,20 +1148,20 @@ export const levels: Level[] = [
         victoryDelay: 3000
       },
       {
-        name: generateBotName(1300, 3),
-        numberMarkDelay: 1300,
+        name: generateBotName(800, 3),
+        numberMarkDelay: 800,
+        boards: 2,
+        victoryDelay: 1000
+      },
+      {
+        name: generateBotName(1200, 4),
+        numberMarkDelay: 1200,
         boards: 2,
         victoryDelay: 3000
       },
       {
-        name: generateBotName(1300, 4),
-        numberMarkDelay: 1300,
-        boards: 2,
-        victoryDelay: 3000
-      },
-      {
-        name: generateBotName(1300, 5),
-        numberMarkDelay: 1300,
+        name: generateBotName(1000, 5),
+        numberMarkDelay: 1000,
         boards: 2,
         victoryDelay: 3000
       },
@@ -1200,11 +1209,11 @@ export const levels: Level[] = [
         name: generateBotName(700, 1),
         numberMarkDelay: 700,
         boards: 2,
-        victoryDelay: 3500
+        victoryDelay: 1000
       },
       {
-        name: generateBotName(700, 2),
-        numberMarkDelay: 700,
+        name: generateBotName(1200, 2),
+        numberMarkDelay: 1200,
         boards: 3,
         victoryDelay: 3500
       },
@@ -1215,9 +1224,9 @@ export const levels: Level[] = [
         victoryDelay: 3500
       },
       {
-        name: generateBotName(1000, 4),
-        numberMarkDelay: 1000,
-        boards: 2,
+        name: generateBotName(1100, 4),
+        numberMarkDelay: 1100,
+        boards: 3,
         victoryDelay: 3500
       },
     ],
@@ -1246,8 +1255,8 @@ export const levels: Level[] = [
         victoryDelay: 3000
       },
       {
-        name: generateBotName(1900, 2),
-        numberMarkDelay: 1900,
+        name: generateBotName(1600, 2),
+        numberMarkDelay: 1600,
         boards: 1,
         victoryDelay: 3000
       },
@@ -1255,23 +1264,23 @@ export const levels: Level[] = [
         name: generateBotName(700, 3),
         numberMarkDelay: 700,
         boards: 1,
-        victoryDelay: 3000
+        victoryDelay: 1000
       },
       {
-        name: generateBotName(1600, 4),
-        numberMarkDelay: 1600,
+        name: generateBotName(1500, 4),
+        numberMarkDelay: 1500,
         boards: 2,
         victoryDelay: 3000
       },
       {
-        name: generateBotName(1300, 5),
-        numberMarkDelay: 1300,
+        name: generateBotName(1100, 5),
+        numberMarkDelay: 1100,
         boards: 1,
         victoryDelay: 3000
       },
       {
-        name: generateBotName(700, 6),
-        numberMarkDelay: 700,
+        name: generateBotName(1200, 6),
+        numberMarkDelay: 1200,
         boards: 2,
         victoryDelay: 3000
       },
@@ -1282,14 +1291,14 @@ export const levels: Level[] = [
         victoryDelay: 3000
       },
       {
-        name: generateBotName(700, 8),
-        numberMarkDelay: 700,
+        name: generateBotName(800, 8),
+        numberMarkDelay: 800,
         boards: 1,
-        victoryDelay: 3000
+        victoryDelay: 1000
       },
       {
-        name: generateBotName(1900, 9),
-        numberMarkDelay: 1900,
+        name: generateBotName(1400, 9),
+        numberMarkDelay: 1400,
         boards: 2,
         victoryDelay: 3000
       },

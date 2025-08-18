@@ -101,7 +101,7 @@ export default function PlayerBingoCell({
         }-500 cursor-pointer shadow-md shadow-black hover:bg-gray-900 `}
       onClick={handleClick}
     >
-      {number === 0 ? "Free" : number}
+      {number === 0 ? "X" : number}
     </button>
   );
 }

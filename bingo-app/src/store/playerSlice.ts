@@ -1,5 +1,4 @@
 import { StateCreator } from "zustand";
-import { GameSliceType, } from './gameSlice';
 import { LevelSliceType } from "./levelSlice";
 import { Board, Boards, MarkedCells } from "../types";
 import { AudioSliceType } from "./audioSlice";
@@ -8,6 +7,11 @@ import { FINAL_LEVEL } from "../constants/defaultConfigs";
 import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND, DEFEAT_SOUND, ANYMORE_ENDING, POWERUP_SOUND } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
 import { PowerUpSliceType } from "./powerUpSlice";
+import { SwapNumbersBoardSliceType } from "./powerups/swapNumbersBoardSlice";
+import { RandomNumberObjectiveSliceType } from "./powerups/randomNumberObjetiveSlice";
+import { StatusSliceType } from "./statusSlice";
+import { ForceNumberObjectiveCrossSliceType } from "./powerups/forceNumberObjetiveCrossSlice";
+import { TargetSliceType } from "./targetSlice";
 
 export type PlayerSliceType = {
   playerBoards: Boards,
@@ -20,7 +24,7 @@ export type PlayerSliceType = {
   hasKillAllBot: () => void,
 }
 
-export const playerSlice: StateCreator<PlayerSliceType & GameSliceType & LevelSliceType & AudioSliceType & BotSliceType & PowerUpSliceType, [], [], PlayerSliceType> = (set, get) => ({
+export const playerSlice: StateCreator<PlayerSliceType & SwapNumbersBoardSliceType & StatusSliceType & TargetSliceType & ForceNumberObjectiveCrossSliceType & RandomNumberObjectiveSliceType & LevelSliceType & AudioSliceType & BotSliceType & PowerUpSliceType, [], [], PlayerSliceType> = (set, get) => ({
   playerBoards: [],
   markedCells: [],
   currentBoard: { id: 0, cells: [] },

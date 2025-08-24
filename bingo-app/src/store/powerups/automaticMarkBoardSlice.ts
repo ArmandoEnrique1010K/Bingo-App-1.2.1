@@ -2,11 +2,10 @@ import { StateCreator } from "zustand";
 import { DetailsPowerUp } from "../../types";
 import { PlayerSliceType } from "../playerSlice";
 import { LevelSliceType } from "../levelSlice";
+import { TargetSliceType } from "../targetSlice";
 
 export type AutomaticMarkBoardSliceType = {
-    // Automarcar un tablero por 5 turnos
     automaticMarkBoard: DetailsPowerUp;
-    // POWERUP DE MARCADO AUTOMATICO
     activateAutomaticMarkBoard: () => void;
     selectedBoardIdAutomaticMark: number;
     selectBoardIdAutomaticMark: (boardId: number) => void;
@@ -14,8 +13,8 @@ export type AutomaticMarkBoardSliceType = {
     decrementAutomaticMarkBoardTurnsRemaining: () => void;
 }
 
-// Slice para el powerup de incrementar 2 números objetivos extra
-export const automaticMarkBoardSlice: StateCreator<AutomaticMarkBoardSliceType & PlayerSliceType & LevelSliceType, [], [], AutomaticMarkBoardSliceType> = (set, get) => ({
+// Slice para el powerup de automarcar un tablero por 5 turnos
+export const automaticMarkBoardSlice: StateCreator<AutomaticMarkBoardSliceType & PlayerSliceType & LevelSliceType & TargetSliceType, [], [], AutomaticMarkBoardSliceType> = (set, get) => ({
     automaticMarkBoard: {
         type: 'continuous',
         hasActivated: false,

@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { DEFAULT_TARGETS, MAX_TURNS, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
+import { DEFAULT_TARGETS, MAX_TURNS, STAR_NUMBER, TARGET_GENERATION_DELAY } from "../constants/defaultConfigs";
 import { BotSliceType } from "./botSlice";
 import { AudioSliceType } from "./audioSlice";
 import { ROLL_SOUND } from "../constants/audioSettings";
@@ -46,7 +46,7 @@ export const targetSlice: StateCreator<TargetSliceType & BotSliceType & AudioSli
 
 
                     // AÑADIR LA LOGICA PARA EL POWERUP DE NUMERO ALEATORIO OBJETIVO
-                    // FORZAR GENERAR EL NUMERO '100'
+                    // FORZAR GENERAR EL NUMERO 'STAR_NUMBER'
 
 
                     // ERROR ENCONTRADO: Si ambos powerups estan activos, genera 4 numeros objetivos, deberia generar 3
@@ -95,7 +95,7 @@ export const targetSlice: StateCreator<TargetSliceType & BotSliceType & AudioSli
                     }
 
                     if (get().randomNumberObjective.active) {
-                        newTargets.push(100);
+                        newTargets.push(STAR_NUMBER);
                     }
                     // set({
                     //   currentTargets: newTargets,

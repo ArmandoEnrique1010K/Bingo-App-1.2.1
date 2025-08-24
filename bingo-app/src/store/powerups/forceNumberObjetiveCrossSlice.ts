@@ -2,6 +2,7 @@ import { StateCreator } from "zustand";
 import { DetailsPowerUp } from "../../types";
 import { PlayerSliceType } from "../playerSlice";
 import { LevelSliceType } from "../levelSlice";
+import { TargetSliceType } from "../targetSlice";
 
 export type ForceNumberObjectiveCrossSliceType = {
     forceNumberObjectiveCross: DetailsPowerUp;
@@ -15,7 +16,7 @@ export type ForceNumberObjectiveCrossSliceType = {
 }
 
 // Slice para el powerup de forzar un numero objetivo de un patron de cruz
-export const forceNumberObjectiveCrossSlice: StateCreator<ForceNumberObjectiveCrossSliceType & PlayerSliceType & LevelSliceType, [], [], ForceNumberObjectiveCrossSliceType> = (set, get) => ({
+export const forceNumberObjectiveCrossSlice: StateCreator<ForceNumberObjectiveCrossSliceType & PlayerSliceType & LevelSliceType & TargetSliceType, [], [], ForceNumberObjectiveCrossSliceType> = (set, get) => ({
     forceNumberObjectiveCross: {
         type: 'oneTime',
         hasActivated: false,

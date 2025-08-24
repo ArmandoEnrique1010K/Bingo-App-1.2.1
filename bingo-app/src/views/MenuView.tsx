@@ -38,10 +38,6 @@ export default function MenuView() {
           className={`w-full flex-grow flex items-center justify-center bg-${levelData.color}-500 text-white text-2xl font-semibold p-4 cursor-pointer `}
           onClick={() => {
             showLevelsMenu();
-            // playSound(CLICK_SOUND);
-            // setIsPlayingMusic(true);
-            // changeMusic(levelData.music);
-            // startMusic(levelData.music);
           }}
         >
           Iniciar juego

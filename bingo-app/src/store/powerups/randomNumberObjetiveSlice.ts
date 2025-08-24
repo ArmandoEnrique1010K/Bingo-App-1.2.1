@@ -54,7 +54,7 @@ export const randomNumberObjectiveSlice: StateCreator<RandomNumberObjectiveSlice
 
     playerHasMarkedRandomNumberObjective: false,
 
-    // Función para marcar el numero aleatorio objetivo, el numero 100 equivale a cualquier numero
+    // Función para marcar el numero aleatorio objetivo, el numero STAR_NUMBER equivale a cualquier numero
     selectRandomNumberObjectiveOnBoard: (idBoard: number, numberClicked: number, position: number) => {
         // console.log('Ha hecho clic en el numero ' + numberClicked + ' del tablero ' + idBoard + ' en la posicion ' + position)
 
@@ -76,9 +76,9 @@ export const randomNumberObjectiveSlice: StateCreator<RandomNumberObjectiveSlice
                 return b
             }),
 
-            // Podria ser una buena opción, eliminar el numero 100 de la lista de numeros objetivo
+            // Podria ser una buena opción, eliminar el numero STAR_NUMBER de la lista de numeros objetivo
             playerHasMarkedRandomNumberObjective: true,
-            // currentTargets: get().currentTargets.filter(t => t !== 100),
+            // currentTargets: get().currentTargets.filter(t => t !== STAR_NUMBER),
         })
 
         // Nota: Solamente se puede marcar un numero aleatorio una sola vez en un tablero

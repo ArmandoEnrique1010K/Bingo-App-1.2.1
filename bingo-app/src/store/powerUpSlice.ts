@@ -115,8 +115,8 @@ export const powerUpSlice: StateCreator<
 
 
   // FUNCIONES RELACIONADAS AL POWERUP #9: Numero aleatorio objetivo
-  // Si el jugador ha pulsado ese botón, en el siguiente turno se generara el número objetivo '100', el cual tiene la funcionalidad de ser forzado a salir en los numeros objetivos
-  // Y si sale ese numero 100, el jugador podra marcar un numero aleatorio de su tablero y contara como si estuviera marcado rompiendo las reglas
+  // Si el jugador ha pulsado ese botón, en el siguiente turno se generara el número objetivo 'STAR_NUMBER', el cual tiene la funcionalidad de ser forzado a salir en los numeros objetivos
+  // Y si sale ese numero STAR_NUMBER, el jugador podra marcar un numero aleatorio de su tablero y contara como si estuviera marcado rompiendo las reglas
   // Por lo tanto, el jugador podra marcar un numero aleatorio de su tablero y contara como si estuviera marcado rompiendo las reglas
 
 

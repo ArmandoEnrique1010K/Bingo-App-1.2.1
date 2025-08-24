@@ -2,6 +2,7 @@ import { StateCreator } from "zustand";
 import { DetailsPowerUp } from "../../types";
 import { LevelSliceType } from "../levelSlice";
 import { PlayerSliceType } from "../playerSlice";
+import { TargetSliceType } from "../targetSlice";
 
 export type MarkNeighborgNumbersSliceType = {
     // Marcar numeros vecinos (los numeros de la forma: X - 2, X - 1, X, X + 1 y X + 2). X es un numero en el tablero
@@ -16,7 +17,7 @@ export type MarkNeighborgNumbersSliceType = {
 }
 
 // Slice para el powerup de incrementar 2 números objetivos extra
-export const markNeighborgNumbersSlice: StateCreator<MarkNeighborgNumbersSliceType & LevelSliceType & PlayerSliceType, [], [], MarkNeighborgNumbersSliceType> = (set, get) => ({
+export const markNeighborgNumbersSlice: StateCreator<MarkNeighborgNumbersSliceType & LevelSliceType & PlayerSliceType & TargetSliceType, [], [], MarkNeighborgNumbersSliceType> = (set, get) => ({
     markNeighborgNumbers: {
         type: 'oneTime',
         hasActivated: false,

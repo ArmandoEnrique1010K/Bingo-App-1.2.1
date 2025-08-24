@@ -35,9 +35,8 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
     botBoards: [],
     botMarkedCells: [],
     foundCells: [],
-    botTimeoutsMap: {} as Record<string, number[]>,
+    botTimeoutsMap: {},
     confirmedWinners: {},
-
     listOfBotsWinners: [],
     declareBotWinnerGame: () => {
       set({
@@ -192,30 +191,6 @@ export const botSlice: StateCreator<BotSliceType & LevelSliceType & AudioSliceTy
 
 
       }
-      // board.numbersNotMarked
-      // .filter(cell => !get().currentTargets.includes(cell.number)));
-
-      // De la constante anterior, obtener un numero aleatorio
-      // const aleatoryNumber = numbersNotMarkedAndObjective?.map(board => board[Math.floor(Math.random() * board.length)]);
-
-      // console.log(aleatoryNumber)
-
-
-      // Si el powerup #9, randomNumberObjective, esta activo
-      // SI EL NUMERO 100 ESTA EN LOS NUMEROS OBJETIVOS, SIGNIFICA QUE EL POWERUP DE NUMERO ALEATORIO OBJETIVO ESTA ACTIVO
-      // if (get().currentTargets.includes(100)) {
-      //   console.log('El powerup de numero aleatorio objetivo esta activo')
-      //   console.log(`El bot ${name} podra marcar cualquier numero objetivo`)
-      //   console.log(numbersNotMarked)
-      //   console.log(tableroFiltrado)
-      //   console.log(randomCell)
-      //   console.log(botFinded);
-      //   console.log(get().foundCells);
-      //   // Debe tomar cualquier numero de los numeros objetivos
-      //   // randomNumber = get().currentTargets[Math.floor(Math.random() * get().currentTargets.length)];
-      // }
-
-
 
       for (const target of shuffledTargets) {  // ✅ Ahora los objetivos son aleatorios
         for (const board of botFinded.boards) {

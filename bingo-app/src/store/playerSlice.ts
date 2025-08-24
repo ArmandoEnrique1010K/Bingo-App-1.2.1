@@ -3,7 +3,7 @@ import { LevelSliceType } from "./levelSlice";
 import { Board, Boards, MarkedCells } from "../types";
 import { AudioSliceType } from "./audioSlice";
 import { FINAL_LEVEL_VICTORY_MODAL, ILEGAL_MODAL, VICTORY_MODAL } from "../constants/statusModalsText";
-import { FINAL_LEVEL } from "../constants/defaultConfigs";
+import { FINAL_LEVEL, STAR_NUMBER } from "../constants/defaultConfigs";
 import { CORRECT_SOUND, VICTORY_SOUND, DARKNESS_SOLO, WRONG_SOUND, DEFEAT_SOUND, ANYMORE_ENDING, POWERUP_SOUND } from "../constants/audioSettings";
 import { BotSliceType } from "./botSlice";
 import { PowerUpSliceType } from "./powerUpSlice";
@@ -131,9 +131,9 @@ export const playerSlice: StateCreator<PlayerSliceType & SwapNumbersBoardSliceTy
       return;
     }
 
-    // 🔹 Número aleatorio (icono estrella = 100)
+    // 🔹 Número aleatorio (icono estrella = STAR_NUMBER)
     const isRandomObjectiveActive =
-      currentTargets.includes(100) &&
+      currentTargets.includes(STAR_NUMBER) &&
       randomNumberObjective.active &&
       randomNumberObjective.turnsRemaining === 0 &&
       !alreadyMarked;
